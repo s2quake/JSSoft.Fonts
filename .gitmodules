@@ -1,0 +1,6 @@
+[submodule "submodules\\Ntreev.ModernUI.Framework"]
+	path = submodules\\Ntreev.ModernUI.Framework
+	url = git@github.com:s2quake/Ntreev.ModernUI.Framework.git
+[submodule "submodules\\Ntreev.Library"]
+	path = submodules\\Ntreev.Library
+	url = git@github.com:s2quake/Ntreev.Library.git
