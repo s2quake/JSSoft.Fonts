@@ -2,12 +2,41 @@
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-                  xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
                   xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
                   xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
-                  Height="550" Width="525" Style="{StaticResource ModernWindow_Style}">
+                  xmlns:jsfc="clr-namespace:JSSoft.Font.Controls"
+                  Height="550" Width="800" Style="{StaticResource ModernWindow_Style}">
+
+    <mui:ModernWindow.Resources>
+        <DataTemplate x:Key="ListBox_ItemTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <CheckBox IsChecked="{Binding IsChecked}" />
+                <TextBlock Grid.Column="1" Text="{Binding DisplayName}" />
+            </Grid>
+        </DataTemplate>
+    </mui:ModernWindow.Resources>
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <ListBox ItemsSource="{Binding ItemsSource}" SelectedItem="{Binding SelectedItem}"
+                 ItemTemplate="{StaticResource ListBox_ItemTemplate}"
+                 ItemContainerStyle="{StaticResource FlatListBoxItem}" />
+        <ScrollViewer Grid.Column="1">
+            <ItemsControl ItemsSource="{Binding CharacterItems}" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <jsfc:WrapGrid />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
+        </ScrollViewer>
     </Grid>
 </mui:ModernWindow>
