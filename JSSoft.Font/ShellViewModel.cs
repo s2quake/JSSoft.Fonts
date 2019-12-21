@@ -23,6 +23,11 @@ namespace JSSoft.Font
             }
         }
 
+        public void Open()
+        {
+
+        }
+
         public ObservableCollection<CharactersListBoxItemViewModel> ItemsSource => this.itemsSource;
 
         public CharactersListBoxItemViewModel SelectedItem

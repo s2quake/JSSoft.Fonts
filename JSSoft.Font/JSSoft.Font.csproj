@@ -84,6 +84,9 @@
     </ApplicationDefinition>
     <Compile Include="CharacterItem.cs" />
     <Compile Include="CharactersListBoxItemViewModel.cs" />
+    <Compile Include="Controls\CharacterControl.xaml.cs">
+      <DependentUpon>CharacterControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\WrapGrid.cs" />
     <Compile Include="ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
@@ -95,6 +98,10 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="IShell.cs" />
+    <Page Include="Controls\CharacterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

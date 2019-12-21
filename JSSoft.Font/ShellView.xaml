@@ -21,22 +21,29 @@
     </mui:ModernWindow.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <ListBox ItemsSource="{Binding ItemsSource}" SelectedItem="{Binding SelectedItem}"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Menu />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ListBox ItemsSource="{Binding ItemsSource}" SelectedItem="{Binding SelectedItem}"
                  ItemTemplate="{StaticResource ListBox_ItemTemplate}"
                  ItemContainerStyle="{StaticResource FlatListBoxItem}" />
-        <ScrollViewer Grid.Column="1">
-            <ItemsControl ItemsSource="{Binding CharacterItems}" >
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <jsfc:WrapGrid />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+            <ScrollViewer Grid.Column="1">
+                <ItemsControl ItemsSource="{Binding CharacterItems}" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <jsfc:WrapGrid ItemCount="16" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
 
-        </ScrollViewer>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </mui:ModernWindow>
