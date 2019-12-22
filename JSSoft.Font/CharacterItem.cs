@@ -19,6 +19,8 @@ namespace JSSoft.Font
 
         public uint ID { get; }
 
+        public string Text => ((char)this.ID).ToString();
+
         public bool IsEnabled
         {
             get => this.isEnabled;

@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace JSSoft.Font.Controls
 {
-    class WrapGrid : Panel
+    class WrapGrid : VirtualizingPanel
     {
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(WrapGrid));

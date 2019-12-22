@@ -20,9 +20,28 @@ namespace JSSoft.Font.Controls
     /// </summary>
     public partial class CharacterControl : UserControl
     {
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(CharacterControl));
+
         public CharacterControl()
         {
             InitializeComponent();
+        }
+
+        protected override Size MeasureOverride(Size constraint)
+        {
+            var size = base.MeasureOverride(constraint);
+            var desireLength = Math.Max(size.Width, size.Height);
+            var width = double.IsPositiveInfinity(constraint.Width) ? desireLength : constraint.Width;
+            var height = double.IsPositiveInfinity(constraint.Height) ? desireLength : constraint.Height;
+            var actualLength = Math.Max(width, height);
+            return new Size(actualLength, actualLength);
+        }
+
+        public string Text
+        {
+            get => (string)this.GetValue(TextProperty);
+            set => this.SetValue(TextProperty, value);
         }
     }
 }

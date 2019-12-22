@@ -5,6 +5,7 @@
                   xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
                   xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
                   xmlns:jsfc="clr-namespace:JSSoft.Font.Controls"
+                  xmlns:vm="clr-namespace:JSSoft.Font"
                   Height="550" Width="800" Style="{StaticResource ModernWindow_Style}">
 
     <mui:ModernWindow.Resources>
@@ -17,6 +18,9 @@
                 <CheckBox IsChecked="{Binding IsChecked}" />
                 <TextBlock Grid.Column="1" Text="{Binding DisplayName}" />
             </Grid>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CharacterItem}">
+            <jsfc:CharacterControl BorderThickness="1" BorderBrush="Red" Text="{Binding Text}" Padding="2" />
         </DataTemplate>
     </mui:ModernWindow.Resources>
 
