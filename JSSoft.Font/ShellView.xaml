@@ -23,7 +23,7 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:CharacterItem}">
             <jsfc:CharacterControl Text="{Binding Text}" IsEnabled="{Binding IsEnabled}" Padding="2" 
-                                   Source="{Binding Source}"
+                                   Source="{Binding Source}" GlyphMetrics="{Binding GlyphMetrics}"
                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" />
         </DataTemplate>
     </mui:ModernWindow.Resources>

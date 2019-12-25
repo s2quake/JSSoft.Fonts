@@ -8,7 +8,21 @@ namespace JSSoft.Font
 {
     static class NamesList
     {
-        public static readonly (string name, uint min, uint max)[] items =
+        static NamesList()
+        {
+            var min = uint.MaxValue;
+            var max = uint.MinValue;
+            foreach (var item in Items)
+            {
+                min = Math.Min(item.min, min);
+                max = Math.Max(item.max, max);
+            }
+            Range = (min, max);
+        }
+
+        public static (uint Min, uint Max) Range { get; }
+
+        public static readonly (string name, uint min, uint max)[] Items =
         {
             ("C0 Controls and Basic Latin", 0x0000, 0x007F),
             ("C1 Controls and Latin-1 Supplement", 0x0080, 0x00FF),

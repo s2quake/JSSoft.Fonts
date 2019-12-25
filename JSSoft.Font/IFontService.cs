@@ -13,8 +13,8 @@ namespace JSSoft.Font
 
         Task CloseAsync();
 
-        bool Contains(uint id);
+        IReadOnlyDictionary<uint, BitmapSource> Bitmaps { get; }
 
-        BitmapSource GetBitmap(uint id);
+        IReadOnlyDictionary<uint, GlyphMetrics> Metrics { get; }
     }
 }

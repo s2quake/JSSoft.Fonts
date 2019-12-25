@@ -5,8 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JSSoft.Font.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="100">
-    <Grid>
-        <Image Source="C:\Users\s2quake\Projects\JSSoft.Font\JSSoft.Font\bin\Debug\Bitmaps\68.png" RenderOptions.BitmapScalingMode="Unspecified" Margin="10"  />
-    </Grid>
+             d:DesignHeight="100">
+    <StackPanel Orientation="Horizontal">
+        <Viewbox>
+            <Image Source="C:\Users\s2quake\Projects\JSSoft.Font\JSSoft.Font\bin\Debug\Bitmaps\68.png" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+        </Viewbox>
+        <Viewbox>
+            <Image Source="C:\Users\s2quake\Projects\JSSoft.Font\JSSoft.Font\bin\Debug\Bitmaps\69.png" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+        </Viewbox>
+        <Viewbox>
+            <Image Source="C:\Users\s2quake\Projects\JSSoft.Font\JSSoft.Font\bin\Debug\Bitmaps\44.png" 
+                   Width="18" Height="35"
+                   RenderOptions.BitmapScalingMode="NearestNeighbor" Margin="1 1 1 1" />
+        </Viewbox>
+    </StackPanel>
 </UserControl>

@@ -15,15 +15,20 @@ namespace JSSoft.Font
         private bool isEnabled;
         private bool isChecked;
         private ImageSource source;
+        private GlyphMetrics glyphMetrics;
 
         public CharacterItem(IFontService fontService, uint id)
         {
             this.fontService = fontService ?? throw new ArgumentNullException(nameof(fontService));
             this.ID = id;
-            this.isEnabled = this.fontService.Contains(id);
-            if  (this.isEnabled == true)
+            this.isEnabled = this.fontService.Metrics.ContainsKey(id);
+            if (this.fontService.Metrics.ContainsKey(id))
             {
-                this.source = this.fontService.GetBitmap(id);
+                this.glyphMetrics = this.fontService.Metrics[id];
+            }
+            if (this.fontService.Bitmaps.ContainsKey(id))
+            {
+                this.source = this.fontService.Bitmaps[id];
             }
         }
 
@@ -43,10 +48,6 @@ namespace JSSoft.Font
             {
                 this.isEnabled = value;
                 this.NotifyOfPropertyChange(nameof(IsEnabled));
-                if (value == true)
-                {
-                    int wer = 0;
-                }
             }
         }
 
@@ -67,6 +68,16 @@ namespace JSSoft.Font
             {
                 this.source = value;
                 this.NotifyOfPropertyChange(nameof(Source));
+            }
+        }
+
+        public GlyphMetrics GlyphMetrics
+        {
+            get => this.glyphMetrics;
+            set
+            {
+                this.glyphMetrics = value;
+                this.NotifyOfPropertyChange(nameof(GlyphMetrics));
             }
         }
     }

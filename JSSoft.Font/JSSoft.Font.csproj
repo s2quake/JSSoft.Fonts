@@ -69,6 +69,8 @@
     </None>
     <Compile Include="Controls\CharacterGrid.cs" />
     <Compile Include="Controls\WrapGrid.cs" />
+    <Compile Include="Converters\GlyphMetricsToMarginConverter.cs" />
+    <Compile Include="GlyphMetrics.cs" />
     <Compile Include="FontService.cs" />
     <Compile Include="IFontService.cs" />
     <Compile Include="ShellView.xaml.cs">

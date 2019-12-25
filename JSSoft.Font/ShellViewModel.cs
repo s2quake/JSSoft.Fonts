@@ -57,7 +57,7 @@ namespace JSSoft.Font
         {
             base.OnInitialize();
             await this.fontService.OpenAsync(@"SF-Mono-Semibold.otf");
-            foreach (var (name, min, max) in NamesList.items)
+            foreach (var (name, min, max) in NamesList.Items)
             {
                 var item = new CharactersListBoxItemViewModel(this.fontService, name, min, max);
                 this.SatisfyImportsOnce(item);
