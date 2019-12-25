@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,17 +11,17 @@ using System.Threading.Tasks;
 namespace JSSoft.Font
 {
     [Export(typeof(IShell))]
-    class ShellViewModel : Screen
+    class ShellViewModel : ScreenBase
     {
-        private ObservableCollection<CharactersListBoxItemViewModel> itemsSource = new ObservableCollection<CharactersListBoxItemViewModel>();
+        private readonly IFontService fontService;
+        private ObservableCollection<CharactersListBoxItemViewModel> itemList = new ObservableCollection<CharactersListBoxItemViewModel>();
+        private ObservableCollection<CharactersListBoxItemViewModel> visibleList = new ObservableCollection<CharactersListBoxItemViewModel>();
         private CharactersListBoxItemViewModel selectedItem;
 
-        public ShellViewModel()
+        [ImportingConstructor]
+        public ShellViewModel(IFontService fontService)
         {
-            foreach (var (name, min, max) in NamesList.items)
-            {
-                this.itemsSource.Add(new CharactersListBoxItemViewModel(name, min, max));
-            }
+            this.fontService = fontService;
         }
 
         public void Open()
@@ -28,7 +29,7 @@ namespace JSSoft.Font
 
         }
 
-        public ObservableCollection<CharactersListBoxItemViewModel> ItemsSource => this.itemsSource;
+        public ObservableCollection<CharactersListBoxItemViewModel> ItemsSource => this.visibleList;
 
         public CharactersListBoxItemViewModel SelectedItem
         {
@@ -41,6 +42,32 @@ namespace JSSoft.Font
             }
         }
 
-        public CharacterItem[] CharacterItems => this.selectedItem != null ? this.selectedItem.Items : new CharacterItem[] { };
+        public CharacterRowItem[] CharacterItems => this.selectedItem != null ? this.selectedItem.Items : new CharacterRowItem[] { };
+
+        protected override async void OnDeactivate(bool close)
+        {
+            if (close == true)
+            {
+                await this.fontService.CloseAsync();
+            }
+            base.OnDeactivate(close);
+        }
+
+        protected override async void OnInitialize()
+        {
+            base.OnInitialize();
+            await this.fontService.OpenAsync(@"SF-Mono-Semibold.otf");
+            foreach (var (name, min, max) in NamesList.items)
+            {
+                var item = new CharactersListBoxItemViewModel(this.fontService, name, min, max);
+                this.SatisfyImportsOnce(item);
+                this.itemList.Add(item);
+            }
+            foreach (var item in this.itemList)
+            {
+                if (item.IsVisible == true)
+                    this.visibleList.Add(item);
+            }
+        }
     }
 }

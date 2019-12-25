@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+                    xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
+                    xmlns:nmgc="clr-namespace:Ntreev.ModernUI.Framework.DataGrid.Controls;assembly=Ntreev.ModernUI.Framework.DataGrid"
+                    xmlns:jsfc="clr-namespace:JSSoft.Font.Controls">
+
+    <Style TargetType="{x:Type xcdg:RowSelector}" BasedOn="{StaticResource {x:Type xcdg:RowSelector}}">
+        <!--<Setter Property="Content" Value="{Binding Index}" />-->
+    </Style>
+
+    <Style TargetType="{x:Type jsfc:CharacterGrid}" BasedOn="{StaticResource {x:Type nmgc:ModernDataGridControl}}">
+        <Setter Property="AutoCreateColumns" Value="False" />
+    </Style>
+    
+</ResourceDictionary>
