@@ -7,7 +7,9 @@
         <Grid Margin="{TemplateBinding Margin}">
             <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                 <Viewbox>
+                    <Grid Background="Red">
                     <Image x:Name="PART_Image" Source="{Binding Source}" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                    </Grid>
                 </Viewbox>
             </Border>
         </Grid>

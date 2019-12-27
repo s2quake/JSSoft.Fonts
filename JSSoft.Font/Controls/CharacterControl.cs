@@ -20,7 +20,7 @@ namespace JSSoft.Font.Controls
 
         public static readonly DependencyProperty GlyphMetricsProperty =
             DependencyProperty.Register(nameof(GlyphMetrics), typeof(GlyphMetrics), typeof(CharacterControl),
-                new UIPropertyMetadata(GlyphMetricsPropertyChangedCallback));
+                new FrameworkPropertyMetadata(GlyphMetricsPropertyChangedCallback));
 
         private Image image;
 
@@ -36,6 +36,20 @@ namespace JSSoft.Font.Controls
             if  (this.image != null)
             {
                 this.UpdateImageLayout();
+            }
+        }
+
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+
+            var property = e.Property;
+            if (property == TextProperty || property == SourceProperty || property == GlyphMetricsProperty)
+            {
+                if (this.image != null)
+                {
+                    this.UpdateImageLayout();
+                }
             }
         }
 
@@ -81,10 +95,23 @@ namespace JSSoft.Font.Controls
 
         private void UpdateImageLayout()
         {
+            if (this.Text == "g")
+            {
+                int qwer = 0;
+            }
+            
             var metrics = this.GlyphMetrics;
+            var left = metrics.HorizontalBearingX;
+            var top = metrics.VerticalAdvance - metrics.HorizontalBearingY;
+            var right = metrics.HorizontalAdvance - (metrics.Width + left);
+            var bottom = 0;
+            this.image.Margin = new Thickness(left, top, right, bottom);
             this.image.Width = metrics.HorizontalAdvance;
             this.image.Height = metrics.VerticalAdvance;
-            this.image.Margin = new Thickness(metrics.HorizontalBearingX, metrics.VerticalAdvance - metrics.Height, metrics.HorizontalAdvance - metrics.Width, metrics.HorizontalBearingY);
+            if (this.GlyphMetrics.Height != 0 && this.Text == "\"")
+            {
+                int weqr = 0;
+            }
         }
     }
 }
