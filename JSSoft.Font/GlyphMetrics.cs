@@ -23,5 +23,7 @@ namespace JSSoft.Font
         public int VerticalBearingY { get; set; }
 
         public int VerticalAdvance { get; set; }
+
+        public int BaseLine { get; set; }
     }
 }

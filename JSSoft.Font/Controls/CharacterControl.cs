@@ -101,14 +101,29 @@ namespace JSSoft.Font.Controls
             }
             
             var metrics = this.GlyphMetrics;
-            var left = metrics.HorizontalBearingX;
-            var top = metrics.VerticalAdvance - metrics.HorizontalBearingY;
-            var right = metrics.HorizontalAdvance - (metrics.Width + left);
-            var bottom = 0;
-            this.image.Margin = new Thickness(left, top, right, bottom);
-            this.image.Width = metrics.HorizontalAdvance;
-            this.image.Height = metrics.VerticalAdvance;
-            if (this.GlyphMetrics.Height != 0 && this.Text == "\"")
+
+            if (metrics.Width == 0 || metrics.Height == 0)
+            {
+                this.image.Margin = new Thickness(0);
+                this.image.Width = metrics.VerticalAdvance;
+                this.image.Height = metrics.VerticalAdvance;
+            }
+            else
+            {
+                var left = metrics.HorizontalBearingX;
+                var top = metrics.BaseLine - metrics.HorizontalBearingY;
+                var right = metrics.HorizontalAdvance - (left + metrics.Width);
+                var bottom = metrics.VerticalAdvance - (top + metrics.Height);
+
+                this.image.Margin = new Thickness(left, top, right, bottom);
+                this.image.Width = metrics.Width;
+                this.image.Height = metrics.Height;
+            }
+            if (metrics.VerticalAdvance !=0 && metrics.VerticalAdvance != 35)
+            {
+                int qwer = 0;
+            }
+            if (this.GlyphMetrics.Height != 0 && (this.Text == "'" || this.Text== "\""))
             {
                 int weqr = 0;
             }

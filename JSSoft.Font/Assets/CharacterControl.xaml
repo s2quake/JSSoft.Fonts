@@ -3,28 +3,42 @@
                     xmlns:jsfc="clr-namespace:JSSoft.Font.Controls"
                     xmlns:jsfv="clr-namespace:JSSoft.Font.Converters">
 
+    <VisualBrush x:Key="MyVisualBrush" TileMode="Tile" Viewport="0,0,15,15" ViewportUnits="Absolute" Viewbox="0,0,15,15" ViewboxUnits="Absolute">
+        <VisualBrush.Visual>
+            <Grid Background="Black">
+                <Path Data="M 0 15 L 15 0" Stroke="Gray" />
+                <Path Data="M 0 0 L 15 15" Stroke="Gray" />
+            </Grid>
+        </VisualBrush.Visual>
+    </VisualBrush>
+
     <ControlTemplate x:Key="CharacterControl_Template" TargetType="{x:Type jsfc:CharacterControl}">
-        <Grid Margin="{TemplateBinding Margin}">
+        <Grid x:Name="grid" Margin="{TemplateBinding Margin}">
             <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                 <Viewbox>
-                    <Grid Background="Red">
-                    <Image x:Name="PART_Image" Source="{Binding Source}" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Image x:Name="PART_Image" Source="{Binding Source}" RenderOptions.BitmapScalingMode="NearestNeighbor" />
                     </Grid>
                 </Viewbox>
             </Border>
         </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="grid" Property="Background" Value="{StaticResource MyVisualBrush}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style TargetType="{x:Type jsfc:CharacterControl}">
         <Setter Property="Template" Value="{StaticResource CharacterControl_Template}" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Margin" Value="10" />
-        <Style.Triggers>
+        <Setter Property="Margin" Value="0" />
+        <!--<Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="BorderBrush" Value="Red" />
                 <Setter Property="BorderThickness" Value="1" />
             </Trigger>
-        </Style.Triggers>
+        </Style.Triggers>-->
     </Style>
 
 </ResourceDictionary>

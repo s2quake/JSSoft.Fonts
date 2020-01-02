@@ -26,6 +26,10 @@ namespace JSSoft.Font
             {
                 this.glyphMetrics = this.fontService.Metrics[id];
             }
+            else
+            {
+                this.glyphMetrics.VerticalAdvance = this.fontService.VerticalAdvance;
+            }
             if (this.fontService.Bitmaps.ContainsKey(id))
             {
                 this.source = this.fontService.Bitmaps[id];

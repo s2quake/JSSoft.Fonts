@@ -35,23 +35,28 @@ namespace JSSoft.Font
         public Task OpenAsync(string path)
         {
             this.dispatcher = new Dispatcher(this);
-            return this.dispatcher.InvokeAsync(() =>
+            return this.dispatcher.InvokeAsync((Action)(() =>
             {
+                var pixelSize = (double)this.Height * this.DPI / 72;
                 this.lib = new Library();
                 this.face = new Face(this.lib, path);
                 this.face.SetCharSize(0, this.Height, 0, this.DPI);
+
+                this.VerticalAdvance = (int)Math.Round(this.face.Height * pixelSize / this.face.UnitsPerEM);
 
                 var (min, max) = NamesList.Range;
                 for (var i = min; i <= max; i++)
                 {
                     this.RegisterItem(i);
                 }
-            });
+            }));
         }
 
         public uint DPI { get; set; } = 96;
 
         public int Height { get; set; } = 22;
+
+        public int VerticalAdvance { get; set; }
 
         private void RegisterItem(uint charCode)
         {
@@ -61,6 +66,9 @@ namespace JSSoft.Font
 
             var ftbmp = glyph.Bitmap;
             var metrics = glyph.Metrics;
+            var height = (double)Math.Round((double)glyph.LinearVerticalAdvance);
+            var width = (double)Math.Round((double)glyph.LinearHorizontalAdvance);
+            var baseLine = height + (height * glyph.Face.Descender / glyph.Face.Height);
             var glyphMetrics = new GlyphMetrics()
             {
                 Width = (int)metrics.Width,
@@ -71,6 +79,7 @@ namespace JSSoft.Font
                 VerticalBearingX = (int)metrics.VerticalBearingX,
                 VerticalBearingY = (int)metrics.VerticalBearingY,
                 VerticalAdvance = (int)metrics.VerticalAdvance,
+                BaseLine = (int)Math.Round(baseLine),
             };
             var bitmapSource = this.CreateBitmapSource(ftbmp);
             this.metricsByID.Add(charCode, glyphMetrics);

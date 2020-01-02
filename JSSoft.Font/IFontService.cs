@@ -16,5 +16,7 @@ namespace JSSoft.Font
         IReadOnlyDictionary<uint, BitmapSource> Bitmaps { get; }
 
         IReadOnlyDictionary<uint, GlyphMetrics> Metrics { get; }
+
+        int VerticalAdvance { get; }
     }
 }
