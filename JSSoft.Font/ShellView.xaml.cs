@@ -24,5 +24,10 @@ namespace JSSoft.Font
         {
             InitializeComponent();
         }
+
+        protected override void OnPreviewKeyDown(KeyEventArgs e)
+        {
+            base.OnPreviewKeyDown(e);
+        }
     }
 }

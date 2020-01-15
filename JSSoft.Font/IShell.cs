@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace JSSoft.Font
 {
-    interface IShell
+    public interface IShell
     {
+        void Open(string fontPath);
     }
 }

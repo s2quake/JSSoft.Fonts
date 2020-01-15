@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:jsfc="clr-namespace:JSSoft.Font.Controls"
+                    xmlns:jsfv="clr-namespace:JSSoft.Font.Converters">
+
+    <VisualBrush x:Key="MyVisualBrush" TileMode="Tile" Viewport="0,0,15,15" ViewportUnits="Absolute" Viewbox="0,0,15,15" ViewboxUnits="Absolute">
+        <VisualBrush.Visual>
+            <Grid Background="Black">
+                <Path Data="M 0 15 L 15 0" Stroke="Gray" />
+                <Path Data="M 0 0 L 15 15" Stroke="Gray" />
+            </Grid>
+        </VisualBrush.Visual>
+    </VisualBrush>
+
+    <ControlTemplate x:Key="StatusBarControl_Template" TargetType="{x:Type jsfc:StatusBarControl}">
+        <Grid Margin="{TemplateBinding Margin}" Background="{TemplateBinding Background}">
+        </Grid>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type jsfc:StatusBarControl}">
+        <Setter Property="Template" Value="{StaticResource StatusBarControl_Template}" />
+        <Setter Property="Background" Value="{StaticResource Accent}" />
+        <Setter Property="Height" Value="23" />
+    </Style>
+
+</ResourceDictionary>

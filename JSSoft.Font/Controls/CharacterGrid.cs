@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace JSSoft.Font.Controls
 {
-    class CharacterGrid : ModernDataGridControl
+    public class CharacterGrid : ModernDataGridControl
     {
         protected override Size MeasureOverride(Size constraint)
         {

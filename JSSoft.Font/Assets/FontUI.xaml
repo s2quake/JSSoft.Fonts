@@ -6,6 +6,7 @@
 
         <ResourceDictionary Source="CharacterGrid.xaml" />
         <ResourceDictionary Source="CharacterControl.xaml" />
+        <ResourceDictionary Source="StatusBarControl.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
     

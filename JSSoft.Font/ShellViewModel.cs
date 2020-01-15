@@ -11,17 +11,35 @@ using System.Threading.Tasks;
 namespace JSSoft.Font
 {
     [Export(typeof(IShell))]
-    class ShellViewModel : ScreenBase
+    class ShellViewModel : ScreenBase, IShell
     {
         private readonly IFontService fontService;
+        private readonly IEnumerable<IMenuItem> menuItems;
         private ObservableCollection<CharactersListBoxItemViewModel> itemList = new ObservableCollection<CharactersListBoxItemViewModel>();
         private ObservableCollection<CharactersListBoxItemViewModel> visibleList = new ObservableCollection<CharactersListBoxItemViewModel>();
         private CharactersListBoxItemViewModel selectedItem;
 
         [ImportingConstructor]
-        public ShellViewModel(IFontService fontService)
+        public ShellViewModel(IFontService fontService, [ImportMany]IEnumerable<IMenuItem> menuItems)
         {
             this.fontService = fontService;
+            this.menuItems = menuItems;
+        }
+
+        public async void Open(string fontPath)
+        {
+            await this.fontService.OpenAsync(fontPath);
+            foreach (var (name, min, max) in NamesList.Items)
+            {
+                var item = new CharactersListBoxItemViewModel(this.fontService, name, min, max);
+                this.SatisfyImportsOnce(item);
+                this.itemList.Add(item);
+            }
+            foreach (var item in this.itemList)
+            {
+                if (item.IsVisible == true)
+                    this.visibleList.Add(item);
+            }
         }
 
         public void Open()
@@ -44,6 +62,8 @@ namespace JSSoft.Font
 
         public CharacterRowItem[] CharacterItems => this.selectedItem != null ? this.selectedItem.Items : new CharacterRowItem[] { };
 
+        public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems(this, this.menuItems);
+
         protected override async void OnDeactivate(bool close)
         {
             if (close == true)
@@ -53,21 +73,10 @@ namespace JSSoft.Font
             base.OnDeactivate(close);
         }
 
-        protected override async void OnInitialize()
+        protected override void OnInitialize()
         {
             base.OnInitialize();
-            await this.fontService.OpenAsync(@"SF-Mono-Semibold.otf");
-            foreach (var (name, min, max) in NamesList.Items)
-            {
-                var item = new CharactersListBoxItemViewModel(this.fontService, name, min, max);
-                this.SatisfyImportsOnce(item);
-                this.itemList.Add(item);
-            }
-            foreach (var item in this.itemList)
-            {
-                if (item.IsVisible == true)
-                    this.visibleList.Add(item);
-            }
+            this.Open(@"SF-Mono-Semibold.otf");
         }
     }
 }

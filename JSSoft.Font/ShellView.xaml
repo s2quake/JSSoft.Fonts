@@ -8,7 +8,7 @@
                   xmlns:nmgc="clr-namespace:Ntreev.ModernUI.Framework.DataGrid.Controls;assembly=Ntreev.ModernUI.Framework.DataGrid"
                   xmlns:jsfc="clr-namespace:JSSoft.Font.Controls"
                   xmlns:vm="clr-namespace:JSSoft.Font"
-                  Height="550" Width="800" Style="{StaticResource ModernWindow_Style}">
+                  Height="550" Width="800" Style="{StaticResource ModernWindow_Style}" Title="JSFont">
 
     <mui:ModernWindow.Resources>
         <DataTemplate x:Key="ListBox_ItemTemplate">
@@ -22,28 +22,80 @@
             </Grid>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:CharacterItem}">
-            <jsfc:CharacterControl Text="{Binding Text}" IsEnabled="{Binding IsEnabled}" Padding="2" 
-                                   Source="{Binding Source}" GlyphMetrics="{Binding GlyphMetrics}"
+            <jsfc:CharacterControl Text="{Binding Text}" IsEnabled="{Binding IsEnabled}" Padding="2" Source="{Binding Source}" GlyphMetrics="{Binding GlyphMetrics}"
                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" />
         </DataTemplate>
+
+        <ControlTemplate x:Key="CharacterRowSelector_Template" TargetType="{x:Type xcdg:RowSelector}" >
+            <Grid>
+                <Border x:Name="rootBorder" Background="{TemplateBinding Background}" BorderBrush="{DynamicResource DataGridGridLines}" BorderThickness="0 0 0 1">
+                    <Grid VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
+                        <ContentPresenter x:Name="contentPresenter"
+                                          Margin="{TemplateBinding Padding}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
+                    </Grid>
+                </Border>
+                <Thumb x:Name="PART_RowResizerThumb" VerticalAlignment="Bottom" Style="{StaticResource Invisible_Thumb_Style}" Visibility="Collapsed" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource DataGridHeaderForegroundPressed}" />
+                    <Setter Property="Background" Value="{DynamicResource DataGridHeaderBackgroundPressed}" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource DataGridHeaderForegroundHover}" />
+                    <Setter Property="Background" Value="{DynamicResource DataGridHeaderBackgroundHover}" />
+                </Trigger>
+                <Trigger Property="IsCurrent" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource DataGridHeaderForegroundCurrent}" />
+                    <Setter Property="Background" Value="{DynamicResource DataGridHeaderBackgroundCurrent}" />
+                </Trigger>
+                <DataTrigger Binding="{Binding Path=(nmgc:ModernDataGridControl.AllowHeightResize)}" Value="True">
+                    <Setter TargetName="PART_RowResizerThumb" Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <DataTemplate x:Key="CharacterRowSelector_ContentTemplate">
+            <TextBlock Text="{Binding DataContext.DataContext.Index, RelativeSource={RelativeSource AncestorType={x:Type xcdg:RowSelector}}, StringFormat={}{0:X}}" />
+        </DataTemplate>
+        
+        <Style x:Key="CharacterRowSelector_Style" TargetType="{x:Type xcdg:RowSelector}" BasedOn="{StaticResource DataRowSelector_Style}">
+            <Setter Property="ContentTemplate" Value="{StaticResource CharacterRowSelector_ContentTemplate}" />
+            <Setter Property="Template" Value="{StaticResource CharacterRowSelector_Template}" />
+        </Style>
+        <Style TargetType="{x:Type nmgc:ModernDataRow}" BasedOn="{StaticResource {x:Type nmgc:ModernDataRow}}">
+            <Setter Property="xcdg:RowSelector.RowSelectorStyle" Value="{StaticResource CharacterRowSelector_Style}" />
+        </Style>
     </mui:ModernWindow.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Menu />
+        <Menu ItemsSource="{Binding MenuItems}" VerticalAlignment="Bottom" Margin="0 2" Background="{StaticResource WindowBackground}">
+            <Menu.ItemContainerStyle>
+                <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource MenuItem_Style}">
+                    <Setter Property="Margin" Value="0" />
+                    <Setter Property="MinWidth" Value="50" />
+                </Style>
+            </Menu.ItemContainerStyle>
+        </Menu>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <ListBox ItemsSource="{Binding ItemsSource}" SelectedItem="{Binding SelectedItem}"
-                     ItemTemplate="{StaticResource ListBox_ItemTemplate}"
-                     ItemContainerStyle="{StaticResource FlatListBoxItem}" />
-            <jsfc:CharacterGrid Grid.Column="1" ItemsSource="{Binding CharacterItems}" >
-                <jsfc:CharacterGrid.Columns>
+            <ListBox ItemsSource="{Binding ItemsSource}" SelectedItem="{Binding SelectedItem}" BorderThickness="0 1 1 0" BorderBrush="{StaticResource ItemBorder}"
+                     ItemTemplate="{StaticResource ListBox_ItemTemplate}" ItemContainerStyle="{StaticResource FlatListBoxItem}" />
+            <GridSplitter Grid.Column="1" Background="{StaticResource WindowBackground}" />
+            <nmgc:ModernDataGridControl Grid.Column="2" ItemsSource="{Binding CharacterItems}" BorderThickness="1 1 0 0" AutoCreateColumns="False">
+                <nmgc:ModernDataGridControl.Columns>
                     <xcdg:Column FieldName="Item0" Title="0" />
                     <xcdg:Column FieldName="Item1" Title="1" />
                     <xcdg:Column FieldName="Item2" Title="2" />
@@ -60,8 +112,12 @@
                     <xcdg:Column FieldName="ItemD" Title="D" />
                     <xcdg:Column FieldName="ItemE" Title="E" />
                     <xcdg:Column FieldName="ItemF" Title="F" />
-                </jsfc:CharacterGrid.Columns>
-            </jsfc:CharacterGrid>
+                </nmgc:ModernDataGridControl.Columns>
+                <nmgc:ModernDataGridControl.View>
+                    <xcdg:TableView RowSelectorPaneWidth="35" />
+                </nmgc:ModernDataGridControl.View>
+            </nmgc:ModernDataGridControl>
         </Grid>
+        <jsfc:StatusBarControl Grid.Row="3" />
     </Grid>
 </mui:ModernWindow>

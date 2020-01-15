@@ -63,6 +63,7 @@
     <Compile Include="CharacterRowItem.cs" />
     <Compile Include="CharacterItem.cs" />
     <Compile Include="CharactersListBoxItemViewModel.cs" />
+    <Compile Include="Controls\StatusBarControl.cs" />
     <Compile Include="Controls\CharacterControl.cs" />
     <None Include="Controls\CharacterControl.xaml.cs">
       <DependentUpon>CharacterControl.xaml</DependentUpon>
@@ -73,6 +74,8 @@
     <Compile Include="GlyphMetrics.cs" />
     <Compile Include="FontService.cs" />
     <Compile Include="IFontService.cs" />
+    <Compile Include="MenuItems\FileMenuItem.cs" />
+    <Compile Include="MenuItems\FileMenus\OpenFontMenuItem.cs" />
     <Compile Include="ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -83,6 +86,10 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="IShell.cs" />
+    <Page Include="Assets\StatusBarControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Assets\CharacterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
