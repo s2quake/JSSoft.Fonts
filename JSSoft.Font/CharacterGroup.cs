@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ntreev.ModernUI.Framework.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -7,23 +8,23 @@ using System.Threading.Tasks;
 
 namespace JSSoft.Font
 {
-    internal class CharactersListBoxItemViewModel : Ntreev.ModernUI.Framework.ViewModels.ListBoxItemViewModel
+    class CharacterGroup : ListBoxItemViewModel, ICharacterGroup
     {
         private readonly IFontService fontService;
         private string name;
         private bool? isChecked;
 
-        public CharactersListBoxItemViewModel(IFontService fontService, string name, uint min, uint max)
+        public CharacterGroup(IFontService fontService, string name, uint min, uint max)
         {
             this.fontService = fontService ?? throw new ArgumentNullException(nameof(fontService));
             this.name = name;
 
             var i1 = min;
-            var itemList = new List<CharacterRowItem>();
+            var itemList = new List<CharacterRow>();
             while (i1 < max)
             {
                 var i2 = Math.Min(i1 + 16, max);
-                itemList.Add(new CharacterRowItem(this.fontService, i1, i2));
+                itemList.Add(new CharacterRow(this.fontService, i1, i2));
                 i1 = i2 + 1;
             }
             this.Items = itemList.ToArray();
@@ -42,6 +43,16 @@ namespace JSSoft.Font
 
         public override string DisplayName => this.name;
 
-        public CharacterRowItem[] Items { get; }
+        public CharacterRow[] Items { get; }
+
+        #region ICharacterGroup
+
+        string ICharacterGroup.Name => this.name;
+
+        ICharacterRow[] ICharacterGroup.Items => this.Items;
+
+        #endregion
     }
 }
+
+

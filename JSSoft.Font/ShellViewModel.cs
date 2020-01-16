@@ -15,9 +15,9 @@ namespace JSSoft.Font
     {
         private readonly IFontService fontService;
         private readonly IEnumerable<IMenuItem> menuItems;
-        private ObservableCollection<CharactersListBoxItemViewModel> itemList = new ObservableCollection<CharactersListBoxItemViewModel>();
-        private ObservableCollection<CharactersListBoxItemViewModel> visibleList = new ObservableCollection<CharactersListBoxItemViewModel>();
-        private CharactersListBoxItemViewModel selectedItem;
+        private ObservableCollection<CharacterGroup> itemList = new ObservableCollection<CharacterGroup>();
+        private ObservableCollection<CharacterGroup> visibleList = new ObservableCollection<CharacterGroup>();
+        private CharacterGroup selectedItem;
 
         [ImportingConstructor]
         public ShellViewModel(IFontService fontService, [ImportMany]IEnumerable<IMenuItem> menuItems)
@@ -31,7 +31,7 @@ namespace JSSoft.Font
             await this.fontService.OpenAsync(fontPath);
             foreach (var (name, min, max) in NamesList.Items)
             {
-                var item = new CharactersListBoxItemViewModel(this.fontService, name, min, max);
+                var item = new CharacterGroup(this.fontService, name, min, max);
                 this.SatisfyImportsOnce(item);
                 this.itemList.Add(item);
             }
@@ -47,20 +47,20 @@ namespace JSSoft.Font
 
         }
 
-        public ObservableCollection<CharactersListBoxItemViewModel> ItemsSource => this.visibleList;
+        public ObservableCollection<CharacterGroup> ItemsSource => this.visibleList;
 
-        public CharactersListBoxItemViewModel SelectedItem
+        public CharacterGroup SelectedItem
         {
             get => this.selectedItem;
             set
             {
                 this.selectedItem = value;
                 this.NotifyOfPropertyChange(nameof(SelectedItem));
-                this.NotifyOfPropertyChange(nameof(CharacterItems));
+                this.NotifyOfPropertyChange(nameof(CharacterRows));
             }
         }
 
-        public CharacterRowItem[] CharacterItems => this.selectedItem != null ? this.selectedItem.Items : new CharacterRowItem[] { };
+        public CharacterRow[] CharacterRows => this.selectedItem != null ? this.selectedItem.Items : new CharacterRow[] { };
 
         public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems(this, this.menuItems);
 

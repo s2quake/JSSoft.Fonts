@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace JSSoft.Font
 {
-    class CharacterItem : PropertyChangedBase
+    class Character : PropertyChangedBase, ICharacter
     {
         private readonly IFontService fontService;
         private bool isEnabled;
@@ -17,7 +17,7 @@ namespace JSSoft.Font
         private ImageSource source;
         private GlyphMetrics glyphMetrics;
 
-        public CharacterItem(IFontService fontService, uint id)
+        public Character(IFontService fontService, uint id)
         {
             this.fontService = fontService ?? throw new ArgumentNullException(nameof(fontService));
             this.ID = id;

@@ -21,54 +21,10 @@
                 <TextBlock Grid.Column="1" Text="{Binding DisplayName}" />
             </Grid>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:CharacterItem}">
+        <DataTemplate DataType="{x:Type vm:Character}">
             <jsfc:CharacterControl Text="{Binding Text}" IsEnabled="{Binding IsEnabled}" Padding="2" Source="{Binding Source}" GlyphMetrics="{Binding GlyphMetrics}"
                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" />
         </DataTemplate>
-
-        <ControlTemplate x:Key="CharacterRowSelector_Template" TargetType="{x:Type xcdg:RowSelector}" >
-            <Grid>
-                <Border x:Name="rootBorder" Background="{TemplateBinding Background}" BorderBrush="{DynamicResource DataGridGridLines}" BorderThickness="0 0 0 1">
-                    <Grid VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
-                        <ContentPresenter x:Name="contentPresenter"
-                                          Margin="{TemplateBinding Padding}"
-                                          Content="{TemplateBinding Content}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                                          ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
-                    </Grid>
-                </Border>
-                <Thumb x:Name="PART_RowResizerThumb" VerticalAlignment="Bottom" Style="{StaticResource Invisible_Thumb_Style}" Visibility="Collapsed" />
-            </Grid>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Foreground" Value="{DynamicResource DataGridHeaderForegroundPressed}" />
-                    <Setter Property="Background" Value="{DynamicResource DataGridHeaderBackgroundPressed}" />
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="{DynamicResource DataGridHeaderForegroundHover}" />
-                    <Setter Property="Background" Value="{DynamicResource DataGridHeaderBackgroundHover}" />
-                </Trigger>
-                <Trigger Property="IsCurrent" Value="True">
-                    <Setter Property="Foreground" Value="{DynamicResource DataGridHeaderForegroundCurrent}" />
-                    <Setter Property="Background" Value="{DynamicResource DataGridHeaderBackgroundCurrent}" />
-                </Trigger>
-                <DataTrigger Binding="{Binding Path=(nmgc:ModernDataGridControl.AllowHeightResize)}" Value="True">
-                    <Setter TargetName="PART_RowResizerThumb" Property="Visibility" Value="Visible" />
-                </DataTrigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-
-        <DataTemplate x:Key="CharacterRowSelector_ContentTemplate">
-            <TextBlock Text="{Binding DataContext.DataContext.Index, RelativeSource={RelativeSource AncestorType={x:Type xcdg:RowSelector}}, StringFormat={}{0:X}}" />
-        </DataTemplate>
-        
-        <Style x:Key="CharacterRowSelector_Style" TargetType="{x:Type xcdg:RowSelector}" BasedOn="{StaticResource DataRowSelector_Style}">
-            <Setter Property="ContentTemplate" Value="{StaticResource CharacterRowSelector_ContentTemplate}" />
-            <Setter Property="Template" Value="{StaticResource CharacterRowSelector_Template}" />
-        </Style>
-        <Style TargetType="{x:Type nmgc:ModernDataRow}" BasedOn="{StaticResource {x:Type nmgc:ModernDataRow}}">
-            <Setter Property="xcdg:RowSelector.RowSelectorStyle" Value="{StaticResource CharacterRowSelector_Style}" />
-        </Style>
     </mui:ModernWindow.Resources>
 
     <Grid>
@@ -94,29 +50,7 @@
             <ListBox ItemsSource="{Binding ItemsSource}" SelectedItem="{Binding SelectedItem}" BorderThickness="0 1 1 0" BorderBrush="{StaticResource ItemBorder}"
                      ItemTemplate="{StaticResource ListBox_ItemTemplate}" ItemContainerStyle="{StaticResource FlatListBoxItem}" />
             <GridSplitter Grid.Column="1" Background="{StaticResource WindowBackground}" />
-            <nmgc:ModernDataGridControl Grid.Column="2" ItemsSource="{Binding CharacterItems}" BorderThickness="1 1 0 0" AutoCreateColumns="False">
-                <nmgc:ModernDataGridControl.Columns>
-                    <xcdg:Column FieldName="Item0" Title="0" />
-                    <xcdg:Column FieldName="Item1" Title="1" />
-                    <xcdg:Column FieldName="Item2" Title="2" />
-                    <xcdg:Column FieldName="Item3" Title="3" />
-                    <xcdg:Column FieldName="Item4" Title="4" />
-                    <xcdg:Column FieldName="Item5" Title="5" />
-                    <xcdg:Column FieldName="Item6" Title="6" />
-                    <xcdg:Column FieldName="Item7" Title="7" />
-                    <xcdg:Column FieldName="Item8" Title="8" />
-                    <xcdg:Column FieldName="Item9" Title="9" />
-                    <xcdg:Column FieldName="ItemA" Title="A" />
-                    <xcdg:Column FieldName="ItemB" Title="B" />
-                    <xcdg:Column FieldName="ItemC" Title="C" />
-                    <xcdg:Column FieldName="ItemD" Title="D" />
-                    <xcdg:Column FieldName="ItemE" Title="E" />
-                    <xcdg:Column FieldName="ItemF" Title="F" />
-                </nmgc:ModernDataGridControl.Columns>
-                <nmgc:ModernDataGridControl.View>
-                    <xcdg:TableView RowSelectorPaneWidth="35" />
-                </nmgc:ModernDataGridControl.View>
-            </nmgc:ModernDataGridControl>
+            <jsfc:CharacterView Grid.Column="2" CharacterGroup="{Binding SelectedItem}" />
         </Grid>
         <jsfc:StatusBarControl Grid.Row="3" />
     </Grid>
