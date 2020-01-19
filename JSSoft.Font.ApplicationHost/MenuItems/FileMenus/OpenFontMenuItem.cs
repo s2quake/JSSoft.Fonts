@@ -13,16 +13,19 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
     [ParentType(typeof(FileMenuItem))]
     class OpenFontMenuItem : MenuItemBase
     {
-        private readonly IShell shell;
-        private readonly IFontService fontService;
+        private readonly Lazy<IShell> shell;
 
         [ImportingConstructor]
-        public OpenFontMenuItem(IShell shell, IFontService fontService)
+        public OpenFontMenuItem(Lazy<IShell> shell)
         {
             this.shell = shell;
-            this.fontService = fontService;
             this.DisplayName = "Open Font...";
         }
+
+        //protected override bool OnCanExecute(object parameter)
+        //{
+        //    return this.Shell.IsProgressing == false;
+        //}
 
         protected override void OnExecute(object parameter)
         {
@@ -37,7 +40,10 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 
             if (dialog.ShowDialog() == true)
             {
+                
             }
         }
+
+        private IShell Shell => this.shell.Value;
     }
 }

@@ -12,92 +12,41 @@ using System.Threading.Tasks;
 
 namespace JSSoft.Font
 {
-    //[Export(typeof(IFontService))]
-    class FontService
+    public class FontDescriptor : IDisposable
     {
         private readonly Dictionary<uint, Bitmap> bitmapByID = new Dictionary<uint, Bitmap>();
         private readonly Dictionary<uint, GlyphMetrics> metricsByID = new Dictionary<uint, GlyphMetrics>();
         private Library lib;
         private Face face;
-        private Dispatcher dispatcher;
 
-        public FontService()
+        public FontDescriptor(string path, uint dpi, int height)
         {
-
-        }
-
-        public async Task OpenAsync(string path, CancellationToken cancellation)
-        {
-            if (this.dispatcher != null)
-                throw new InvalidOperationException();
-            this.dispatcher = new Dispatcher(this);
-            await this.dispatcher.InvokeAsync(() =>
+            var pixelSize = (double)height * dpi / 72;
+            this.lib = new Library();
+            this.face = new Face(this.lib, path);
+            this.face.SetCharSize(0, height, 0, dpi);
+            this.VerticalAdvance = (int)Math.Round(this.face.Height * pixelSize / this.face.UnitsPerEM);
+            var (min, max) = NamesList.Range;
+            for (var i = min; i <= max; i++)
             {
-                if (this.IsOpened == true)
-                    throw new InvalidOperationException();
-                var pixelSize = (double)this.Height * this.DPI / 72;
-                this.lib = new Library();
-                this.face = new Face(this.lib, path);
-                this.face.SetCharSize(0, this.Height, 0, this.DPI);
-                this.VerticalAdvance = (int)Math.Round(this.face.Height * pixelSize / this.face.UnitsPerEM);
-                var (min, max) = NamesList.Range;
-                for (var i = min; i <= max; i++)
-                {
-                    if (cancellation.IsCancellationRequested == true)
-                    {
-                        this.DisposeInternal();
-                        this.dispatcher.Dispose();
-                        this.dispatcher = null;
-                        return;
-                    }
-                    this.RegisterItem(i);
-                }
-                this.Name = this.face.FamilyName;
-                this.IsOpened = true;
-                this.OnOpened(EventArgs.Empty);
-            });
+                this.RegisterItem(i);
+            }
+            this.Name = this.face.FamilyName;
+            this.DPI = dpi;
+            this.Height = height;
         }
 
-        public async Task CloseAsync()
-        {
-            if (this.dispatcher == null)
-                throw new InvalidOperationException();
-            await this.dispatcher.InvokeAsync(() =>
-            {
-                if (this.IsOpened == false)
-                    throw new InvalidOperationException();
-                this.DisposeInternal();
-                this.dispatcher.Dispose();
-                this.dispatcher = null;
-                this.Name = string.Empty;
-                this.IsOpened = false;
-                this.OnClosed(EventArgs.Empty);
-            });
-        }
+        public uint DPI { get; private set; }
 
-        public uint DPI { get; set; } = 96;
+        public int Height { get; private set; }
 
-        public int Height { get; set; } = 22;
-
-        public int VerticalAdvance { get; set; }
-
-        public bool IsOpened { get; private set; }
+        public int VerticalAdvance { get; private set; }
 
         public string Name { get; private set; } = string.Empty;
 
-        public event EventHandler Opened;
+        public IReadOnlyDictionary<uint, Bitmap> Bitmaps => this.bitmapByID;
 
-        public event EventHandler Closed;
-
-        protected virtual void OnOpened(EventArgs e)
-        {
-            this.Opened?.Invoke(this, e);
-        }
-
-        protected virtual void OnClosed(EventArgs e)
-        {
-            this.Closed?.Invoke(this, e);
-        }
+        public IReadOnlyDictionary<uint, GlyphMetrics> Metrics => this.metricsByID;
 
         private void RegisterItem(uint charCode)
         {
@@ -162,7 +111,7 @@ namespace JSSoft.Font
             return this.face.Glyph;
         }
 
-        private void DisposeInternal()
+        public void Dispose()
         {
             this.bitmapByID.Clear();
             this.metricsByID.Clear();
@@ -172,13 +121,5 @@ namespace JSSoft.Font
             this.lib?.Dispose();
             this.lib = null;
         }
-
-        //#region IFontService
-
-        //IReadOnlyDictionary<uint, Bitmap> IFontService.Bitmaps => this.bitmapByID;
-
-        //IReadOnlyDictionary<uint, GlyphMetrics> IFontService.Metrics => this.metricsByID;
-
-        //#endregion
     }
 }

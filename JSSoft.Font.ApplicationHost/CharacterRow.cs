@@ -10,31 +10,31 @@ namespace JSSoft.Font.ApplicationHost
 {
     class CharacterRow : PropertyChangedBase, ICharacterRow
     {
-        private readonly IFontService fontService;
+        private readonly FontDescriptor fontDescriptor;
 
-        public CharacterRow(IFontService fontService, uint min, uint max)
+        public CharacterRow(FontDescriptor fontDescriptor, uint min, uint max)
         {
-            this.fontService = fontService ?? throw new ArgumentNullException(nameof(fontService));
+            this.fontDescriptor = fontDescriptor ?? throw new ArgumentNullException(nameof(fontDescriptor));
             if (min >= max)
                 throw new ArgumentOutOfRangeException(nameof(min));
 
             this.Index = (min & 0xfffffff0) >> 4;
-            this.Item0 = new Character(this.fontService, 0x0 + min);
-            this.Item1 = new Character(this.fontService, 0x1 + min);
-            this.Item2 = new Character(this.fontService, 0x2 + min);
-            this.Item3 = new Character(this.fontService, 0x3 + min);
-            this.Item4 = new Character(this.fontService, 0x4 + min);
-            this.Item5 = new Character(this.fontService, 0x5 + min);
-            this.Item6 = new Character(this.fontService, 0x6 + min);
-            this.Item7 = new Character(this.fontService, 0x7 + min);
-            this.Item8 = new Character(this.fontService, 0x8 + min);
-            this.Item9 = new Character(this.fontService, 0x9 + min);
-            this.ItemA = new Character(this.fontService, 0xA + min);
-            this.ItemB = new Character(this.fontService, 0xB + min);
-            this.ItemC = new Character(this.fontService, 0xC + min);
-            this.ItemD = new Character(this.fontService, 0xD + min);
-            this.ItemE = new Character(this.fontService, 0xE + min);
-            this.ItemF = new Character(this.fontService, 0xF + min);
+            this.Item0 = new Character(this.fontDescriptor, 0x0 + min);
+            this.Item1 = new Character(this.fontDescriptor, 0x1 + min);
+            this.Item2 = new Character(this.fontDescriptor, 0x2 + min);
+            this.Item3 = new Character(this.fontDescriptor, 0x3 + min);
+            this.Item4 = new Character(this.fontDescriptor, 0x4 + min);
+            this.Item5 = new Character(this.fontDescriptor, 0x5 + min);
+            this.Item6 = new Character(this.fontDescriptor, 0x6 + min);
+            this.Item7 = new Character(this.fontDescriptor, 0x7 + min);
+            this.Item8 = new Character(this.fontDescriptor, 0x8 + min);
+            this.Item9 = new Character(this.fontDescriptor, 0x9 + min);
+            this.ItemA = new Character(this.fontDescriptor, 0xA + min);
+            this.ItemB = new Character(this.fontDescriptor, 0xB + min);
+            this.ItemC = new Character(this.fontDescriptor, 0xC + min);
+            this.ItemD = new Character(this.fontDescriptor, 0xD + min);
+            this.ItemE = new Character(this.fontDescriptor, 0xE + min);
+            this.ItemF = new Character(this.fontDescriptor, 0xF + min);
             this.Items = new Character[]
             {
                 this.Item0, this.Item1, this.Item2, this.Item3, this.Item4, this.Item5, this.Item6, this.Item7,

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JSSoft.Font
 {
-    static class NamesList
+    public static class NamesList
     {
         static NamesList()
         {

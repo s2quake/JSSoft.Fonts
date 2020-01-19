@@ -2,37 +2,52 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace JSSoft.Font.ApplicationHost
 {
     class Character : PropertyChangedBase, ICharacter
     {
-        private readonly IFontService fontService;
+        private readonly FontDescriptor fontDescriptor;
         private bool isEnabled;
         private bool isChecked;
         private ImageSource source;
         private GlyphMetrics glyphMetrics;
 
-        public Character(IFontService fontService, uint id)
+        public Character(FontDescriptor fontDescriptor, uint id)
         {
-            this.fontService = fontService ?? throw new ArgumentNullException(nameof(fontService));
+            this.fontDescriptor = fontDescriptor ?? throw new ArgumentNullException(nameof(fontDescriptor));
             this.ID = id;
-            this.isEnabled = this.fontService.Metrics.ContainsKey(id);
-            if (this.fontService.Metrics.ContainsKey(id))
+            this.isEnabled = this.fontDescriptor.Metrics.ContainsKey(id);
+            if (this.fontDescriptor.Metrics.ContainsKey(id))
             {
-                this.glyphMetrics = this.fontService.Metrics[id];
+                this.glyphMetrics = this.fontDescriptor.Metrics[id];
             }
             else
             {
-                this.glyphMetrics.VerticalAdvance = this.fontService.VerticalAdvance;
+                this.glyphMetrics.VerticalAdvance = this.fontDescriptor.VerticalAdvance;
             }
-            if (this.fontService.Bitmaps.ContainsKey(id))
+            if (this.fontDescriptor.Bitmaps.ContainsKey(id))
             {
-                this.source = this.fontService.Bitmaps[id];
+                var bitmap = this.fontDescriptor.Bitmaps[id];
+                using (var stream = new MemoryStream())
+                {
+                    var bitmapImage = new BitmapImage();
+                    bitmap.Save(stream, ImageFormat.Png);
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.UriSource = null;
+                    bitmapImage.StreamSource = stream;
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze();
+                    this.source = bitmapImage;
+                }
             }
         }
 

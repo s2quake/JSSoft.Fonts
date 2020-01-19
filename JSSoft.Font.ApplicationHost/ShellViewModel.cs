@@ -14,39 +14,41 @@ namespace JSSoft.Font.ApplicationHost
     [Export]
     class ShellViewModel : ScreenBase, IShell
     {
-        private readonly IFontService fontService;
         private readonly IEnumerable<IMenuItem> menuItems;
+        private readonly IEnumerable<IToolBarItem> toolBarItems;
         private readonly ObservableCollection<CharacterGroup> groupList = new ObservableCollection<CharacterGroup>();
+        private FontDescriptor fontDescriptor;
         private CharacterGroup selectedGroup;
-        private CancellationTokenSource cancellation;
 
         [ImportingConstructor]
-        public ShellViewModel(IFontService fontService, [ImportMany]IEnumerable<IMenuItem> menuItems)
+        public ShellViewModel([ImportMany]IEnumerable<IMenuItem> menuItems, [ImportMany]IEnumerable<IToolBarItem> toolBarItems)
         {
-            this.fontService = fontService;
             this.menuItems = menuItems;
+            this.toolBarItems = toolBarItems;
             this.DisplayName = "JSFont";
         }
 
         public async Task OpenAsync(string fontPath)
         {
             await this.Dispatcher.InvokeAsync(() => this.IsProgressing = true);
-            this.cancellation = new CancellationTokenSource();
-            await this.fontService.OpenAsync(fontPath, this.cancellation.Token);
-            foreach (var (name, min, max) in NamesList.Items)
+            await Task.Run(() =>
             {
-                var item = new CharacterGroup(this.fontService, name, min, max);
-                this.SatisfyImportsOnce(item);
-                this.groupList.Add(item);
-            }
-            foreach (var item in this.groupList)
-            {
-                if (item.IsVisible == true)
-                    this.Groups.Add(item);
-            }
+                this.fontDescriptor = new FontDescriptor(fontPath, 96, 22);
+                foreach (var (name, min, max) in NamesList.Items)
+                {
+                    var item = new CharacterGroup(this.fontDescriptor, name, min, max);
+                    this.groupList.Add(item);
+                }
+            });
             await this.Dispatcher.InvokeAsync(() =>
             {
-                this.DisplayName = this.fontService.Name;
+                foreach (var item in this.groupList)
+                {
+                    this.SatisfyImportsOnce(item);
+                    if (item.IsVisible == true)
+                        this.Groups.Add(item);
+                }
+                this.DisplayName = this.fontDescriptor.Name;
                 this.IsOpened = true;
                 this.IsProgressing = false;
             });
@@ -69,19 +71,16 @@ namespace JSSoft.Font.ApplicationHost
 
         public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems(this, this.menuItems);
 
+        public IEnumerable<IToolBarItem> ToolBarItems => ToolBarItemUtility.GetToolBarItems(this, this.toolBarItems);
+
         public bool IsOpened { get; private set; }
 
-        protected override Task<bool> CloseAsync()
+        protected override void OnDeactivate(bool close)
         {
-            this.cancellation?.Cancel();
-            return Task.Run(() => true);
-        }
-
-        protected override async void OnDeactivate(bool close)
-        {
-            if (close == true && this.fontService.IsOpened == true)
+            if (close == true)
             {
-                await this.fontService.CloseAsync();
+                this.fontDescriptor?.Dispose();
+                this.fontDescriptor = null;
             }
             base.OnDeactivate(close);
         }
@@ -89,8 +88,8 @@ namespace JSSoft.Font.ApplicationHost
         protected async override void OnInitialize()
         {
             base.OnInitialize();
-            //this.Open(@"SF-Mono-Semibold.otf");
-            await this.OpenAsync(@"C:\Users\s2quake\Desktop\AppleSDGothicNeo-Semibold.otf");
+            //await this.OpenAsync(@"SF-Mono-Semibold.otf");
+            //await this.OpenAsync(@"C:\Users\s2quake\Desktop\AppleSDGothicNeo-Semibold.otf");
         }
 
         #region IShell
@@ -101,7 +100,7 @@ namespace JSSoft.Font.ApplicationHost
             {
 
             });
-            await this.fontService.CloseAsync();
+            await Task.Run(() => this.fontDescriptor.Dispose());
             await this.Dispatcher.InvokeAsync(() =>
             {
                 this.DisplayName = "JSFont";
@@ -109,7 +108,6 @@ namespace JSSoft.Font.ApplicationHost
                 this.IsProgressing = false;
             });
         }
-
 
         IEnumerable<ICharacterGroup> IShell.Groups => this.Groups;
 

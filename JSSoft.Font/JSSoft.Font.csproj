@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FontService.cs" />
+    <Compile Include="FontDescriptor.cs" />
     <Compile Include="GlyphMetrics.cs" />
     <Compile Include="NamesList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

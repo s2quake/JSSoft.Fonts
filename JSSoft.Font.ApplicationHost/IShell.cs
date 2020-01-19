@@ -14,12 +14,12 @@ namespace JSSoft.Font.ApplicationHost
 
         bool IsOpened { get; }
 
+        bool IsProgressing { get; }
+
         string DisplayName { get; }
 
         IEnumerable<ICharacterGroup> Groups { get; }
 
         ICharacterGroup SelectedGroup { get; set; }
-
-
     }
 }

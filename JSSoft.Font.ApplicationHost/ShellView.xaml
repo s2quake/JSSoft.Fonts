@@ -31,6 +31,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -42,18 +43,19 @@
                 </Style>
             </Menu.ItemContainerStyle>
         </Menu>
-        <Grid Grid.Row="1">
+        <nmfc:ExpandableToolBar Grid.Row="1" ItemsSource="{Binding ToolBarItems}" />
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250" />
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <ListBox ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}" BorderThickness="0 1 1 0" BorderBrush="{StaticResource ItemBorder}"
+            <ListBox ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, Delay=200}" BorderThickness="0 1 1 0" BorderBrush="{StaticResource ItemBorder}"
                      ItemTemplate="{StaticResource ListBox_ItemTemplate}" ItemContainerStyle="{StaticResource FlatListBoxItem}" />
             <GridSplitter Grid.Column="1" Background="{StaticResource WindowBackground}" />
-            <jsfc:CharacterView Grid.Column="2" CharacterGroup="{Binding SelectedItem}" BorderThickness="1 1 0 0 " />
+            <jsfc:CharacterView Grid.Column="2" CharacterGroup="{Binding SelectedGroup}" BorderThickness="1 1 0 0 " />
         </Grid>
-        <nmfc:ProgressContent Grid.Row="1" Visibility="{Binding IsProgressing, Converter={StaticResource BooleanToVisibilityConverter}}" d:IsHidden="True" />
+        <nmfc:ProgressContent Grid.Row="2" Visibility="{Binding IsProgressing, Converter={StaticResource BooleanToVisibilityConverter}}" d:IsHidden="True" />
         <jsfc:StatusBarControl Grid.Row="3" />
     </Grid>
 </mui:ModernWindow>
