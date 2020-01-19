@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JSSoft.Font.MenuItems
+namespace JSSoft.Font.ApplicationHost.MenuItems
 {
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(IShell))]

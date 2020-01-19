@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace JSSoft.Font.Converters
+namespace JSSoft.Font.ApplicationHost.Converters
 {
     class FieldNameToValueConverter : IValueConverter
     {

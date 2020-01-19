@@ -3,7 +3,7 @@ using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace JSSoft.Font
+namespace JSSoft.Font.ApplicationHost
 {
     [Export(typeof(IBackgroundTaskService))]
     class BackgroundTaskService : IBackgroundTaskService

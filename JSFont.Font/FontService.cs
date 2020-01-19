@@ -2,21 +2,20 @@
 using SharpFont;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Font
 {
-    [Export(typeof(IFontService))]
-    class FontService : IFontService
+    //[Export(typeof(IFontService))]
+    class FontService
     {
-        private readonly Dictionary<uint, BitmapSource> bitmapByID = new Dictionary<uint, BitmapSource>();
+        private readonly Dictionary<uint, Bitmap> bitmapByID = new Dictionary<uint, Bitmap>();
         private readonly Dictionary<uint, GlyphMetrics> metricsByID = new Dictionary<uint, GlyphMetrics>();
         private Library lib;
         private Face face;
@@ -123,31 +122,32 @@ namespace JSSoft.Font.ApplicationHost
                 VerticalAdvance = (int)metrics.VerticalAdvance,
                 BaseLine = (int)Math.Round(baseLine),
             };
-            var bitmapSource = this.CreateBitmapSource(ftbmp);
+            var Bitmap = this.CreateBitmap(ftbmp);
             this.metricsByID.Add(charCode, glyphMetrics);
-            if (bitmapSource != null)
+            if (Bitmap != null)
             {
-                this.bitmapByID.Add(charCode, bitmapSource);
+                this.bitmapByID.Add(charCode, Bitmap);
             }
         }
 
-        private BitmapSource CreateBitmapSource(FTBitmap ftbmp)
+        private Bitmap CreateBitmap(FTBitmap ftbmp)
         {
             if (ftbmp.Rows > 0 && ftbmp.Width > 0)
             {
                 var bitmap = ftbmp.ToGdipBitmap(System.Drawing.Color.White);
-                using (var stream = new MemoryStream())
-                {
-                    var bitmapImage = new BitmapImage();
-                    bitmap.Save(stream, ImageFormat.Png);
-                    bitmapImage.BeginInit();
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.UriSource = null;
-                    bitmapImage.StreamSource = stream;
-                    bitmapImage.EndInit();
-                    bitmapImage.Freeze();
-                    return bitmapImage;
-                }
+                return bitmap;
+                //using (var stream = new MemoryStream())
+                //{
+                //    var bitmapImage = new BitmapImage();
+                //    bitmap.Save(stream, ImageFormat.Png);
+                //    bitmapImage.BeginInit();
+                //    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                //    bitmapImage.UriSource = null;
+                //    bitmapImage.StreamSource = stream;
+                //    bitmapImage.EndInit();
+                //    bitmapImage.Freeze();
+                //    return bitmapImage;
+                //}
             }
             return null;
         }
@@ -173,12 +173,12 @@ namespace JSSoft.Font.ApplicationHost
             this.lib = null;
         }
 
-        #region IFontService
+        //#region IFontService
 
-        IReadOnlyDictionary<uint, BitmapSource> IFontService.Bitmaps => this.bitmapByID;
+        //IReadOnlyDictionary<uint, Bitmap> IFontService.Bitmaps => this.bitmapByID;
 
-        IReadOnlyDictionary<uint, GlyphMetrics> IFontService.Metrics => this.metricsByID;
+        //IReadOnlyDictionary<uint, GlyphMetrics> IFontService.Metrics => this.metricsByID;
 
-        #endregion
+        //#endregion
     }
 }

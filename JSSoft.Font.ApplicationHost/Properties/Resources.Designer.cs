@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace JSSoft.Font.Properties {
+namespace JSSoft.Font.ApplicationHost.Properties {
     using System;
     
     

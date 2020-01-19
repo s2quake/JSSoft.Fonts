@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace JSSoft.Font
+namespace JSSoft.Font.ApplicationHost
 {
     [Export(typeof(IShell))]
     [Export]

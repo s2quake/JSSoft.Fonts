@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace JSSoft.Font.Controls
+namespace JSSoft.Font.ApplicationHost.Controls
 {
     class WrapGrid : VirtualizingPanel
     {

@@ -3,8 +3,8 @@
                     xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
                     xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
                     xmlns:nmgc="clr-namespace:Ntreev.ModernUI.Framework.DataGrid.Controls;assembly=Ntreev.ModernUI.Framework.DataGrid"
-                    xmlns:jsfc="clr-namespace:JSSoft.Font.Controls"
-                    xmlns:jsfv="clr-namespace:JSSoft.Font.Converters">
+                    xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
+                    xmlns:jsfv="clr-namespace:JSSoft.Font.ApplicationHost.Converters">
 
     <jsfv:FieldNameToValueConverter x:Key="FieldNameToValueConverter" />
 

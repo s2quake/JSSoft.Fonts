@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Font
 {
     static class NamesList
     {

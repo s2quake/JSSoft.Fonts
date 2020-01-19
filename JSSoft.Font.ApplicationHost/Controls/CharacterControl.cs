@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace JSSoft.Font.Controls
+namespace JSSoft.Font.ApplicationHost.Controls
 {
     [TemplatePart(Name = "PART_Image", Type = typeof(Image))]
     public class CharacterControl : UserControl

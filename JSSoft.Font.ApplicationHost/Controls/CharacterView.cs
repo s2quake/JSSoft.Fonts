@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace JSSoft.Font.Controls
+namespace JSSoft.Font.ApplicationHost.Controls
 {
     [TemplatePart(Name = "PART_DataGrid", Type = typeof(ModernDataGridControl))]
     public class CharacterView : UserControl

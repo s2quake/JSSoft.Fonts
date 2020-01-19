@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace JSSoft.Font
+namespace JSSoft.Font.ApplicationHost
 {
     public interface IFontService
     {

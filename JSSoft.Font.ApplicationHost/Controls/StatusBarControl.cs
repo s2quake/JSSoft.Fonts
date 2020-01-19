@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace JSSoft.Font.Controls
+namespace JSSoft.Font.ApplicationHost.Controls
 {
     public class StatusBarControl : UserControl
     {

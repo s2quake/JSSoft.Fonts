@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace JSSoft.Font
+namespace JSSoft.Font.ApplicationHost
 {
     class Character : PropertyChangedBase, ICharacter
     {

@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace JSSoft.Font
+namespace JSSoft.Font.ApplicationHost
 {
     /// <summary>
     /// ShellView.xaml에 대한 상호 작용 논리

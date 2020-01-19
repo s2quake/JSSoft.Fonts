@@ -1,4 +1,4 @@
-﻿namespace JSSoft.Font
+﻿namespace JSSoft.Font.ApplicationHost
 {
     public interface ICharacterRow
     {
