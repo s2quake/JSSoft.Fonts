@@ -1,4 +1,0 @@
-﻿[*.{cs,vb}]
-
-# IDE0044: 읽기 전용 한정자 추가
-dotnet_style_readonly_field = true:suggestion
