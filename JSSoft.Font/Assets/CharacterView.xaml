@@ -57,7 +57,7 @@
             <Style TargetType="{x:Type xcdg:RowSelector}" BasedOn="{StaticResource {x:Type xcdg:RowSelector}}">
             </Style>
         </ControlTemplate.Resources>
-        <nmgc:ModernDataGridControl x:Name="PART_DataGrid" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+        <nmgc:ModernDataGridControl x:Name="PART_DataGrid" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" AutoCreateColumns="False">
             <nmgc:ModernDataGridControl.Columns>
                 <xcdg:Column FieldName="Item0" Title="0" />
                 <xcdg:Column FieldName="Item1" Title="1" />
@@ -84,6 +84,7 @@
 
     <Style TargetType="{x:Type jsfc:CharacterView}">
         <Setter Property="Template" Value="{StaticResource CharacterView_Template}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ItemBorder}" />
     </Style>
 
 </ResourceDictionary>

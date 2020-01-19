@@ -8,6 +8,18 @@ namespace JSSoft.Font
 {
     public interface IShell
     {
-        void Open(string fontPath);
+        Task OpenAsync(string fontPath);
+
+        Task CloseAsync();
+
+        bool IsOpened { get; }
+
+        string DisplayName { get; }
+
+        IEnumerable<ICharacterGroup> Groups { get; }
+
+        ICharacterGroup SelectedGroup { get; set; }
+
+
     }
 }

@@ -13,8 +13,14 @@ namespace JSSoft.Font.MenuItems.FileMenus
     [ParentType(typeof(FileMenuItem))]
     class OpenFontMenuItem : MenuItemBase
     {
-        public OpenFontMenuItem()
+        private readonly IShell shell;
+        private readonly IFontService fontService;
+
+        [ImportingConstructor]
+        public OpenFontMenuItem(IShell shell, IFontService fontService)
         {
+            this.shell = shell;
+            this.fontService = fontService;
             this.DisplayName = "Open Font...";
         }
 

@@ -7,6 +7,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
@@ -15,41 +16,64 @@ namespace JSSoft.Font
     [Export(typeof(IFontService))]
     class FontService : IFontService
     {
+        private readonly Dictionary<uint, BitmapSource> bitmapByID = new Dictionary<uint, BitmapSource>();
+        private readonly Dictionary<uint, GlyphMetrics> metricsByID = new Dictionary<uint, GlyphMetrics>();
         private Library lib;
         private Face face;
         private Dispatcher dispatcher;
-        private Dictionary<uint, BitmapSource> bitmapByID = new Dictionary<uint, BitmapSource>();
-        private Dictionary<uint, GlyphMetrics> metricsByID = new Dictionary<uint, GlyphMetrics>();
 
         public FontService()
         {
 
         }
 
-        public async Task CloseAsync()
+        public async Task OpenAsync(string path, CancellationToken cancellation)
         {
-            await this.dispatcher.DisposeAsync();
-            this.dispatcher = null;
-        }
-
-        public Task OpenAsync(string path)
-        {
+            if (this.dispatcher != null)
+                throw new InvalidOperationException();
             this.dispatcher = new Dispatcher(this);
-            return this.dispatcher.InvokeAsync((Action)(() =>
+            await this.dispatcher.InvokeAsync(() =>
             {
+                if (this.IsOpened == true)
+                    throw new InvalidOperationException();
                 var pixelSize = (double)this.Height * this.DPI / 72;
                 this.lib = new Library();
                 this.face = new Face(this.lib, path);
                 this.face.SetCharSize(0, this.Height, 0, this.DPI);
-
                 this.VerticalAdvance = (int)Math.Round(this.face.Height * pixelSize / this.face.UnitsPerEM);
-
                 var (min, max) = NamesList.Range;
                 for (var i = min; i <= max; i++)
                 {
+                    if (cancellation.IsCancellationRequested == true)
+                    {
+                        this.DisposeInternal();
+                        this.dispatcher.Dispose();
+                        this.dispatcher = null;
+                        return;
+                    }
                     this.RegisterItem(i);
                 }
-            }));
+                this.Name = this.face.FamilyName;
+                this.IsOpened = true;
+                this.OnOpened(EventArgs.Empty);
+            });
+        }
+
+        public async Task CloseAsync()
+        {
+            if (this.dispatcher == null)
+                throw new InvalidOperationException();
+            await this.dispatcher.InvokeAsync(() =>
+            {
+                if (this.IsOpened == false)
+                    throw new InvalidOperationException();
+                this.DisposeInternal();
+                this.dispatcher.Dispose();
+                this.dispatcher = null;
+                this.Name = string.Empty;
+                this.IsOpened = false;
+                this.OnClosed(EventArgs.Empty);
+            });
         }
 
         public uint DPI { get; set; } = 96;
@@ -58,16 +82,34 @@ namespace JSSoft.Font
 
         public int VerticalAdvance { get; set; }
 
+        public bool IsOpened { get; private set; }
+
+        public string Name { get; private set; } = string.Empty;
+
+        public event EventHandler Opened;
+
+        public event EventHandler Closed;
+
+        protected virtual void OnOpened(EventArgs e)
+        {
+            this.Opened?.Invoke(this, e);
+        }
+
+        protected virtual void OnClosed(EventArgs e)
+        {
+            this.Closed?.Invoke(this, e);
+        }
+
         private void RegisterItem(uint charCode)
         {
             var glyph = this.CreateGlyph(charCode);
             if (glyph == null)
-                return ;
+                return;
 
             var ftbmp = glyph.Bitmap;
             var metrics = glyph.Metrics;
             var height = (double)Math.Round((double)glyph.LinearVerticalAdvance);
-            var width = (double)Math.Round((double)glyph.LinearHorizontalAdvance);
+            _ = (double)Math.Round((double)glyph.LinearHorizontalAdvance);
             var baseLine = height + (height * glyph.Face.Descender / glyph.Face.Height);
             var glyphMetrics = new GlyphMetrics()
             {
@@ -118,6 +160,17 @@ namespace JSSoft.Font
             this.face.LoadGlyph(index, LoadFlags.Default, LoadTarget.Normal);
             this.face.Glyph.RenderGlyph(RenderMode.Normal);
             return this.face.Glyph;
+        }
+
+        private void DisposeInternal()
+        {
+            this.bitmapByID.Clear();
+            this.metricsByID.Clear();
+            this.VerticalAdvance = 0;
+            this.face?.Dispose();
+            this.face = null;
+            this.lib?.Dispose();
+            this.lib = null;
         }
 
         #region IFontService

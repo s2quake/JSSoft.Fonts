@@ -71,9 +71,12 @@
     <Compile Include="Controls\CharacterView.cs" />
     <Compile Include="Controls\WrapGrid.cs" />
     <Compile Include="Converters\FieldNameToValueConverter.cs" />
-    <Compile Include="Converters\GlyphMetricsToMarginConverter.cs" />
     <Compile Include="GlyphMetrics.cs" />
     <Compile Include="FontService.cs" />
+    <Compile Include="BackgroundTaskBase.cs" />
+    <Compile Include="IBackgroundTask.cs" />
+    <Compile Include="BackgroundTaskService.cs" />
+    <Compile Include="IBackgroundTaskService.cs" />
     <Compile Include="ICharacter.cs" />
     <Compile Include="ICharacterGroup.cs" />
     <Compile Include="ICharacterRow.cs" />

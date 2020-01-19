@@ -18,16 +18,7 @@ namespace JSSoft.Font
         {
             this.fontService = fontService ?? throw new ArgumentNullException(nameof(fontService));
             this.name = name;
-
-            var i1 = min;
-            var itemList = new List<CharacterRow>();
-            while (i1 < max)
-            {
-                var i2 = Math.Min(i1 + 16, max);
-                itemList.Add(new CharacterRow(this.fontService, i1, i2));
-                i1 = i2 + 1;
-            }
-            this.Items = itemList.ToArray();
+            this.Items = this.CreateItems(min, max);
             this.IsVisible = this.Items.Any(item => item.TestVisible());
         }
 
@@ -45,6 +36,19 @@ namespace JSSoft.Font
 
         public CharacterRow[] Items { get; }
 
+        private CharacterRow[] CreateItems(uint min, uint max)
+        {
+            var i1 = min;
+            var itemList = new List<CharacterRow>();
+            while (i1 < max)
+            {
+                var i2 = Math.Min(i1 + 16, max);
+                itemList.Add(new CharacterRow(this.fontService, i1, i2));
+                i1 = i2 + 1;
+            }
+            return itemList.ToArray();
+        }
+
         #region ICharacterGroup
 
         string ICharacterGroup.Name => this.name;
@@ -54,5 +58,3 @@ namespace JSSoft.Font
         #endregion
     }
 }
-
-
