@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
@@ -51,6 +52,11 @@ namespace JSSoft.Font.ApplicationHost.Controls
             //    //item.Width = 25;
             //}
             return base.ArrangeOverride(arrangeBounds);
+        }
+
+        protected override void OnPreviewKeyDown(KeyEventArgs e)
+        {
+            base.OnPreviewKeyDown(e);
         }
 
         private static void CharacterGroupPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using Ntreev.ModernUI.Framework;
+﻿using Microsoft.Win32;
+using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -24,6 +25,23 @@ namespace JSSoft.Font.ApplicationHost.ToolBarItems
         protected override bool OnCanExecute(object parameter)
         {
             return this.Shell.IsProgressing == false;
+        }
+
+        protected override async void OnExecute(object parameter)
+        {
+            base.OnExecute(parameter);
+
+            var dialog = new OpenFileDialog()
+            {
+                Filter = "font files (*.otf)|*.otf|all files (*.*)|*.*",
+                FilterIndex = 1,
+                RestoreDirectory = true,
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                await this.Shell.OpenAsync(dialog.FileName);
+            }
         }
 
         private IShell Shell => this.shell.Value;
