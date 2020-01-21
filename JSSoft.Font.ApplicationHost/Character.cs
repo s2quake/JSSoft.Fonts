@@ -20,6 +20,11 @@ namespace JSSoft.Font.ApplicationHost
         private ImageSource source;
         private GlyphMetrics glyphMetrics;
 
+        internal Character(uint id)
+        {
+            this.ID = id;
+        }
+
         public Character(FontDescriptor fontDescriptor, uint id)
         {
             this.fontDescriptor = fontDescriptor ?? throw new ArgumentNullException(nameof(fontDescriptor));

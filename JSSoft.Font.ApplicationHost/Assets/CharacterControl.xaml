@@ -14,12 +14,10 @@
 
     <ControlTemplate x:Key="CharacterControl_Template" TargetType="{x:Type jsfc:CharacterControl}">
         <Grid x:Name="grid" Margin="{TemplateBinding Margin}">
-            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                
-                    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Background="Red">
-                        <Image x:Name="PART_Image" Source="{Binding Source}" RenderOptions.BitmapScalingMode="NearestNeighbor" />
-                    </Grid>
-                
+            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                <Viewbox>
+                    <Image x:Name="PART_Image" Source="{Binding Source}" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                </Viewbox>
             </Border>
         </Grid>
         <ControlTemplate.Triggers>

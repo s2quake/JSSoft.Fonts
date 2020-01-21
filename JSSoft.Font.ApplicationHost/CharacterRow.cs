@@ -12,6 +12,32 @@ namespace JSSoft.Font.ApplicationHost
     {
         private readonly FontDescriptor fontDescriptor;
 
+        internal CharacterRow(uint index)
+        {
+            this.Index = index;
+            this.Item0 = new Character(0x0);
+            this.Item1 = new Character(0x1);
+            this.Item2 = new Character(0x2);
+            this.Item3 = new Character(0x3);
+            this.Item4 = new Character(0x4);
+            this.Item5 = new Character(0x5);
+            this.Item6 = new Character(0x6);
+            this.Item7 = new Character(0x7);
+            this.Item8 = new Character(0x8);
+            this.Item9 = new Character(0x9);
+            this.ItemA = new Character(0xA);
+            this.ItemB = new Character(0xB);
+            this.ItemC = new Character(0xC);
+            this.ItemD = new Character(0xD);
+            this.ItemE = new Character(0xE);
+            this.ItemF = new Character(0xF);
+            this.Items = new Character[]
+            {
+                this.Item0, this.Item1, this.Item2, this.Item3, this.Item4, this.Item5, this.Item6, this.Item7,
+                this.Item8, this.Item9, this.ItemA, this.ItemB, this.ItemC, this.ItemD, this.ItemE, this.ItemF,
+            };
+        }
+
         public CharacterRow(FontDescriptor fontDescriptor, uint min, uint max)
         {
             this.fontDescriptor = fontDescriptor ?? throw new ArgumentNullException(nameof(fontDescriptor));

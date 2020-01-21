@@ -18,13 +18,40 @@ namespace JSSoft.Font.ApplicationHost.Controls
             DependencyProperty.Register(nameof(CharacterGroup), typeof(ICharacterGroup), typeof(CharacterView),
                 new FrameworkPropertyMetadata(CharacterGroupPropertyChangedCallback));
 
-        private ModernDataGridControl gridControl;
+        public static readonly DependencyProperty VerticalAdvanceProperty =
+            DependencyProperty.Register(nameof(VerticalAdvance), typeof(double), typeof(CharacterView),
+                new FrameworkPropertyMetadata(VerticalAdvancePropertyChangedCallback));
 
-        public ICharacterGroup CharacterGroup
+        private static readonly DependencyPropertyKey ActualVerticalAdvancePropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(ActualVerticalAdvance), typeof(double), typeof(CharacterView),
+                new FrameworkPropertyMetadata());
+        public static readonly DependencyProperty ActualVerticalAdvanceProperty = ActualVerticalAdvancePropertyKey.DependencyProperty;
+
+        public static readonly DependencyProperty ZoomLevelProperty =
+            DependencyProperty.Register(nameof(ZoomLevel), typeof(double), typeof(CharacterView),
+                new FrameworkPropertyMetadata(1.0, ZoomLevelPropertyChangedCallback));
+
+        private static readonly ICharacterRow[] emptyRows = new ICharacterRow[]
         {
-            get => (ICharacterGroup)this.GetValue(CharacterGroupProperty);
-            set => this.SetValue(CharacterGroupProperty, value);
-        }
+            new CharacterRow(0x0),
+            new CharacterRow(0x1),
+            new CharacterRow(0x2),
+            new CharacterRow(0x3),
+            new CharacterRow(0x4),
+            new CharacterRow(0x5),
+            new CharacterRow(0x6),
+            new CharacterRow(0x7),
+            new CharacterRow(0x8),
+            new CharacterRow(0x9),
+            new CharacterRow(0xA),
+            new CharacterRow(0xB),
+            new CharacterRow(0xC),
+            new CharacterRow(0xD),
+            new CharacterRow(0xE),
+            new CharacterRow(0xF),
+        };
+
+        private ModernDataGridControl gridControl;
 
         public override void OnApplyTemplate()
         {
@@ -32,12 +59,38 @@ namespace JSSoft.Font.ApplicationHost.Controls
             this.gridControl = this.Template.FindName("PART_DataGrid", this) as ModernDataGridControl;
             if (this.gridControl != null)
             {
-                var binding = new Binding($"{nameof(CharacterGroup)}.{nameof(ICharacterGroup.Items)}")
-                {
-                    Source = this,
-                };
-                BindingOperations.SetBinding(this.gridControl, ModernDataGridControl.ItemsSourceProperty, binding); 
+                //var binding = new Binding($"{nameof(CharacterGroup)}.{nameof(ICharacterGroup.Items)}")
+                //{
+                //    Source = this,
+                //};
+                //BindingOperations.SetBinding(this.gridControl, ModernDataGridControl.ItemsSourceProperty, binding);
+                this.UpdateItemsSource();
+                this.UpdateActualVerticalAdvance();
             }
+        }
+
+        public ICharacterGroup CharacterGroup
+        {
+            get => (ICharacterGroup)this.GetValue(CharacterGroupProperty);
+            set => this.SetValue(CharacterGroupProperty, value);
+        }
+
+        public double VerticalAdvance
+        {
+            get => (double)this.GetValue(VerticalAdvanceProperty);
+            set => this.SetValue(VerticalAdvanceProperty, value);
+        }
+
+        public double ActualVerticalAdvance
+        {
+            get => (double)this.GetValue(ActualVerticalAdvanceProperty);
+            private set => this.SetValue(ActualVerticalAdvancePropertyKey, value);
+        }
+
+        public double ZoomLevel
+        {
+            get => (double)this.GetValue(ZoomLevelProperty);
+            set => this.SetValue(ZoomLevelProperty, value);
         }
 
         protected override Size MeasureOverride(Size constraint)
@@ -61,7 +114,50 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
         private static void CharacterGroupPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            
+            if (d is CharacterView self)
+            {
+                self.UpdateItemsSource();
+            }
+        }
+
+        private static void VerticalAdvancePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is CharacterView self)
+            {
+                self.UpdateActualVerticalAdvance();
+            }
+        }
+
+        private static void ZoomLevelPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is CharacterView self)
+            {
+                self.UpdateActualVerticalAdvance();
+            }
+        }
+
+        private void UpdateItemsSource()
+        {
+            if (this.CharacterGroup != null && this.CharacterGroup.Items != null)
+            {
+                this.gridControl.ItemsSource = this.CharacterGroup.Items;
+            }
+            else
+            {
+                this.gridControl.ItemsSource = emptyRows;
+            }
+        }
+
+        private void UpdateActualVerticalAdvance()
+        {
+            var actualVerticalAdvance = (int)(this.VerticalAdvance * this.ZoomLevel);
+            this.ActualVerticalAdvance = actualVerticalAdvance;
+            foreach (var item in this.gridControl.Columns)
+            {
+                item.Width = actualVerticalAdvance;
+                item.MinWidth = actualVerticalAdvance;
+                item.MaxWidth = actualVerticalAdvance;
+            }
         }
     }
 }

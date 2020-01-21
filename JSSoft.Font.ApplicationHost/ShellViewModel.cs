@@ -19,6 +19,7 @@ namespace JSSoft.Font.ApplicationHost
         private readonly ObservableCollection<CharacterGroup> groupList = new ObservableCollection<CharacterGroup>();
         private FontDescriptor fontDescriptor;
         private CharacterGroup selectedGroup;
+        private double zoomLevel = 2.0;
 
         [ImportingConstructor]
         public ShellViewModel([ImportMany]IEnumerable<IMenuItem> menuItems, [ImportMany]IEnumerable<IToolBarItem> toolBarItems)
@@ -48,6 +49,7 @@ namespace JSSoft.Font.ApplicationHost
                     if (item.IsVisible == true)
                         this.Groups.Add(item);
                 }
+                this.NotifyOfPropertyChange(nameof(this.VerticalAdvance));
                 this.DisplayName = this.fontDescriptor.Name;
                 this.IsOpened = true;
                 this.IsProgressing = false;
@@ -72,6 +74,20 @@ namespace JSSoft.Font.ApplicationHost
         public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems(this, this.menuItems);
 
         public IEnumerable<IToolBarItem> ToolBarItems => ToolBarItemUtility.GetToolBarItems(this, this.toolBarItems);
+
+        public int VerticalAdvance => this.fontDescriptor != null ? this.fontDescriptor.VerticalAdvance : 1;
+
+        public double ZoomLevel
+        {
+            get => this.zoomLevel;
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentOutOfRangeException(nameof(value));
+                this.zoomLevel = value;
+                this.NotifyOfPropertyChange(nameof(this.ZoomLevel));
+            }
+        }
 
         public bool IsOpened { get; private set; }
 
@@ -103,6 +119,7 @@ namespace JSSoft.Font.ApplicationHost
             await Task.Run(() => this.fontDescriptor.Dispose());
             await this.Dispatcher.InvokeAsync(() =>
             {
+                this.NotifyOfPropertyChange(nameof(this.VerticalAdvance));
                 this.DisplayName = "JSFont";
                 this.IsOpened = false;
                 this.IsProgressing = false;

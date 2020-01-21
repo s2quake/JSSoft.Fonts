@@ -18,6 +18,8 @@ namespace JSSoft.Font.ApplicationHost
 
         string DisplayName { get; }
 
+        double ZoomLevel { get; set; }
+
         IEnumerable<ICharacterGroup> Groups { get; }
 
         ICharacterGroup SelectedGroup { get; set; }

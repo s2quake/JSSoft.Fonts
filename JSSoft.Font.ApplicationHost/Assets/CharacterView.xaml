@@ -53,6 +53,7 @@
         <ControlTemplate.Resources>
             <Style TargetType="{x:Type nmgc:ModernDataRow}" BasedOn="{StaticResource {x:Type nmgc:ModernDataRow}}">
                 <Setter Property="xcdg:RowSelector.RowSelectorStyle" Value="{StaticResource CharacterRowSelector_Style}" />
+                <Setter Property="Height" Value="{Binding ActualVerticalAdvance, RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterView}}}" />
             </Style>
             <Style TargetType="{x:Type xcdg:RowSelector}" BasedOn="{StaticResource {x:Type xcdg:RowSelector}}">
             </Style>
