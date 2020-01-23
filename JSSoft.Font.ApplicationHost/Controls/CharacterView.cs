@@ -150,7 +150,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
         private void UpdateActualVerticalAdvance()
         {
-            var actualVerticalAdvance = (int)(this.VerticalAdvance * this.ZoomLevel);
+            var actualVerticalAdvance = (int)(this.VerticalAdvance * this.ZoomLevel) + 1;
             this.ActualVerticalAdvance = actualVerticalAdvance;
             foreach (var item in this.gridControl.Columns)
             {

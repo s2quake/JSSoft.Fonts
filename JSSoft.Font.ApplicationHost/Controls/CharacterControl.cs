@@ -119,6 +119,11 @@ namespace JSSoft.Font.ApplicationHost.Controls
                 this.image.Width = metrics.Width;
                 this.image.Height = metrics.Height;
             }
+            if (this.Text == "g")
+            {
+                int qwer = 0;
+
+            }
             if (metrics.VerticalAdvance !=0 && metrics.VerticalAdvance != 35)
             {
                 int qwer = 0;

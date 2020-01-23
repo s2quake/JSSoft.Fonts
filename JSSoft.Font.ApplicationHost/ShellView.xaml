@@ -43,7 +43,8 @@
                 </Style>
             </Menu.ItemContainerStyle>
         </Menu>
-        <nmfc:ExpandableToolBar Grid.Row="1" ItemsSource="{Binding ToolBarItems}" />
+        <nmfc:ExpandableToolBar Grid.Row="1" ItemsSource="{Binding ToolBarItems}">
+        </nmfc:ExpandableToolBar>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250" />
@@ -57,6 +58,9 @@
                                 VerticalAdvance="{Binding VerticalAdvance}" ZoomLevel="{Binding ZoomLevel}" />
         </Grid>
         <nmfc:ProgressContent Grid.Row="2" Visibility="{Binding IsProgressing, Converter={StaticResource BooleanToVisibilityConverter}}" d:IsHidden="True" />
-        <jsfc:StatusBarControl Grid.Row="3" d:IsHidden="False" />
+        <jsfc:StatusBarControl Grid.Row="3" d:IsHidden="True" />
+        <DockPanel Grid.Row="3" HorizontalAlignment="Stretch">
+            <jsfc:ZoomLevelControl Width="100" HorizontalAlignment="Left" Height="21" />
+        </DockPanel>
     </Grid>
 </mui:ModernWindow>

@@ -14,7 +14,7 @@
 
     <ControlTemplate x:Key="CharacterControl_Template" TargetType="{x:Type jsfc:CharacterControl}">
         <Grid x:Name="grid" Margin="{TemplateBinding Margin}">
-            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+            <Border BorderBrush="Red">
                 <Viewbox>
                     <Image x:Name="PART_Image" Source="{Binding Source}" RenderOptions.BitmapScalingMode="NearestNeighbor" />
                 </Viewbox>
@@ -31,6 +31,7 @@
         <Setter Property="Template" Value="{StaticResource CharacterControl_Template}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
         <!--<Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="BorderBrush" Value="Red" />
