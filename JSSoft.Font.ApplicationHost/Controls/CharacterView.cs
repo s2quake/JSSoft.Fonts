@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using Xceed.Wpf.DataGrid;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
@@ -18,14 +19,27 @@ namespace JSSoft.Font.ApplicationHost.Controls
             DependencyProperty.Register(nameof(CharacterGroup), typeof(ICharacterGroup), typeof(CharacterView),
                 new FrameworkPropertyMetadata(CharacterGroupPropertyChangedCallback));
 
-        public static readonly DependencyProperty VerticalAdvanceProperty =
-            DependencyProperty.Register(nameof(VerticalAdvance), typeof(double), typeof(CharacterView),
-                new FrameworkPropertyMetadata(VerticalAdvancePropertyChangedCallback));
+        public static readonly DependencyProperty CharacterProperty =
+            DependencyProperty.Register(nameof(Character), typeof(ICharacter), typeof(CharacterView),
+                new FrameworkPropertyMetadata(CharacterPropertyChangedCallback));
 
-        private static readonly DependencyPropertyKey ActualVerticalAdvancePropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(ActualVerticalAdvance), typeof(double), typeof(CharacterView),
+        public static readonly DependencyProperty ItemHeightProperty =
+            DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(CharacterView),
+                new FrameworkPropertyMetadata(50.0, ItemHeightPropertyChangedCallback));
+
+        public static readonly DependencyProperty ItemThicknessProperty =
+            DependencyProperty.Register(nameof(ItemThickness), typeof(Thickness), typeof(CharacterView),
+                new FrameworkPropertyMetadata(ItemThicknessPropertyChangedCallback));
+
+        private static readonly DependencyPropertyKey ActualItemHeightPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(ActualItemHeight), typeof(double), typeof(CharacterView),
                 new FrameworkPropertyMetadata());
-        public static readonly DependencyProperty ActualVerticalAdvanceProperty = ActualVerticalAdvancePropertyKey.DependencyProperty;
+        public static readonly DependencyProperty ActualItemHeightProperty = ActualItemHeightPropertyKey.DependencyProperty;
+
+        private static readonly DependencyPropertyKey ActualItemWidthPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(ActualItemWidth), typeof(double), typeof(CharacterView),
+                new FrameworkPropertyMetadata());
+        public static readonly DependencyProperty ActualItemWidthProperty = ActualItemWidthPropertyKey.DependencyProperty;
 
         public static readonly DependencyProperty ZoomLevelProperty =
             DependencyProperty.Register(nameof(ZoomLevel), typeof(double), typeof(CharacterView),
@@ -64,8 +78,9 @@ namespace JSSoft.Font.ApplicationHost.Controls
                 //    Source = this,
                 //};
                 //BindingOperations.SetBinding(this.gridControl, ModernDataGridControl.ItemsSourceProperty, binding);
+                this.gridControl.SelectionChanged += GridControl_SelectionChanged;
                 this.UpdateItemsSource();
-                this.UpdateActualVerticalAdvance();
+                this.UpdateActualItemHeight();
             }
         }
 
@@ -75,16 +90,34 @@ namespace JSSoft.Font.ApplicationHost.Controls
             set => this.SetValue(CharacterGroupProperty, value);
         }
 
-        public double VerticalAdvance
+        public ICharacter Character
         {
-            get => (double)this.GetValue(VerticalAdvanceProperty);
-            set => this.SetValue(VerticalAdvanceProperty, value);
+            get => (ICharacter)this.GetValue(CharacterProperty);
+            set => this.SetValue(CharacterProperty, value);
         }
 
-        public double ActualVerticalAdvance
+        public double ItemHeight
         {
-            get => (double)this.GetValue(ActualVerticalAdvanceProperty);
-            private set => this.SetValue(ActualVerticalAdvancePropertyKey, value);
+            get => (double)this.GetValue(ItemHeightProperty);
+            set => this.SetValue(ItemHeightProperty, value);
+        }
+
+        public Thickness ItemThickness
+        {
+            get => (Thickness)this.GetValue(ItemThicknessProperty);
+            set => this.SetValue(ItemThicknessProperty, value);
+        }
+
+        public double ActualItemHeight
+        {
+            get => (double)this.GetValue(ActualItemHeightProperty);
+            private set => this.SetValue(ActualItemHeightPropertyKey, value);
+        }
+
+        public double ActualItemWidth
+        {
+            get => (double)this.GetValue(ActualItemWidthProperty);
+            private set => this.SetValue(ActualItemWidthPropertyKey, value);
         }
 
         public double ZoomLevel
@@ -93,23 +126,14 @@ namespace JSSoft.Font.ApplicationHost.Controls
             set => this.SetValue(ZoomLevelProperty, value);
         }
 
-        protected override Size MeasureOverride(Size constraint)
-        {
-            return base.MeasureOverride(constraint);
-        }
-
-        protected override Size ArrangeOverride(Size arrangeBounds)
-        {
-            //foreach (var item in this.Columns)
-            //{
-            //    //item.Width = 25;
-            //}
-            return base.ArrangeOverride(arrangeBounds);
-        }
-
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
             base.OnPreviewKeyDown(e);
+
+            if (Keyboard.Modifiers == ModifierKeys.None && e.Key == Key.Space && this.Character != null)
+            {
+                this.Character.IsChecked = !this.Character.IsChecked;
+            }
         }
 
         private static void CharacterGroupPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -120,11 +144,27 @@ namespace JSSoft.Font.ApplicationHost.Controls
             }
         }
 
-        private static void VerticalAdvancePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void CharacterPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is CharacterView self)
             {
-                self.UpdateActualVerticalAdvance();
+                self.UpdateSelectedItem();
+            }
+        }
+
+        private static void ItemHeightPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is CharacterView self)
+            {
+                self.UpdateActualItemHeight();
+            }
+        }
+
+        private static void ItemThicknessPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is CharacterView self)
+            {
+                self.UpdateActualItemHeight();
             }
         }
 
@@ -132,7 +172,20 @@ namespace JSSoft.Font.ApplicationHost.Controls
         {
             if (d is CharacterView self)
             {
-                self.UpdateActualVerticalAdvance();
+                self.UpdateActualItemHeight();
+            }
+        }
+
+        private void GridControl_SelectionChanged(object sender, Xceed.Wpf.DataGrid.DataGridSelectionChangedEventArgs e)
+        {
+            if (this.gridControl.CurrentItem is ICharacterRow row && this.gridControl.CurrentColumn is Column column)
+            {
+                var prop = typeof(ICharacterRow).GetProperty(column.FieldName);
+                this.Character = prop.GetValue(row, null) as ICharacter;
+            }
+            else
+            {
+                this.Character = null;
             }
         }
 
@@ -148,15 +201,23 @@ namespace JSSoft.Font.ApplicationHost.Controls
             }
         }
 
-        private void UpdateActualVerticalAdvance()
+        private void UpdateSelectedItem()
         {
-            var actualVerticalAdvance = (int)(this.VerticalAdvance * this.ZoomLevel) + 1;
-            this.ActualVerticalAdvance = actualVerticalAdvance;
-            foreach (var item in this.gridControl.Columns)
+
+        }
+
+        private void UpdateActualItemHeight()
+        {
+            this.ActualItemHeight = (int)(this.ItemHeight * this.ZoomLevel + this.ItemThickness.Top + this.ItemThickness.Bottom) + 1;
+            this.ActualItemWidth = (int)(this.ItemHeight * this.ZoomLevel + this.ItemThickness.Left + this.ItemThickness.Right) + 1;
+            if (this.gridControl != null)
             {
-                item.Width = actualVerticalAdvance;
-                item.MinWidth = actualVerticalAdvance;
-                item.MaxWidth = actualVerticalAdvance;
+                foreach (var item in this.gridControl.Columns)
+                {
+                    item.Width = ActualItemWidth;
+                    item.MinWidth = ActualItemWidth;
+                    item.MaxWidth = ActualItemWidth;
+                }
             }
         }
     }

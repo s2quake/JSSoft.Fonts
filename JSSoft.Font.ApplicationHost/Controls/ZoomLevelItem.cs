@@ -13,13 +13,19 @@ namespace JSSoft.Font.ApplicationHost.Controls
 {
     public struct ZoomLevelItem
     {
+        private string text;
+
         public double Level { get; set; }
 
-        public string Text { get; set; }
+        public string Text
+        {
+            get => this.text ?? $"{this.Level * 100} %";
+            set => this.text = value;
+        }
 
         public override string ToString()
         {
-            return this.Text ?? $"{(this.Level * 100):2}";
+            return this.Text;
         }
     }
 }

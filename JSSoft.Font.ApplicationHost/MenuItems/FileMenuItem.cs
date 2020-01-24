@@ -14,7 +14,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems
     {
         public FileMenuItem()
         {
-            this.DisplayName = "File";
+            this.DisplayName = "_File";
         }
     }
 }

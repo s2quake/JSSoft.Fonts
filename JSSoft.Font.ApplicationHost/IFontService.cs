@@ -18,7 +18,7 @@ namespace JSSoft.Font.ApplicationHost
 
         IReadOnlyDictionary<uint, GlyphMetrics> Metrics { get; }
 
-        int VerticalAdvance { get; }
+        int ItemHeight { get; }
 
         bool IsOpened { get; }
 

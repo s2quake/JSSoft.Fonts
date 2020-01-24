@@ -43,8 +43,8 @@ namespace JSSoft.Font.ApplicationHost
             while (i1 < max)
             {
                 var i2 = Math.Min(i1 + 16, max);
-                itemList.Add(new CharacterRow(this.fontDescriptor, i1, i2));
-                i1 = i2 + 1;
+                itemList.Add(new CharacterRow(this, this.fontDescriptor, i1, i2));
+                i1 = i2;
             }
             return itemList.ToArray();
         }

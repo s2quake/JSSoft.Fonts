@@ -75,7 +75,7 @@ namespace JSSoft.Font.ApplicationHost
 
         public IEnumerable<IToolBarItem> ToolBarItems => ToolBarItemUtility.GetToolBarItems(this, this.toolBarItems);
 
-        public int VerticalAdvance => (this.fontDescriptor != null ? this.fontDescriptor.VerticalAdvance : 1);
+        public int VerticalAdvance => (this.fontDescriptor != null ? this.fontDescriptor.ItemHeight : 1);
 
         public double ZoomLevel
         {

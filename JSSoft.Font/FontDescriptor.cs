@@ -25,7 +25,7 @@ namespace JSSoft.Font
             this.lib = new Library();
             this.face = new Face(this.lib, path);
             this.face.SetCharSize(0, height, 0, dpi);
-            this.VerticalAdvance = (int)Math.Round(this.face.Height * pixelSize / this.face.UnitsPerEM);
+            this.ItemHeight = (int)Math.Round(this.face.Height * pixelSize / this.face.UnitsPerEM);
             var (min, max) = NamesList.Range;
             for (var i = min; i <= max; i++)
             {
@@ -40,7 +40,7 @@ namespace JSSoft.Font
 
         public int Height { get; private set; }
 
-        public int VerticalAdvance { get; private set; }
+        public int ItemHeight { get; private set; }
 
         public string Name { get; private set; } = string.Empty;
 
@@ -115,7 +115,7 @@ namespace JSSoft.Font
         {
             this.bitmapByID.Clear();
             this.metricsByID.Clear();
-            this.VerticalAdvance = 0;
+            this.ItemHeight = 0;
             this.face?.Dispose();
             this.face = null;
             this.lib?.Dispose();

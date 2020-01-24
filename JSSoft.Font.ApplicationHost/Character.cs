@@ -1,6 +1,7 @@
 ﻿using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Drawing.Imaging;
 using System.IO;
@@ -25,8 +26,9 @@ namespace JSSoft.Font.ApplicationHost
             this.ID = id;
         }
 
-        public Character(FontDescriptor fontDescriptor, uint id)
+        public Character(CharacterRow row, FontDescriptor fontDescriptor, uint id)
         {
+            this.Row = row ?? throw new ArgumentNullException(nameof(row));
             this.fontDescriptor = fontDescriptor ?? throw new ArgumentNullException(nameof(fontDescriptor));
             this.ID = id;
             this.isEnabled = this.fontDescriptor.Metrics.ContainsKey(id);
@@ -36,7 +38,7 @@ namespace JSSoft.Font.ApplicationHost
             }
             else
             {
-                this.glyphMetrics.VerticalAdvance = this.fontDescriptor.VerticalAdvance;
+                this.glyphMetrics.VerticalAdvance = this.fontDescriptor.ItemHeight;
             }
             if (this.fontDescriptor.Bitmaps.ContainsKey(id))
             {
@@ -54,12 +56,15 @@ namespace JSSoft.Font.ApplicationHost
                     this.source = bitmapImage;
                 }
             }
+            this.Row.PropertyChanged += Row_PropertyChanged;
         }
 
         public override string ToString()
         {
             return $"{(char)this.ID}";
         }
+
+        public CharacterRow Row { get; }
 
         public uint ID { get; }
 
@@ -77,7 +82,12 @@ namespace JSSoft.Font.ApplicationHost
 
         public bool IsChecked
         {
-            get => this.isChecked;
+            get
+            {
+                if (this.Row != null && this.Row.IsChecked != null)
+                    return this.Row.IsChecked.Value;
+                return this.isChecked;
+            }
             set
             {
                 this.isChecked = value;
@@ -102,6 +112,17 @@ namespace JSSoft.Font.ApplicationHost
             {
                 this.glyphMetrics = value;
                 this.NotifyOfPropertyChange(nameof(GlyphMetrics));
+            }
+        }
+
+        private void Row_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CharacterRow.IsChecked))
+            {
+                //if (object.Equals(this.Row.IsChecked, this.isChecked) == false)
+                {
+                    this.NotifyOfPropertyChange(nameof(IsChecked));
+                }
             }
         }
     }

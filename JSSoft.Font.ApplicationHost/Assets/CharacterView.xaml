@@ -1,12 +1,28 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<ResourceDictionary x:Class="JSSoft.Font.ApplicationHost.Assets.CharacterView"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
                     xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
                     xmlns:nmgc="clr-namespace:Ntreev.ModernUI.Framework.DataGrid.Controls;assembly=Ntreev.ModernUI.Framework.DataGrid"
                     xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
-                    xmlns:jsfv="clr-namespace:JSSoft.Font.ApplicationHost.Converters">
+                    xmlns:jsfv="clr-namespace:JSSoft.Font.ApplicationHost.Converters"
+                    xmlns:vm="clr-namespace:JSSoft.Font.ApplicationHost">
 
     <jsfv:FieldNameToValueConverter x:Key="FieldNameToValueConverter" />
+
+    <DataTemplate x:Key="Cell_ContentTemplate">
+        <jsfc:CharacterControl x:Name="CharacterControl" Text="{Binding Text}" IsEnabled="{Binding IsEnabled}" Source="{Binding Source}" GlyphMetrics="{Binding GlyphMetrics}"
+                               BorderBrush="{StaticResource WindowBackground}"
+                               BorderThickness="{Binding ItemThickness, RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterView}}}"/>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding IsChecked}" Value="True">
+                <Setter TargetName="CharacterControl" Property="BorderBrush" Value="{StaticResource Accent}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CharacterGroup.IsChecked, RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterView}}}" Value="True">
+                <Setter TargetName="CharacterControl" Property="BorderBrush" Value="{StaticResource Accent}" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
 
     <DataTemplate x:Key="CharacterRowSelector_ContentTemplate">
         <TextBlock Text="{Binding DataContext.DataContext.Index, RelativeSource={RelativeSource AncestorType={x:Type xcdg:RowSelector}}, StringFormat={}{0:X}}" />
@@ -16,11 +32,11 @@
         <Grid>
             <Border x:Name="rootBorder" Background="{TemplateBinding Background}" BorderBrush="{DynamicResource DataGridGridLines}" BorderThickness="0 0 0 1">
                 <Grid VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
-                    <ContentPresenter x:Name="contentPresenter"
-                                          Margin="{TemplateBinding Padding}"
-                                          Content="{TemplateBinding Content}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                                          ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
+                    <ContentPresenter x:Name="contentPresenter" 
+                                      Margin="{TemplateBinding Padding}" 
+                                      Content="{TemplateBinding Content}" 
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
                 </Grid>
             </Border>
             <Thumb x:Name="PART_RowResizerThumb" VerticalAlignment="Bottom" Style="{StaticResource Invisible_Thumb_Style}" Visibility="Collapsed" />
@@ -53,19 +69,16 @@
         <ControlTemplate.Resources>
             <Style TargetType="{x:Type nmgc:ModernDataRow}" BasedOn="{StaticResource {x:Type nmgc:ModernDataRow}}">
                 <Setter Property="xcdg:RowSelector.RowSelectorStyle" Value="{StaticResource CharacterRowSelector_Style}" />
-                <Setter Property="Height" Value="{Binding ActualVerticalAdvance, RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterView}}}" />
+                <Setter Property="Height" Value="{Binding ActualItemHeight, RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterView}}}" />
             </Style>
             <Style TargetType="{x:Type xcdg:RowSelector}" BasedOn="{StaticResource {x:Type xcdg:RowSelector}}">
             </Style>
-            <Style TargetType="{x:Type xcdg:ColumnManagerRow}" BasedOn="{StaticResource {x:Type xcdg:ColumnManagerRow}}">
-                <!--<Setter Property="AllowColumnResize" Value="False" />-->
-            </Style>
             <Style TargetType="{x:Type nmgc:ModernDataCell}" BasedOn="{StaticResource {x:Type nmgc:ModernDataCell}}">
-                <Setter Property="Padding" Value="0" />
+                <Setter Property="Padding" Value="0 0 1 0" />
+                <Setter Property="ContentTemplate" Value="{StaticResource Cell_ContentTemplate}" />
             </Style>
         </ControlTemplate.Resources>
-        <nmgc:ModernDataGridControl x:Name="PART_DataGrid" BorderThickness="{TemplateBinding BorderThickness}" 
-                                    BorderBrush="{TemplateBinding BorderBrush}" AutoCreateColumns="False">
+        <nmgc:ModernDataGridControl x:Name="PART_DataGrid" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" AutoCreateColumns="False">
             <nmgc:ModernDataGridControl.Columns>
                 <xcdg:Column FieldName="Item0" Title="0" />
                 <xcdg:Column FieldName="Item1" Title="1" />
@@ -93,6 +106,7 @@
     <Style TargetType="{x:Type jsfc:CharacterView}">
         <Setter Property="Template" Value="{StaticResource CharacterView_Template}" />
         <Setter Property="BorderBrush" Value="{StaticResource ItemBorder}" />
+        <Setter Property="ItemThickness" Value="1 1 1 1" />
     </Style>
 
 </ResourceDictionary>

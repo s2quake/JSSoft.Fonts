@@ -5,7 +5,7 @@
 
     <VisualBrush x:Key="MyVisualBrush" TileMode="Tile" Viewport="0,0,15,15" ViewportUnits="Absolute" Viewbox="0,0,15,15" ViewboxUnits="Absolute">
         <VisualBrush.Visual>
-            <Grid Background="Black">
+            <Grid>
                 <Path Data="M 0 15 L 15 0" Stroke="Gray" />
                 <Path Data="M 0 0 L 15 15" Stroke="Gray" />
             </Grid>
@@ -14,9 +14,9 @@
 
     <ControlTemplate x:Key="CharacterControl_Template" TargetType="{x:Type jsfc:CharacterControl}">
         <Grid x:Name="grid" Margin="{TemplateBinding Margin}">
-            <Border BorderBrush="Red">
+            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                 <Viewbox>
-                    <Image x:Name="PART_Image" Source="{Binding Source}" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                    <Image x:Name="PART_Image" Source="{TemplateBinding Source}" RenderOptions.BitmapScalingMode="NearestNeighbor" />
                 </Viewbox>
             </Border>
         </Grid>
@@ -29,15 +29,10 @@
 
     <Style TargetType="{x:Type jsfc:CharacterControl}">
         <Setter Property="Template" Value="{StaticResource CharacterControl_Template}" />
-        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="0" />
-        <!--<Style.Triggers>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="BorderBrush" Value="Red" />
-                <Setter Property="BorderThickness" Value="1" />
-            </Trigger>
-        </Style.Triggers>-->
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
     </Style>
 
 </ResourceDictionary>

@@ -8,6 +8,7 @@
                   xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
                   xmlns:nmgc="clr-namespace:Ntreev.ModernUI.Framework.DataGrid.Controls;assembly=Ntreev.ModernUI.Framework.DataGrid"
                   xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
+                  xmlns:jsfv="clr-namespace:JSSoft.Font.ApplicationHost.Converters"
                   xmlns:vm="clr-namespace:JSSoft.Font.ApplicationHost"
                   Height="550" Width="800" Style="{StaticResource ModernWindow_Style}" Title="{Binding DisplayName}">
 
@@ -18,14 +19,12 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <CheckBox IsChecked="{Binding IsChecked}" />
+                <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" IsThreeState="True" />
                 <TextBlock Grid.Column="1" Text="{Binding DisplayName}" />
             </Grid>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:Character}">
-            <jsfc:CharacterControl Text="{Binding Text}" IsEnabled="{Binding IsEnabled}" Padding="2" Source="{Binding Source}" GlyphMetrics="{Binding GlyphMetrics}"
-                                   VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" />
-        </DataTemplate>
+        
+        <jsfv:CharacterToDisplayTextConverter x:Key="CharacterToDisplayTextConverter" />
     </mui:ModernWindow.Resources>
 
     <Grid>
@@ -54,13 +53,32 @@
             <ListBox ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, Delay=200}" BorderThickness="0 1 1 0" BorderBrush="{StaticResource ItemBorder}"
                      ItemTemplate="{StaticResource ListBox_ItemTemplate}" ItemContainerStyle="{StaticResource FlatListBoxItem}" />
             <GridSplitter Grid.Column="1" Background="{StaticResource WindowBackground}" />
-            <jsfc:CharacterView Grid.Column="2" CharacterGroup="{Binding SelectedGroup}" BorderThickness="1 1 0 0 " 
-                                VerticalAdvance="{Binding VerticalAdvance}" ZoomLevel="{Binding ZoomLevel}" />
+            <jsfc:CharacterView x:Name="CharacterView" Grid.Column="2" CharacterGroup="{Binding SelectedGroup}" BorderThickness="1 1 0 0 " 
+                                ItemHeight="{Binding VerticalAdvance}" ZoomLevel="{Binding ZoomLevel}" />
         </Grid>
         <nmfc:ProgressContent Grid.Row="2" Visibility="{Binding IsProgressing, Converter={StaticResource BooleanToVisibilityConverter}}" d:IsHidden="True" />
-        <jsfc:StatusBarControl Grid.Row="3" d:IsHidden="True" />
-        <DockPanel Grid.Row="3" HorizontalAlignment="Stretch">
-            <jsfc:ZoomLevelControl Width="100" HorizontalAlignment="Left" Height="21" />
-        </DockPanel>
+        <StatusBar Grid.Row="3">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+
+            <StatusBarItem Grid.Column="0">
+                <jsfc:ZoomLevelControl Width="100" HorizontalAlignment="Left" ZoomLevel="{Binding ZoomLevel, Mode=TwoWay}" />
+            </StatusBarItem>
+
+            <StatusBarItem Grid.Column="1">
+                <TextBlock Text="{Binding Character, ElementName=CharacterView, Converter={StaticResource CharacterToDisplayTextConverter}}" HorizontalAlignment="Center" />
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="2">
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </mui:ModernWindow>

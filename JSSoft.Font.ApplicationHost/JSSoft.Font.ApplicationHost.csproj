@@ -60,6 +60,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Assets\CharacterView.xaml.cs">
+      <DependentUpon>CharacterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CharacterRow.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="CharacterGroup.cs" />
@@ -67,6 +70,8 @@
     <Compile Include="Controls\ZoomLevelControl.cs" />
     <Compile Include="Controls\StatusBarControl.cs" />
     <Compile Include="Controls\CharacterControl.cs" />
+    <Compile Include="Converters\AdvanceToHeightConverter.cs" />
+    <Compile Include="Converters\CharacterToDisplayTextConverter.cs" />
     <Compile Include="ToolBarItems\OpenFontToolBarItem.cs" />
     <None Include="Controls\CharacterControl.xaml.cs">
       <DependentUpon>CharacterControl.xaml</DependentUpon>
