@@ -54,20 +54,6 @@ namespace JSSoft.Font.ApplicationHost.Controls
             }
         }
 
-        protected override Size MeasureOverride(Size constraint)
-        {
-            var length = Math.Min(constraint.Width, constraint.Height);
-            var size = new Size(length, length);
-
-
-            //var metrics = this.GlyphMetrics;
-            //if (metrics.HorizontalAdvance)
-
-
-
-            return base.MeasureOverride(size);
-        }
-
         public string Text
         {
             get => (string)this.GetValue(TextProperty);
@@ -96,11 +82,6 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
         private void UpdateImageLayout()
         {
-            if (this.Text == "g")
-            {
-                int qwer = 0;
-            }
-            
             var metrics = this.GlyphMetrics;
 
             if (metrics.Width == 0 || metrics.Height == 0)
@@ -119,19 +100,6 @@ namespace JSSoft.Font.ApplicationHost.Controls
                 this.image.Margin = new Thickness(left, top, right, bottom);
                 this.image.Width = metrics.Width;
                 this.image.Height = metrics.Height;
-            }
-            if (this.Text == "g")
-            {
-                int qwer = 0;
-
-            }
-            if (metrics.VerticalAdvance !=0 && metrics.VerticalAdvance != 35)
-            {
-                int qwer = 0;
-            }
-            if (this.GlyphMetrics.Height != 0 && (this.Text == "'" || this.Text== "\""))
-            {
-                int weqr = 0;
             }
         }
     }

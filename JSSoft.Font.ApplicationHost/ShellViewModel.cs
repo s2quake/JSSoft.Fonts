@@ -54,6 +54,7 @@ namespace JSSoft.Font.ApplicationHost
                 this.DisplayName = this.fontDescriptor.Name;
                 this.IsOpened = true;
                 this.IsProgressing = false;
+                this.SelectedGroup = this.Groups.FirstOrDefault();
             });
         }
 

@@ -45,9 +45,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FontDescriptor.cs" />
+    <Compile Include="FontWriter.cs" />
+    <Compile Include="FontWriterSettings.cs" />
     <Compile Include="GlyphMetrics.cs" />
     <Compile Include="NamesList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\CharSerializationInfo.cs" />
+    <Compile Include="Serialization\CharsSerializationInfo.cs" />
+    <Compile Include="Serialization\CommonSerializationInfo.cs" />
+    <Compile Include="Serialization\FontSerializationInfo.cs" />
+    <Compile Include="Serialization\InfoSerializationInfo.cs" />
+    <Compile Include="Serialization\PageSerializationInfo.cs" />
+    <Compile Include="Serialization\PagesSerializationInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SharpFont">

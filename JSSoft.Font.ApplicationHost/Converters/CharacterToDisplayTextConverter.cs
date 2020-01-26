@@ -14,7 +14,7 @@ namespace JSSoft.Font.ApplicationHost.Converters
         {
             if (value is ICharacter character)
             {
-                return $"{character.ID:X} : {character.ID}";
+                return $"0x{character.ID:X}    {character.ID}";
             }
             return value;
         }

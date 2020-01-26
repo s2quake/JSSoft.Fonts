@@ -11,12 +11,12 @@ namespace JSSoft.Font.ApplicationHost.MenuItems
 {
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(IShell))]
-    [Order(0)]
-    class FileMenuItem : MenuItemBase
+    [Order(1)]
+    class ViewMenuItem : MenuItemBase
     {
-        public FileMenuItem()
+        public ViewMenuItem()
         {
-            this.DisplayName = "_File";
+            this.DisplayName = "_View";
         }
     }
 }

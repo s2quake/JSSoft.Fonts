@@ -66,8 +66,22 @@ namespace JSSoft.Font.ApplicationHost
         {
             if (e.PropertyName == nameof(Character.IsChecked))
             {
-                this.isChecked = null;
-                this.NotifyOfPropertyChange(nameof(IsChecked));
+                var allChecked = GetAllChecked();
+                if (this.isChecked != allChecked)
+                {
+                    this.isChecked = allChecked;
+                    this.NotifyOfPropertyChange(nameof(IsChecked));
+                }
+            }
+
+            bool? GetAllChecked()
+            {
+                var selectedCount = this.Items.Count(item => item.IsChecked == true);
+                if (selectedCount == this.Items.Length)
+                    return true;
+                else if (selectedCount == 0)
+                    return false;
+                return null;
             }
         }
 
