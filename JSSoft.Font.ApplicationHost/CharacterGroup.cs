@@ -1,6 +1,8 @@
 ﻿using Ntreev.ModernUI.Framework.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
@@ -11,8 +13,8 @@ namespace JSSoft.Font.ApplicationHost
     class CharacterGroup : ListBoxItemViewModel, ICharacterGroup
     {
         private readonly FontDescriptor fontDescriptor;
-        private string name;
-        private bool? isChecked;
+        private readonly string name;
+        private bool? isChecked = false;
 
         public CharacterGroup(FontDescriptor fontDescriptor, string name, uint min, uint max)
         {
@@ -27,8 +29,17 @@ namespace JSSoft.Font.ApplicationHost
             get => this.isChecked;
             set
             {
-                this.isChecked = value;
-                this.NotifyOfPropertyChange(nameof(IsChecked));
+                if (this.isChecked != value)
+                {
+                    this.isChecked = value ?? false;
+                    this.NotifyOfPropertyChange(nameof(IsChecked));
+                    foreach (var item in this.Items)
+                    {
+                        item.PropertyChanged -= Item_PropertyChanged;
+                        item.SetChecked(this.isChecked.Value);
+                        item.PropertyChanged += Item_PropertyChanged;
+                    }
+                }
             }
         }
 
@@ -43,10 +54,21 @@ namespace JSSoft.Font.ApplicationHost
             while (i1 < max)
             {
                 var i2 = Math.Min(i1 + 16, max);
-                itemList.Add(new CharacterRow(this, this.fontDescriptor, i1, i2));
+                var item = new CharacterRow(this.fontDescriptor, i1, i2);
+                itemList.Add(item);
+                item.PropertyChanged += Item_PropertyChanged;
                 i1 = i2;
             }
             return itemList.ToArray();
+        }
+
+        private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Character.IsChecked))
+            {
+                this.isChecked = null;
+                this.NotifyOfPropertyChange(nameof(IsChecked));
+            }
         }
 
         #region ICharacterGroup
@@ -54,6 +76,8 @@ namespace JSSoft.Font.ApplicationHost
         string ICharacterGroup.Name => this.name;
 
         ICharacterRow[] ICharacterGroup.Items => this.Items;
+
+        public bool ContainsListCollection => throw new NotImplementedException();
 
         #endregion
     }

@@ -35,7 +35,6 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
         private readonly ObservableCollection<ZoomLevelItem> itemList;
         private ComboBox comboBox;
-        private TextBox textBox;
 
         public ZoomLevelControl()
         {
@@ -63,18 +62,29 @@ namespace JSSoft.Font.ApplicationHost.Controls
                     popup.Placement = PlacementMode.Top;
                     BindingOperations.SetBinding(popup, Popup.PlacementProperty, new Binding(nameof(PopupPlacement)) { Source = this });
                     textBox.LostFocus += TextBox_LostFocus;
-                    textBox.TextChanged += TextBox_TextChanged;
                     textBox.PreviewKeyDown += TextBox_PreviewKeyDown;
-                    this.textBox = textBox;
                 }
 
                 BindingOperations.SetBinding(comboBox, ItemsControl.ItemsSourceProperty, new Binding(nameof(Items)) { Source = this });
                 comboBox.DisplayMemberPath = nameof(ZoomLevelItem.Text);
                 this.comboBox = comboBox;
-                this.comboBox.SelectionChanged += ComboBox_SelectionChanged;
                 this.comboBox.DropDownClosed += ComboBox_DropDownClosed;
                 this.UpdateText();
             }
+        }
+
+        public PlacementMode PopupPlacement
+        {
+            get => (PlacementMode)this.GetValue(PopupPlacementProperty);
+            set => this.SetValue(PopupPlacementProperty, value);
+        }
+
+        public IList<ZoomLevelItem> Items => (IList<ZoomLevelItem>)this.GetValue(ItemsProperty);
+
+        public double ZoomLevel
+        {
+            get => (double)this.GetValue(ZoomLevelProperty);
+            set => this.SetValue(ZoomLevelProperty, value);
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
@@ -88,11 +98,6 @@ namespace JSSoft.Font.ApplicationHost.Controls
             {
                 this.ZoomLevel = item.Level;
             }
-        }
-
-        private void TextBox_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -119,50 +124,6 @@ namespace JSSoft.Font.ApplicationHost.Controls
             }
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (sender is TextBox textBox)
-            {
-                var text = textBox.Text;
-
-            }
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (FocusManager.GetFocusedElement(this) == this.textBox)
-            {
-
-            }
-            else
-            {
-                //if (this.comboBox.SelectedItem is ZoomLevelItem item)
-                //{
-                //    this.ZoomLevel = item.Level;
-                //}
-            }
-        }
-
-        protected override void OnLostFocus(RoutedEventArgs e)
-        {
-            base.OnLostFocus(e);
-            this.UpdateText();
-        }
-
-        public PlacementMode PopupPlacement
-        {
-            get => (PlacementMode)this.GetValue(PopupPlacementProperty);
-            set => this.SetValue(PopupPlacementProperty, value);
-        }
-
-        public IList<ZoomLevelItem> Items => (IList<ZoomLevelItem>)this.GetValue(ItemsProperty);
-
-        public double ZoomLevel
-        {
-            get => (double)this.GetValue(ZoomLevelProperty);
-            set => this.SetValue(ZoomLevelProperty, value);
-        }
-
         private static void ZoomLevelPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is ZoomLevelControl control)
@@ -175,7 +136,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
         {
             if (this.comboBox != null)
             {
-                this.comboBox.Text = $"{this.ZoomLevel*100:0.##} %";
+                this.comboBox.Text = $"{this.ZoomLevel * 100:0.##} %";
             }
         }
     }

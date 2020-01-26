@@ -26,9 +26,8 @@ namespace JSSoft.Font.ApplicationHost
             this.ID = id;
         }
 
-        public Character(CharacterRow row, FontDescriptor fontDescriptor, uint id)
+        public Character(FontDescriptor fontDescriptor, uint id)
         {
-            this.Row = row ?? throw new ArgumentNullException(nameof(row));
             this.fontDescriptor = fontDescriptor ?? throw new ArgumentNullException(nameof(fontDescriptor));
             this.ID = id;
             this.isEnabled = this.fontDescriptor.Metrics.ContainsKey(id);
@@ -56,15 +55,12 @@ namespace JSSoft.Font.ApplicationHost
                     this.source = bitmapImage;
                 }
             }
-            this.Row.PropertyChanged += Row_PropertyChanged;
         }
 
         public override string ToString()
         {
             return $"{(char)this.ID}";
         }
-
-        public CharacterRow Row { get; }
 
         public uint ID { get; }
 
@@ -82,16 +78,14 @@ namespace JSSoft.Font.ApplicationHost
 
         public bool IsChecked
         {
-            get
-            {
-                if (this.Row != null && this.Row.IsChecked != null)
-                    return this.Row.IsChecked.Value;
-                return this.isChecked;
-            }
+            get => this.isChecked;
             set
             {
-                this.isChecked = value;
-                this.NotifyOfPropertyChange(nameof(IsChecked));
+                if (this.isChecked != value)
+                {
+                    this.isChecked = value;
+                    this.NotifyOfPropertyChange(nameof(IsChecked));
+                }
             }
         }
 
@@ -115,14 +109,12 @@ namespace JSSoft.Font.ApplicationHost
             }
         }
 
-        private void Row_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public void SetChecked(bool value)
         {
-            if (e.PropertyName == nameof(CharacterRow.IsChecked))
+            if (this.isChecked != value)
             {
-                //if (object.Equals(this.Row.IsChecked, this.isChecked) == false)
-                {
-                    this.NotifyOfPropertyChange(nameof(IsChecked));
-                }
+                this.isChecked = value;
+                this.NotifyOfPropertyChange(nameof(IsChecked));
             }
         }
     }

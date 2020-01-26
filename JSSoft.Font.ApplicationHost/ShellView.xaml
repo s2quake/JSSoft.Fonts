@@ -43,6 +43,10 @@
             </Menu.ItemContainerStyle>
         </Menu>
         <nmfc:ExpandableToolBar Grid.Row="1" ItemsSource="{Binding ToolBarItems}">
+            <DockPanel>
+                <Label>thickness</Label>
+                <TextBox>123werwerew</TextBox>
+            </DockPanel>
         </nmfc:ExpandableToolBar>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -50,7 +54,7 @@
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <ListBox ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, Delay=200}" BorderThickness="0 1 1 0" BorderBrush="{StaticResource ItemBorder}"
+            <ListBox ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, Delay=0}" BorderThickness="0 1 1 0" BorderBrush="{StaticResource ItemBorder}"
                      ItemTemplate="{StaticResource ListBox_ItemTemplate}" ItemContainerStyle="{StaticResource FlatListBoxItem}" />
             <GridSplitter Grid.Column="1" Background="{StaticResource WindowBackground}" />
             <jsfc:CharacterView x:Name="CharacterView" Grid.Column="2" CharacterGroup="{Binding SelectedGroup}" BorderThickness="1 1 0 0 " 

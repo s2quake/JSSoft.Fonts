@@ -35,10 +35,11 @@ namespace JSSoft.Font.ApplicationHost
             await Task.Run(() =>
             {
                 this.fontDescriptor = new FontDescriptor(fontPath, 96, 22);
+                this.groupList.Clear();
                 foreach (var (name, min, max) in NamesList.Items)
                 {
-                    var item = new CharacterGroup(this.fontDescriptor, name, min, max);
-                    this.groupList.Add(item);
+                    var items = this.CreateGroups(name, min, max);
+                    Array.ForEach(items, item => this.groupList.Add(item));
                 }
             });
             await this.Dispatcher.InvokeAsync(() =>
@@ -54,6 +55,28 @@ namespace JSSoft.Font.ApplicationHost
                 this.IsOpened = true;
                 this.IsProgressing = false;
             });
+        }
+
+        private CharacterGroup[] CreateGroups(string name, uint min, uint max)
+        {
+            if (max - min <= 0xff)
+            {
+                return new CharacterGroup[] { new CharacterGroup(this.fontDescriptor, name, min, max) };
+            }
+            else
+            {
+                var groupList = new List<CharacterGroup>();
+                while (max - min > 0xff)
+                {
+                    groupList.Add(new CharacterGroup(this.fontDescriptor, name, min, min + 0xff));
+                    min += 0xff + 1;
+                }
+                if (max - min <= 0xff)
+                {
+                    groupList.Add(new CharacterGroup(this.fontDescriptor, name, min, max));
+                }
+                return groupList.ToArray();
+            }
         }
 
         public ObservableCollection<CharacterGroup> Groups { get; } = new ObservableCollection<CharacterGroup>();

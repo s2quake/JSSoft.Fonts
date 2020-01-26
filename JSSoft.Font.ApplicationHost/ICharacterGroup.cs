@@ -1,4 +1,6 @@
-﻿namespace JSSoft.Font.ApplicationHost
+﻿using System.ComponentModel;
+
+namespace JSSoft.Font.ApplicationHost
 {
     public interface ICharacterGroup
     {

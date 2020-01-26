@@ -63,6 +63,7 @@
     <Compile Include="Assets\CharacterView.xaml.cs">
       <DependentUpon>CharacterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CharacterGroupView.cs" />
     <Compile Include="CharacterRow.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="CharacterGroup.cs" />
@@ -70,14 +71,10 @@
     <Compile Include="Controls\ZoomLevelControl.cs" />
     <Compile Include="Controls\StatusBarControl.cs" />
     <Compile Include="Controls\CharacterControl.cs" />
-    <Compile Include="Converters\AdvanceToHeightConverter.cs" />
     <Compile Include="Converters\CharacterToDisplayTextConverter.cs" />
+    <Compile Include="MenuItems\FileMenus\ExportFontMenuItem.cs" />
     <Compile Include="ToolBarItems\OpenFontToolBarItem.cs" />
-    <None Include="Controls\CharacterControl.xaml.cs">
-      <DependentUpon>CharacterControl.xaml</DependentUpon>
-    </None>
     <Compile Include="Controls\CharacterView.cs" />
-    <Compile Include="Controls\WrapGrid.cs" />
     <Compile Include="Converters\FieldNameToValueConverter.cs" />
     <Compile Include="BackgroundTaskBase.cs" />
     <Compile Include="IBackgroundTask.cs" />
@@ -115,10 +112,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <None Include="Controls\CharacterControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <Page Include="Assets\ZoomLevelControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

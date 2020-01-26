@@ -132,7 +132,28 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
             if (Keyboard.Modifiers == ModifierKeys.None && e.Key == Key.Space && this.Character != null)
             {
-                this.Character.IsChecked = !this.Character.IsChecked;
+                foreach(var item in this.gridControl.SelectedCellRanges)
+                {
+                    this.ToggleChecked(item);
+                }
+            }
+        }
+
+        protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
+        {
+            base.OnMouseDoubleClick(e);
+        }
+
+        private void ToggleChecked(SelectionCellRange range)
+        {
+            var gridContext = this.gridControl.CurrentContext;
+            var query = from item in gridContext.EnumerateItems(range.ItemRange)
+                        let row = item as ICharacterRow
+                        from column in gridContext.EnumerateColumns(range.ColumnRange)
+                        select row.Items[column.Index];
+            foreach (var item in query.ToArray())
+            {
+                item.IsChecked = !item.IsChecked;
             }
         }
 
@@ -180,8 +201,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
         {
             if (this.gridControl.CurrentItem is ICharacterRow row && this.gridControl.CurrentColumn is Column column)
             {
-                var prop = typeof(ICharacterRow).GetProperty(column.FieldName);
-                this.Character = prop.GetValue(row, null) as ICharacter;
+                this.Character = row.Items[column.Index];
             }
             else
             {
@@ -193,7 +213,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
         {
             if (this.CharacterGroup != null && this.CharacterGroup.Items != null)
             {
-                this.gridControl.ItemsSource = this.CharacterGroup.Items;
+                this.gridControl.ItemsSource = new CharacterGroupView(this.CharacterGroup);
             }
             else
             {

@@ -11,16 +11,24 @@
     <jsfv:FieldNameToValueConverter x:Key="FieldNameToValueConverter" />
 
     <DataTemplate x:Key="Cell_ContentTemplate">
-        <jsfc:CharacterControl x:Name="CharacterControl" Text="{Binding Text}" IsEnabled="{Binding IsEnabled}" Source="{Binding Source}" GlyphMetrics="{Binding GlyphMetrics}"
+        <jsfc:CharacterControl x:Name="CharacterControl" Text="{Binding Text}" IsEnabled="{Binding IsEnabled}" Source="{Binding Source, IsAsync=True}" GlyphMetrics="{Binding GlyphMetrics}"
                                BorderBrush="{StaticResource WindowBackground}"
                                BorderThickness="{Binding ItemThickness, RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterView}}}"/>
         <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding IsChecked}" Value="True">
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsChecked}" Value="True" />
+                    <Condition Binding="{Binding IsEnabled}" Value="True" />
+                </MultiDataTrigger.Conditions>
                 <Setter TargetName="CharacterControl" Property="BorderBrush" Value="{StaticResource Accent}" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding CharacterGroup.IsChecked, RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterView}}}" Value="True">
+            </MultiDataTrigger>
+            <!--<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding CharacterGroup.IsChecked, RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterView}}}" Value="True" />
+                    <Condition Binding="{Binding IsEnabled}" Value="True" />
+                </MultiDataTrigger.Conditions>
                 <Setter TargetName="CharacterControl" Property="BorderBrush" Value="{StaticResource Accent}" />
-            </DataTrigger>
+            </MultiDataTrigger>-->
         </DataTemplate.Triggers>
     </DataTemplate>
 
@@ -63,6 +71,7 @@
     <Style x:Key="CharacterRowSelector_Style" TargetType="{x:Type xcdg:RowSelector}" BasedOn="{StaticResource DataRowSelector_Style}">
         <Setter Property="ContentTemplate" Value="{StaticResource CharacterRowSelector_ContentTemplate}" />
         <Setter Property="Template" Value="{StaticResource CharacterRowSelector_Template}" />
+        <EventSetter Event="MouseDoubleClick" Handler="RowSelector_MouseDoubleClick" />
     </Style>
 
     <ControlTemplate x:Key="CharacterView_Template" TargetType="{x:Type jsfc:CharacterView}">
@@ -74,6 +83,7 @@
             <Style TargetType="{x:Type xcdg:RowSelector}" BasedOn="{StaticResource {x:Type xcdg:RowSelector}}">
             </Style>
             <Style TargetType="{x:Type nmgc:ModernDataCell}" BasedOn="{StaticResource {x:Type nmgc:ModernDataCell}}">
+                <EventSetter Event="MouseDoubleClick" Handler="ModernDataCell_MouseDoubleClick" />
                 <Setter Property="Padding" Value="0 0 1 0" />
                 <Setter Property="ContentTemplate" Value="{StaticResource Cell_ContentTemplate}" />
             </Style>
@@ -98,7 +108,7 @@
                 <xcdg:Column FieldName="ItemF" Title="F" />
             </nmgc:ModernDataGridControl.Columns>
             <nmgc:ModernDataGridControl.View>
-                <xcdg:TableView RowSelectorPaneWidth="35" AllowRowResize="False" />
+                <xcdg:TableView RowSelectorPaneWidth="50" AllowRowResize="False" />
             </nmgc:ModernDataGridControl.View>
         </nmgc:ModernDataGridControl>
     </ControlTemplate>
