@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace JSSoft.Font
 {
-    public class FontWriterSettings
+    class FontPage
     {
-        public int Width { get; set; } = 1024;
-
-        public int Height { get; set; } = 1024;
     }
 }

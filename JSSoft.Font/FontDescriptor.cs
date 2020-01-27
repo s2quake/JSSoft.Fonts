@@ -23,7 +23,7 @@ namespace JSSoft.Font
         {
             var pixelSize = (double)height * dpi / 72;
             this.lib = new Library();
-            this.face = new Face(this.lib, path);
+            this.face = new Face(this.lib, Path.GetFullPath(path));
             this.face.SetCharSize(0, height, 0, dpi);
             this.ItemHeight = (int)Math.Round(this.face.Height * pixelSize / this.face.UnitsPerEM);
             var (min, max) = NamesList.Range;
@@ -61,6 +61,7 @@ namespace JSSoft.Font
             var baseLine = height + (height * glyph.Face.Descender / glyph.Face.Height);
             var glyphMetrics = new GlyphMetrics()
             {
+                ID = charCode,
                 Width = (int)metrics.Width,
                 Height = (int)metrics.Height,
                 HorizontalBearingX = (int)metrics.HorizontalBearingX,

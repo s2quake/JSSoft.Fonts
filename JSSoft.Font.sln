@@ -15,8 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSSoft.Font", "JSSoft.Font\JSSoft.Font.csproj", "{9BFDC602-9227-4BB1-8734-2983C2CD4B8C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSSoft.Font.ConsoleHost", "JSSoft.Font.ConsoleHost\JSSoft.Font.ConsoleHost.csproj", "{05E4204B-2E5C-40A6-B28C-345CF45FFA72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ntreev.Library.Commands", "submodules\Ntreev.Library.Commands\Ntreev.Library.Commands.Net45\Ntreev.Library.Commands.csproj", "{0D96CC61-6D74-49B4-A558-33AC0DCF8529}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		submodules\Ntreev.Library.Commands\Ntreev.Library.Commands.AssemblyInfo\Ntreev.Library.Commands.AssemblyInfo.projitems*{0d96cc61-6d74-49b4-a558-33ac0dcf8529}*SharedItemsImports = 4
 		submodules\Ntreev.Library\Ntreev.Library.AssemblyInfo\Ntreev.Library.AssemblyInfo.projitems*{1918437f-4fbf-4731-ac5b-981a4a4cb1f1}*SharedItemsImports = 4
 		submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.AssemblyInfo\Ntreev.ModernUI.AssemblyInfo.projitems*{1c55fed2-99eb-469d-9dac-a1f7b9e7c790}*SharedItemsImports = 4
 		submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.AssemblyInfo\Ntreev.ModernUI.AssemblyInfo.projitems*{20c3d3dd-de99-4126-9449-bca12e4d255d}*SharedItemsImports = 4
@@ -46,6 +51,14 @@ Global
 		{9BFDC602-9227-4BB1-8734-2983C2CD4B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BFDC602-9227-4BB1-8734-2983C2CD4B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BFDC602-9227-4BB1-8734-2983C2CD4B8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05E4204B-2E5C-40A6-B28C-345CF45FFA72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05E4204B-2E5C-40A6-B28C-345CF45FFA72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05E4204B-2E5C-40A6-B28C-345CF45FFA72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05E4204B-2E5C-40A6-B28C-345CF45FFA72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D96CC61-6D74-49B4-A558-33AC0DCF8529}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D96CC61-6D74-49B4-A558-33AC0DCF8529}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D96CC61-6D74-49B4-A558-33AC0DCF8529}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D96CC61-6D74-49B4-A558-33AC0DCF8529}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

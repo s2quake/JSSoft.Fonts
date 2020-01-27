@@ -8,6 +8,8 @@ namespace JSSoft.Font
 {
     public struct GlyphMetrics
     {
+        public uint ID { get; set; }
+
         public int Width { get; set; }
 
         public int Height { get; set; }

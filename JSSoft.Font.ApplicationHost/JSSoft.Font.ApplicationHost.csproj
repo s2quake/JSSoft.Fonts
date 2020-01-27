@@ -74,6 +74,7 @@
     <Compile Include="Converters\CharacterToDisplayTextConverter.cs" />
     <Compile Include="MenuItems\ViewMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\ExportFontMenuItem.cs" />
+    <Compile Include="MenuItems\ViewMenus\ZoomOutMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenus\ZoomInMenuItem.cs" />
     <Compile Include="ToolBarItems\OpenFontToolBarItem.cs" />
     <Compile Include="Controls\CharacterView.cs" />
