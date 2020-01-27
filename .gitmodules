@@ -4,3 +4,6 @@
 [submodule "submodules/Ntreev.Library"]
 	path = submodules/Ntreev.Library
 	url = ../Ntreev.Library.git
+[submodule "submodules/Ntreev.Library.Commands"]
+	path = submodules/Ntreev.Library.Commands
+	url = ../CommandLineParser.git
