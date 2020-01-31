@@ -82,6 +82,7 @@ namespace JSSoft.Font.Serializations
         //    };
         //}
 
+        [XmlIgnore]
         public (int Top, int Right, int Bottom, int Left) PaddingValue
         {
             get
@@ -95,6 +96,7 @@ namespace JSSoft.Font.Serializations
             }
         }
 
+        [XmlIgnore]
         public (int Vertical, int Horizontal) SpacingValue
         {
             get

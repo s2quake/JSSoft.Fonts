@@ -12,10 +12,9 @@ using System.Threading.Tasks;
 
 namespace JSSoft.Font
 {
-    public class FontDescriptor : IDisposable
+    public sealed class FontDescriptor : IDisposable
     {
-        private readonly Dictionary<uint, Bitmap> bitmapByID = new Dictionary<uint, Bitmap>();
-        private readonly Dictionary<uint, GlyphMetrics> metricsByID = new Dictionary<uint, GlyphMetrics>();
+        private readonly Dictionary<uint, FontGlyph> glyphByID = new Dictionary<uint, FontGlyph>();
         private Library lib;
         private Face face;
 
@@ -44,9 +43,7 @@ namespace JSSoft.Font
 
         public string Name { get; private set; } = string.Empty;
 
-        public IReadOnlyDictionary<uint, Bitmap> Bitmaps => this.bitmapByID;
-
-        public IReadOnlyDictionary<uint, GlyphMetrics> Metrics => this.metricsByID;
+        public IReadOnlyDictionary<uint, FontGlyph> Glyphs => this.glyphByID;
 
         private void RegisterItem(uint charCode)
         {
@@ -72,12 +69,19 @@ namespace JSSoft.Font
                 VerticalAdvance = (int)metrics.VerticalAdvance,
                 BaseLine = (int)Math.Round(baseLine),
             };
-            var Bitmap = this.CreateBitmap(ftbmp);
-            this.metricsByID.Add(charCode, glyphMetrics);
-            if (Bitmap != null)
+            var charItem = new FontGlyph()
             {
-                this.bitmapByID.Add(charCode, Bitmap);
-            }
+                ID = charCode,
+                Bitmap = this.CreateBitmap(ftbmp),
+                Metrics = glyphMetrics,
+            };
+            this.glyphByID.Add(charCode, charItem);
+            //var bitmap = this.CreateBitmap(ftbmp);
+            //this.metricsByID.Add(charCode, glyphMetrics);
+            //if (bitmap != null)
+            //{
+            //    this.bitmapByID.Add(charCode, bitmap);
+            //}
         }
 
         private Bitmap CreateBitmap(FTBitmap ftbmp)
@@ -114,8 +118,7 @@ namespace JSSoft.Font
 
         public void Dispose()
         {
-            this.bitmapByID.Clear();
-            this.metricsByID.Clear();
+            this.glyphByID.Clear();
             this.ItemHeight = 0;
             this.face?.Dispose();
             this.face = null;

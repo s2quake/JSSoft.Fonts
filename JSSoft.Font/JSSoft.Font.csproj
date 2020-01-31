@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FontDescriptor.cs" />
+    <Compile Include="FontGlyph.cs" />
     <Compile Include="FontPage.cs" />
     <Compile Include="FontWriter.cs" />
     <Compile Include="FontWriterSettings.cs" />

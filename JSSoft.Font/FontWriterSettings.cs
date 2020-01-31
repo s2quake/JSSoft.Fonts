@@ -8,8 +8,8 @@ namespace JSSoft.Font
 {
     public class FontWriterSettings
     {
-        public int Width { get; set; } = 1024;
+        public int Width { get; set; } = 256;
 
-        public int Height { get; set; } = 1024;
+        public int Height { get; set; } = 256;
     }
 }

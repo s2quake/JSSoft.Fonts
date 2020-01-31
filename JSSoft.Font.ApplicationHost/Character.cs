@@ -20,6 +20,7 @@ namespace JSSoft.Font.ApplicationHost
         private bool isChecked;
         private ImageSource source;
         private GlyphMetrics glyphMetrics;
+        private FontGlyph glyph;
 
         internal Character(uint id)
         {
@@ -30,18 +31,19 @@ namespace JSSoft.Font.ApplicationHost
         {
             this.fontDescriptor = fontDescriptor ?? throw new ArgumentNullException(nameof(fontDescriptor));
             this.ID = id;
-            this.isEnabled = this.fontDescriptor.Metrics.ContainsKey(id);
-            if (this.fontDescriptor.Metrics.ContainsKey(id))
+            this.isEnabled = this.fontDescriptor.Glyphs.ContainsKey(id);
+            if (this.fontDescriptor.Glyphs.ContainsKey(id))
             {
-                this.glyphMetrics = this.fontDescriptor.Metrics[id];
+                this.glyph = this.fontDescriptor.Glyphs[id];
+                this.glyphMetrics = this.fontDescriptor.Glyphs[id].Metrics;
             }
             else
             {
                 this.glyphMetrics.VerticalAdvance = this.fontDescriptor.ItemHeight;
             }
-            if (this.fontDescriptor.Bitmaps.ContainsKey(id))
+            if (this.glyph != null && this.glyph.Bitmap != null)
             {
-                var bitmap = this.fontDescriptor.Bitmaps[id];
+                var bitmap = this.glyph.Bitmap;
                 using (var stream = new MemoryStream())
                 {
                     var bitmapImage = new BitmapImage();
