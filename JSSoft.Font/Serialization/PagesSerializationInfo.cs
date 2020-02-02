@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace JSSoft.Font.Serializations
@@ -30,5 +31,13 @@ namespace JSSoft.Font.Serializations
         [XmlArray]
         [XmlArrayItem("page", typeof(PageSerializationInfo))]
         public PageSerializationInfo[] Pages { get; set; }
+
+        public static explicit operator PagesSerializationInfo(FontData fontData)
+        {
+            return new PagesSerializationInfo()
+            {
+                Pages = fontData.Pages.Select(item => (PageSerializationInfo)item).ToArray()
+            };
+        }
     }
 }

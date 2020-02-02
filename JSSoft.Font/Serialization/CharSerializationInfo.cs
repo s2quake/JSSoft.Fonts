@@ -56,5 +56,20 @@ namespace JSSoft.Font.Serializations
 
         [XmlAttribute("chnl")]
         public int Chnl { get; set; }
+
+        public static explicit operator CharSerializationInfo(FontGlyphData glyphData)
+        {
+            return new CharSerializationInfo()
+            {
+                ID = (int)glyphData.ID,
+                X = glyphData.Rectangle.X,
+                Y = glyphData.Rectangle.Y,
+                Width = glyphData.Rectangle.Width,
+                Height = glyphData.Rectangle.Height,
+                XOffset = glyphData.Metrics.HorizontalBearingX,
+                YOffset = glyphData.Metrics.HorizontalBearingY,
+                Page = glyphData.Page.Index,
+            };
+        }
     }
 }

@@ -41,6 +41,8 @@ namespace JSSoft.Font
 
         public int ItemHeight { get; private set; }
 
+        public int BasLine { get; private set; }
+
         public string Name { get; private set; } = string.Empty;
 
         public IReadOnlyDictionary<uint, FontGlyph> Glyphs => this.glyphByID;
@@ -76,12 +78,6 @@ namespace JSSoft.Font
                 Metrics = glyphMetrics,
             };
             this.glyphByID.Add(charCode, charItem);
-            //var bitmap = this.CreateBitmap(ftbmp);
-            //this.metricsByID.Add(charCode, glyphMetrics);
-            //if (bitmap != null)
-            //{
-            //    this.bitmapByID.Add(charCode, bitmap);
-            //}
         }
 
         private Bitmap CreateBitmap(FTBitmap ftbmp)
@@ -90,18 +86,6 @@ namespace JSSoft.Font
             {
                 var bitmap = ftbmp.ToGdipBitmap(System.Drawing.Color.White);
                 return bitmap;
-                //using (var stream = new MemoryStream())
-                //{
-                //    var bitmapImage = new BitmapImage();
-                //    bitmap.Save(stream, ImageFormat.Png);
-                //    bitmapImage.BeginInit();
-                //    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                //    bitmapImage.UriSource = null;
-                //    bitmapImage.StreamSource = stream;
-                //    bitmapImage.EndInit();
-                //    bitmapImage.Freeze();
-                //    return bitmapImage;
-                //}
             }
             return null;
         }

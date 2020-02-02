@@ -56,5 +56,22 @@ namespace JSSoft.Font.Serializations
 
         [XmlAttribute("blueChnl")]
         public int BlueChnl { get; set; }
+
+        public static explicit operator CommonSerializationInfo(FontData fontData)
+        {
+            return new CommonSerializationInfo()
+            {
+                LineHeight = fontData.LineHeight,
+                Base = fontData.BaseLine,
+                ScaleW = fontData.PageWidth,
+                ScaleH = fontData.PageHeight,
+                Pages = fontData.Pages.Length,
+                Packed = 0,
+                AlphaChnl = 0,
+                RedChnl = 4,
+                GreenChnl = 4,
+                BlueChnl = 4,
+            };
+        }
     }
 }

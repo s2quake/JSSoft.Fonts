@@ -63,24 +63,24 @@ namespace JSSoft.Font.Serializations
         [XmlAttribute("outline")]
         public int Outline { get; set; }
 
-        //public static explicit operator BaseInfo(InfoSerializationInfo info)
-        //{
-        //    return new BaseInfo()
-        //    {
-        //        Face = info.Face,
-        //        Size = info.Size,
-        //        Bold = info.Bold != 0,
-        //        Italic = info.Italic != 0,
-        //        Charset = info.Charset,
-        //        Unicode = info.Unicode != 0,
-        //        StretchH = info.StretchH,
-        //        Smooth = info.Smooth != 0,
-        //        Aa = info.Aa != 0,
-        //        Padding = info.PaddingValue,
-        //        Spacing = info.SpacingValue,
-        //        Outline = info.Outline != 0,
-        //    };
-        //}
+        public static explicit operator InfoSerializationInfo(FontData fontData)
+        {
+            return new InfoSerializationInfo()
+            {
+                Face = fontData.Name,
+                Size = fontData.Size,
+                Bold = 0,
+                Italic = 0,
+                Charset = string.Empty,
+                Unicode = 1,
+                StretchH = 100,
+                Smooth = 1,
+                Aa = 1,
+                PaddingValue = (0, 0, 0, 0),
+                SpacingValue = (1, 1),
+                Outline = 0,
+            };
+        }
 
         [XmlIgnore]
         public (int Top, int Right, int Bottom, int Left) PaddingValue

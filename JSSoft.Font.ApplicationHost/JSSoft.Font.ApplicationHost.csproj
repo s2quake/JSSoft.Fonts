@@ -74,6 +74,7 @@
     <Compile Include="Converters\CharacterToDisplayTextConverter.cs" />
     <Compile Include="MenuItems\ViewMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\ExportFontMenuItem.cs" />
+    <Compile Include="MenuItems\ViewMenus\PreviewMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenus\ZoomOutMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenus\ZoomInMenuItem.cs" />
     <Compile Include="ToolBarItems\OpenFontToolBarItem.cs" />
@@ -196,6 +197,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\open-folder-with-document.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dialogs\ViewModels\" />
+    <Folder Include="Dialogs\Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

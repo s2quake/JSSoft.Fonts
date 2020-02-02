@@ -11,10 +11,6 @@ namespace JSSoft.Font
     {
         public uint ID { get; internal set; }
 
-        public FontPage Page { get; internal set; }
-
-        public Rectangle Rectangle { get; internal set; }
-
         public Bitmap Bitmap { get; internal set; }
 
         public GlyphMetrics Metrics { get; internal set; }

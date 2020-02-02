@@ -18,14 +18,16 @@ namespace JSSoft.Font.ConsoleHost
                 parser.Parse(Environment.CommandLine);
 
                 var font = new FontDescriptor(settings.FontPath, 72, 22);
-                var writerSettings = new FontWriterSettings();
-                var writer = new FontWriter(font, writerSettings);
+                var dataSettings = new FontDataSettings();
+                var data = new FontData(font, dataSettings);
                 var characterList = new List<uint>(255);
                 for (var i = 0u; i < 256; i++)
                 {
                     characterList.Add(i);
                 }
-                writer.Generate(characterList.ToArray());
+                data.Generate(characterList.ToArray());
+                data.Save(@"C:\Users\s2quake\Desktop\test.fnt");
+                data.SavePages(@"C:\Users\s2quake\Desktop");
 
             }
             catch (Exception e)

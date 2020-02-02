@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace JSSoft.Font.Serializations
@@ -33,5 +34,21 @@ namespace JSSoft.Font.Serializations
 
         [XmlElement("char")]
         public CharSerializationInfo[] Items { get; set; }
+
+        public static explicit operator CharsSerializationInfo(FontData fontData)
+        {
+            var charList = new List<FontGlyphData>();
+            foreach (var item in fontData.Pages)
+            {
+                charList.AddRange(item.Glyphs);
+            }
+            charList.Sort((x, y) => x.ID.CompareTo(y.ID));
+
+            return new CharsSerializationInfo()
+            {
+                Count = charList.Count,
+                Items = charList.Select(item => (CharSerializationInfo)item).ToArray(),
+            };
+        }
     }
 }

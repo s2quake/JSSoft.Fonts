@@ -45,10 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FontDescriptor.cs" />
+    <Compile Include="FontGlyphData.cs" />
     <Compile Include="FontGlyph.cs" />
     <Compile Include="FontPage.cs" />
-    <Compile Include="FontWriter.cs" />
-    <Compile Include="FontWriterSettings.cs" />
+    <Compile Include="FontData.cs" />
+    <Compile Include="FontDataSettings.cs" />
     <Compile Include="GlyphMetrics.cs" />
     <Compile Include="NamesList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

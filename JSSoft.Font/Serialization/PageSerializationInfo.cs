@@ -32,5 +32,14 @@ namespace JSSoft.Font.Serializations
 
         [XmlAttribute("file")]
         public string File { get; set; }
+
+        public static explicit operator PageSerializationInfo(FontPage page)
+        {
+            return new PageSerializationInfo()
+            {
+                ID = page.Index,
+                File = $"{page.Name}{page.Index}",
+            };
+        }
     }
 }

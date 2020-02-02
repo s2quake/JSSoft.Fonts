@@ -34,11 +34,21 @@ namespace JSSoft.Font.Serializations
         [XmlElement("common")]
         public CommonSerializationInfo Common { get; set; }
 
-        [XmlArray("pages")]
-        [XmlArrayItem("page", typeof(PageSerializationInfo))]
-        public PageSerializationInfo[] Pages { get; set; }
+        [XmlElement("pages")]
+        public PagesSerializationInfo PagesInfo { get; set; }
 
         [XmlElement("chars")]
         public CharsSerializationInfo CharInfo { get; set; }
+
+        public static explicit operator FontSerializationInfo(FontData fontData)
+        {
+            return new FontSerializationInfo()
+            {
+                Info = (InfoSerializationInfo)fontData,
+                Common = (CommonSerializationInfo)fontData,
+                PagesInfo = (PagesSerializationInfo)fontData,
+                CharInfo = (CharsSerializationInfo)fontData,
+            };
+        }
     }
 }
