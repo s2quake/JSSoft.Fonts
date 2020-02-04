@@ -28,8 +28,7 @@ namespace JSSoft.Font.Serializations
 {
     public struct PagesSerializationInfo
     {
-        [XmlArray]
-        [XmlArrayItem("page", typeof(PageSerializationInfo))]
+        [XmlElement("page")]
         public PageSerializationInfo[] Pages { get; set; }
 
         public static explicit operator PagesSerializationInfo(FontData fontData)

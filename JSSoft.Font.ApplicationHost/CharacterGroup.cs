@@ -91,7 +91,7 @@ namespace JSSoft.Font.ApplicationHost
 
         ICharacterRow[] ICharacterGroup.Items => this.Items;
 
-        public bool ContainsListCollection => throw new NotImplementedException();
+        public bool ContainsListCollection => false;
 
         #endregion
     }

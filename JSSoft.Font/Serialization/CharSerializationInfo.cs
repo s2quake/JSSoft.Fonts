@@ -68,6 +68,7 @@ namespace JSSoft.Font.Serializations
                 Height = glyphData.Rectangle.Height,
                 XOffset = glyphData.Metrics.HorizontalBearingX,
                 YOffset = glyphData.Metrics.HorizontalBearingY,
+                XAdvance = glyphData.Metrics.HorizontalAdvance,
                 Page = glyphData.Page.Index,
             };
         }

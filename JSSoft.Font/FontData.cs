@@ -72,7 +72,7 @@ namespace JSSoft.Font
         {
             foreach (var item in this.Pages)
             {
-                var itemPath = Path.Combine(path, item.Name);
+                var itemPath = Path.Combine(path, $"{item.Name}{item.Index}.png");
                 item.Save(itemPath);
             }
         }
@@ -83,7 +83,7 @@ namespace JSSoft.Font
 
         public int LineHeight => this.fontDescriptor.ItemHeight;
 
-        public int BaseLine => this.fontDescriptor.ItemHeight;
+        public int BaseLine => this.fontDescriptor.BaseLine;
 
         public int PageWidth => this.settings.Width;
 

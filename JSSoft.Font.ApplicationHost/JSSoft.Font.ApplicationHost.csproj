@@ -72,6 +72,7 @@
     <Compile Include="Controls\StatusBarControl.cs" />
     <Compile Include="Controls\CharacterControl.cs" />
     <Compile Include="Converters\CharacterToDisplayTextConverter.cs" />
+    <Compile Include="ExportSettings.cs" />
     <Compile Include="MenuItems\ViewMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\ExportFontMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenus\PreviewMenuItem.cs" />
@@ -87,6 +88,9 @@
     <Compile Include="ICharacter.cs" />
     <Compile Include="ICharacterGroup.cs" />
     <Compile Include="ICharacterRow.cs" />
+    <Compile Include="UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
     <None Include="IFontService.cs" />
     <Compile Include="MenuItems\FileMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\OpenFontMenuItem.cs" />
@@ -121,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

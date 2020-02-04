@@ -1,6 +1,7 @@
 ﻿using Ntreev.Library.Commands;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,25 @@ namespace JSSoft.Font.ConsoleHost
         public string FontPath { get; set; }
 
         [CommandProperty(IsRequired = true)]
-        public string OutputPath { get; set; }
+        public string FileName { get; set; }
+
+        [CommandProperty("dpi")]
+        [DefaultValue(72)]
+        public int DPI { get; set; }
+
+        [CommandProperty]
+        [DefaultValue(22)]
+        public int Size { get; set; }
+
+        [CommandProperty]
+        [DefaultValue(1024)]
+        public int TextureWidth { get; set; }
+
+        [CommandProperty]
+        [DefaultValue(1024)]
+        public int TextureHeight { get; set; }
+
+        [CommandPropertyArray]
+        public string[] Characters { get; set; }
     }
 }

@@ -12,6 +12,8 @@ namespace JSSoft.Font.ApplicationHost
 
         Task CloseAsync();
 
+        Task ExportAsync(string filename);
+
         bool IsOpened { get; }
 
         bool IsProgressing { get; }
@@ -19,6 +21,8 @@ namespace JSSoft.Font.ApplicationHost
         string DisplayName { get; }
 
         double ZoomLevel { get; set; }
+
+        ExportSettings ExportSettings { get; set; }
 
         IEnumerable<ICharacterGroup> Groups { get; }
 

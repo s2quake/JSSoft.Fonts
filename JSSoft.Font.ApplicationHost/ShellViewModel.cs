@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -20,6 +21,7 @@ namespace JSSoft.Font.ApplicationHost
         private FontDescriptor fontDescriptor;
         private CharacterGroup selectedGroup;
         private double zoomLevel = 1.0;
+        private ExportSettings exportSettings = new ExportSettings();
 
         [ImportingConstructor]
         public ShellViewModel([ImportMany]IEnumerable<IMenuItem> menuItems, [ImportMany]IEnumerable<IToolBarItem> toolBarItems)
@@ -55,6 +57,36 @@ namespace JSSoft.Font.ApplicationHost
                 this.IsOpened = true;
                 this.IsProgressing = false;
                 this.SelectedGroup = this.Groups.FirstOrDefault();
+            });
+        }
+
+        public async Task ExportAsync(string filename)
+        {
+            await this.Dispatcher.InvokeAsync(() => this.IsProgressing = true);
+            await Task.Run(() =>
+            {
+                var dataSettings = new FontDataSettings()
+                {
+
+                };
+                var data = new FontData(this.fontDescriptor, dataSettings);
+                var fullPath = Path.GetFullPath(filename);
+                var directory = Path.GetDirectoryName(fullPath);
+                var query = from fontGroup in this.Groups
+                            where fontGroup.IsChecked != false
+                            from row in fontGroup.Items
+                            where row.IsChecked != false
+                            from item in row.Items
+                            where item.IsChecked
+                            select item.ID;
+                var items = query.ToArray();
+                data.Generate(items);
+                data.Save(filename);
+                data.SavePages(directory);
+            });
+            await this.Dispatcher.InvokeAsync(() =>
+            {
+                this.IsProgressing = false;
             });
         }
 
@@ -114,6 +146,16 @@ namespace JSSoft.Font.ApplicationHost
         }
 
         public bool IsOpened { get; private set; }
+
+        public ExportSettings ExportSettings
+        {
+            get => this.exportSettings;
+            set
+            {
+                this.exportSettings = value ?? throw new ArgumentNullException(nameof(value));
+                this.NotifyOfPropertyChange(nameof(ExportSettings));
+            }
+        }
 
         protected override void OnDeactivate(bool close)
         {

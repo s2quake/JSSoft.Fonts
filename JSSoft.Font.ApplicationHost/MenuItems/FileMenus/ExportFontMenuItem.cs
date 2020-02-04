@@ -22,16 +22,24 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
             this.DisplayName = "Export Font...";
         }
 
-        //protected override bool OnCanExecute(object parameter)
-        //{
-        //    return this.Shell.IsProgressing == false;
-        //}
-
-        protected override void OnExecute(object parameter)
+        protected override bool OnCanExecute(object parameter)
         {
-            base.OnExecute(parameter);
+            return this.Shell.IsProgressing == false && this.Shell.IsOpened == true;
+        }
 
-           
+        protected async override void OnExecute(object parameter)
+        {
+            var dialog = new SaveFileDialog()
+            {
+                Filter = "font files (*.fnt)|*.fnt|all files (*.*)|*.*",
+                FilterIndex = 1,
+                RestoreDirectory = true,
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                await this.Shell.ExportAsync(dialog.FileName);
+            }
         }
 
         private IShell Shell => this.shell.Value;

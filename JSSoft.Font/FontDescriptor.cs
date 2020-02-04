@@ -25,6 +25,7 @@ namespace JSSoft.Font
             this.face = new Face(this.lib, Path.GetFullPath(path));
             this.face.SetCharSize(0, height, 0, dpi);
             this.ItemHeight = (int)Math.Round(this.face.Height * pixelSize / this.face.UnitsPerEM);
+            this.BaseLine = this.ItemHeight + (this.ItemHeight * this.face.Descender / this.face.Height);
             var (min, max) = NamesList.Range;
             for (var i = min; i <= max; i++)
             {
@@ -41,7 +42,7 @@ namespace JSSoft.Font
 
         public int ItemHeight { get; private set; }
 
-        public int BasLine { get; private set; }
+        public int BaseLine { get; private set; }
 
         public string Name { get; private set; } = string.Empty;
 
