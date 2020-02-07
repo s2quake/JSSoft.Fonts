@@ -1,5 +1,4 @@
 ﻿using Microsoft.Win32;
-using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
@@ -7,23 +6,21 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
-namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
+namespace JSSoft.Font.ApplicationHost.ToolBarItems
 {
-    [Export(typeof(IMenuItem))]
-    [ParentType(typeof(ViewMenuItem))]
-    class ZoomInMenuItem : MenuItemBase
+    [Export(typeof(IToolBarItem))]
+    [ParentType(typeof(IShell))]
+    class ZoomInToolBarItem : ToolBarItemBase
     {
         private readonly Lazy<IShell> shell;
 
         [ImportingConstructor]
-        public ZoomInMenuItem(Lazy<IShell> shell)
+        public ZoomInToolBarItem(Lazy<IShell> shell)
         {
             this.shell = shell;
-            this.DisplayName = "Zoom In";
-            this.InputGesture = new KeyGesture(Key.OemPlus, ModifierKeys.Control);
             this.Icon = "Images/zoom-in.png";
+            this.DisplayName = "Zoom In";
         }
 
         protected override bool OnCanExecute(object parameter) => this.Shell.IsProgressing == false;

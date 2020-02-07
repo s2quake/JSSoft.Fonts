@@ -22,10 +22,7 @@ namespace JSSoft.Font.ApplicationHost.ToolBarItems
             this.Icon = "/JSSoft.Font.ApplicationHost;component/Images/open-folder-with-document.png";
         }
 
-        protected override bool OnCanExecute(object parameter)
-        {
-            return this.Shell.IsProgressing == false;
-        }
+        protected override bool OnCanExecute(object parameter) => this.Shell.IsProgressing == false;
 
         protected override async void OnExecute(object parameter)
         {

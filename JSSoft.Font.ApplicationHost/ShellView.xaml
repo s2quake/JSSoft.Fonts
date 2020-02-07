@@ -51,7 +51,7 @@
             <ToolBar ToolBarTray.IsLocked="True">
                 <DockPanel>
                     <Label VerticalAlignment="Center">padding</Label>
-                    <TextBox Width="100" Text="{Binding ExportSettings.Padding, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <nmfc:ThicknessControl Width="130" Template="{StaticResource ThicknessControl_Horizontal_Template}" />
                 </DockPanel>
             </ToolBar>
             <nmfc:ExpandableToolBar ItemsSource="{Binding ToolBarItems}" />
