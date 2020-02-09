@@ -13,6 +13,8 @@ namespace JSSoft.Font.ApplicationHost
         private int textureWidth = 1024;
         private int textureHeight = 1024;
         private Thickness padding = new Thickness(1);
+        private int horizontalSpace = 1;
+        private int verticalSpace = 1;
 
         public int TextureWidth
         {
@@ -41,6 +43,26 @@ namespace JSSoft.Font.ApplicationHost
             {
                 this.padding = value;
                 this.NotifyOfPropertyChange(nameof(Padding));
+            }
+        }
+
+        public int HorizontalSpace
+        {
+            get => this.horizontalSpace;
+            set
+            {
+                this.horizontalSpace = value;
+                this.NotifyOfPropertyChange(nameof(HorizontalSpace));
+            }
+        }
+
+        public int VerticalSpace
+        {
+            get => this.verticalSpace;
+            set
+            {
+                this.verticalSpace = value;
+                this.NotifyOfPropertyChange(nameof(VerticalSpace));
             }
         }
     }

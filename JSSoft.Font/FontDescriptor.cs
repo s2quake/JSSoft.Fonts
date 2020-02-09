@@ -34,6 +34,7 @@ namespace JSSoft.Font
             this.Name = this.face.FamilyName;
             this.DPI = dpi;
             this.Height = height;
+            this.FontPath = path;
         }
 
         public uint DPI { get; private set; }
@@ -45,6 +46,8 @@ namespace JSSoft.Font
         public int BaseLine { get; private set; }
 
         public string Name { get; private set; } = string.Empty;
+
+        public string FontPath { get; private set; }
 
         public IReadOnlyDictionary<uint, FontGlyph> Glyphs => this.glyphByID;
 

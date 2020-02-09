@@ -67,33 +67,31 @@
     <Compile Include="CharacterRow.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="CharacterGroup.cs" />
+    <Compile Include="Controls\SpacingControl.cs" />
     <Compile Include="Controls\ZoomLevelItem.cs" />
     <Compile Include="Controls\ZoomLevelControl.cs" />
     <Compile Include="Controls\StatusBarControl.cs" />
     <Compile Include="Controls\CharacterControl.cs" />
     <Compile Include="Converters\CharacterToDisplayTextConverter.cs" />
     <Compile Include="ExportSettings.cs" />
+    <Compile Include="MenuItems\FileMenus\LoadSettingsMenuItem.cs" />
+    <Compile Include="MenuItems\FileMenus\SaveSettingsMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\ExportFontMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenus\PreviewMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenus\ZoomOutMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenus\ZoomInMenuItem.cs" />
-    <Compile Include="Serializations\CharacterGroupInfo.cs" />
-    <Compile Include="Serializations\CharacterRowInfo.cs" />
     <Compile Include="Serializations\ExportSettingsInfo.cs" />
     <Compile Include="ToolBarItems\ZoomOutToolBarItem.cs" />
     <Compile Include="ToolBarItems\ZoomInToolBarItem.cs" />
     <Compile Include="ToolBarItems\OpenFontToolBarItem.cs" />
     <Compile Include="Controls\CharacterView.cs" />
     <Compile Include="Converters\FieldNameToValueConverter.cs" />
-    <None Include="BackgroundTaskBase.cs" />
     <Compile Include="IBackgroundTask.cs" />
-    <None Include="BackgroundTaskService.cs" />
     <Compile Include="IBackgroundTaskService.cs" />
     <Compile Include="ICharacter.cs" />
     <Compile Include="ICharacterGroup.cs" />
     <Compile Include="ICharacterRow.cs" />
-    <None Include="IFontService.cs" />
     <Compile Include="MenuItems\FileMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\OpenFontMenuItem.cs" />
     <Compile Include="ShellView.xaml.cs">
@@ -106,6 +104,10 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="IShell.cs" />
+    <Page Include="Assets\SpacingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Assets\StatusBarControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

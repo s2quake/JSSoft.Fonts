@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
+                    xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls">
+
+    <ControlTemplate x:Key="SpacingControl_Template" TargetType="{x:Type jsfc:SpacingControl}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <DockPanel Grid.Column="0">
+                <Viewbox Width="10" Height="10" Margin="1 0">
+                    <nmfc:IconImage Source="/Ntreev.ModernUI.Framework;component/Images/thickness_left.png" DockPanel.Dock="Left" />
+                </Viewbox>
+                <nmfc:NumericTextBox x:Name="PART_Horizontal" Value="{Binding Horizontal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type jsfc:SpacingControl}}}" NumericType="{x:Type sys:Int32}" />
+            </DockPanel>
+            <DockPanel Grid.Column="2">
+                <Viewbox Width="10" Height="10" Margin="1 0">
+                    <nmfc:IconImage Source="/Ntreev.ModernUI.Framework;component/Images/thickness_top.png" DockPanel.Dock="Left" />
+                </Viewbox>
+                <nmfc:NumericTextBox x:Name="PART_Vertical" Value="{Binding Vertical, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type jsfc:SpacingControl}}}" NumericType="{x:Type sys:Int32}" />
+            </DockPanel>
+        </Grid>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type jsfc:SpacingControl}">
+        <Setter Property="Template" Value="{StaticResource SpacingControl_Template}" />
+    </Style>
+    
+</ResourceDictionary>

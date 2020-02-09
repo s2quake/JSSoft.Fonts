@@ -14,6 +14,10 @@ namespace JSSoft.Font.ApplicationHost
 
         Task ExportAsync(string filename);
 
+        Task SaveSettingsAsync(string filename);
+
+        Task LoadSettingsAsync(string filename);
+
         bool IsOpened { get; }
 
         bool IsProgressing { get; }
@@ -27,5 +31,9 @@ namespace JSSoft.Font.ApplicationHost
         IEnumerable<ICharacterGroup> Groups { get; }
 
         ICharacterGroup SelectedGroup { get; set; }
+
+        event EventHandler Opened;
+
+        event EventHandler Closed;
     }
 }

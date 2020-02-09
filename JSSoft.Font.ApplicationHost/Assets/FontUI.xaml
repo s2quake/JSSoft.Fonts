@@ -3,10 +3,11 @@
 
     <ResourceDictionary.MergedDictionaries>
 
-        <ResourceDictionary Source="CharacterView.xaml" />
         <ResourceDictionary Source="CharacterControl.xaml" />
-        <ResourceDictionary Source="ZoomLevelControl.xaml" />
+        <ResourceDictionary Source="CharacterView.xaml" />
+        <ResourceDictionary Source="SpacingControl.xaml" />
         <ResourceDictionary Source="StatusBarControl.xaml" />
+        <ResourceDictionary Source="ZoomLevelControl.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
     

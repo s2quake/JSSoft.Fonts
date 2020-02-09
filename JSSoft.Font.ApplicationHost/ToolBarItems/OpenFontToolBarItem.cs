@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace JSSoft.Font.ApplicationHost.ToolBarItems
 {
     [Export(typeof(IToolBarItem))]
     [ParentType(typeof(IShell))]
+    [Order(-1)]
     class OpenFontToolBarItem : ToolBarItemBase
     {
         private readonly Lazy<IShell> shell;
