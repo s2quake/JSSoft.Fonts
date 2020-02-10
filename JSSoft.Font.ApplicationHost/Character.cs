@@ -41,22 +41,22 @@ namespace JSSoft.Font.ApplicationHost
             {
                 this.glyphMetrics.VerticalAdvance = this.fontDescriptor.ItemHeight;
             }
-            if (this.glyph != null && this.glyph.Bitmap != null)
-            {
-                var bitmap = this.glyph.Bitmap;
-                using (var stream = new MemoryStream())
-                {
-                    var bitmapImage = new BitmapImage();
-                    bitmap.Save(stream, ImageFormat.Png);
-                    bitmapImage.BeginInit();
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.UriSource = null;
-                    bitmapImage.StreamSource = stream;
-                    bitmapImage.EndInit();
-                    bitmapImage.Freeze();
-                    this.source = bitmapImage;
-                }
-            }
+            //if (this.glyph != null && this.glyph.Bitmap != null)
+            //{
+            //    var bitmap = this.glyph.Bitmap;
+            //    using (var stream = new MemoryStream())
+            //    {
+            //        var bitmapImage = new BitmapImage();
+            //        bitmap.Save(stream, ImageFormat.Png);
+            //        bitmapImage.BeginInit();
+            //        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            //        bitmapImage.UriSource = null;
+            //        bitmapImage.StreamSource = stream;
+            //        bitmapImage.EndInit();
+            //        bitmapImage.Freeze();
+            //        this.source = bitmapImage;
+            //    }
+            //}
         }
 
         public override string ToString()
@@ -93,7 +93,29 @@ namespace JSSoft.Font.ApplicationHost
 
         public ImageSource Source
         {
-            get => this.source;
+            get 
+            {
+                lock (this)
+                {
+                    if (this.glyph != null && this.glyph.Bitmap != null)
+                    {
+                        var bitmap = this.glyph.Bitmap;
+                        using (var stream = new MemoryStream())
+                        {
+                            var bitmapImage = new BitmapImage();
+                            bitmap.Save(stream, ImageFormat.Png);
+                            bitmapImage.BeginInit();
+                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmapImage.UriSource = null;
+                            bitmapImage.StreamSource = stream;
+                            bitmapImage.EndInit();
+                            bitmapImage.Freeze();
+                            this.source = bitmapImage;
+                        }
+                    }
+                    return this.source;
+                }
+            }
             set
             {
                 this.source = value;

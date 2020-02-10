@@ -197,7 +197,8 @@ namespace JSSoft.Font.ApplicationHost
         protected async override void OnInitialize()
         {
             base.OnInitialize();
-            await this.OpenAsync(@"SF-Mono-Semibold.otf");
+            await this.OpenAsync(@"..\..\..\Fonts\SF-Mono-Semibold.otf");
+            //await this.OpenAsync(@"..\..\..\Fonts\gulim.ttc");
             //await this.OpenAsync(@"C:\Users\s2quake\Desktop\AppleSDGothicNeo-Semibold.otf");
         }
 
@@ -236,7 +237,7 @@ namespace JSSoft.Font.ApplicationHost
         {
             return Task.Run(() =>
             {
-                this.FontDescriptor = new FontDescriptor(fontPath, 96, 22);
+                this.FontDescriptor = new FontDescriptor(fontPath, 96, 16);
                 this.groupList.Clear();
                 foreach (var (name, min, max) in NamesList.Items)
                 {
