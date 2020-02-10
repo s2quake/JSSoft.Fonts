@@ -12,26 +12,54 @@ namespace JSSoft.Font.ApplicationHost
 {
     class CharacterGroupView : IBindingList, ITypedList
     {
-        private readonly ICharacterGroup group;
-        private readonly ICharacterRow[] rows;
         private readonly PropertyDescriptorCollection properties;
+        private readonly List<CharacterRowView> rowList = new List<CharacterRowView>(0x10);
+        private ICharacterGroup group;
 
-        public CharacterGroupView(ICharacterGroup group)
+        public CharacterGroupView()
         {
-            this.group = group;
-            this.rows = group.Items;
-
             var propList = new List<PropertyDescriptor>(0x10);
             for (var i = 0u; i < propList.Capacity; i++)
             {
                 propList.Add(new RowPropertyDescriptor(i));
             }
             this.properties = new PropertyDescriptorCollection(propList.ToArray());
+            for (var i = 0u; i < this.rowList.Capacity; i++)
+            {
+                this.rowList.Add(new CharacterRowView() { Row = new CharacterRow(i) });
+            }
+        }
+
+        public ICharacterGroup CharacterGroup
+        {
+            get => this.group;
+            set
+            {
+                this.group = value;
+                this.rowList.Clear();
+                this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, null));
+                if (this.group != null)
+                {
+                    for (var i = 0; i < this.group.Items.Length; i++)
+                    {
+                        this.rowList.Add(new CharacterRowView() { Row = this.group.Items[i] });
+                        this.OnListChanged(new ListChangedEventArgs(ListChangedType.ItemAdded, i));
+                    }
+                }
+                else
+                {
+                    for (var i = 0u; i < 0x10; i++)
+                    {
+                        this.rowList.Add(new CharacterRowView() { Row = new CharacterRow(i) });
+                        this.OnListChanged(new ListChangedEventArgs(ListChangedType.ItemAdded, (int)i));
+                    }
+                }
+            }
         }
 
         public object this[int index]
         {
-            get => this.rows[index];
+            get => this.rowList[index];
             set => throw new NotImplementedException();
         }
 
@@ -57,7 +85,7 @@ namespace JSSoft.Font.ApplicationHost
 
         public bool IsFixedSize => throw new NotImplementedException();
 
-        public int Count => this.rows.Length;
+        public int Count => this.rowList.Count;
 
         public object SyncRoot => throw new NotImplementedException();
 
@@ -97,7 +125,7 @@ namespace JSSoft.Font.ApplicationHost
 
         public void CopyTo(Array array, int index)
         {
-            this.rows.CopyTo(array, index);
+            this.rowList.CopyTo(this.rowList.ToArray(), index);
         }
 
         public int Find(PropertyDescriptor property, object key)
@@ -107,16 +135,16 @@ namespace JSSoft.Font.ApplicationHost
 
         public IEnumerator GetEnumerator()
         {
-            foreach (var item in this.rows)
+            foreach (var item in this.rowList)
             {
                 yield return item;
             }
         }
         public int IndexOf(object value)
         {
-            for (var i = 0; i < this.rows.Length; i++)
+            for (var i = 0; i < this.rowList.Count; i++)
             {
-                var item = this.rows[i];
+                var item = this.rowList[i];
                 if (object.Equals(item, value) == true)
                     return i;
             }
@@ -192,9 +220,9 @@ namespace JSSoft.Font.ApplicationHost
 
             public override object GetValue(object component)
             {
-                if (component is ICharacterRow row)
+                if (component is CharacterRowView row)
                 {
-                    return row.Items[this.index];
+                    return row[(int)this.index];
                 }
                 throw new NotImplementedException();
             }

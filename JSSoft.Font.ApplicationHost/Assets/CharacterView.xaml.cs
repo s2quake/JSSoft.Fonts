@@ -19,11 +19,13 @@ namespace JSSoft.Font.ApplicationHost.Assets
 
         private void ModernDataCell_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (sender is ModernDataCell cell && cell.DataContext is ICharacterRow row && e.LeftButton == MouseButtonState.Pressed)
+            if (sender is ModernDataCell cell && cell.DataContext is CharacterRowView rowView && e.LeftButton == MouseButtonState.Pressed)
             {
                 var column = cell.ParentColumn;
-                var item = row.Items[column.Index];
-                item.IsChecked = !item.IsChecked;
+                if (rowView[column.Index] is ICharacter item)
+                {
+                    item.IsChecked = !item.IsChecked;
+                }
             }
         }
 
@@ -31,10 +33,10 @@ namespace JSSoft.Font.ApplicationHost.Assets
         {
             if (sender is RowSelector rowSelector && e.LeftButton == MouseButtonState.Pressed)
             {
-                if (rowSelector.DataContext is ModernDataRow dataRow && dataRow.DataContext is ICharacterRow row)
+                if (rowSelector.DataContext is ModernDataRow dataRow && dataRow.DataContext is CharacterRowView rowView)
                 {
-                    var isChecked = row.IsChecked ?? false;
-                    row.IsChecked = !isChecked;
+                    var isChecked = rowView.IsChecked ?? false;
+                    rowView.IsChecked = !isChecked;
                 }
             }
         }

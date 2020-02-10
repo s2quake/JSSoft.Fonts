@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="JSSoft.Font.ApplicationHost.Dialogs.Views.ExportSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
+             xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
+             mc:Ignorable="d" Width="400">
+
+    <StackPanel>
+        <nmfc:PropertyItemsControl>
+            <nmfc:ThicknessControl nmfc:PropertyItemsControl.Header="Padding" />
+            <jsfc:SpacingControl nmfc:PropertyItemsControl.Header="Spacing" />
+            <nmfc:NumericTextBox NumericType="{x:Type sys:Int32}" nmfc:PropertyItemsControl.Header="Texture Width" />
+            <nmfc:NumericTextBox NumericType="{x:Type sys:Int32}" nmfc:PropertyItemsControl.Header="Texture Height" />
+        </nmfc:PropertyItemsControl>
+        <StackPanel HorizontalAlignment="Center">
+            <Button x:Name="Copy" Content="OK" IsDefault="True" Style="{DynamicResource Dialog_Button_Style}" />
+        </StackPanel>
+    </StackPanel>
+    
+</UserControl>

@@ -197,7 +197,7 @@ namespace JSSoft.Font.ApplicationHost
         protected async override void OnInitialize()
         {
             base.OnInitialize();
-            //await this.OpenAsync(@"SF-Mono-Semibold.otf");
+            await this.OpenAsync(@"SF-Mono-Semibold.otf");
             //await this.OpenAsync(@"C:\Users\s2quake\Desktop\AppleSDGothicNeo-Semibold.otf");
         }
 

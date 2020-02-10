@@ -87,6 +87,9 @@
                 <Setter Property="Padding" Value="0 0 1 0" />
                 <Setter Property="ContentTemplate" Value="{StaticResource Cell_ContentTemplate}" />
             </Style>
+            <Style TargetType="{x:Type xcdg:HierarchicalGroupByControl}" BasedOn="{StaticResource {x:Type xcdg:HierarchicalGroupByControl}}">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </Style>
         </ControlTemplate.Resources>
         <nmgc:ModernDataGridControl x:Name="PART_DataGrid" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" AutoCreateColumns="False">
             <nmgc:ModernDataGridControl.Columns>

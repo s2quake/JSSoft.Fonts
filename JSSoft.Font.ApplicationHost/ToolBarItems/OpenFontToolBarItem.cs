@@ -28,8 +28,6 @@ namespace JSSoft.Font.ApplicationHost.ToolBarItems
 
         protected override async void OnExecute(object parameter)
         {
-            base.OnExecute(parameter);
-
             var dialog = new OpenFileDialog()
             {
                 Filter = "font files (*.otf)|*.otf|all files (*.*)|*.*",

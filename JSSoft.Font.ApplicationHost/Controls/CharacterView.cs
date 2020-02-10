@@ -45,27 +45,8 @@ namespace JSSoft.Font.ApplicationHost.Controls
             DependencyProperty.Register(nameof(ZoomLevel), typeof(double), typeof(CharacterView),
                 new FrameworkPropertyMetadata(1.0, ZoomLevelPropertyChangedCallback));
 
-        private static readonly ICharacterRow[] emptyRows = new ICharacterRow[]
-        {
-            new CharacterRow(0x0),
-            new CharacterRow(0x1),
-            new CharacterRow(0x2),
-            new CharacterRow(0x3),
-            new CharacterRow(0x4),
-            new CharacterRow(0x5),
-            new CharacterRow(0x6),
-            new CharacterRow(0x7),
-            new CharacterRow(0x8),
-            new CharacterRow(0x9),
-            new CharacterRow(0xA),
-            new CharacterRow(0xB),
-            new CharacterRow(0xC),
-            new CharacterRow(0xD),
-            new CharacterRow(0xE),
-            new CharacterRow(0xF),
-        };
-
         private ModernDataGridControl gridControl;
+        private CharacterGroupView groupView = new CharacterGroupView();
 
         public override void OnApplyTemplate()
         {
@@ -73,12 +54,8 @@ namespace JSSoft.Font.ApplicationHost.Controls
             this.gridControl = this.Template.FindName("PART_DataGrid", this) as ModernDataGridControl;
             if (this.gridControl != null)
             {
-                //var binding = new Binding($"{nameof(CharacterGroup)}.{nameof(ICharacterGroup.Items)}")
-                //{
-                //    Source = this,
-                //};
-                //BindingOperations.SetBinding(this.gridControl, ModernDataGridControl.ItemsSourceProperty, binding);
                 this.gridControl.SelectionChanged += GridControl_SelectionChanged;
+                this.gridControl.ItemsSource = this.groupView;
                 this.UpdateItemsSource();
                 this.UpdateActualItemHeight();
             }
@@ -199,9 +176,10 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
         private void GridControl_SelectionChanged(object sender, Xceed.Wpf.DataGrid.DataGridSelectionChangedEventArgs e)
         {
-            if (this.gridControl.CurrentItem is ICharacterRow row && this.gridControl.CurrentColumn is Column column)
+            if (this.gridControl.CurrentItem is CharacterRowView rowView && this.gridControl.CurrentColumn is Column column)
             {
-                this.Character = row.Items[column.Index];
+                if (rowView[column.Index] is ICharacter item)
+                    this.Character = item;
             }
             else
             {
@@ -213,11 +191,11 @@ namespace JSSoft.Font.ApplicationHost.Controls
         {
             if (this.CharacterGroup != null && this.CharacterGroup.Items != null)
             {
-                this.gridControl.ItemsSource = new CharacterGroupView(this.CharacterGroup);
+                this.groupView.CharacterGroup = this.CharacterGroup;
             }
             else
             {
-                this.gridControl.ItemsSource = emptyRows;
+                this.groupView.CharacterGroup = null;
             }
         }
 

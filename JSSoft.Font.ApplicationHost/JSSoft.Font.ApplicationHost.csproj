@@ -63,6 +63,7 @@
     <Compile Include="Assets\CharacterView.xaml.cs">
       <DependentUpon>CharacterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CharacterRowView.cs" />
     <Compile Include="CharacterGroupView.cs" />
     <Compile Include="CharacterRow.cs" />
     <Compile Include="Character.cs" />
@@ -70,12 +71,17 @@
     <Compile Include="Controls\SpacingControl.cs" />
     <Compile Include="Controls\ZoomLevelItem.cs" />
     <Compile Include="Controls\ZoomLevelControl.cs" />
-    <Compile Include="Controls\StatusBarControl.cs" />
     <Compile Include="Controls\CharacterControl.cs" />
     <Compile Include="Converters\CharacterToDisplayTextConverter.cs" />
+    <Compile Include="Dialogs\ViewModels\ExportSettingsViewModel.cs" />
+    <Compile Include="Dialogs\Views\ExportSettingsView.xaml.cs">
+      <DependentUpon>ExportSettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExportSettings.cs" />
+    <Compile Include="MenuItems\ToolMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\LoadSettingsMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\SaveSettingsMenuItem.cs" />
+    <Compile Include="MenuItems\ToolMenus\ExportSettingsMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\ExportFontMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenus\PreviewMenuItem.cs" />
@@ -87,8 +93,6 @@
     <Compile Include="ToolBarItems\OpenFontToolBarItem.cs" />
     <Compile Include="Controls\CharacterView.cs" />
     <Compile Include="Converters\FieldNameToValueConverter.cs" />
-    <Compile Include="IBackgroundTask.cs" />
-    <Compile Include="IBackgroundTaskService.cs" />
     <Compile Include="ICharacter.cs" />
     <Compile Include="ICharacterGroup.cs" />
     <Compile Include="ICharacterRow.cs" />
@@ -108,10 +112,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Assets\StatusBarControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Assets\CharacterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -125,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Assets\ZoomLevelControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\Views\ExportSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -206,10 +210,7 @@
   <ItemGroup>
     <Resource Include="Images\open-folder-with-document.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dialogs\ViewModels\" />
-    <Folder Include="Dialogs\Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\zoom-in.png" />
     <Resource Include="Images\zoom-out.png" />

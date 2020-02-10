@@ -6,6 +6,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 {
@@ -20,17 +21,13 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
         {
             this.shell = shell;
             this.DisplayName = "Open Font...";
+            this.InputGesture = new KeyGesture(Key.O, ModifierKeys.Control);
         }
 
-        //protected override bool OnCanExecute(object parameter)
-        //{
-        //    return this.Shell.IsProgressing == false;
-        //}
+        protected override bool OnCanExecute(object parameter) => this.Shell.IsProgressing == false;
 
-        protected override void OnExecute(object parameter)
+        protected override async void OnExecute(object parameter)
         {
-            base.OnExecute(parameter);
-
             var dialog = new OpenFileDialog()
             {
                 Filter = "font files (*.otf)|*.otf|all files (*.*)|*.*",
@@ -40,7 +37,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 
             if (dialog.ShowDialog() == true)
             {
-                
+                await this.Shell.OpenAsync(dialog.FileName);
             }
         }
 

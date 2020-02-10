@@ -78,7 +78,7 @@ namespace JSSoft.Font
             var charItem = new FontGlyph()
             {
                 ID = charCode,
-                Bitmap = this.CreateBitmap(ftbmp),
+                //Bitmap = this.CreateBitmap(ftbmp),
                 Metrics = glyphMetrics,
             };
             this.glyphByID.Add(charCode, charItem);
