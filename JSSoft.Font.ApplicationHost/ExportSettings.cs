@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace JSSoft.Font.ApplicationHost
 {
-    public class ExportSettings : PropertyChangedBase
+    public sealed class ExportSettings : PropertyChangedBase
     {
         private int textureWidth = 1024;
         private int textureHeight = 1024;

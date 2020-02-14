@@ -37,14 +37,14 @@ namespace JSSoft.Font
             var index = 0;
             var name = this.fontDescriptor.Name;
             var pageList = new List<FontPage>();
-            var page = new FontPage(index++, name, settings.Width, settings.Height);
+            var page = new FontPage(index++, name, this.settings);
 
             pageList.Add(page);
             foreach (var item in items)
             {
                 if (page.Verify(item) == false)
                 {
-                    page = new FontPage(index++, name, settings.Width, settings.Height);
+                    page = new FontPage(index++, name, this.settings);
                     pageList.Add(page);
                 }
                 page.Add(item);

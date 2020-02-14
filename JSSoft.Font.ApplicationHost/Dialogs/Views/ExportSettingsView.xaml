@@ -10,13 +10,17 @@
 
     <StackPanel>
         <nmfc:PropertyItemsControl>
-            <nmfc:ThicknessControl nmfc:PropertyItemsControl.Header="Padding" />
-            <jsfc:SpacingControl nmfc:PropertyItemsControl.Header="Spacing" />
-            <nmfc:NumericTextBox NumericType="{x:Type sys:Int32}" nmfc:PropertyItemsControl.Header="Texture Width" />
-            <nmfc:NumericTextBox NumericType="{x:Type sys:Int32}" nmfc:PropertyItemsControl.Header="Texture Height" />
+            <nmfc:ThicknessControl nmfc:PropertyItemsControl.Header="Padding" Value="{Binding Padding}" />
+            <jsfc:SpacingControl nmfc:PropertyItemsControl.Header="Spacing" Horizontal="{Binding HorizontalSpace}" Vertical="{Binding VerticalSpace}" />
+            <nmfc:NumericTextBox NumericType="{x:Type sys:Int32}" nmfc:PropertyItemsControl.Header="Texture Width" 
+                                 Value="{Binding TextureWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <nmfc:NumericTextBox NumericType="{x:Type sys:Int32}" nmfc:PropertyItemsControl.Header="Texture Height" 
+                                 Value="{Binding TextureHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </nmfc:PropertyItemsControl>
-        <StackPanel HorizontalAlignment="Center">
-            <Button x:Name="Copy" Content="OK" IsDefault="True" Style="{DynamicResource Dialog_Button_Style}" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="OK" Content="OK" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />
+            <Border Width="4" />
+            <Button x:Name="TryClose" Content="Cancel" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
         </StackPanel>
     </StackPanel>
     

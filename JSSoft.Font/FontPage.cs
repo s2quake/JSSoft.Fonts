@@ -12,14 +12,16 @@ namespace JSSoft.Font
     {
         private readonly List<FontGlyphData> glyphList = new List<FontGlyphData>();
         private readonly bool[,] pixels;
+        private FontDataSettings settings;
 
-        public FontPage(int index, string name, int width, int height)
+        public FontPage(int index, string name, FontDataSettings settings)
         {
             this.Index = index;
             this.Name = name ?? throw new ArgumentNullException(nameof(name));
-            this.Width = width;
-            this.Height = height;
-            this.pixels = new bool[width, height];
+            this.settings = settings;
+            this.Width = settings.Width;
+            this.Height = settings.Height;
+            this.pixels = new bool[settings.Width, settings.Height];
 
         }
 
@@ -28,11 +30,11 @@ namespace JSSoft.Font
             if (glyph.Bitmap == null)
                 return false;
 
+            var (left, top, right, bottom) = this.settings.Padding;
+            var (horz, vert) = this.settings.Spacing;
             var metrics = glyph.Metrics;
-            var width = metrics.Width;
-            var height = metrics.Height;
-            //var x = 0;
-            //var y = 0;
+            var width = metrics.Width + left + right + horz;
+            var height = metrics.Height + top + bottom + vert;
 
             for (var y = 0; y < this.Height - height; y++)
             {
@@ -53,9 +55,12 @@ namespace JSSoft.Font
             if (glyph.Bitmap == null)
                 return;
 
+            var (left, top, right, bottom) = this.settings.Padding;
+            var (horz, vert) = this.settings.Spacing;
             var metrics = glyph.Metrics;
-            var width = metrics.Width;
-            var height = metrics.Height;
+            var width = metrics.Width + left + right + horz;
+            var height = metrics.Height + top + bottom + vert;
+
             for (var y = 0; y < this.Height - height; y++)
             {
                 for (var x = 0; x < this.Width - width; x++)

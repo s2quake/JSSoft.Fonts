@@ -37,10 +37,15 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ToolMenus
 
         protected override void OnExecute(object parameter)
         {
-            var dialog = new ExportSettingsViewModel();
+            var settings = this.Shell.ExportSettings;
+            var dialog = new ExportSettingsViewModel(settings);
             if (dialog.ShowDialog() == true)
             {
-
+                settings.Padding = dialog.Padding;
+                settings.HorizontalSpace = dialog.HorizontalSpace;
+                settings.VerticalSpace = dialog.VerticalSpace;
+                settings.TextureWidth = dialog.TextureWidth;
+                settings.TextureHeight = dialog.TextureHeight;
             }
         }
 
