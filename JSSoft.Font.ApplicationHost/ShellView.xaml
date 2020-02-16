@@ -53,22 +53,22 @@
             <ToolBar ToolBarTray.IsLocked="True">
                 <DockPanel>
                     <Label VerticalAlignment="Center" Content="Padding: " />
-                    <nmfc:ThicknessControl Width="200" Template="{StaticResource ThicknessControl_Horizontal_Template}" />
+                    <nmfc:ThicknessControl Width="200" Value="{Binding Settings.Padding, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource ThicknessControl_Horizontal_Template}" />
                 </DockPanel>
                 <Separator Width="15" />
                 <DockPanel>
                     <Label VerticalAlignment="Center" Content="Spacing: " />
                     <jsfc:SpacingControl Width="100" 
-                                         Horizontal="{Binding ExportSettings.HorizontalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                         Vertical="{Binding ExportSettings.VerticalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                         Horizontal="{Binding Settings.HorizontalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                         Vertical="{Binding Settings.VerticalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </DockPanel>
                 <Separator Width="15" />
                 <StackPanel Orientation="Horizontal">
                     <Label VerticalAlignment="Center" Content="Width: " />
-                    <nmfc:NumericTextBox Width="50" NumericType="{x:Type sys:Int32}" Value="{Binding ExportSettings.TextureWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <nmfc:NumericTextBox Width="50" NumericType="{x:Type sys:Int32}" Value="{Binding Settings.TextureWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <Border Width="7" />
                     <Label VerticalAlignment="Center" Content="Height: " />
-                    <nmfc:NumericTextBox Width="50" NumericType="{x:Type sys:Int32}" Value="{Binding ExportSettings.TextureHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <nmfc:NumericTextBox Width="50" NumericType="{x:Type sys:Int32}" Value="{Binding Settings.TextureHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
             </ToolBar>
         </ToolBarTray>
@@ -100,7 +100,7 @@
             </StatusBar.ItemsPanel>
 
             <StatusBarItem Grid.Column="0">
-                <jsfc:ZoomLevelControl Width="100" HorizontalAlignment="Left" ZoomLevel="{Binding ZoomLevel, Mode=TwoWay}" />
+                <jsfc:ZoomLevelControl Width="100" HorizontalAlignment="Left" Value="{Binding ZoomLevel, Mode=TwoWay}" PopupPlacement="Top" />
             </StatusBarItem>
 
             <StatusBarItem Grid.Column="1">

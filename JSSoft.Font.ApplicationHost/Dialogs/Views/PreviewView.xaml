@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="JSSoft.Font.ApplicationHost.Dialogs.Views.PreviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
+             xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
+             xmlns:jsfv="clr-namespace:JSSoft.Font.ApplicationHost.Converters"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="300" nmfc:DialogWindow.DesiredResizeMode="CanResize">
+
+    <UserControl.Resources>
+        <jsfv:MultiplicationConverter x:Key="MultiplicationConverter" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ToolBarTray>
+            <nmfc:ExpandableToolBar>
+                <nmfc:IconButton x:Name="ZoomIn" Source="/JSSoft.Font.ApplicationHost;component/Images/zoom-in.png" Click="ZoomIn_Click" />
+                <nmfc:IconButton x:Name="ZoomOut" Source="/JSSoft.Font.ApplicationHost;component/Images/zoom-out.png" Click="ZoomOut_Click" />
+                <jsfc:ZoomLevelControl x:Name="ZoomLevel" Margin="4 0" />
+            </nmfc:ExpandableToolBar>
+        </ToolBarTray>
+        <TabControl Grid.Row="1" x:Name="ContentViewer" Style="{StaticResource TabControl_Page_Style}" ItemsSource="{Binding Items}" SelectedItem="{Binding Item}" BorderThickness="1">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Index, StringFormat=Page {0}}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                            <Image x:Name="Image" Source="{Binding Image}" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                                <Image.Width>
+                                    <MultiBinding Converter="{StaticResource MultiplicationConverter}">
+                                        <Binding Path="Image.Width" />
+                                        <Binding Path="Value" ElementName="ZoomLevel" />
+                                    </MultiBinding>
+                                </Image.Width>
+                                <Image.Height>
+                                    <MultiBinding Converter="{StaticResource MultiplicationConverter}">
+                                        <Binding Path="Image.Height" />
+                                        <Binding Path="Value" ElementName="ZoomLevel" />
+                                    </MultiBinding>
+                                </Image.Height>
+                            </Image>
+                        </ScrollViewer>
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+    </Grid>
+
+</UserControl>

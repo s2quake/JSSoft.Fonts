@@ -3,7 +3,7 @@
                     xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls">
 
     <ControlTemplate x:Key="ZoomLevelControl_Template" TargetType="{x:Type jsfc:ZoomLevelControl}">
-        <ComboBox x:Name="PART_ComboBox" IsEditable="True" FontSize="11" BorderThickness="0" Padding="2" />
+        <ComboBox x:Name="PART_ComboBox" IsEditable="True" FontSize="11" Padding="2" />
     </ControlTemplate>
 
     <Style TargetType="{x:Type jsfc:ZoomLevelControl}">

@@ -1,4 +1,5 @@
 ﻿using JSSoft.Font.ApplicationHost.Serializations;
+using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -20,6 +23,7 @@ namespace JSSoft.Font.ApplicationHost
     {
         private readonly IEnumerable<IMenuItem> menuItems;
         private readonly IEnumerable<IToolBarItem> toolBarItems;
+        private readonly IAppConfiguration configs;
         private readonly ObservableCollection<CharacterGroup> groupList = new ObservableCollection<CharacterGroup>();
         private CharacterGroup selectedGroup;
         private double zoomLevel = 1.0;
@@ -27,19 +31,22 @@ namespace JSSoft.Font.ApplicationHost
         private bool isOpened;
 
         [ImportingConstructor]
-        public ShellViewModel([ImportMany]IEnumerable<IMenuItem> menuItems, [ImportMany]IEnumerable<IToolBarItem> toolBarItems)
+        public ShellViewModel([ImportMany]IEnumerable<IMenuItem> menuItems, [ImportMany]IEnumerable<IToolBarItem> toolBarItems, IAppConfiguration configs)
         {
             this.menuItems = menuItems;
             this.toolBarItems = toolBarItems;
+            this.configs = configs;
             this.DisplayName = "JSFont";
+            this.Dispatcher.InvokeAsync(this.ReadRecentSettings);
         }
 
-        public async Task OpenAsync(string fontPath)
+        public async Task OpenAsync(string fontPath, int faceIndex)
         {
             await this.Dispatcher.InvokeAsync(() => this.IsProgressing = true);
-            await this.OpenFontDescriptorAsync(fontPath);
+            await this.OpenFontDescriptorAsync(fontPath, faceIndex);
             await this.Dispatcher.InvokeAsync(() =>
             {
+                this.Groups.Clear();
                 foreach (var item in this.groupList)
                 {
                     this.SatisfyImportsOnce(item);
@@ -59,10 +66,7 @@ namespace JSSoft.Font.ApplicationHost
             await this.BeginTaskAsync(null);
             await Task.Run(() =>
             {
-                var dataSettings = new FontDataSettings()
-                {
-
-                };
+                var dataSettings = (FontDataSettings)this.exportSettings;
                 var data = new FontData(this.FontDescriptor, dataSettings);
                 var fullPath = Path.GetFullPath(filename);
                 var directory = Path.GetDirectoryName(fullPath);
@@ -85,7 +89,12 @@ namespace JSSoft.Font.ApplicationHost
         {
             var info = await this.BeginTaskAsync(() => ExportSettingsInfo.Create(this));
             await WriteSettingsAsync(filename, info);
-            await this.EndTaskAsync(null);
+            await this.EndTaskAsync(()=>
+            {
+                if (this.RecentSettings.Contains(filename) == false)
+                    this.RecentSettings.Add(filename);
+                this.configs[nameof(RecentSettings)] = this.RecentSettings.ToArray();
+            });
         }
 
         public async Task LoadSettingsAsync(string filename)
@@ -94,8 +103,53 @@ namespace JSSoft.Font.ApplicationHost
             var info = await ReadSettingsAsync(filename);
             if (isOpened == true)
                 await this.CloseAsync();
-            await this.OpenAsync(info.Font);
-            await this.Dispatcher.InvokeAsync(() => this.UpdateCheckState(info.Characters));
+            await this.OpenAsync(info.Font, 0);
+            await this.EndTaskAsync(() =>
+            {
+                this.UpdateCheckState(info.Characters);
+                this.exportSettings.Update(info);
+            });
+        }
+
+        public async Task<ImageSource[]> PreviewAsync()
+        {
+            await this.BeginTaskAsync(null);
+            var images = await Task.Run(() =>
+            {
+                var dataSettings = (FontDataSettings)this.exportSettings;
+                var data = new FontData(this.FontDescriptor, dataSettings);
+                var query = from fontGroup in this.Groups
+                            where fontGroup.IsChecked != false
+                            from row in fontGroup.Items
+                            where row.IsChecked != false
+                            from item in row.Items
+                            where item.IsChecked
+                            select item.ID;
+                var items = query.ToArray();
+                data.Generate(items);
+
+                var imageList = new List<ImageSource>(data.Pages.Length);
+                for (var i = 0; i < data.Pages.Length; i++)
+                {
+                    var item = data.Pages[i];
+                    var stream = new MemoryStream();
+                    var bitmapImage = new BitmapImage();
+                    item.Save(stream);
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.UriSource = null;
+                    bitmapImage.StreamSource = stream;
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze();
+                    imageList.Add(bitmapImage);
+                    stream.Dispose();
+                }
+
+
+                return imageList.ToArray();
+            });
+            await this.EndTaskAsync(null);
+            return images;
         }
 
         private static CharacterGroup[] CreateGroups(FontDescriptor fontDescriptor, string name, uint min, uint max)
@@ -121,6 +175,8 @@ namespace JSSoft.Font.ApplicationHost
         }
 
         public ObservableCollection<CharacterGroup> Groups { get; } = new ObservableCollection<CharacterGroup>();
+
+        public ObservableCollection<string> RecentSettings { get; } = new ObservableCollection<string>();
 
         public CharacterGroup SelectedGroup
         {
@@ -164,13 +220,13 @@ namespace JSSoft.Font.ApplicationHost
             }
         }
 
-        public ExportSettings ExportSettings
+        public ExportSettings Settings
         {
             get => this.exportSettings;
             set
             {
                 this.exportSettings = value ?? throw new ArgumentNullException(nameof(value));
-                this.NotifyOfPropertyChange(nameof(ExportSettings));
+                this.NotifyOfPropertyChange(nameof(Settings));
             }
         }
 
@@ -197,8 +253,8 @@ namespace JSSoft.Font.ApplicationHost
         protected async override void OnInitialize()
         {
             base.OnInitialize();
-            await this.OpenAsync(@"..\..\..\Fonts\SF-Mono-Semibold.otf");
-            //await this.OpenAsync(@"..\..\..\Fonts\gulim.ttc");
+            //await this.OpenAsync(@"..\..\..\Fonts\SF-Mono-Semibold.otf", 0);
+            //await this.OpenAsync(@"..\..\..\Fonts\gulim.ttc", 0);
             //await this.OpenAsync(@"C:\Users\s2quake\Desktop\AppleSDGothicNeo-Semibold.otf");
         }
 
@@ -233,11 +289,11 @@ namespace JSSoft.Font.ApplicationHost
             });
         }
 
-        private Task OpenFontDescriptorAsync(string fontPath)
+        private Task OpenFontDescriptorAsync(string fontPath, int faceIndex)
         {
             return Task.Run(() =>
             {
-                this.FontDescriptor = new FontDescriptor(fontPath, 96, 16);
+                this.FontDescriptor = new FontDescriptor(fontPath, 96, 14, faceIndex);
                 this.groupList.Clear();
                 foreach (var (name, min, max) in NamesList.Items)
                 {
@@ -292,6 +348,18 @@ namespace JSSoft.Font.ApplicationHost
             });
         }
 
+        private void ReadRecentSettings()
+        {
+            if (this.configs.Contains(nameof(RecentSettings)) == true)
+            {
+                var settigns = this.configs[nameof(RecentSettings)] as string[];
+                foreach (var item in settigns)
+                {
+                    this.RecentSettings.Add(item);
+                }
+            }
+        }
+
         #region IShell
 
         async Task IShell.CloseAsync()
@@ -312,6 +380,8 @@ namespace JSSoft.Font.ApplicationHost
         }
 
         IEnumerable<ICharacterGroup> IShell.Groups => this.Groups;
+
+        IEnumerable<string> IShell.RecentSettings => this.RecentSettings;
 
         ICharacterGroup IShell.SelectedGroup
         {

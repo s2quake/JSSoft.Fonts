@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,27 +75,16 @@ namespace JSSoft.Font
                     }
                 }
             }
-
-            //var x = this.x + width >= this.Width ? 0 : this.x;
-            //    var y = this.x + width >= this.Width ? this.y + this.lineHeight : this.y;
-            //    var rectangle = this.FindRectangle(x, y, width, height);
-            //    this.FillRectangle(rectangle);
-            //    this.dataList.Add(new FontGlyphData(this, glyph, rectangle));
-            //    this.x = rectangle.Right;
-            //    this.y = rectangle.Top;
-            //    this.lineHeight = Math.Max(metrics.Height, this.lineHeight);
         }
 
         public void Save(string filename)
         {
-            var bitmap = new Bitmap(this.Width, this.Height);
-            var graphics = Graphics.FromImage(bitmap);
-            graphics.FillRectangle(Brushes.Black, new Rectangle(0, 0, this.Width, this.Height));
-            foreach (var item in this.glyphList)
-            {
-                graphics.DrawImage(item.Bitmap, item.Rectangle);
-            }
-            bitmap.Save(filename, ImageFormat.Png);
+            this.Save(bitmap => bitmap.Save(filename, ImageFormat.Png));
+        }
+
+        public void Save(Stream stream)
+        {
+            this.Save(bitmap => bitmap.Save(stream, ImageFormat.Png));
         }
 
         public int Index { get; }
@@ -150,6 +140,18 @@ namespace JSSoft.Font
                     this.pixels[x + rectangle.X, y + rectangle.Y] = true;
                 }
             }
+        }
+
+        private void Save(Action<Bitmap> action)
+        {
+            var bitmap = new Bitmap(this.Width, this.Height);
+            var graphics = Graphics.FromImage(bitmap);
+            graphics.FillRectangle(Brushes.Black, new Rectangle(0, 0, this.Width, this.Height));
+            foreach (var item in this.glyphList)
+            {
+                graphics.DrawImage(item.Bitmap, item.Rectangle);
+            }
+            action(bitmap);
         }
     }
 }

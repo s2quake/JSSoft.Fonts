@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
+using Microsoft.Win32;
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
@@ -22,6 +23,11 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
         {
             this.shell = shell;
             this.DisplayName = "Preview";
+            this.Dispatcher.InvokeAsync(() =>
+            {
+                this.Shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
+                this.Shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();
+            });
         }
 
         protected override bool OnCanExecute(object parameter)
@@ -29,11 +35,14 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
             return this.Shell.IsProgressing == false && this.Shell.IsOpened == true;
         }
 
-        protected override void OnExecute(object parameter)
+        protected async override void OnExecute(object parameter)
         {
-            base.OnExecute(parameter);
+            var images = await this.Shell.PreviewAsync();
+            var dialog = new PreviewViewModel(images);
+            if (dialog.ShowDialog() == true)
+            {
 
-            
+            }
         }
 
         private IShell Shell => this.shell.Value;

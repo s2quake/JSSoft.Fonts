@@ -10,8 +10,10 @@
 
     <StackPanel>
         <nmfc:PropertyItemsControl>
-            <nmfc:ThicknessControl nmfc:PropertyItemsControl.Header="Padding" Value="{Binding Padding}" />
-            <jsfc:SpacingControl nmfc:PropertyItemsControl.Header="Spacing" Horizontal="{Binding HorizontalSpace}" Vertical="{Binding VerticalSpace}" />
+            <nmfc:ThicknessControl nmfc:PropertyItemsControl.Header="Padding" Value="{Binding Padding, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <jsfc:SpacingControl nmfc:PropertyItemsControl.Header="Spacing" 
+                                 Horizontal="{Binding HorizontalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 Vertical="{Binding VerticalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <nmfc:NumericTextBox NumericType="{x:Type sys:Int32}" nmfc:PropertyItemsControl.Header="Texture Width" 
                                  Value="{Binding TextureWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <nmfc:NumericTextBox NumericType="{x:Type sys:Int32}" nmfc:PropertyItemsControl.Header="Texture Height" 

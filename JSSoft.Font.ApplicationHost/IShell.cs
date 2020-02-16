@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace JSSoft.Font.ApplicationHost
 {
     public interface IShell
     {
-        Task OpenAsync(string fontPath);
+        Task OpenAsync(string fontPath, int faceIndex);
 
         Task CloseAsync();
 
@@ -18,6 +19,8 @@ namespace JSSoft.Font.ApplicationHost
 
         Task LoadSettingsAsync(string filename);
 
+        Task<ImageSource[]> PreviewAsync();
+
         bool IsOpened { get; }
 
         bool IsProgressing { get; }
@@ -26,11 +29,13 @@ namespace JSSoft.Font.ApplicationHost
 
         double ZoomLevel { get; set; }
 
-        ExportSettings ExportSettings { get; set; }
+        ExportSettings Settings { get; set; }
 
         IEnumerable<ICharacterGroup> Groups { get; }
 
         ICharacterGroup SelectedGroup { get; set; }
+
+        IEnumerable<string> RecentSettings { get; }
 
         event EventHandler Opened;
 

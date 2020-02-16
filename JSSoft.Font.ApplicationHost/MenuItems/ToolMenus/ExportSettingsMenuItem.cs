@@ -32,12 +32,12 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ToolMenus
 
         protected override bool OnCanExecute(object parameter)
         {
-            return this.Shell.IsProgressing == false && this.Shell.IsOpened == true;
+            return this.Shell.IsProgressing == false;
         }
 
         protected override void OnExecute(object parameter)
         {
-            var settings = this.Shell.ExportSettings;
+            var settings = this.Shell.Settings;
             var dialog = new ExportSettingsViewModel(settings);
             if (dialog.ShowDialog() == true)
             {

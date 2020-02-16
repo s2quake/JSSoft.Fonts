@@ -31,7 +31,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
         {
             var dialog = new SaveFileDialog()
             {
-                Filter = "font files (*.fnt)|*.fnt|all files (*.*)|*.*",
+                Filter = "xml files (*.xml)|*.xml|all files (*.*)|*.*",
                 FilterIndex = 1,
                 RestoreDirectory = true,
             };

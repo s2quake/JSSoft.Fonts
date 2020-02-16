@@ -14,12 +14,15 @@ namespace JSSoft.Font.ApplicationHost
     {
         private readonly FontDescriptor fontDescriptor;
         private readonly string name;
+        private readonly string displayName;
         private bool? isChecked = false;
 
         public CharacterGroup(FontDescriptor fontDescriptor, string name, uint min, uint max)
         {
             this.fontDescriptor = fontDescriptor ?? throw new ArgumentNullException(nameof(fontDescriptor));
             this.name = name;
+            this.Min = min;
+            this.Max = max;
             this.Items = this.CreateItems(min, max);
             this.IsVisible = this.Items.Any(item => item.TestVisible());
         }
@@ -44,6 +47,10 @@ namespace JSSoft.Font.ApplicationHost
         }
 
         public override string DisplayName => this.name;
+
+        public uint Min { get; }
+
+        public uint Max { get; }
 
         public CharacterRow[] Items { get; }
 

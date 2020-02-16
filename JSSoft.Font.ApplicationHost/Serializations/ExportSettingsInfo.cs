@@ -12,19 +12,22 @@ namespace JSSoft.Font.ApplicationHost.Serializations
     [XmlRoot]
     public struct ExportSettingsInfo
     {
-        [XmlElement(Order = 0)]
+        [XmlElement]
         public string Font { get; set; }
 
-        [XmlElement(Order = 1)]
+        [XmlElement]
+        public string Face { get; set; }
+
+        [XmlElement]
         public int Size { get; set; }
 
-        [XmlElement(Order = 2)]
+        [XmlElement]
         public int DPI { get; set; }
 
-        [XmlElement(Order = 3)]
+        [XmlElement]
         public int TextureWidth { get; set; }
 
-        [XmlElement(Order = 4)]
+        [XmlElement]
         public int TextureHeight { get; set; }
 
         [XmlIgnore]
@@ -36,7 +39,7 @@ namespace JSSoft.Font.ApplicationHost.Serializations
         [XmlIgnore]
         public uint[] Characters { get; set; }
 
-        [XmlElement(nameof(Padding), Order = 5)]
+        [XmlElement]
         public string PaddingValue
         {
             get => $"{this.Padding.Top},{this.Padding.Right},{this.Padding.Bottom},{this.Padding.Left}";
@@ -47,7 +50,7 @@ namespace JSSoft.Font.ApplicationHost.Serializations
             }
         }
 
-        [XmlElement(nameof(Spacing), Order = 6)]
+        [XmlElement]
         public string SpacingValue
         {
             get => $"{this.Spacing.Vertical},{this.Spacing.Horizontal}";
@@ -58,7 +61,7 @@ namespace JSSoft.Font.ApplicationHost.Serializations
             }
         }
 
-        [XmlElement(nameof(Characters), Order = 7)]
+        [XmlElement]
         public string CharactersValue
         {
             get => $"{new CharacterIDCollection(this.Characters)}";
@@ -67,7 +70,7 @@ namespace JSSoft.Font.ApplicationHost.Serializations
 
         internal static ExportSettingsInfo Create(ShellViewModel shell)
         {
-            var settings = shell.ExportSettings;
+            var settings = shell.Settings;
             var fontDescriptor = shell.FontDescriptor;
             var query = from characterGroup in shell.Groups
                         where characterGroup.IsChecked != false
@@ -80,6 +83,7 @@ namespace JSSoft.Font.ApplicationHost.Serializations
             return new ExportSettingsInfo()
             {
                 Font = fontDescriptor.FontPath,
+                Face = fontDescriptor.Name,
                 Size = fontDescriptor.Height,
                 DPI = (int)fontDescriptor.DPI,
                 TextureWidth = settings.TextureWidth,

@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
+using JSSoft.Font.ApplicationHost.Properties;
+using Microsoft.Win32;
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
@@ -30,15 +32,34 @@ namespace JSSoft.Font.ApplicationHost.ToolBarItems
         {
             var dialog = new OpenFileDialog()
             {
-                Filter = "font files (*.otf)|*.otf|all files (*.*)|*.*",
+                Filter = Resources.FontFilter,
                 FilterIndex = 1,
                 RestoreDirectory = true,
             };
 
             if (dialog.ShowDialog() == true)
             {
-                await this.Shell.OpenAsync(dialog.FileName);
+                var faceIndex = this.SelectFace(dialog.FileName);
+                await this.Shell.OpenAsync(dialog.FileName, faceIndex);
             }
+        }
+
+        private int SelectFace(string path)
+        {
+            var faces = FontDescriptor.GetFaces(path);
+            if (faces.Length == 1)
+                return 0;
+
+            var dialog = new SelectFaceViewModel(faces.ToArray());
+            if (dialog.ShowDialog() == true)
+            {
+                for (var i = 0; i < faces.Length; i++)
+                {
+                    if (faces[i] == dialog.Face)
+                        return i;
+                }
+            }
+            return 0;
         }
 
         private IShell Shell => this.shell.Value;

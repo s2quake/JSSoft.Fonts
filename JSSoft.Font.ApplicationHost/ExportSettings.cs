@@ -1,4 +1,5 @@
-﻿using Ntreev.ModernUI.Framework;
+﻿using JSSoft.Font.ApplicationHost.Serializations;
+using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace JSSoft.Font.ApplicationHost
 {
     public sealed class ExportSettings : PropertyChangedBase
     {
-        private int textureWidth = 1024;
-        private int textureHeight = 1024;
+        private int textureWidth = 128;
+        private int textureHeight = 128;
         private Thickness padding = new Thickness(1);
         private int horizontalSpace = 1;
         private int verticalSpace = 1;
@@ -64,6 +65,26 @@ namespace JSSoft.Font.ApplicationHost
                 this.verticalSpace = value;
                 this.NotifyOfPropertyChange(nameof(VerticalSpace));
             }
+        }
+
+        public static explicit operator FontDataSettings(ExportSettings settings)
+        {
+            return new FontDataSettings()
+            {
+                Width = settings.TextureWidth,
+                Height = settings.TextureHeight,
+                Padding = ((int)settings.Padding.Left, (int)settings.Padding.Top, (int)settings.Padding.Right, (int)settings.Padding.Bottom),
+                Spacing = (settings.HorizontalSpace, settings.VerticalSpace)
+            };
+        }
+
+        internal void Update(ExportSettingsInfo info)
+        {
+            this.TextureWidth = info.TextureWidth;
+            this.TextureHeight = info.TextureHeight;
+            this.Padding = new Thickness(info.Padding.Left, info.Padding.Top, info.Padding.Right, info.Padding.Bottom);
+            this.HorizontalSpace = info.Spacing.Horizontal;
+            this.VerticalSpace = info.Spacing.Vertical;
         }
     }
 }

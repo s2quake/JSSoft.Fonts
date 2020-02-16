@@ -19,10 +19,16 @@ namespace JSSoft.Font
         private Face face;
 
         public FontDescriptor(string path, uint dpi, int height)
+            : this(path, dpi, height, 0)
+        {
+
+        }
+
+        public FontDescriptor(string path, uint dpi, int height, int faceIndex)
         {
             var pixelSize = (double)height * dpi / 72;
             this.lib = new Library();
-            this.face = new Face(this.lib, Path.GetFullPath(path));
+            this.face = new Face(this.lib, Path.GetFullPath(path), faceIndex);
             this.face.SetCharSize(0, height, 0, dpi);
             this.ItemHeight = (int)Math.Round(this.face.Height * pixelSize / this.face.UnitsPerEM);
             this.BaseLine = this.ItemHeight + (this.ItemHeight * this.face.Descender / this.face.Height);
@@ -35,6 +41,27 @@ namespace JSSoft.Font
             this.DPI = dpi;
             this.Height = height;
             this.FontPath = path;
+        }
+
+        public static string[] GetFaces(string path)
+        {
+            var fullpath = Path.GetFullPath(path);
+            using (var lib = new Library())
+            using (var face = new Face(lib, fullpath, 0))
+            {
+                var faceList = new List<string>()
+                {
+                    face.FamilyName
+                };
+                for (var i = 1; i < face.FaceCount; i++)
+                {
+                    using (var childFace = new Face(lib, fullpath, i))
+                    {
+                        faceList.Add(childFace.FamilyName);
+                    }
+                }
+                return faceList.ToArray();
+            }
         }
 
         public uint DPI { get; private set; }
@@ -99,7 +126,14 @@ namespace JSSoft.Font
             var index = this.face.GetCharIndex(charCode);
             if (index == 0)
                 return null;
-            this.face.LoadGlyph(index, LoadFlags.Default, LoadTarget.Normal);
+            try
+            {
+                this.face.LoadGlyph(index, LoadFlags.Default, LoadTarget.Normal);
+            }
+            catch
+            {
+                return null;
+            }
             this.face.Glyph.RenderGlyph(RenderMode.Normal);
             return this.face.Glyph;
         }
