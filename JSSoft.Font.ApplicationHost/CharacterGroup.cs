@@ -14,7 +14,7 @@ namespace JSSoft.Font.ApplicationHost
     {
         private readonly FontDescriptor fontDescriptor;
         private readonly string name;
-        private readonly string displayName;
+        //private readonly string displayName;
         private bool? isChecked = false;
 
         public CharacterGroup(FontDescriptor fontDescriptor, string name, uint min, uint max)

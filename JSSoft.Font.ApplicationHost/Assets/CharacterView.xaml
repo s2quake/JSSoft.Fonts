@@ -11,8 +11,10 @@
     <jsfv:FieldNameToValueConverter x:Key="FieldNameToValueConverter" />
 
     <DataTemplate x:Key="Cell_ContentTemplate">
-        <jsfc:CharacterControl x:Name="CharacterControl" Text="{Binding Text}" IsEnabled="{Binding IsEnabled}" Source="{Binding Source, IsAsync=True}" GlyphMetrics="{Binding GlyphMetrics}"
-                               BorderBrush="{StaticResource WindowBackground}"
+        <jsfc:CharacterControl x:Name="CharacterControl" Text="{Binding Text}" IsEnabled="{Binding IsEnabled}" 
+                               Source="{Binding Source, IsAsync=True}" GlyphMetrics="{Binding GlyphMetrics}"
+                               BorderBrush="{StaticResource WindowBackground}" 
+                               ZoomLevel="{Binding ZoomLevel, RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterView}}}"
                                BorderThickness="{Binding ItemThickness, RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterView}}}"/>
         <DataTemplate.Triggers>
             <MultiDataTrigger>

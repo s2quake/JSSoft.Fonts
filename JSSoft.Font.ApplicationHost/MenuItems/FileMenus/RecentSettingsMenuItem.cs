@@ -77,11 +77,12 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
                 this.itemByPath.Clear();
                 this.itemList.Clear();
             }
+            this.InvokeCanExecuteChangedEvent();
         }
 
         protected override bool OnCanExecute(object parameter)
         {
-            return this.Shell.IsProgressing == false;
+            return this.Shell.IsProgressing == false && this.Shell.RecentSettings.Any();
         }
 
         private ShellViewModel Shell => this.shell.Value;

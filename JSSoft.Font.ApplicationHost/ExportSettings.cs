@@ -22,8 +22,11 @@ namespace JSSoft.Font.ApplicationHost
             get => this.textureWidth;
             set
             {
-                this.textureWidth = value;
-                this.NotifyOfPropertyChange(nameof(TextureWidth));
+                if (this.textureWidth != value)
+                {
+                    this.textureWidth = value;
+                    this.NotifyOfPropertyChange(nameof(TextureWidth));
+                }
             }
         }
 
@@ -32,8 +35,11 @@ namespace JSSoft.Font.ApplicationHost
             get => this.textureHeight;
             set
             {
-                this.textureHeight = value;
-                this.NotifyOfPropertyChange(nameof(TextureHeight));
+                if (this.textureHeight != value)
+                {
+                    this.textureHeight = value;
+                    this.NotifyOfPropertyChange(nameof(TextureHeight));
+                }
             }
         }
 
@@ -42,8 +48,11 @@ namespace JSSoft.Font.ApplicationHost
             get => this.padding;
             set
             {
-                this.padding = value;
-                this.NotifyOfPropertyChange(nameof(Padding));
+                if (this.padding != value)
+                {
+                    this.padding = value;
+                    this.NotifyOfPropertyChange(nameof(Padding));
+                }
             }
         }
 
@@ -52,8 +61,11 @@ namespace JSSoft.Font.ApplicationHost
             get => this.horizontalSpace;
             set
             {
-                this.horizontalSpace = value;
-                this.NotifyOfPropertyChange(nameof(HorizontalSpace));
+                if (this.horizontalSpace != value)
+                {
+                    this.horizontalSpace = value;
+                    this.NotifyOfPropertyChange(nameof(HorizontalSpace));
+                }
             }
         }
 
@@ -62,8 +74,11 @@ namespace JSSoft.Font.ApplicationHost
             get => this.verticalSpace;
             set
             {
-                this.verticalSpace = value;
-                this.NotifyOfPropertyChange(nameof(VerticalSpace));
+                if (this.verticalSpace != value)
+                {
+                    this.verticalSpace = value;
+                    this.NotifyOfPropertyChange(nameof(VerticalSpace));
+                }
             }
         }
 
@@ -76,6 +91,15 @@ namespace JSSoft.Font.ApplicationHost
                 Padding = ((int)settings.Padding.Left, (int)settings.Padding.Top, (int)settings.Padding.Right, (int)settings.Padding.Bottom),
                 Spacing = (settings.HorizontalSpace, settings.VerticalSpace)
             };
+        }
+
+        public void CopyTo(ExportSettings settings)
+        {
+            settings.TextureWidth = this.TextureWidth;
+            settings.TextureHeight = this.TextureHeight;
+            settings.Padding = this.Padding;
+            settings.HorizontalSpace = this.HorizontalSpace;
+            settings.VerticalSpace = this.VerticalSpace;
         }
 
         internal void Update(ExportSettingsInfo info)

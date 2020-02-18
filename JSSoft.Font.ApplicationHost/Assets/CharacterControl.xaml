@@ -3,26 +3,24 @@
                     xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
                     xmlns:jsfv="clr-namespace:JSSoft.Font.ApplicationHost.Converters">
 
-    <VisualBrush x:Key="MyVisualBrush" TileMode="Tile" Viewport="0,0,15,15" ViewportUnits="Absolute" Viewbox="0,0,15,15" ViewboxUnits="Absolute">
+    <VisualBrush x:Key="DisabledPattern_VisualBrush"  TileMode="Tile" Viewport="0,0,4,4" ViewportUnits="Absolute" Viewbox="0,0,4,4" ViewboxUnits="Absolute">
         <VisualBrush.Visual>
-            <Grid>
-                <Path Data="M 0 15 L 15 0" Stroke="Gray" />
-                <Path Data="M 0 0 L 15 15" Stroke="Gray" />
-            </Grid>
+            <Canvas>
+                <Rectangle Fill="{StaticResource WindowText}" Width="1" Height="1" />
+                <Rectangle Fill="{StaticResource WindowText}" Canvas.Left="2" Canvas.Top="2" Width="1" Height="1" />
+            </Canvas>
         </VisualBrush.Visual>
     </VisualBrush>
 
     <ControlTemplate x:Key="CharacterControl_Template" TargetType="{x:Type jsfc:CharacterControl}">
-        <Grid x:Name="grid" Margin="{TemplateBinding Margin}">
-            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                <Viewbox>
-                    <Image x:Name="PART_Image" Source="{TemplateBinding Source}" RenderOptions.BitmapScalingMode="NearestNeighbor" />
-                </Viewbox>
-            </Border>
-        </Grid>
+        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid x:Name="PART_Grid" Margin="{TemplateBinding Margin}">
+                <ContentPresenter />
+            </Grid>
+        </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="grid" Property="Background" Value="{StaticResource MyVisualBrush}" />
+                <Setter TargetName="PART_Grid" Property="Background" Value="{StaticResource DisabledPattern_VisualBrush}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

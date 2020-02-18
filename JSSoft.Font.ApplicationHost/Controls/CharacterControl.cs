@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
-    [TemplatePart(Name = "PART_Image", Type = typeof(Image))]
+    [TemplatePart(Name = "PART_Grid", Type = typeof(Grid))]
     public class CharacterControl : UserControl
     {
         public static readonly DependencyProperty TextProperty =
@@ -23,21 +24,25 @@ namespace JSSoft.Font.ApplicationHost.Controls
             DependencyProperty.Register(nameof(GlyphMetrics), typeof(GlyphMetrics), typeof(CharacterControl),
                 new FrameworkPropertyMetadata(GlyphMetricsPropertyChangedCallback));
 
-        private Image image;
+        public static readonly DependencyProperty ZoomLevelProperty =
+           DependencyProperty.Register(nameof(ZoomLevel), typeof(double), typeof(CharacterControl),
+               new FrameworkPropertyMetadata(1.0, ZoomLevelPropertyChangedCallback));
+
+        private readonly Image image = new Image();
+        private Grid grid;
 
         public CharacterControl()
         {
-
+            RenderOptions.SetBitmapScalingMode(this.image, BitmapScalingMode.NearestNeighbor);
+            BindingOperations.SetBinding(this.image, Image.SourceProperty, new Binding(nameof(Source)) { Source = this });
+            this.Content = this.image;
         }
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            this.image = this.Template.FindName("PART_Image", this) as Image;
-            if  (this.image != null)
-            {
-                this.UpdateImageLayout();
-            }
+            this.grid = this.Template.FindName("PART_Grid", this) as Grid;
+            this.UpdateImageLayout();
         }
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -47,10 +52,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
             var property = e.Property;
             if (property == TextProperty || property == SourceProperty || property == GlyphMetricsProperty)
             {
-                if (this.image != null)
-                {
-                    this.UpdateImageLayout();
-                }
+                this.UpdateImageLayout();
             }
         }
 
@@ -72,9 +74,23 @@ namespace JSSoft.Font.ApplicationHost.Controls
             set => this.SetValue(GlyphMetricsProperty, value);
         }
 
+        public double ZoomLevel
+        {
+            get => (double)this.GetValue(ZoomLevelProperty);
+            set => this.SetValue(ZoomLevelProperty, value);
+        }
+
         private static void GlyphMetricsPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is CharacterControl self && self.image != null)
+            if (d is CharacterControl self)
+            {
+                self.UpdateImageLayout();
+            }
+        }
+
+        private static void ZoomLevelPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is CharacterControl self)
             {
                 self.UpdateImageLayout();
             }
@@ -83,12 +99,16 @@ namespace JSSoft.Font.ApplicationHost.Controls
         private void UpdateImageLayout()
         {
             var metrics = this.GlyphMetrics;
-
-            if (metrics.Width == 0 || metrics.Height == 0)
+            if (metrics.Width == 0 || metrics.Height == 0 || this.IsEnabled == false)
             {
                 this.image.Margin = new Thickness(0);
-                this.image.Width = metrics.VerticalAdvance;
-                this.image.Height = metrics.VerticalAdvance;
+                this.image.Width = double.NaN;
+                this.image.Height = double.NaN;
+                if (this.grid != null)
+                {
+                    this.grid.Width = double.NaN;
+                    this.grid.Height = double.NaN;
+                }
             }
             else
             {
@@ -96,10 +116,12 @@ namespace JSSoft.Font.ApplicationHost.Controls
                 var top = metrics.BaseLine - metrics.HorizontalBearingY;
                 var right = metrics.HorizontalAdvance - (left + metrics.Width);
                 var bottom = metrics.VerticalAdvance - (top + metrics.Height);
-
                 this.image.Margin = new Thickness(left, top, right, bottom);
-                this.image.Width = metrics.Width;
-                this.image.Height = metrics.Height;
+                if (this.grid != null)
+                {
+                    this.grid.Width = metrics.VerticalAdvance * this.ZoomLevel;
+                    this.grid.Height = metrics.VerticalAdvance * this.ZoomLevel;
+                }
             }
         }
     }

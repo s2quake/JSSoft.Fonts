@@ -4,6 +4,7 @@ using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace JSSoft.Font.ApplicationHost
         private double zoomLevel = 1.0;
         private ExportSettings exportSettings = new ExportSettings();
         private bool isOpened;
+        private bool isModified;
 
         [ImportingConstructor]
         public ShellViewModel([ImportMany]IEnumerable<IMenuItem> menuItems, [ImportMany]IEnumerable<IToolBarItem> toolBarItems, IAppConfiguration configs)
@@ -37,6 +39,7 @@ namespace JSSoft.Font.ApplicationHost
             this.toolBarItems = toolBarItems;
             this.configs = configs;
             this.DisplayName = "JSFont";
+            this.exportSettings.PropertyChanged += ExportSettings_PropertyChanged;
             this.Dispatcher.InvokeAsync(this.ReadRecentSettings);
         }
 
@@ -54,9 +57,10 @@ namespace JSSoft.Font.ApplicationHost
                         this.Groups.Add(item);
                 }
                 this.DisplayName = this.FontDescriptor.Name;
-                this.IsOpened = true;
-                this.IsProgressing = false;
                 this.SelectedGroup = this.Groups.FirstOrDefault();
+                this.IsProgressing = false;
+                this.IsModified = false;
+                this.IsOpened = true;
                 this.OnOpened(EventArgs.Empty);
             });
         }
@@ -87,27 +91,33 @@ namespace JSSoft.Font.ApplicationHost
 
         public async Task SaveSettingsAsync(string filename)
         {
+            var fullPath = Path.GetFullPath(filename);
             var info = await this.BeginTaskAsync(() => ExportSettingsInfo.Create(this));
-            await WriteSettingsAsync(filename, info);
-            await this.EndTaskAsync(()=>
+            await WriteSettingsAsync(fullPath, info);
+            await this.EndTaskAsync(() =>
             {
-                if (this.RecentSettings.Contains(filename) == false)
-                    this.RecentSettings.Add(filename);
+                this.RecentSettings.Remove(fullPath);
+                this.RecentSettings.Insert(0, fullPath);
                 this.configs[nameof(RecentSettings)] = this.RecentSettings.ToArray();
+                this.IsModified = true;
             });
         }
 
         public async Task LoadSettingsAsync(string filename)
         {
+            var fullPath = Path.GetFullPath(filename);
             var isOpened = await this.BeginTaskAsync(() => this.isOpened);
-            var info = await ReadSettingsAsync(filename);
+            var info = await ReadSettingsAsync(fullPath);
             if (isOpened == true)
                 await this.CloseAsync();
             await this.OpenAsync(info.Font, 0);
             await this.EndTaskAsync(() =>
             {
                 this.UpdateCheckState(info.Characters);
+                this.exportSettings.PropertyChanged -= ExportSettings_PropertyChanged;
                 this.exportSettings.Update(info);
+                this.exportSettings.PropertyChanged += ExportSettings_PropertyChanged;
+                this.IsModified = false;
             });
         }
 
@@ -144,8 +154,6 @@ namespace JSSoft.Font.ApplicationHost
                     imageList.Add(bitmapImage);
                     stream.Dispose();
                 }
-
-
                 return imageList.ToArray();
             });
             await this.EndTaskAsync(null);
@@ -183,9 +191,12 @@ namespace JSSoft.Font.ApplicationHost
             get => this.selectedGroup;
             set
             {
-                this.selectedGroup = value;
-                this.NotifyOfPropertyChange(nameof(SelectedGroup));
-                this.NotifyOfPropertyChange(nameof(CharacterRows));
+                if (this.selectedGroup != value)
+                {
+                    this.selectedGroup = value;
+                    this.NotifyOfPropertyChange(nameof(SelectedGroup));
+                    this.NotifyOfPropertyChange(nameof(CharacterRows));
+                }
             }
         }
 
@@ -214,20 +225,40 @@ namespace JSSoft.Font.ApplicationHost
             get => this.isOpened;
             set
             {
-                this.isOpened = value;
-                this.NotifyOfPropertyChange(nameof(VerticalAdvance));
-                this.NotifyOfPropertyChange(nameof(IsOpened));
+                if (this.isOpened != value)
+                {
+                    this.isOpened = value;
+                    this.NotifyOfPropertyChange(nameof(VerticalAdvance));
+                    this.NotifyOfPropertyChange(nameof(IsOpened));
+                }
             }
         }
 
-        public ExportSettings Settings
+        public bool IsModified
         {
-            get => this.exportSettings;
+            get => this.isModified;
             set
             {
-                this.exportSettings = value ?? throw new ArgumentNullException(nameof(value));
-                this.NotifyOfPropertyChange(nameof(Settings));
+                if (this.isModified != value)
+                {
+                    this.isModified = value;
+                    this.NotifyOfPropertyChange(nameof(IsModified));
+                    this.NotifyOfPropertyChange(nameof(DisplayName));
+                }
             }
+        }
+
+        public ExportSettings Settings => this.exportSettings;
+
+        public override string DisplayName
+        {
+            get
+            {
+                if (this.IsModified == true)
+                    return $"{base.DisplayName}*";
+                return base.DisplayName;
+            }
+            set => base.DisplayName = value;
         }
 
         public FontDescriptor FontDescriptor { get; private set; }
@@ -256,6 +287,11 @@ namespace JSSoft.Font.ApplicationHost
             //await this.OpenAsync(@"..\..\..\Fonts\SF-Mono-Semibold.otf", 0);
             //await this.OpenAsync(@"..\..\..\Fonts\gulim.ttc", 0);
             //await this.OpenAsync(@"C:\Users\s2quake\Desktop\AppleSDGothicNeo-Semibold.otf");
+        }
+
+        private void ExportSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            this.IsModified = true;
         }
 
         private async Task<T> BeginTaskAsync<T>(Func<T> func)
@@ -293,7 +329,7 @@ namespace JSSoft.Font.ApplicationHost
         {
             return Task.Run(() =>
             {
-                this.FontDescriptor = new FontDescriptor(fontPath, 96, 14, faceIndex);
+                this.FontDescriptor = new FontDescriptor(fontPath, 72, 14, faceIndex);
                 this.groupList.Clear();
                 foreach (var (name, min, max) in NamesList.Items)
                 {
@@ -355,7 +391,16 @@ namespace JSSoft.Font.ApplicationHost
                 var settigns = this.configs[nameof(RecentSettings)] as string[];
                 foreach (var item in settigns)
                 {
-                    this.RecentSettings.Add(item);
+                    try
+                    {
+                        var fullPath = Path.GetFullPath(item);
+                        if (File.Exists(fullPath) == true)
+                            this.RecentSettings.Add(fullPath);
+                    }
+                    catch
+                    {
+
+                    }
                 }
             }
         }

@@ -20,6 +20,11 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
         {
             this.shell = shell;
             this.DisplayName = "Export Font...";
+            this.Dispatcher.InvokeAsync(() =>
+            {
+                this.Shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
+                this.Shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();
+            });
         }
 
         protected override bool OnCanExecute(object parameter)

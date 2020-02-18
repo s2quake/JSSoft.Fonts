@@ -13,7 +13,7 @@ namespace JSSoft.Font
     {
         private readonly List<FontGlyphData> glyphList = new List<FontGlyphData>();
         private readonly bool[,] pixels;
-        private FontDataSettings settings;
+        private readonly FontDataSettings settings;
 
         public FontPage(int index, string name, FontDataSettings settings)
         {
@@ -59,8 +59,8 @@ namespace JSSoft.Font
             var (left, top, right, bottom) = this.settings.Padding;
             var (horz, vert) = this.settings.Spacing;
             var metrics = glyph.Metrics;
-            var width = metrics.Width + left + right + horz;
-            var height = metrics.Height + top + bottom + vert;
+            var width = metrics.Width;
+            var height = metrics.Height;
 
             for (var y = 0; y < this.Height - height; y++)
             {
@@ -146,7 +146,7 @@ namespace JSSoft.Font
         {
             var bitmap = new Bitmap(this.Width, this.Height);
             var graphics = Graphics.FromImage(bitmap);
-            graphics.FillRectangle(Brushes.Black, new Rectangle(0, 0, this.Width, this.Height));
+            //graphics.FillRectangle(Brushes.Black, new Rectangle(0, 0, this.Width, this.Height));
             foreach (var item in this.glyphList)
             {
                 graphics.DrawImage(item.Bitmap, item.Rectangle);

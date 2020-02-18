@@ -23,13 +23,15 @@ namespace JSSoft.Font.ApplicationHost
 
         bool IsOpened { get; }
 
+        bool IsModified { get; }
+
         bool IsProgressing { get; }
 
         string DisplayName { get; }
 
         double ZoomLevel { get; set; }
 
-        ExportSettings Settings { get; set; }
+        ExportSettings Settings { get; }
 
         IEnumerable<ICharacterGroup> Groups { get; }
 
