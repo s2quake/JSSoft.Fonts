@@ -13,7 +13,7 @@ using Xceed.Wpf.DataGrid;
 namespace JSSoft.Font.ApplicationHost.Controls
 {
     [TemplatePart(Name = "PART_DataGrid", Type = typeof(ModernDataGridControl))]
-    public class CharacterView : UserControl
+    public class CharacterView : Control
     {
         public static readonly DependencyProperty CharacterGroupProperty =
             DependencyProperty.Register(nameof(CharacterGroup), typeof(ICharacterGroup), typeof(CharacterView),

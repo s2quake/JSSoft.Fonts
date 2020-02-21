@@ -43,10 +43,10 @@ namespace JSSoft.Font.ApplicationHost
             this.Dispatcher.InvokeAsync(this.ReadRecentSettings);
         }
 
-        public async Task OpenAsync(string fontPath, int faceIndex)
+        public async Task OpenAsync(string fontPath, int size, int dpi, int faceIndex)
         {
             await this.Dispatcher.InvokeAsync(() => this.IsProgressing = true);
-            await this.OpenFontDescriptorAsync(fontPath, faceIndex);
+            await this.OpenFontDescriptorAsync(fontPath, size, dpi, faceIndex);
             await this.Dispatcher.InvokeAsync(() =>
             {
                 this.Groups.Clear();
@@ -110,7 +110,7 @@ namespace JSSoft.Font.ApplicationHost
             var info = await ReadSettingsAsync(fullPath);
             if (isOpened == true)
                 await this.CloseAsync();
-            await this.OpenAsync(info.Font, 0);
+            await this.OpenAsync(info.Font, info.Size, info.DPI, 0);
             await this.EndTaskAsync(() =>
             {
                 this.UpdateCheckState(info.Characters);
@@ -325,11 +325,11 @@ namespace JSSoft.Font.ApplicationHost
             });
         }
 
-        private Task OpenFontDescriptorAsync(string fontPath, int faceIndex)
+        private Task OpenFontDescriptorAsync(string fontPath, int size, int dpi, int faceIndex)
         {
             return Task.Run(() =>
             {
-                this.FontDescriptor = new FontDescriptor(fontPath, 72, 14, faceIndex);
+                this.FontDescriptor = new FontDescriptor(fontPath, (uint)dpi, size, faceIndex);
                 this.groupList.Clear();
                 foreach (var (name, min, max) in NamesList.Items)
                 {
@@ -346,7 +346,6 @@ namespace JSSoft.Font.ApplicationHost
                         where characterGroup.IsVisible
                         from row in characterGroup.Items
                         from item in row.Items
-                        where item.IsEnabled
                         select item;
             var characterByID = query.ToDictionary(item => item.ID);
             foreach (var item in items)

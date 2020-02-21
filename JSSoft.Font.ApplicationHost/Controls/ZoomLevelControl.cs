@@ -15,7 +15,7 @@ using System.Windows.Input;
 namespace JSSoft.Font.ApplicationHost.Controls
 {
     [TemplatePart(Name = "PART_ComboBox", Type = typeof(ComboBox))]
-    public class ZoomLevelControl : UserControl
+    public class ZoomLevelControl : Control
     {
         private const string pattern = @"^(\d{1,5}\.{0,1}(?=\d{1,2})\d{0,2})\s*%";
 

@@ -68,6 +68,7 @@
     <Compile Include="CharacterRow.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="CharacterGroup.cs" />
+    <Compile Include="Controls\DPISelector.cs" />
     <Compile Include="Controls\SpacingControl.cs" />
     <Compile Include="Controls\ZoomLevelItem.cs" />
     <Compile Include="Controls\ZoomLevelControl.cs" />
@@ -77,15 +78,15 @@
     <Compile Include="Dialogs\ViewModels\ExportSettingsViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\PreviewItemViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\PreviewViewModel.cs" />
-    <Compile Include="Dialogs\ViewModels\SelectFaceViewModel.cs" />
+    <Compile Include="Dialogs\ViewModels\FontLoadSettingsViewModel.cs" />
     <Compile Include="Dialogs\Views\ExportSettingsView.xaml.cs">
       <DependentUpon>ExportSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\Views\PreviewView.xaml.cs">
       <DependentUpon>PreviewView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\Views\SelectFaceView.xaml.cs">
-      <DependentUpon>SelectFaceView.xaml</DependentUpon>
+    <Compile Include="Dialogs\Views\FontLoadSettingsView.xaml.cs">
+      <DependentUpon>FontLoadSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExportSettings.cs" />
     <Compile Include="MenuItems\FileMenus\RecentSettingsItemMenuItem.cs" />
@@ -120,6 +121,10 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="IShell.cs" />
+    <Page Include="Assets\DPISelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Assets\SpacingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -148,7 +153,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\Views\SelectFaceView.xaml">
+    <Page Include="Dialogs\Views\FontLoadSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

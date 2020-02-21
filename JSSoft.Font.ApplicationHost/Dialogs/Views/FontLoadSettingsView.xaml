@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="JSSoft.Font.ApplicationHost.Dialogs.Views.SelectFaceView"
+﻿<UserControl x:Class="JSSoft.Font.ApplicationHost.Dialogs.Views.FontLoadSettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,8 +8,14 @@
              mc:Ignorable="d" Width="400">
 
     <StackPanel>
-        <Label Content="Face List" Margin="0 4" />
-        <ComboBox ItemsSource="{Binding Faces}" SelectedItem="{Binding Face}" Margin="0 4" />
+        <nmfc:PropertyItemsControl>
+            <nmfc:NumericTextBox nmfc:PropertyItemsControl.Header="Size" 
+                                 Value="{Binding Size, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <jsfc:DPISelector nmfc:PropertyItemsControl.Header="Face List"
+                              Value="{Binding DPI, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox nmfc:PropertyItemsControl.Header="Face List" IsEditable="True"
+                      ItemsSource="{Binding Faces}" SelectedItem="{Binding Face}" Margin="0 4" />
+        </nmfc:PropertyItemsControl>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="Select" Content="OK" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />
             <Border Width="4" />

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace JSSoft.Font.ApplicationHost.Dialogs.Views
 {
     /// <summary>
-    /// SelectFaceView.xaml에 대한 상호 작용 논리
+    /// FontLoadSettingsView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class SelectFaceView : UserControl
+    public partial class FontLoadSettingsView : UserControl
     {
-        public SelectFaceView()
+        public FontLoadSettingsView()
         {
             InitializeComponent();
         }

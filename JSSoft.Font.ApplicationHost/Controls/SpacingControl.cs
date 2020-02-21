@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
-    public class SpacingControl : UserControl
+    public class SpacingControl : Control
     {
         public static readonly DependencyProperty HorizontalProperty =
             DependencyProperty.Register(nameof(Horizontal), typeof(double), typeof(SpacingControl));

@@ -9,7 +9,7 @@ namespace JSSoft.Font.ApplicationHost
 {
     public interface IShell
     {
-        Task OpenAsync(string fontPath, int faceIndex);
+        Task OpenAsync(string fontPath, int size, int dpi, int faceIndex);
 
         Task CloseAsync();
 

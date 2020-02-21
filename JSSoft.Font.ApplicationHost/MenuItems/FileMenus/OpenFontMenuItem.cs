@@ -41,27 +41,22 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 
             if (dialog.ShowDialog() == true)
             {
-                var faceIndex = this.SelectFace(dialog.FileName);
-                await this.Shell.OpenAsync(dialog.FileName, faceIndex);
+                var settings = this.GetSettings(dialog.FileName);
+                if (settings != null)
+                {
+                    await this.Shell.OpenAsync(dialog.FileName, settings.Size, settings.DPI, settings.FaceIndex);
+                }
             }
         }
 
-        private int SelectFace(string path)
+        private FontLoadSettingsViewModel GetSettings(string path)
         {
-            var faces = FontDescriptor.GetFaces(path);
-            if (faces.Length == 1)
-                return 0;
-
-            var dialog = new SelectFaceViewModel(faces.ToArray());
+            var dialog = new FontLoadSettingsViewModel(path);
             if (dialog.ShowDialog() == true)
             {
-                for (var i = 0; i < faces.Length; i++)
-                {
-                    if (faces[i] == dialog.Face)
-                        return i;
-                }
+                return dialog;
             }
-            return 0;
+            return null;
         }
 
         private IShell Shell => this.shell.Value;

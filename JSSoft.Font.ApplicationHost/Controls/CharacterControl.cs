@@ -11,9 +11,13 @@ using System.Windows.Media;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
-    [TemplatePart(Name = "PART_Grid", Type = typeof(Grid))]
-    public class CharacterControl : UserControl
+    [TemplatePart(Name = nameof(PART_Grid), Type = typeof(Grid))]
+    [TemplatePart(Name = nameof(PART_Image), Type = typeof(Image))]
+    public class CharacterControl : Control
     {
+        public const string PART_Grid = nameof(PART_Grid);
+        public const string PART_Image = nameof(PART_Image);
+
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register(nameof(Text), typeof(string), typeof(CharacterControl));
 
@@ -28,20 +32,19 @@ namespace JSSoft.Font.ApplicationHost.Controls
            DependencyProperty.Register(nameof(ZoomLevel), typeof(double), typeof(CharacterControl),
                new FrameworkPropertyMetadata(1.0, ZoomLevelPropertyChangedCallback));
 
-        private readonly Image image = new Image();
+        private Image image;
         private Grid grid;
 
         public CharacterControl()
         {
-            RenderOptions.SetBitmapScalingMode(this.image, BitmapScalingMode.NearestNeighbor);
-            BindingOperations.SetBinding(this.image, Image.SourceProperty, new Binding(nameof(Source)) { Source = this });
-            this.Content = this.image;
+
         }
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            this.grid = this.Template.FindName("PART_Grid", this) as Grid;
+            this.grid = this.Template.FindName(PART_Grid, this) as Grid;
+            this.image = this.Template.FindName(PART_Image, this) as Image;
             this.UpdateImageLayout();
         }
 
@@ -101,9 +104,12 @@ namespace JSSoft.Font.ApplicationHost.Controls
             var metrics = this.GlyphMetrics;
             if (metrics.Width == 0 || metrics.Height == 0 || this.IsEnabled == false)
             {
-                this.image.Margin = new Thickness(0);
-                this.image.Width = double.NaN;
-                this.image.Height = double.NaN;
+                if (this.image != null)
+                {
+                    this.image.Margin = new Thickness(0);
+                    this.image.Width = double.NaN;
+                    this.image.Height = double.NaN;
+                }
                 if (this.grid != null)
                 {
                     this.grid.Width = double.NaN;
@@ -116,7 +122,10 @@ namespace JSSoft.Font.ApplicationHost.Controls
                 var top = metrics.BaseLine - metrics.HorizontalBearingY;
                 var right = metrics.HorizontalAdvance - (left + metrics.Width);
                 var bottom = metrics.VerticalAdvance - (top + metrics.Height);
-                this.image.Margin = new Thickness(left, top, right, bottom);
+                if (this.image != null)
+                {
+                    this.image.Margin = new Thickness(left, top, right, bottom);
+                }
                 if (this.grid != null)
                 {
                     this.grid.Width = metrics.VerticalAdvance * this.ZoomLevel;
