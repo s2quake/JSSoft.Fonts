@@ -48,6 +48,8 @@
     <Compile Include="FontDescriptor.cs" />
     <Compile Include="FontGlyphData.cs" />
     <Compile Include="FontGlyph.cs" />
+    <Compile Include="FontSpacing.cs" />
+    <Compile Include="FontPadding.cs" />
     <Compile Include="FontPage.cs" />
     <Compile Include="FontData.cs" />
     <Compile Include="FontDataSettings.cs" />

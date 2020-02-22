@@ -28,7 +28,6 @@ namespace JSSoft.Font.ApplicationHost
         private readonly ObservableCollection<CharacterGroup> groupList = new ObservableCollection<CharacterGroup>();
         private CharacterGroup selectedGroup;
         private double zoomLevel = 1.0;
-        private ExportSettings exportSettings = new ExportSettings();
         private bool isOpened;
         private bool isModified;
 
@@ -39,15 +38,15 @@ namespace JSSoft.Font.ApplicationHost
             this.toolBarItems = toolBarItems;
             this.configs = configs;
             this.DisplayName = "JSFont";
-            this.exportSettings.PropertyChanged += ExportSettings_PropertyChanged;
+            this.Settings.PropertyChanged += ExportSettings_PropertyChanged;
             this.Dispatcher.InvokeAsync(this.ReadRecentSettings);
         }
 
         public async Task OpenAsync(string fontPath, int size, int dpi, int faceIndex)
         {
-            await this.Dispatcher.InvokeAsync(() => this.IsProgressing = true);
+            await this.BeginTaskAsync(null, this.ValidateOpen);
             await this.OpenFontDescriptorAsync(fontPath, size, dpi, faceIndex);
-            await this.Dispatcher.InvokeAsync(() =>
+            await this.EndTaskAsync(() =>
             {
                 this.Groups.Clear();
                 foreach (var item in this.groupList)
@@ -67,10 +66,10 @@ namespace JSSoft.Font.ApplicationHost
 
         public async Task ExportAsync(string filename)
         {
-            await this.BeginTaskAsync(null);
+            await this.BeginTaskAsync(null, null);
             await Task.Run(() =>
             {
-                var dataSettings = (FontDataSettings)this.exportSettings;
+                var dataSettings = (FontDataSettings)this.Settings;
                 var data = new FontData(this.FontDescriptor, dataSettings);
                 var fullPath = Path.GetFullPath(filename);
                 var directory = Path.GetDirectoryName(fullPath);
@@ -114,19 +113,19 @@ namespace JSSoft.Font.ApplicationHost
             await this.EndTaskAsync(() =>
             {
                 this.UpdateCheckState(info.Characters);
-                this.exportSettings.PropertyChanged -= ExportSettings_PropertyChanged;
-                this.exportSettings.Update(info);
-                this.exportSettings.PropertyChanged += ExportSettings_PropertyChanged;
+                this.Settings.PropertyChanged -= ExportSettings_PropertyChanged;
+                this.Settings.Update(info);
+                this.Settings.PropertyChanged += ExportSettings_PropertyChanged;
                 this.IsModified = false;
             });
         }
 
         public async Task<ImageSource[]> PreviewAsync()
         {
-            await this.BeginTaskAsync(null);
+            await this.BeginTaskAsync(null, null);
             var images = await Task.Run(() =>
             {
-                var dataSettings = (FontDataSettings)this.exportSettings;
+                var dataSettings = (FontDataSettings)this.Settings;
                 var data = new FontData(this.FontDescriptor, dataSettings);
                 var query = from fontGroup in this.Groups
                             where fontGroup.IsChecked != false
@@ -248,7 +247,7 @@ namespace JSSoft.Font.ApplicationHost
             }
         }
 
-        public ExportSettings Settings => this.exportSettings;
+        public ExportSettings Settings { get; } = new ExportSettings();
 
         public override string DisplayName
         {
@@ -285,7 +284,7 @@ namespace JSSoft.Font.ApplicationHost
         {
             base.OnInitialize();
             //await this.OpenAsync(@"..\..\..\Fonts\SF-Mono-Semibold.otf", 0);
-            //await this.OpenAsync(@"..\..\..\Fonts\gulim.ttc", 0);
+            await this.OpenAsync(@"..\..\..\Fonts\gulim.ttc", 14, 72, 0);
             //await this.OpenAsync(@"C:\Users\s2quake\Desktop\AppleSDGothicNeo-Semibold.otf");
         }
 
@@ -305,10 +304,11 @@ namespace JSSoft.Font.ApplicationHost
             });
         }
 
-        private async Task BeginTaskAsync(Action action)
+        private async Task BeginTaskAsync(Action action, Action validation)
         {
             await this.Dispatcher.InvokeAsync(() =>
             {
+                validation?.Invoke();
                 if (this.IsProgressing == true)
                     throw new InvalidOperationException();
                 this.IsProgressing = true;
@@ -404,16 +404,25 @@ namespace JSSoft.Font.ApplicationHost
             }
         }
 
+        private void ValidateOpen()
+        {
+            if (this.IsOpened == true)
+                throw new InvalidOperationException("font already open.");
+        }
+
+        private void ValidateClose()
+        {
+            if (this.IsOpened == false)
+                throw new InvalidOperationException("font does not open.");
+        }
+
         #region IShell
 
         async Task IShell.CloseAsync()
         {
-            await this.Dispatcher.InvokeAsync(() =>
-            {
-
-            });
+            await this.BeginTaskAsync(null, this.ValidateClose);
             await Task.Run(() => this.FontDescriptor.Dispose());
-            await this.Dispatcher.InvokeAsync(() =>
+            await this.EndTaskAsync(() =>
             {
                 this.NotifyOfPropertyChange(nameof(this.VerticalAdvance));
                 this.DisplayName = "JSFont";

@@ -31,24 +31,38 @@ namespace JSSoft.Font
             if (glyph.Bitmap == null)
                 return false;
 
-            var (left, top, right, bottom) = this.settings.Padding;
-            var (horz, vert) = this.settings.Spacing;
             var metrics = glyph.Metrics;
-            var width = metrics.Width + left + right + horz;
-            var height = metrics.Height + top + bottom + vert;
+            var width = metrics.Width;
+            var height = metrics.Height;
+            if (this.HitTest(width, height) is Point)
+            {
+                return true;
+            }
 
+            return false;
+        }
+
+        private Point? HitTest(int width, int height)
+        {
+            var padding = this.settings.Padding;
+            var spacing = this.settings.Spacing;
+            var rect = new Rectangle(0, 0, width, height);
             for (var y = 0; y < this.Height - height; y++)
             {
                 for (var x = 0; x < this.Width - width; x++)
                 {
-                    if (IsEmpty(new Rectangle(x, y, width, height)))
+                    rect.X = x;
+                    rect.Y = y;
+                    if (this.IsEmpty(rect) == true)
                     {
-                        return true;
+                        var right = rect.X + width + padding.Left + padding.Right;
+                        var bottom = rect.Y + height + padding.Top + padding.Bottom;
+                        if (right < this.Width && bottom < this.Height)
+                            return rect.Location;
                     }
                 }
             }
-
-            return false;
+            return null;
         }
 
         public void Add(FontGlyph glyph)
@@ -56,24 +70,22 @@ namespace JSSoft.Font
             if (glyph.Bitmap == null)
                 return;
 
-            var (left, top, right, bottom) = this.settings.Padding;
-            var (horz, vert) = this.settings.Spacing;
+            var padding = this.settings.Padding;
+            var spacing = this.settings.Spacing;
             var metrics = glyph.Metrics;
             var width = metrics.Width;
             var height = metrics.Height;
 
-            for (var y = 0; y < this.Height - height; y++)
+            if (this.HitTest(width, height) is Point location)
             {
-                for (var x = 0; x < this.Width - width; x++)
-                {
-                    var rectangle = new Rectangle(x, y, width, height);
-                    if (IsEmpty(rectangle))
-                    {
-                        this.FillRectangle(rectangle);
-                        this.glyphList.Add(new FontGlyphData(this, glyph, rectangle));
-                        return;
-                    }
-                }
+                var right = location.X + width + padding.Left + padding.Right;
+                var bottom = location.Y + height + padding.Top + padding.Bottom;
+                var spacingRight = Math.Min(right + spacing.Horizontal, this.Width);
+                var spacingBottom = Math.Min(bottom + spacing.Vertical, this.Height);
+                var rectangle = new Rectangle(location.X, location.Y, right - location.X, bottom - location.Y);
+                var spacingRectangle = new Rectangle(location.X, location.Y, spacingRight - location.X, spacingBottom - location.Y);
+                this.FillRectangle(spacingRectangle);
+                this.glyphList.Add(new FontGlyphData(this, glyph, rectangle));
             }
         }
 
@@ -95,6 +107,12 @@ namespace JSSoft.Font
 
         public int Height { get; }
 
+        public Color BackgroundColor { get; set; } = Color.Transparent;
+
+        public Color ForegroundColor { get; set; } = Color.White;
+
+        public Color PaddingColor { get; set; } = Color.Red;
+
         public IEnumerable<FontGlyphData> Glyphs
         {
             get
@@ -104,17 +122,6 @@ namespace JSSoft.Font
                     yield return item;
                 }
             }
-        }
-
-        private Rectangle FindRectangle(int x, int y, int width, int height)
-        {
-            var rectangle = new Rectangle(x, y, width, height);
-            while (y >= 0 && IsEmpty(rectangle))
-            {
-                rectangle = new Rectangle(x, y, width, height);
-                y--;
-            }
-            return rectangle;
         }
 
         private bool IsEmpty(Rectangle rectangle)
@@ -133,25 +140,38 @@ namespace JSSoft.Font
 
         private void FillRectangle(Rectangle rectangle)
         {
-            for (var x = 0; x < rectangle.Width; x++)
+            for (var x = rectangle.Left; x < rectangle.Right; x++)
             {
-                for (var y = 0; y < rectangle.Height; y++)
+                for (var y = rectangle.Top; y < rectangle.Bottom; y++)
                 {
-                    this.pixels[x + rectangle.X, y + rectangle.Y] = true;
+                    this.pixels[x, y] = true;
                 }
             }
         }
 
         private void Save(Action<Bitmap> action)
         {
+            var backgroundBrush = new SolidBrush(this.BackgroundColor);
+            var foregroundBrush = new SolidBrush(this.ForegroundColor);
+            var paddingBrush = new SolidBrush(this.PaddingColor);
             var bitmap = new Bitmap(this.Width, this.Height);
             var graphics = Graphics.FromImage(bitmap);
-            //graphics.FillRectangle(Brushes.Black, new Rectangle(0, 0, this.Width, this.Height));
+            var padding = this.settings.Padding;
+            graphics.FillRectangle(backgroundBrush, new Rectangle(0, 0, this.Width, this.Height));
+            int i = 0;
             foreach (var item in this.glyphList)
             {
-                graphics.DrawImage(item.Bitmap, item.Rectangle);
+                var metrics = item.Metrics;
+                var rect = new Rectangle(item.Rectangle.Left + padding.Left, item.Rectangle.Top + padding.Top, metrics.Width, metrics.Height);
+
+                if (i++ % 2 == 0)
+                    graphics.FillRectangle(paddingBrush, item.Rectangle);
+                else
+                    graphics.FillRectangle(Brushes.Blue, item.Rectangle);
+                //graphics.DrawImage(item.Bitmap, item.Rectangle);
             }
             action(bitmap);
         }
     }
 }
+

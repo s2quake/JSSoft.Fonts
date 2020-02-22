@@ -12,8 +12,8 @@ namespace JSSoft.Font
 
         public int Height { get; set; } = 128;
 
-        public (int Left, int Top, int Right, int Bottom) Padding { get; set; }
+        public FontPadding Padding { get; set; }
 
-        public (int Horz, int Vert) Spacing { get; set; }
+        public FontSpacing Spacing { get; set; }
     }
 }

@@ -15,13 +15,13 @@
                 <Viewbox Width="10" Height="10">
                     <nmfc:IconImage Source="/Ntreev.ModernUI.Framework;component/Images/thickness_left.png" DockPanel.Dock="Left" />
                 </Viewbox>
-                <nmfc:NumericTextBox x:Name="PART_Horizontal" Value="{Binding Horizontal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type jsfc:SpacingControl}}}" NumericType="{x:Type sys:Int32}" />
+                <nmfc:NumericTextBox x:Name="PART_Horizontal" Value="{Binding Horizontal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type jsfc:SpacingControl}}}" />
             </DockPanel>
             <DockPanel Grid.Column="2">
                 <Viewbox Width="10" Height="10">
                     <nmfc:IconImage Source="/Ntreev.ModernUI.Framework;component/Images/thickness_top.png" DockPanel.Dock="Left" />
                 </Viewbox>
-                <nmfc:NumericTextBox x:Name="PART_Vertical" Value="{Binding Vertical, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type jsfc:SpacingControl}}}" NumericType="{x:Type sys:Int32}" />
+                <nmfc:NumericTextBox x:Name="PART_Vertical" Value="{Binding Vertical, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type jsfc:SpacingControl}}}" />
             </DockPanel>
         </Grid>
     </ControlTemplate>

@@ -11,10 +11,10 @@
         <nmfc:PropertyItemsControl>
             <nmfc:NumericTextBox nmfc:PropertyItemsControl.Header="Size" 
                                  Value="{Binding Size, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <jsfc:DPISelector nmfc:PropertyItemsControl.Header="Face List"
+            <jsfc:DPISelector nmfc:PropertyItemsControl.Header="DPI"
                               Value="{Binding DPI, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <ComboBox nmfc:PropertyItemsControl.Header="Face List" IsEditable="True"
-                      ItemsSource="{Binding Faces}" SelectedItem="{Binding Face}" Margin="0 4" />
+            <ComboBox nmfc:PropertyItemsControl.Header="Face List"
+                      ItemsSource="{Binding Faces}" SelectedItem="{Binding Face}" />
         </nmfc:PropertyItemsControl>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="Select" Content="OK" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />

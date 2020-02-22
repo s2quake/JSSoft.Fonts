@@ -42,6 +42,8 @@ namespace JSSoft.Font.ApplicationHost.ToolBarItems
                 var settings = this.GetSettings(dialog.FileName);
                 if (settings != null)
                 {
+                    if (this.Shell.IsOpened == true)
+                        await this.Shell.CloseAsync();
                     await this.Shell.OpenAsync(dialog.FileName, settings.Size, settings.DPI, settings.FaceIndex);
                 }
             }

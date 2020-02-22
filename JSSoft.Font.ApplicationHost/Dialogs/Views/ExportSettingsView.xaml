@@ -14,9 +14,9 @@
             <jsfc:SpacingControl nmfc:PropertyItemsControl.Header="Spacing" 
                                  Horizontal="{Binding HorizontalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  Vertical="{Binding VerticalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <nmfc:NumericTextBox NumericType="{x:Type sys:Int32}" nmfc:PropertyItemsControl.Header="Texture Width" 
+            <nmfc:NumericTextBox nmfc:PropertyItemsControl.Header="Texture Width" 
                                  Value="{Binding TextureWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <nmfc:NumericTextBox NumericType="{x:Type sys:Int32}" nmfc:PropertyItemsControl.Header="Texture Height" 
+            <nmfc:NumericTextBox nmfc:PropertyItemsControl.Header="Texture Height" 
                                  Value="{Binding TextureHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </nmfc:PropertyItemsControl>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

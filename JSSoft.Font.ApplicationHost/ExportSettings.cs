@@ -88,8 +88,8 @@ namespace JSSoft.Font.ApplicationHost
             {
                 Width = settings.TextureWidth,
                 Height = settings.TextureHeight,
-                Padding = ((int)settings.Padding.Left, (int)settings.Padding.Top, (int)settings.Padding.Right, (int)settings.Padding.Bottom),
-                Spacing = (settings.HorizontalSpace, settings.VerticalSpace)
+                Padding = new FontPadding((int)settings.Padding.Left, (int)settings.Padding.Top, (int)settings.Padding.Right, (int)settings.Padding.Bottom),
+                Spacing = new FontSpacing(settings.HorizontalSpace, settings.VerticalSpace)
             };
         }
 
