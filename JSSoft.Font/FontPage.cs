@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -42,29 +43,6 @@ namespace JSSoft.Font
             return false;
         }
 
-        private Point? HitTest(int width, int height)
-        {
-            var padding = this.settings.Padding;
-            var spacing = this.settings.Spacing;
-            var rect = new Rectangle(0, 0, width, height);
-            for (var y = 0; y < this.Height - height; y++)
-            {
-                for (var x = 0; x < this.Width - width; x++)
-                {
-                    rect.X = x;
-                    rect.Y = y;
-                    if (this.IsEmpty(rect) == true)
-                    {
-                        var right = rect.X + width + padding.Left + padding.Right;
-                        var bottom = rect.Y + height + padding.Top + padding.Bottom;
-                        if (right < this.Width && bottom < this.Height)
-                            return rect.Location;
-                    }
-                }
-            }
-            return null;
-        }
-
         public void Add(FontGlyph glyph)
         {
             if (glyph.Bitmap == null)
@@ -99,6 +77,12 @@ namespace JSSoft.Font
             this.Save(bitmap => bitmap.Save(stream, ImageFormat.Png));
         }
 
+        public static Color DefaultBackgroundColor { get; } = Color.Transparent;
+
+        public static Color DefaultForegroundColor { get; } = Color.White;
+
+        public static Color DefaultPaddingColor { get; } = Color.Red;
+
         public int Index { get; }
 
         public string Name { get; }
@@ -107,11 +91,11 @@ namespace JSSoft.Font
 
         public int Height { get; }
 
-        public Color BackgroundColor { get; set; } = Color.Transparent;
+        public Color BackgroundColor { get; set; } = DefaultBackgroundColor;
 
-        public Color ForegroundColor { get; set; } = Color.White;
+        public Color ForegroundColor { get; set; } = DefaultForegroundColor;
 
-        public Color PaddingColor { get; set; } = Color.Red;
+        public Color PaddingColor { get; set; } = DefaultPaddingColor;
 
         public IEnumerable<FontGlyphData> Glyphs
         {
@@ -124,14 +108,40 @@ namespace JSSoft.Font
             }
         }
 
+        private Point? HitTest(int width, int height)
+        {
+            var padding = this.settings.Padding;
+            var spacing = this.settings.Spacing;
+
+            for (var y = 0; y < this.Height - height; y++)
+            {
+                for (var x = 0; x < this.Width - width; x++)
+                {
+                    var right = x + width + padding.Left + padding.Right;
+                    var bottom = y + height + padding.Top + padding.Bottom;
+                    if (right + spacing.Horizontal < this.Width)
+                        right += spacing.Horizontal;
+                    if (bottom + spacing.Vertical < this.Height)
+                        bottom += spacing.Vertical;
+                    var rect = Rectangle.FromLTRB(x, y, right, bottom);
+                    if (this.IsEmpty(rect) == true)
+                    {
+                        return rect.Location;
+                    }
+                }
+            }
+            return null;
+        }
+
         private bool IsEmpty(Rectangle rectangle)
         {
+            if (rectangle.Right >= this.Width || rectangle.Bottom >= this.Height)
+                return false;
             for (var x = rectangle.Left; x < rectangle.Right; x++)
             {
                 for (var y = rectangle.Top; y < rectangle.Bottom; y++)
                 {
-                    var pixel = this.pixels[x, y];
-                    if (pixel == true)
+                    if (this.pixels[x, y] == true)
                         return false;
                 }
             }
@@ -152,25 +162,62 @@ namespace JSSoft.Font
         private void Save(Action<Bitmap> action)
         {
             var backgroundBrush = new SolidBrush(this.BackgroundColor);
-            var foregroundBrush = new SolidBrush(this.ForegroundColor);
             var paddingBrush = new SolidBrush(this.PaddingColor);
             var bitmap = new Bitmap(this.Width, this.Height);
             var graphics = Graphics.FromImage(bitmap);
             var padding = this.settings.Padding;
-            graphics.FillRectangle(backgroundBrush, new Rectangle(0, 0, this.Width, this.Height));
-            int i = 0;
+
+            graphics.CompositingMode = CompositingMode.SourceCopy;
+            //graphics.FillRectangle(backgroundBrush, new Rectangle(0, 0, this.Width, this.Height));
+
             foreach (var item in this.glyphList)
             {
                 var metrics = item.Metrics;
+                var glyphBitmap = this.CloneBitmap(item.Bitmap, this.ForegroundColor);
                 var rect = new Rectangle(item.Rectangle.Left + padding.Left, item.Rectangle.Top + padding.Top, metrics.Width, metrics.Height);
-
-                if (i++ % 2 == 0)
-                    graphics.FillRectangle(paddingBrush, item.Rectangle);
-                else
-                    graphics.FillRectangle(Brushes.Blue, item.Rectangle);
-                //graphics.DrawImage(item.Bitmap, item.Rectangle);
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.FillRectangle(paddingBrush, item.Rectangle);
+                graphics.FillRectangle(backgroundBrush, rect);
+                graphics.CompositingMode = CompositingMode.SourceOver;
+                graphics.DrawImage(glyphBitmap, rect);
+                glyphBitmap.Dispose();
             }
             action(bitmap);
+        }
+
+        private Bitmap CloneBitmap(Bitmap bitmap, Color color)
+        {
+            var rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+            var newBitmap = bitmap.Clone(rect, PixelFormat.Format32bppArgb) as Bitmap;
+            var data = newBitmap.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+            var ptr = data.Scan0;
+            var length = Math.Abs(data.Stride) * data.Height;
+            var bytes = new byte[length];
+
+            System.Runtime.InteropServices.Marshal.Copy(ptr, bytes, 0, length);
+            for (var y = 0; y < bitmap.Height; y++)
+            {
+                for (var x = 0; x < bitmap.Width; x++)
+                {
+                    byte b = bytes[x * 4 + y * data.Stride + 0];
+                    byte g = bytes[x * 4 + y * data.Stride + 1];
+                    byte r = bytes[x * 4 + y * data.Stride + 2];
+                    byte a = bytes[x * 4 + y * data.Stride + 3];
+
+                    float bf = ((float)b / 255) * ((float)color.B / 255);
+                    float gf = ((float)g / 255) * ((float)color.G / 255);
+                    float rf = ((float)r / 255) * ((float)color.R / 255);
+                    float af = ((float)a / 255) * ((float)color.A / 255);
+
+                    bytes[x * 4 + y * data.Stride + 0] = (byte)(bf * 255.0f);
+                    bytes[x * 4 + y * data.Stride + 1] = (byte)(gf * 255.0f);
+                    bytes[x * 4 + y * data.Stride + 2] = (byte)(rf * 255.0f);
+                    bytes[x * 4 + y * data.Stride + 3] = (byte)(af * 255.0f);
+                }
+            }
+            System.Runtime.InteropServices.Marshal.Copy(bytes, 0, ptr, length);
+            newBitmap.UnlockBits(data);
+            return newBitmap;
         }
     }
 }

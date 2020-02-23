@@ -6,8 +6,8 @@
     <VisualBrush x:Key="DisabledPattern_VisualBrush"  TileMode="Tile" Viewport="0,0,4,4" ViewportUnits="Absolute" Viewbox="0,0,4,4" ViewboxUnits="Absolute">
         <VisualBrush.Visual>
             <Canvas>
-                <Rectangle Fill="{StaticResource WindowText}" Width="1" Height="1" />
-                <Rectangle Fill="{StaticResource WindowText}" Canvas.Left="2" Canvas.Top="2" Width="1" Height="1" />
+                <Rectangle Fill="{StaticResource WindowTextReadOnly}" Width="1" Height="1" />
+                <Rectangle Fill="{StaticResource WindowTextReadOnly}" Canvas.Left="2" Canvas.Top="2" Width="1" Height="1" />
             </Canvas>
         </VisualBrush.Visual>
     </VisualBrush>

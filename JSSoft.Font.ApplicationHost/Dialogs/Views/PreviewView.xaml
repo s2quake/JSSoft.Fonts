@@ -4,12 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
+             xmlns:nmfv="clr-namespace:Ntreev.ModernUI.Framework.Converters;assembly=Ntreev.ModernUI.Framework"
              xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
              xmlns:jsfv="clr-namespace:JSSoft.Font.ApplicationHost.Converters"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="300" nmfc:DialogWindow.DesiredResizeMode="CanResize">
 
     <UserControl.Resources>
         <jsfv:MultiplicationConverter x:Key="MultiplicationConverter" />
+        <nmfv:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+
+        <Style x:Key="ColorButton_Style" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="BorderBrush" Value="{StaticResource WindowBorder}" />
+        </Style>
     </UserControl.Resources>
 
     <Grid>
@@ -22,7 +30,18 @@
                 <nmfc:IconButton x:Name="ZoomIn" Source="/JSSoft.Font.ApplicationHost;component/Images/zoom-in.png" Click="ZoomIn_Click" />
                 <nmfc:IconButton x:Name="ZoomOut" Source="/JSSoft.Font.ApplicationHost;component/Images/zoom-out.png" Click="ZoomOut_Click" />
                 <jsfc:ZoomLevelControl x:Name="ZoomLevel" Margin="4 0" />
+                <Border Width="4" />
             </nmfc:ExpandableToolBar>
+            <ToolBar ToolBarTray.IsLocked="True">
+                <Label Content="B: " VerticalAlignment="Center" ToolTip="Background Color" />
+                <Button x:Name="SelectBackgroundColor" Background="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" ToolTip="Background Color" />
+                <Border Width="6" />
+                <Label Content="F: " VerticalAlignment="Center" ToolTip="Foreground Color" />
+                <Button x:Name="SelectForegroundColor" Background="{Binding ForegroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" ToolTip="Foreground Color" />
+                <Border Width="6" />
+                <Label Content="P: " VerticalAlignment="Center" ToolTip="Padding Color" />
+                <Button x:Name="SelectPaddingColor" Background="{Binding PaddingColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" ToolTip="Padding Color" />
+            </ToolBar>
         </ToolBarTray>
         <TabControl Grid.Row="1" x:Name="ContentViewer" Style="{StaticResource TabControl_Page_Style}" ItemsSource="{Binding Items}" SelectedItem="{Binding Item}" BorderThickness="1">
             <TabControl.ItemTemplate>
@@ -37,13 +56,13 @@
                             <Image x:Name="Image" Source="{Binding Image}" RenderOptions.BitmapScalingMode="NearestNeighbor">
                                 <Image.Width>
                                     <MultiBinding Converter="{StaticResource MultiplicationConverter}">
-                                        <Binding Path="Image.Width" />
+                                        <Binding Path="Width" />
                                         <Binding Path="Value" ElementName="ZoomLevel" />
                                     </MultiBinding>
                                 </Image.Width>
                                 <Image.Height>
                                     <MultiBinding Converter="{StaticResource MultiplicationConverter}">
-                                        <Binding Path="Image.Height" />
+                                        <Binding Path="Height" />
                                         <Binding Path="Value" ElementName="ZoomLevel" />
                                     </MultiBinding>
                                 </Image.Height>

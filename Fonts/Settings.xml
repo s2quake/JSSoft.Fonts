@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ExportSettingsInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Font>..\..\..\Fonts\gulim.ttc</Font>
+  <Face>Gulim</Face>
+  <Size>14</Size>
+  <DPI>72</DPI>
+  <TextureWidth>128</TextureWidth>
+  <TextureHeight>128</TextureHeight>
+  <PaddingValue>1,1,1,1</PaddingValue>
+  <SpacingValue>1,1</SpacingValue>
+  <CharactersValue>0-8,12,15-127,161-383,506-511,711,720,729-733,900-906,910-929,932-974,1026-1036,1039-1103,1106-1116,1119,1169,4353-4601,7809-7813,7923,8212-8213,8216-8222,8225-8226,8230,8242-8243,8250-8252,8260,8319,8322-8324,8356,8361,8451,8457,8470,8482,8491,8531-8532,8540-8542,8545-8553,8561-8569,8593-8601,8658,8704,8707,8711-8712,8719,8722,8729-8730,8734-8736,8743-8748,8756-8757,8765,8786,8801,8805,8811,8835,8839,8869,8976,8992-8993,9313-9326,9333-9346,9373-9397,9425-9449</CharactersValue>
+</ExportSettingsInfo>

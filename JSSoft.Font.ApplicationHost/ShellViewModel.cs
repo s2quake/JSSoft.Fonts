@@ -64,6 +64,20 @@ namespace JSSoft.Font.ApplicationHost
             });
         }
 
+        public new async Task CloseAsync()
+        {
+            await this.BeginTaskAsync(null, this.ValidateClose);
+            await Task.Run(() => this.FontDescriptor.Dispose());
+            await this.EndTaskAsync(() =>
+            {
+                this.NotifyOfPropertyChange(nameof(this.VerticalAdvance));
+                this.DisplayName = "JSFont";
+                this.IsOpened = false;
+                this.IsProgressing = false;
+                this.OnClosed(EventArgs.Empty);
+            });
+        }
+
         public async Task ExportAsync(string filename)
         {
             await this.BeginTaskAsync(null, null);
@@ -107,9 +121,11 @@ namespace JSSoft.Font.ApplicationHost
             var fullPath = Path.GetFullPath(filename);
             var isOpened = await this.BeginTaskAsync(() => this.isOpened);
             var info = await ReadSettingsAsync(fullPath);
+            await this.EndTaskAsync(null);
             if (isOpened == true)
                 await this.CloseAsync();
             await this.OpenAsync(info.Font, info.Size, info.DPI, 0);
+            await this.BeginTaskAsync(null, null);
             await this.EndTaskAsync(() =>
             {
                 this.UpdateCheckState(info.Characters);
@@ -120,10 +136,10 @@ namespace JSSoft.Font.ApplicationHost
             });
         }
 
-        public async Task<ImageSource[]> PreviewAsync()
+        public async Task<FontData> PreviewAsync()
         {
             await this.BeginTaskAsync(null, null);
-            var images = await Task.Run(() =>
+            var value = await Task.Run(() =>
             {
                 var dataSettings = (FontDataSettings)this.Settings;
                 var data = new FontData(this.FontDescriptor, dataSettings);
@@ -136,27 +152,10 @@ namespace JSSoft.Font.ApplicationHost
                             select item.ID;
                 var items = query.ToArray();
                 data.Generate(items);
-
-                var imageList = new List<ImageSource>(data.Pages.Length);
-                for (var i = 0; i < data.Pages.Length; i++)
-                {
-                    var item = data.Pages[i];
-                    var stream = new MemoryStream();
-                    var bitmapImage = new BitmapImage();
-                    item.Save(stream);
-                    bitmapImage.BeginInit();
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.UriSource = null;
-                    bitmapImage.StreamSource = stream;
-                    bitmapImage.EndInit();
-                    bitmapImage.Freeze();
-                    imageList.Add(bitmapImage);
-                    stream.Dispose();
-                }
-                return imageList.ToArray();
+                return data;
             });
             await this.EndTaskAsync(null);
-            return images;
+            return value;
         }
 
         private static CharacterGroup[] CreateGroups(FontDescriptor fontDescriptor, string name, uint min, uint max)
@@ -417,20 +416,6 @@ namespace JSSoft.Font.ApplicationHost
         }
 
         #region IShell
-
-        async Task IShell.CloseAsync()
-        {
-            await this.BeginTaskAsync(null, this.ValidateClose);
-            await Task.Run(() => this.FontDescriptor.Dispose());
-            await this.EndTaskAsync(() =>
-            {
-                this.NotifyOfPropertyChange(nameof(this.VerticalAdvance));
-                this.DisplayName = "JSFont";
-                this.IsOpened = false;
-                this.IsProgressing = false;
-                this.OnClosed(EventArgs.Empty);
-            });
-        }
 
         IEnumerable<ICharacterGroup> IShell.Groups => this.Groups;
 

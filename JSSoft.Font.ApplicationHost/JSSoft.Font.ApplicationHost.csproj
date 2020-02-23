@@ -79,6 +79,7 @@
     <Compile Include="Dialogs\ViewModels\PreviewItemViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\PreviewViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\FontLoadSettingsViewModel.cs" />
+    <Compile Include="Dialogs\ViewModels\SelectColorViewModel.cs" />
     <Compile Include="Dialogs\Views\ExportSettingsView.xaml.cs">
       <DependentUpon>ExportSettingsView.xaml</DependentUpon>
     </Compile>
@@ -87,6 +88,9 @@
     </Compile>
     <Compile Include="Dialogs\Views\FontLoadSettingsView.xaml.cs">
       <DependentUpon>FontLoadSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Views\SelectColorView.xaml.cs">
+      <DependentUpon>SelectColorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExportSettings.cs" />
     <Compile Include="MenuItems\FileMenus\RecentSettingsItemMenuItem.cs" />
@@ -154,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\Views\FontLoadSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\Views\SelectColorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

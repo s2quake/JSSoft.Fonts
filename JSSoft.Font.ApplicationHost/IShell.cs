@@ -19,7 +19,7 @@ namespace JSSoft.Font.ApplicationHost
 
         Task LoadSettingsAsync(string filename);
 
-        Task<ImageSource[]> PreviewAsync();
+        Task<FontData> PreviewAsync();
 
         bool IsOpened { get; }
 
