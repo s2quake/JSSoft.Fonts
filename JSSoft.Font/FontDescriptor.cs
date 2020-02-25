@@ -24,12 +24,12 @@ namespace JSSoft.Font
 
         }
 
-        public FontDescriptor(string path, uint dpi, int height, int faceIndex)
+        public FontDescriptor(string path, uint dpi, int size, int faceIndex)
         {
-            var pixelSize = (double)height * dpi / 72;
+            var pixelSize = (double)size * dpi / 72;
             this.lib = new Library();
             this.face = new Face(this.lib, Path.GetFullPath(path), faceIndex);
-            this.face.SetCharSize(0, height, 0, dpi);
+            this.face.SetCharSize(0, size, 0, dpi);
             this.ItemHeight = (int)Math.Round(this.face.Height * pixelSize / this.face.UnitsPerEM);
             this.BaseLine = this.ItemHeight + (this.ItemHeight * this.face.Descender / this.face.Height);
             var (min, max) = NamesList.Range;
@@ -38,8 +38,9 @@ namespace JSSoft.Font
                 this.RegisterItem(i);
             }
             this.Name = this.face.FamilyName;
+            this.FaceIndex = faceIndex;
             this.DPI = dpi;
-            this.Height = height;
+            this.Size = size;
             this.FontPath = path;
         }
 
@@ -66,13 +67,15 @@ namespace JSSoft.Font
 
         public uint DPI { get; private set; }
 
-        public int Height { get; private set; }
+        public int Size { get; private set; }
 
         public int ItemHeight { get; private set; }
 
         public int BaseLine { get; private set; }
 
         public string Name { get; private set; } = string.Empty;
+
+        public int FaceIndex { get; private set; }
 
         public string FontPath { get; private set; }
 

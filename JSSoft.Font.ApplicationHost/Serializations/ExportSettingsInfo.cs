@@ -16,7 +16,7 @@ namespace JSSoft.Font.ApplicationHost.Serializations
         public string Font { get; set; }
 
         [XmlElement]
-        public string Face { get; set; }
+        public int Face { get; set; }
 
         [XmlElement]
         public int Size { get; set; }
@@ -83,8 +83,8 @@ namespace JSSoft.Font.ApplicationHost.Serializations
             return new ExportSettingsInfo()
             {
                 Font = fontDescriptor.FontPath,
-                Face = fontDescriptor.Name,
-                Size = fontDescriptor.Height,
+                Face = fontDescriptor.FaceIndex,
+                Size = fontDescriptor.Size,
                 DPI = (int)fontDescriptor.DPI,
                 TextureWidth = settings.TextureWidth,
                 TextureHeight = settings.TextureHeight,

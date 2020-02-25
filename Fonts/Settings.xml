@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ExportSettingsInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Font>..\..\..\Fonts\gulim.ttc</Font>
-  <Face>Gulim</Face>
+  <Face>0</Face>
   <Size>14</Size>
   <DPI>72</DPI>
   <TextureWidth>128</TextureWidth>

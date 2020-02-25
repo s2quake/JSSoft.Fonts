@@ -113,7 +113,7 @@
                 <xcdg:Column FieldName="ItemF" Title="F" />
             </nmgc:ModernDataGridControl.Columns>
             <nmgc:ModernDataGridControl.View>
-                <xcdg:TableView RowSelectorPaneWidth="50" AllowRowResize="False" />
+                <xcdg:TableView RowSelectorPaneWidth="50" AllowRowResize="True" />
             </nmgc:ModernDataGridControl.View>
         </nmgc:ModernDataGridControl>
     </ControlTemplate>

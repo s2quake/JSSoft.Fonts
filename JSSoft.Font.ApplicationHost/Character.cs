@@ -15,8 +15,7 @@ namespace JSSoft.Font.ApplicationHost
 {
     class Character : PropertyChangedBase, ICharacter
     {
-        private readonly FontDescriptor fontDescriptor;
-        private bool isEnabled;
+        private readonly CharacterContext context;
         private bool isChecked;
         private ImageSource source;
         private GlyphMetrics glyphMetrics;
@@ -27,36 +26,21 @@ namespace JSSoft.Font.ApplicationHost
             this.ID = id;
         }
 
-        public Character(FontDescriptor fontDescriptor, uint id)
+        public Character(CharacterContext context, uint id)
         {
-            this.fontDescriptor = fontDescriptor ?? throw new ArgumentNullException(nameof(fontDescriptor));
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
             this.ID = id;
-            this.isEnabled = this.fontDescriptor.Glyphs.ContainsKey(id);
-            if (this.fontDescriptor.Glyphs.ContainsKey(id))
+            this.IsEnabled = this.context.Glyphs.ContainsKey(id);
+            if (this.context.Glyphs.ContainsKey(id))
             {
-                this.glyph = this.fontDescriptor.Glyphs[id];
-                this.glyphMetrics = this.fontDescriptor.Glyphs[id].Metrics;
+                this.glyph = this.context.Glyphs[id];
+                this.glyphMetrics = this.context.Glyphs[id].Metrics;
             }
             else
             {
-                this.glyphMetrics.VerticalAdvance = this.fontDescriptor.ItemHeight;
+                this.glyphMetrics.VerticalAdvance = this.context.Height;
             }
-            //if (this.glyph != null && this.glyph.Bitmap != null)
-            //{
-            //    var bitmap = this.glyph.Bitmap;
-            //    using (var stream = new MemoryStream())
-            //    {
-            //        var bitmapImage = new BitmapImage();
-            //        bitmap.Save(stream, ImageFormat.Png);
-            //        bitmapImage.BeginInit();
-            //        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-            //        bitmapImage.UriSource = null;
-            //        bitmapImage.StreamSource = stream;
-            //        bitmapImage.EndInit();
-            //        bitmapImage.Freeze();
-            //        this.source = bitmapImage;
-            //    }
-            //}
+            this.context.Register(this);
         }
 
         public override string ToString()
@@ -68,15 +52,7 @@ namespace JSSoft.Font.ApplicationHost
 
         public char Text => (char)this.ID;
 
-        public bool IsEnabled
-        {
-            get => this.isEnabled;
-            set
-            {
-                this.isEnabled = value;
-                this.NotifyOfPropertyChange(nameof(IsEnabled));
-            }
-        }
+        public bool IsEnabled { get; }
 
         public bool IsChecked
         {
@@ -93,7 +69,7 @@ namespace JSSoft.Font.ApplicationHost
 
         public ImageSource Source
         {
-            get 
+            get
             {
                 lock (this)
                 {

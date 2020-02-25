@@ -79,7 +79,7 @@ namespace JSSoft.Font
 
         public string Name => this.fontDescriptor.Name;
 
-        public int Size => this.fontDescriptor.Height;
+        public int Size => this.fontDescriptor.Size;
 
         public int LineHeight => this.fontDescriptor.ItemHeight;
 

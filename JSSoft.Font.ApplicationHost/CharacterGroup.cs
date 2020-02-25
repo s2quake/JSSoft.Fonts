@@ -12,18 +12,18 @@ namespace JSSoft.Font.ApplicationHost
 {
     class CharacterGroup : ListBoxItemViewModel, ICharacterGroup
     {
-        private readonly FontDescriptor fontDescriptor;
+        private readonly CharacterContext context;
         private readonly string name;
-        //private readonly string displayName;
         private bool? isChecked = false;
 
-        public CharacterGroup(FontDescriptor fontDescriptor, string name, uint min, uint max)
+        public CharacterGroup(CharacterContext context, string name, uint min, uint max)
         {
-            this.fontDescriptor = fontDescriptor ?? throw new ArgumentNullException(nameof(fontDescriptor));
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
             this.name = name;
             this.Min = min;
             this.Max = max;
             this.Items = this.CreateItems(min, max);
+            this.ActiveItems = this.Items.Where(item => item.IsEnabled).ToArray();
             this.IsVisible = this.Items.Any(item => item.TestVisible());
         }
 
@@ -54,6 +54,8 @@ namespace JSSoft.Font.ApplicationHost
 
         public CharacterRow[] Items { get; }
 
+        public CharacterRow[] ActiveItems { get; }
+
         private CharacterRow[] CreateItems(uint min, uint max)
         {
             var i1 = min;
@@ -61,7 +63,7 @@ namespace JSSoft.Font.ApplicationHost
             while (i1 < max)
             {
                 var i2 = Math.Min(i1 + 16, max);
-                var item = new CharacterRow(this.fontDescriptor, i1, i2);
+                var item = new CharacterRow(this.context, i1, i2);
                 itemList.Add(item);
                 item.PropertyChanged += Item_PropertyChanged;
                 i1 = i2;
@@ -71,24 +73,25 @@ namespace JSSoft.Font.ApplicationHost
 
         private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(Character.IsChecked))
+            if (e.PropertyName == nameof(CharacterRow.IsChecked) && sender is CharacterRow row)
             {
-                var allChecked = GetAllChecked();
-                if (this.isChecked != allChecked)
+                var isChcked = GetChecked();
+                if (this.isChecked != isChcked)
                 {
-                    this.isChecked = allChecked;
+                    this.isChecked = isChcked;
                     this.NotifyOfPropertyChange(nameof(IsChecked));
                 }
             }
 
-            bool? GetAllChecked()
+            bool? GetChecked()
             {
-                var selectedCount = this.Items.Count(item => item.IsChecked == true);
-                if (selectedCount == this.Items.Length)
+                var count1 = this.ActiveItems.Count(item => item.IsChecked == true);
+                var count2 = this.ActiveItems.Count(item => item.IsChecked == null);
+                if (count1 == this.ActiveItems.Length)
                     return true;
-                else if (selectedCount == 0)
-                    return false;
-                return null;
+                else if (count1 + count2 > 0)
+                    return null;
+                return false;
             }
         }
 

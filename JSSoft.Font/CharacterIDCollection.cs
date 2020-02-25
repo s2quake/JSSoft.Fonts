@@ -72,6 +72,7 @@ namespace JSSoft.Font
                 {
                     itemList.Add(ToString(idList));
                     idList.Clear();
+                    idList.Add(item);
                 }
             }
             itemList.Add(ToString(idList));

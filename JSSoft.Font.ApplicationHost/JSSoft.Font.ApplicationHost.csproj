@@ -60,9 +60,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Assets\CharacterControl.xaml.cs">
+      <DependentUpon>CharacterControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Assets\CharacterView.xaml.cs">
       <DependentUpon>CharacterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CharacterContext.cs" />
     <Compile Include="CharacterRowView.cs" />
     <Compile Include="CharacterGroupView.cs" />
     <Compile Include="CharacterRow.cs" />

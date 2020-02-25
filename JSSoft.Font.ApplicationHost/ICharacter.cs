@@ -4,14 +4,14 @@ namespace JSSoft.Font.ApplicationHost
 {
     public interface ICharacter
     {
-        GlyphMetrics GlyphMetrics { get; set; }
+        GlyphMetrics GlyphMetrics { get; }
 
         uint ID { get; }
 
         bool IsChecked { get; set; }
 
-        bool IsEnabled { get; set; }
+        bool IsEnabled { get; }
 
-        ImageSource Source { get; set; }
+        ImageSource Source { get; }
     }
 }

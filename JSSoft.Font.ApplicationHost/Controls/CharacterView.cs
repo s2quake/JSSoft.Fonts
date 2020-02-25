@@ -45,8 +45,8 @@ namespace JSSoft.Font.ApplicationHost.Controls
             DependencyProperty.Register(nameof(ZoomLevel), typeof(double), typeof(CharacterView),
                 new FrameworkPropertyMetadata(1.0, ZoomLevelPropertyChangedCallback));
 
+        private readonly CharacterGroupView groupView = new CharacterGroupView();
         private ModernDataGridControl gridControl;
-        private CharacterGroupView groupView = new CharacterGroupView();
 
         public override void OnApplyTemplate()
         {
