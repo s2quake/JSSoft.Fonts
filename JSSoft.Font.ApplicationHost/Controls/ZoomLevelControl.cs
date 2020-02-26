@@ -14,9 +14,10 @@ using System.Windows.Input;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
-    [TemplatePart(Name = "PART_ComboBox", Type = typeof(ComboBox))]
+    [TemplatePart(Name = nameof(PART_ComboBox), Type = typeof(ComboBox))]
     public class ZoomLevelControl : Control
     {
+        public const string PART_ComboBox = nameof(PART_ComboBox);
         private const string pattern = @"^(\d{1,5}\.{0,1}(?=\d{1,2})\d{0,2})\s*%";
 
         public static readonly DependencyProperty PopupPlacementProperty =
@@ -52,7 +53,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            if (this.Template.FindName("PART_ComboBox", this) is ComboBox comboBox)
+            if (this.Template.FindName(PART_ComboBox, this) is ComboBox comboBox)
             {
                 if (comboBox.ApplyTemplate())
                 {
@@ -60,6 +61,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
                     var textBox = comboBox.Template.FindName("PART_EditableTextBox", comboBox) as TextBox;
                     popup.Placement = this.PopupPlacement;
                     BindingOperations.SetBinding(popup, Popup.PlacementProperty, new Binding(nameof(PopupPlacement)) { Source = this });
+                    textBox.VerticalAlignment = VerticalAlignment.Center;
                     textBox.LostFocus += TextBox_LostFocus;
                     textBox.PreviewKeyDown += TextBox_PreviewKeyDown;
                 }

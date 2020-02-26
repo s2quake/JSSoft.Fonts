@@ -12,42 +12,12 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
     {
         private readonly FontData fontData;
         private PreviewItemViewModel image;
-        private Color backgroundColor = FromColor(FontPage.DefaultBackgroundColor);
-        private Color foregroundColor = FromColor(FontPage.DefaultForegroundColor);
-        private Color paddingColor = FromColor(FontPage.DefaultPaddingColor);
-
-        public static Color FromColor(System.Drawing.Color color)
-        {
-            return Color.FromArgb(color.A, color.R, color.G, color.B);
-        }
-
-        public static System.Drawing.Color FromColor(Color color)
-        {
-            return System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B);
-        }
+        private Color backgroundColor = ColorUtility.FromColor(FontPage.DefaultBackgroundColor);
+        private Color foregroundColor = ColorUtility.FromColor(FontPage.DefaultForegroundColor);
+        private Color paddingColor = ColorUtility.FromColor(FontPage.DefaultPaddingColor);
 
         public PreviewViewModel(FontData fontData)
         {
-            //var imageList = new List<ImageSource>(data.Pages.Length);
-            //for (var i = 0; i < data.Pages.Length; i++)
-            //{
-            //    var item = data.Pages[i];
-            //    var stream = new MemoryStream();
-            //    var bitmapImage = new BitmapImage();
-            //    item.Save(stream);
-            //    bitmapImage.BeginInit();
-            //    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-            //    bitmapImage.UriSource = null;
-            //    bitmapImage.StreamSource = stream;
-            //    bitmapImage.EndInit();
-            //    bitmapImage.Freeze();
-            //    imageList.Add(bitmapImage);
-            //    stream.Dispose();
-            //}
-            //return imageList.ToArray();
-
-            
-
             var itemList = new List<PreviewItemViewModel>(fontData.Pages.Length);
             for (var i = 0; i < fontData.Pages.Length; i++)
             {

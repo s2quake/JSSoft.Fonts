@@ -107,10 +107,6 @@ namespace JSSoft.Font.ApplicationHost.Controls
             var metrics = this.GlyphMetrics;
             var left = Math.Floor((arrangeBounds.Width - metrics.HorizontalAdvance * this.ZoomLevel) * 0.5);
             var top = Math.Floor((arrangeBounds.Height - metrics.VerticalAdvance * this.ZoomLevel) * 0.5);
-            if (this.Text == "!")
-            {
-                int qwer = 0;
-            }
             if (this.viewbox != null)
             {
                 this.viewbox.Margin = new Thickness(left, top, 0, 0);
@@ -157,10 +153,6 @@ namespace JSSoft.Font.ApplicationHost.Controls
                 var top = metrics.BaseLine - metrics.HorizontalBearingY;
                 var right = metrics.HorizontalAdvance - (left + metrics.Width);
                 var bottom = metrics.VerticalAdvance - (top + metrics.Height);
-                if (this.Text == "!")
-                {
-                    int qwer = 0;
-                }
                 if (this.image != null)
                 {
                     this.image.Margin = new Thickness(left, top, right, bottom);

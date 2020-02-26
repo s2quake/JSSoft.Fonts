@@ -5,8 +5,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
+             xmlns:nmfv="clr-namespace:Ntreev.ModernUI.Framework.Converters;assembly=Ntreev.ModernUI.Framework"
              xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
              mc:Ignorable="d" Width="400">
+
+    <UserControl.Resources>
+        <nmfv:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+        
+        <Style x:Key="ColorButton_Style" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="BorderBrush" Value="{StaticResource WindowBorder}" />
+        </Style>
+    </UserControl.Resources>
 
     <StackPanel>
         <nmfc:PropertyItemsControl>
@@ -18,6 +30,12 @@
                                  Value="{Binding TextureWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <nmfc:NumericTextBox nmfc:PropertyItemsControl.Header="Texture Height" 
                                  Value="{Binding TextureHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Button x:Name="SelectBackgroundColor" nmfc:PropertyItemsControl.Header="Background"
+                    Background="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" />
+            <Button x:Name="SelectForegroundColor" nmfc:PropertyItemsControl.Header="Foreground" 
+                    Background="{Binding ForegroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" />
+            <Button x:Name="SelectPaddingColor" nmfc:PropertyItemsControl.Header="Padding" 
+                    Background="{Binding PaddingColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" />
         </nmfc:PropertyItemsControl>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="OK" Content="OK" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />

@@ -27,8 +27,8 @@
         </Grid.RowDefinitions>
         <ToolBarTray>
             <nmfc:ExpandableToolBar>
-                <nmfc:IconButton x:Name="ZoomIn" Source="/JSSoft.Font.ApplicationHost;component/Images/zoom-in.png" Click="ZoomIn_Click" />
                 <nmfc:IconButton x:Name="ZoomOut" Source="/JSSoft.Font.ApplicationHost;component/Images/zoom-out.png" Click="ZoomOut_Click" />
+                <nmfc:IconButton x:Name="ZoomIn" Source="/JSSoft.Font.ApplicationHost;component/Images/zoom-in.png" Click="ZoomIn_Click" />
                 <jsfc:ZoomLevelControl x:Name="ZoomLevel" Margin="4 0" />
                 <Border Width="4" />
             </nmfc:ExpandableToolBar>

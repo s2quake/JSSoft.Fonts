@@ -61,9 +61,9 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             var image = await Task.Run(() =>
             {
                 var stream = new MemoryStream();
-                this.page.BackgroundColor = PreviewViewModel.FromColor(this.parent.BackgroundColor);
-                this.page.ForegroundColor = PreviewViewModel.FromColor(this.parent.ForegroundColor);
-                this.page.PaddingColor = PreviewViewModel.FromColor(this.parent.PaddingColor);
+                this.page.BackgroundColor = ColorUtility.FromColor(this.parent.BackgroundColor);
+                this.page.ForegroundColor = ColorUtility.FromColor(this.parent.ForegroundColor);
+                this.page.PaddingColor = ColorUtility.FromColor(this.parent.PaddingColor);
                 this.page.Save(stream);
                 var bitmapImage = new BitmapImage();
                 bitmapImage.BeginInit();

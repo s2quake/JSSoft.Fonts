@@ -50,25 +50,6 @@
         <ToolBarTray Grid.Row="1">
             <nmfc:ExpandableToolBar ItemsSource="{Binding ToolBarItems}" />
             <ToolBar ToolBarTray.IsLocked="True">
-                <DockPanel>
-                    <Label VerticalAlignment="Center" Content="Padding: " />
-                    <nmfc:ThicknessControl Width="200" Value="{Binding Settings.Padding, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource ThicknessControl_Horizontal_Template}" />
-                </DockPanel>
-                <Separator Width="15" />
-                <DockPanel>
-                    <Label VerticalAlignment="Center" Content="Spacing: " />
-                    <jsfc:SpacingControl Width="100" 
-                                         Horizontal="{Binding Settings.HorizontalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                         Vertical="{Binding Settings.VerticalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                </DockPanel>
-                <Separator Width="15" />
-                <StackPanel Orientation="Horizontal">
-                    <Label VerticalAlignment="Center" Content="Width: " />
-                    <nmfc:NumericTextBox Width="50" Value="{Binding Settings.TextureWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <Border Width="7" />
-                    <Label VerticalAlignment="Center" Content="Height: " />
-                    <nmfc:NumericTextBox Width="50" Value="{Binding Settings.TextureHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                </StackPanel>
             </ToolBar>
         </ToolBarTray>
         <Grid Grid.Row="2">
@@ -98,7 +79,7 @@
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
 
-            <StatusBarItem Grid.Column="0">
+            <StatusBarItem Grid.Column="0" Padding="3 0">
                 <jsfc:ZoomLevelControl Width="100" HorizontalAlignment="Left" Value="{Binding ZoomLevel, Mode=TwoWay}" PopupPlacement="Top" />
             </StatusBarItem>
 

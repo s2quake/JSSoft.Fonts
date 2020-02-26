@@ -1,6 +1,7 @@
 ﻿using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Drawing.Imaging;
@@ -15,10 +16,12 @@ namespace JSSoft.Font.ApplicationHost
 {
     class CharacterContext
     {
-        private readonly HashSet<char> characters = new HashSet<char>();
-        public CharacterContext(FontDescriptor fontDescriptor)
+        private readonly ObservableCollection<uint> characters;
+
+        public CharacterContext(FontDescriptor fontDescriptor, ObservableCollection<uint> characters)
         {
             this.FontDescriptor = fontDescriptor;
+            this.characters = characters;
         }
 
         public void Register(Character character)
@@ -26,25 +29,28 @@ namespace JSSoft.Font.ApplicationHost
             character.PropertyChanged += Character_PropertyChanged;
         }
 
-        private void Character_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(Character.IsChecked) && sender is Character character)
-            {
-                if (character.IsChecked == true)
-                {
-                    characters.Add((char)character.ID);
-                }
-                else
-                {
-                    characters.Remove((char)character.ID);
-                }
-            }
-        }
-
         public FontDescriptor FontDescriptor { get; }
 
         public IReadOnlyDictionary<uint, FontGlyph> Glyphs => this.FontDescriptor.Glyphs;
 
-        public int Height => this.FontDescriptor.ItemHeight;
+        public int Height => this.FontDescriptor.Height;
+
+        private void Character_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Character.IsChecked) && sender is Character character)
+            {
+                if (character.IsEnabled == true)
+                {
+                    if (character.IsChecked == true)
+                    {
+                        characters.Add(character.ID);
+                    }
+                    else
+                    {
+                        characters.Remove(character.ID);
+                    }
+                }
+            }
+        }
     }
 }

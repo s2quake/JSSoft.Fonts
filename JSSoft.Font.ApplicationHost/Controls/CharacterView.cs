@@ -12,9 +12,11 @@ using Xceed.Wpf.DataGrid;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
-    [TemplatePart(Name = "PART_DataGrid", Type = typeof(ModernDataGridControl))]
+    [TemplatePart(Name = nameof(PART_DataGrid), Type = typeof(ModernDataGridControl))]
     public class CharacterView : Control
-    {
+    { 
+        public const string PART_DataGrid = nameof(PART_DataGrid);
+
         public static readonly DependencyProperty CharacterGroupProperty =
             DependencyProperty.Register(nameof(CharacterGroup), typeof(ICharacterGroup), typeof(CharacterView),
                 new FrameworkPropertyMetadata(CharacterGroupPropertyChangedCallback));
@@ -51,7 +53,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            this.gridControl = this.Template.FindName("PART_DataGrid", this) as ModernDataGridControl;
+            this.gridControl = this.Template.FindName(PART_DataGrid, this) as ModernDataGridControl;
             if (this.gridControl != null)
             {
                 this.gridControl.SelectionChanged += GridControl_SelectionChanged;

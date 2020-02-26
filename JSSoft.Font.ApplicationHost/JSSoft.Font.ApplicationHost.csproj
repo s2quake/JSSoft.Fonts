@@ -37,6 +37,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -72,6 +75,7 @@
     <Compile Include="CharacterRow.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="CharacterGroup.cs" />
+    <Compile Include="ColorUtility.cs" />
     <Compile Include="Controls\DPISelector.cs" />
     <Compile Include="Controls\SpacingControl.cs" />
     <Compile Include="Controls\ZoomLevelItem.cs" />
@@ -244,7 +248,9 @@
   <ItemGroup>
     <Resource Include="Images\open-folder-with-document.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="App.ico" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\zoom-in.png" />
     <Resource Include="Images\zoom-out.png" />

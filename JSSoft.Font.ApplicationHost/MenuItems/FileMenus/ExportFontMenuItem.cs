@@ -6,6 +6,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 {
@@ -20,6 +21,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
         {
             this.shell = shell;
             this.DisplayName = "Export Font...";
+            this.InputGesture = new KeyGesture(Key.E, ModifierKeys.Control);
             this.Dispatcher.InvokeAsync(() =>
             {
                 this.Shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();

@@ -4,6 +4,7 @@ using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.IO;
@@ -26,6 +27,7 @@ namespace JSSoft.Font.ApplicationHost
         private readonly IEnumerable<IToolBarItem> toolBarItems;
         private readonly IAppConfiguration configs;
         private readonly ObservableCollection<CharacterGroup> groupList = new ObservableCollection<CharacterGroup>();
+        private ObservableCollection<uint> selectedCharacters;
         private CharacterGroup selectedGroup;
         private double zoomLevel = 1.0;
         private bool isOpened;
@@ -45,98 +47,134 @@ namespace JSSoft.Font.ApplicationHost
 
         public async Task OpenAsync(string fontPath, int size, int dpi, int faceIndex)
         {
-            await this.BeginTaskAsync(this.BeginOpen);
-            await this.OpenFontDescriptorAsync(fontPath, size, dpi, faceIndex);
-            await this.EndTaskAsync(this.EndOpen);
+            try
+            {
+                await this.BeginProgressAsync();
+                await this.BeginOpenAsync();
+                await this.OpenFontDescriptorAsync(fontPath, size, dpi, faceIndex);
+                await this.EndOpenAsync();
+            }
+            finally
+            {
+                await this.EndProgressAsync();
+            }
         }
 
         public new async Task CloseAsync()
         {
-            await this.BeginTaskAsync(this.BeginClose);
-            await Task.Run(() => this.FontDescriptor.Dispose());
-            await this.EndTaskAsync(this.EndClose);
+            try
+            {
+                await this.BeginProgressAsync();
+                await this.BeginCloseAsync();
+                await Task.Run(this.FontDescriptor.Dispose);
+                await this.EndCloseAsync();
+            }
+            finally
+            {
+                await this.EndProgressAsync();
+            }
         }
 
         public async Task ExportAsync(string filename)
         {
-            await this.BeginTaskAsync(null);
-            await Task.Run(() =>
+            try
             {
-                var dataSettings = (FontDataSettings)this.Settings;
-                var data = new FontData(this.FontDescriptor, dataSettings);
-                var fullPath = Path.GetFullPath(filename);
-                var directory = Path.GetDirectoryName(fullPath);
-                var query = from fontGroup in this.Groups
-                            where fontGroup.IsChecked != false
-                            from row in fontGroup.Items
-                            where row.IsChecked != false
-                            from item in row.Items
-                            where item.IsChecked
-                            select item.ID;
-                var items = query.ToArray();
-                data.Generate(items);
-                data.Save(filename);
-                data.SavePages(directory);
-            });
-            await this.EndTaskAsync(null);
+                await this.BeginProgressAsync();
+                await Task.Run(() =>
+                {
+                    var dataSettings = (FontDataSettings)this.Settings;
+                    var data = new FontData(this.FontDescriptor, dataSettings);
+                    var fullPath = Path.GetFullPath(filename);
+                    var directory = Path.GetDirectoryName(fullPath);
+                    data.Generate(this.selectedCharacters.ToArray());
+                    data.Save(filename);
+                    data.SavePages(directory);
+                });
+            }
+            finally
+            {
+                await this.EndProgressAsync();
+            }
         }
 
         public async Task SaveSettingsAsync(string filename)
         {
-            var fullPath = Path.GetFullPath(filename);
-            var info = await this.BeginTaskAsync(() => ExportSettingsInfo.Create(this));
-            await WriteSettingsAsync(fullPath, info);
-            await this.EndTaskAsync(() =>
+            try
             {
-                this.RecentSettings.Remove(fullPath);
-                this.RecentSettings.Insert(0, fullPath);
-                this.configs[nameof(RecentSettings)] = this.RecentSettings.ToArray();
-                this.IsModified = false;
-            });
+                await this.BeginProgressAsync();
+                var fullPath = Path.GetFullPath(filename);
+                var info = await this.Dispatcher.InvokeAsync(() => ExportSettingsInfo.Create(this));
+                await WriteSettingsAsync(fullPath, info);
+                await this.Dispatcher.InvokeAsync(() =>
+                {
+                    this.RecentSettings.Remove(fullPath);
+                    this.RecentSettings.Insert(0, fullPath);
+                    this.configs[nameof(RecentSettings)] = this.RecentSettings.ToArray();
+                    this.IsModified = false;
+                });
+            }
+            finally
+            {
+                await this.EndProgressAsync();
+            }
         }
 
         public async Task LoadSettingsAsync(string filename)
         {
-            var fullPath = Path.GetFullPath(filename);
-            var isOpened = await this.BeginTaskAsync(() => this.isOpened);
-            var info = await ReadSettingsAsync(fullPath);
-            if (isOpened == true)
+            try
             {
-                await Task.Run(() => this.FontDescriptor.Dispose());
-                await this.EndTaskAsync(this.EndClose);
+                await this.BeginProgressAsync();
+                var fullPath = Path.GetFullPath(filename);
+                var isOpened = await this.Dispatcher.InvokeAsync(() => this.isOpened);
+                var info = await ReadSettingsAsync(fullPath);
+                if (isOpened == true)
+                {
+                    await Task.Run(this.FontDescriptor.Dispose);
+                    await this.EndCloseAsync();
+                }
+                await this.OpenFontDescriptorAsync(info.Font, info.Size, info.DPI, info.Face);
+                await this.EndOpenAsync();
+                await this.Dispatcher.InvokeAsync(() =>
+                {
+                    this.UpdateCheckState(info.Characters);
+                    this.Settings.PropertyChanged -= ExportSettings_PropertyChanged;
+                    this.Settings.Update(info);
+                    this.Settings.PropertyChanged += ExportSettings_PropertyChanged;
+                    this.IsModified = false;
+                });
             }
-            await this.OpenFontDescriptorAsync(info.Font, info.Size, info.DPI, info.Face);
-            await this.EndTaskAsync(this.EndOpen);
-            await this.EndTaskAsync(() =>
+            finally
             {
-                this.UpdateCheckState(info.Characters);
-                this.Settings.PropertyChanged -= ExportSettings_PropertyChanged;
-                this.Settings.Update(info);
-                this.Settings.PropertyChanged += ExportSettings_PropertyChanged;
-                this.IsModified = false;
-            });
+                await this.EndProgressAsync();
+            }
         }
 
         public async Task<FontData> PreviewAsync()
         {
-            await this.BeginTaskAsync(null);
-            var value = await Task.Run(() =>
+            try
             {
-                var dataSettings = (FontDataSettings)this.Settings;
-                var data = new FontData(this.FontDescriptor, dataSettings);
-                var query = from fontGroup in this.Groups
-                            where fontGroup.IsChecked != false
-                            from row in fontGroup.Items
-                            where row.IsChecked != false
-                            from item in row.Items
-                            where item.IsChecked
-                            select item.ID;
-                var items = query.ToArray();
-                data.Generate(items);
-                return data;
-            });
-            await this.EndTaskAsync(null);
-            return value;
+                await this.BeginProgressAsync();
+                var value = await Task.Run(() =>
+                {
+                    var dataSettings = (FontDataSettings)this.Settings;
+                    var data = new FontData(this.FontDescriptor, dataSettings);
+                    var query = from fontGroup in this.Groups
+                                where fontGroup.IsChecked != false
+                                from row in fontGroup.Items
+                                where row.IsChecked != false
+                                from item in row.Items
+                                where item.IsChecked
+                                select item.ID;
+                    var items = query.ToArray();
+                    data.Generate(items);
+                    return data;
+                });
+                return value;
+            }
+            finally
+            {
+                await this.EndProgressAsync();
+            }
         }
 
         private static CharacterGroup[] CreateGroups(CharacterContext context, string name, uint min, uint max)
@@ -185,7 +223,7 @@ namespace JSSoft.Font.ApplicationHost
 
         public IEnumerable<IToolBarItem> ToolBarItems => ToolBarItemUtility.GetToolBarItems(this, this.toolBarItems);
 
-        public int VerticalAdvance => (this.FontDescriptor != null ? this.FontDescriptor.ItemHeight : 22);
+        public int VerticalAdvance => (this.FontDescriptor != null ? this.FontDescriptor.Height : 22);
 
         public double ZoomLevel
         {
@@ -269,40 +307,14 @@ namespace JSSoft.Font.ApplicationHost
             //await this.LoadSettingsAsync(@"..\..\..\Fonts\settings.xml");
         }
 
-        private void ExportSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void SelectedCharacters_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             this.IsModified = true;
         }
 
-        private async Task<T> BeginTaskAsync<T>(Func<T> func)
+        private void ExportSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            return await this.Dispatcher.InvokeAsync(() =>
-            {
-                if (this.IsProgressing == true)
-                    throw new InvalidOperationException();
-                this.IsProgressing = true;
-                return func();
-            });
-        }
-
-        private async Task BeginTaskAsync(Action action)
-        {
-            await this.Dispatcher.InvokeAsync(() =>
-            {
-                if (this.IsProgressing == true)
-                    throw new InvalidOperationException();
-                this.IsProgressing = true;
-                action?.Invoke();
-            });
-        }
-
-        private async Task EndTaskAsync(Action action)
-        {
-            await this.Dispatcher.InvokeAsync(() =>
-            {
-                action?.Invoke();
-                this.IsProgressing = false;
-            });
+            this.IsModified = true;
         }
 
         private Task OpenFontDescriptorAsync(string fontPath, int size, int dpi, int faceIndex)
@@ -310,8 +322,10 @@ namespace JSSoft.Font.ApplicationHost
             return Task.Run(() =>
             {
                 this.FontDescriptor = new FontDescriptor(fontPath, (uint)dpi, size, faceIndex);
+                this.selectedCharacters = new ObservableCollection<uint>();
+                this.selectedCharacters.CollectionChanged += SelectedCharacters_CollectionChanged;
                 this.groupList.Clear();
-                this.context = new CharacterContext(this.FontDescriptor);
+                this.context = new CharacterContext(this.FontDescriptor, this.selectedCharacters);
                 foreach (var (name, min, max) in NamesList.Items)
                 {
                     var items = CreateGroups(this.context, name, min, max);
@@ -385,51 +399,79 @@ namespace JSSoft.Font.ApplicationHost
             }
         }
 
-        private void BeginOpen()
+        private async Task BeginOpenAsync()
         {
-            if (this.IsOpened == true)
-                throw new InvalidOperationException("font already open.");
+            await this.Dispatcher.InvokeAsync(() =>
+            {
+                if (this.IsOpened == true)
+                    throw new InvalidOperationException("font already open.");
+            });
         }
 
-        private void EndOpen()
+        private async Task EndOpenAsync()
         {
-            this.Groups.Clear();
-            foreach (var item in this.groupList)
+            await this.Dispatcher.InvokeAsync(() =>
             {
-                this.SatisfyImportsOnce(item);
-                if (item.IsVisible == true)
-                    this.Groups.Add(item);
-            }
-            foreach (var item in this.Groups)
-            {
-                item.PropertyChanged += Group_PropertyChanged;
-            }
-            this.DisplayName = this.FontDescriptor.Name;
-            this.SelectedGroup = this.Groups.FirstOrDefault();
-            this.IsProgressing = false;
-            this.IsModified = false;
-            this.IsOpened = true;
-            this.OnOpened(EventArgs.Empty);
+                this.Groups.Clear();
+                foreach (var item in this.groupList)
+                {
+                    this.SatisfyImportsOnce(item);
+                    if (item.IsVisible == true)
+                        this.Groups.Add(item);
+                }
+                foreach (var item in this.Groups)
+                {
+                    item.PropertyChanged += Group_PropertyChanged;
+                }
+                this.DisplayName = this.FontDescriptor.Name;
+                this.SelectedGroup = this.Groups.FirstOrDefault();
+                this.IsModified = false;
+                this.IsOpened = true;
+                this.OnOpened(EventArgs.Empty);
+            });
         }
 
         private void Group_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            
+
         }
 
-        private void BeginClose()
+        private async Task BeginCloseAsync()
         {
-            if (this.IsOpened == false)
-                throw new InvalidOperationException("font does not open.");
+            await this.Dispatcher.InvokeAsync(() =>
+            {
+                if (this.IsOpened == false)
+                    throw new InvalidOperationException("font does not open.");
+            });
         }
 
-        private void EndClose()
+        private async Task EndCloseAsync()
         {
-            this.NotifyOfPropertyChange(nameof(this.VerticalAdvance));
-            this.DisplayName = "JSFont";
-            this.IsOpened = false;
-            this.IsProgressing = false;
-            this.OnClosed(EventArgs.Empty);
+            await this.Dispatcher.InvokeAsync(() =>
+            {
+                this.NotifyOfPropertyChange(nameof(this.VerticalAdvance));
+                this.DisplayName = "JSFont";
+                this.IsOpened = false;
+                this.OnClosed(EventArgs.Empty);
+            });
+        }
+
+        private async Task BeginProgressAsync()
+        {
+            await this.Dispatcher.InvokeAsync(() =>
+            {
+                if (this.IsProgressing == true)
+                    throw new InvalidOperationException();
+                this.IsProgressing = true;
+            });
+        }
+
+        private async Task EndProgressAsync()
+        {
+            await this.Dispatcher.InvokeAsync(() =>
+            {
+                this.IsProgressing = false;
+            });
         }
 
         #region IShell

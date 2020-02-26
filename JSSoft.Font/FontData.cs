@@ -81,7 +81,7 @@ namespace JSSoft.Font
 
         public int Size => this.fontDescriptor.Size;
 
-        public int LineHeight => this.fontDescriptor.ItemHeight;
+        public int LineHeight => this.fontDescriptor.Height;
 
         public int BaseLine => this.fontDescriptor.BaseLine;
 

@@ -18,8 +18,8 @@ namespace JSSoft.Font
         private Library lib;
         private Face face;
 
-        public FontDescriptor(string path, uint dpi, int height)
-            : this(path, dpi, height, 0)
+        public FontDescriptor(string path, uint dpi, int size)
+            : this(path, dpi, size, 0)
         {
 
         }
@@ -30,8 +30,8 @@ namespace JSSoft.Font
             this.lib = new Library();
             this.face = new Face(this.lib, Path.GetFullPath(path), faceIndex);
             this.face.SetCharSize(0, size, 0, dpi);
-            this.ItemHeight = (int)Math.Round(this.face.Height * pixelSize / this.face.UnitsPerEM);
-            this.BaseLine = this.ItemHeight + (this.ItemHeight * this.face.Descender / this.face.Height);
+            this.Height = (int)Math.Round(this.face.Height * pixelSize / this.face.UnitsPerEM);
+            this.BaseLine = this.Height + (this.Height * this.face.Descender / this.face.Height);
             var (min, max) = NamesList.Range;
             for (var i = min; i <= max; i++)
             {
@@ -69,7 +69,7 @@ namespace JSSoft.Font
 
         public int Size { get; private set; }
 
-        public int ItemHeight { get; private set; }
+        public int Height { get; private set; }
 
         public int BaseLine { get; private set; }
 
@@ -144,7 +144,7 @@ namespace JSSoft.Font
         public void Dispose()
         {
             this.glyphByID.Clear();
-            this.ItemHeight = 0;
+            this.Height = 0;
             this.face?.Dispose();
             this.face = null;
             this.lib?.Dispose();

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
 {
@@ -15,6 +16,9 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         private Thickness padding;
         private int horizontalSpace = 1;
         private int verticalSpace = 1;
+        private Color backgroundColor = ColorUtility.FromColor(FontPage.DefaultBackgroundColor);
+        private Color foregroundColor = ColorUtility.FromColor(FontPage.DefaultForegroundColor);
+        private Color paddingColor = ColorUtility.FromColor(FontPage.DefaultPaddingColor);
 
         public ExportSettingsViewModel(ExportSettings settings)
         {
@@ -29,6 +33,72 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         public void OK()
         {
             this.TryClose(true);
+        }
+
+        public void SelectBackgroundColor()
+        {
+            var dialog = new SelectColorViewModel()
+            {
+                CurrentColor = this.BackgroundColor
+            };
+            if (dialog.ShowDialog() == true)
+            {
+                this.BackgroundColor = dialog.CurrentColor;
+            }
+        }
+
+        public void SelectForegroundColor()
+        {
+            var dialog = new SelectColorViewModel()
+            {
+                CurrentColor = this.ForegroundColor
+            };
+            if (dialog.ShowDialog() == true)
+            {
+                this.ForegroundColor = dialog.CurrentColor;
+            }
+        }
+
+        public void SelectPaddingColor()
+        {
+            var dialog = new SelectColorViewModel()
+            {
+                CurrentColor = this.PaddingColor
+            };
+            if (dialog.ShowDialog() == true)
+            {
+                this.PaddingColor = dialog.CurrentColor;
+            }
+        }
+
+        public Color BackgroundColor
+        {
+            get => this.backgroundColor;
+            set
+            {
+                this.backgroundColor = value;
+                this.NotifyOfPropertyChange(nameof(BackgroundColor));
+            }
+        }
+
+        public Color ForegroundColor
+        {
+            get => this.foregroundColor;
+            set
+            {
+                this.foregroundColor = value;
+                this.NotifyOfPropertyChange(nameof(ForegroundColor));
+            }
+        }
+
+        public Color PaddingColor
+        {
+            get => this.paddingColor;
+            set
+            {
+                this.paddingColor = value;
+                this.NotifyOfPropertyChange(nameof(PaddingColor));
+            }
         }
 
         public int TextureWidth
