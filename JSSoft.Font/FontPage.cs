@@ -24,7 +24,6 @@ namespace JSSoft.Font
             this.Width = settings.Width;
             this.Height = settings.Height;
             this.pixels = new bool[settings.Width, settings.Height];
-
         }
 
         public bool Verify(FontGlyph glyph)

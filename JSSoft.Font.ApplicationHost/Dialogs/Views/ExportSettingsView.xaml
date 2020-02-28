@@ -26,10 +26,10 @@
             <jsfc:SpacingControl nmfc:PropertyItemsControl.Header="Spacing" 
                                  Horizontal="{Binding HorizontalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  Vertical="{Binding VerticalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <nmfc:NumericTextBox nmfc:PropertyItemsControl.Header="Texture Width" 
-                                 Value="{Binding TextureWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <nmfc:NumericTextBox nmfc:PropertyItemsControl.Header="Texture Height" 
-                                 Value="{Binding TextureHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="Texture Width" Values="64 128 256 1024 2048"
+                                Value="{Binding TextureWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="Texture Height" Values="64 128 256 1024 2048"
+                                Value="{Binding TextureHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Button x:Name="SelectBackgroundColor" nmfc:PropertyItemsControl.Header="Background"
                     Background="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" />
             <Button x:Name="SelectForegroundColor" nmfc:PropertyItemsControl.Header="Foreground" 

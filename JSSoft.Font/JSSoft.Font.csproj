@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CharacterIDCollection.cs" />
+    <Compile Include="CharacterCollection.cs" />
     <Compile Include="FontDescriptor.cs" />
     <Compile Include="FontGlyphData.cs" />
     <Compile Include="FontGlyph.cs" />
@@ -62,7 +62,6 @@
     <Compile Include="Serialization\FontSerializationInfo.cs" />
     <Compile Include="Serialization\InfoSerializationInfo.cs" />
     <Compile Include="Serialization\PageSerializationInfo.cs" />
-    <Compile Include="Serialization\PagesSerializationInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SharpFont">

@@ -1,4 +1,5 @@
-﻿using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
+﻿using JSSoft.Font.ApplicationHost.Commands;
+using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
 using JSSoft.Font.ApplicationHost.Properties;
 using Microsoft.Win32;
 using Ntreev.Library;
@@ -9,6 +10,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace JSSoft.Font.ApplicationHost.ToolBarItems
 {
@@ -26,38 +28,9 @@ namespace JSSoft.Font.ApplicationHost.ToolBarItems
             this.Icon = "/JSSoft.Font.ApplicationHost;component/Images/open-folder-with-document.png";
         }
 
-        protected override bool OnCanExecute(object parameter) => this.Shell.IsProgressing == false;
+        protected override bool OnCanExecute(object parameter) => OpenFontCommand.CanExecute(this.Shell);
 
-        protected override async void OnExecute(object parameter)
-        {
-            var dialog = new OpenFileDialog()
-            {
-                Filter = Resources.FontFilter,
-                FilterIndex = 1,
-                RestoreDirectory = true,
-            };
-
-            if (dialog.ShowDialog() == true)
-            {
-                var settings = this.GetSettings(dialog.FileName);
-                if (settings != null)
-                {
-                    if (this.Shell.IsOpened == true)
-                        await this.Shell.CloseAsync();
-                    await this.Shell.OpenAsync(dialog.FileName, settings.Size, settings.DPI, settings.FaceIndex);
-                }
-            }
-        }
-
-        private FontLoadSettingsViewModel GetSettings(string path)
-        {
-            var dialog = new FontLoadSettingsViewModel(path);
-            if (dialog.ShowDialog() == true)
-            {
-                return dialog;
-            }
-            return null;
-        }
+        protected override void OnExecute(object parameter) => OpenFontCommand.Execute(this.Shell);
 
         private IShell Shell => this.shell.Value;
     }

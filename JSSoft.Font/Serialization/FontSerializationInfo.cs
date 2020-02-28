@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace JSSoft.Font.Serializations
@@ -34,8 +35,9 @@ namespace JSSoft.Font.Serializations
         [XmlElement("common")]
         public CommonSerializationInfo Common { get; set; }
 
-        [XmlElement("pages")]
-        public PagesSerializationInfo PagesInfo { get; set; }
+        [XmlArray(ElementName = "pages")]
+        [XmlArrayItem(Type = typeof(PageSerializationInfo), ElementName = "page")]
+        public PageSerializationInfo[] Pages { get; set; }
 
         [XmlElement("chars")]
         public CharsSerializationInfo CharInfo { get; set; }
@@ -46,7 +48,7 @@ namespace JSSoft.Font.Serializations
             {
                 Info = (InfoSerializationInfo)fontData,
                 Common = (CommonSerializationInfo)fontData,
-                PagesInfo = (PagesSerializationInfo)fontData,
+                Pages = fontData.Pages.Select(item => (PageSerializationInfo)item).ToArray(),
                 CharInfo = (CharsSerializationInfo)fontData,
             };
         }

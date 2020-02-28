@@ -82,11 +82,10 @@ namespace JSSoft.Font.ApplicationHost
                 await this.BeginProgressAsync();
                 await Task.Run(() =>
                 {
-                    var dataSettings = (FontDataSettings)this.Settings;
-                    var data = new FontData(this.FontDescriptor, dataSettings);
+                    var dataSettings = this.Settings.Convert(this.selectedCharacters.ToArray());
+                    var data = this.FontDescriptor.CreateData(dataSettings);
                     var fullPath = Path.GetFullPath(filename);
                     var directory = Path.GetDirectoryName(fullPath);
-                    data.Generate(this.selectedCharacters.ToArray());
                     data.Save(filename);
                     data.SavePages(directory);
                 });
@@ -156,18 +155,8 @@ namespace JSSoft.Font.ApplicationHost
                 await this.BeginProgressAsync();
                 var value = await Task.Run(() =>
                 {
-                    var dataSettings = (FontDataSettings)this.Settings;
-                    var data = new FontData(this.FontDescriptor, dataSettings);
-                    var query = from fontGroup in this.Groups
-                                where fontGroup.IsChecked != false
-                                from row in fontGroup.Items
-                                where row.IsChecked != false
-                                from item in row.Items
-                                where item.IsChecked
-                                select item.ID;
-                    var items = query.ToArray();
-                    data.Generate(items);
-                    return data;
+                    var dataSettings = this.Settings.Convert(this.selectedCharacters.ToArray());
+                    return this.FontDescriptor.CreateData(dataSettings);
                 });
                 return value;
             }

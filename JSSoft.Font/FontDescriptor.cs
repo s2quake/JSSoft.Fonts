@@ -65,6 +65,11 @@ namespace JSSoft.Font
             }
         }
 
+        public FontData CreateData(FontDataSettings settings)
+        {
+            return FontData.Create(this, settings);
+        }
+
         public uint DPI { get; private set; }
 
         public int Size { get; private set; }

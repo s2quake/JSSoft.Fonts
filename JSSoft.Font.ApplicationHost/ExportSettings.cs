@@ -82,17 +82,6 @@ namespace JSSoft.Font.ApplicationHost
             }
         }
 
-        public static explicit operator FontDataSettings(ExportSettings settings)
-        {
-            return new FontDataSettings()
-            {
-                Width = settings.TextureWidth,
-                Height = settings.TextureHeight,
-                Padding = new FontPadding((int)settings.Padding.Left, (int)settings.Padding.Top, (int)settings.Padding.Right, (int)settings.Padding.Bottom),
-                Spacing = new FontSpacing(settings.HorizontalSpace, settings.VerticalSpace)
-            };
-        }
-
         public void CopyTo(ExportSettings settings)
         {
             settings.TextureWidth = this.TextureWidth;
@@ -100,6 +89,18 @@ namespace JSSoft.Font.ApplicationHost
             settings.Padding = this.Padding;
             settings.HorizontalSpace = this.HorizontalSpace;
             settings.VerticalSpace = this.VerticalSpace;
+        }
+
+        internal FontDataSettings Convert(uint[] characters)
+        {
+            return new FontDataSettings()
+            {
+                Width = this.TextureWidth,
+                Height = this.TextureHeight,
+                Padding = new FontPadding((int)this.Padding.Left, (int)this.Padding.Top, (int)this.Padding.Right, (int)this.Padding.Bottom),
+                Spacing = new FontSpacing(this.HorizontalSpace, this.VerticalSpace),
+                Characters = characters
+            };
         }
 
         internal void Update(ExportSettingsInfo info)

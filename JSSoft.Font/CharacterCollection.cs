@@ -2,27 +2,29 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace JSSoft.Font
 {
-    public class CharacterIDCollection : IEnumerable<uint>
+    public class CharacterCollection : IEnumerable<uint>, IFormattable
     {
         private readonly List<uint> itemList;
 
-        public CharacterIDCollection()
+        public CharacterCollection()
         {
             this.itemList = new List<uint>();
         }
 
-        public CharacterIDCollection(int capacity)
+        public CharacterCollection(int capacity)
         {
             this.itemList = new List<uint>(capacity);
         }
 
-        public CharacterIDCollection(IEnumerable<uint> items)
+        public CharacterCollection(IEnumerable<uint> items)
         {
             this.itemList = new List<uint>(items);
         }
@@ -30,7 +32,7 @@ namespace JSSoft.Font
         /// <summary>
         /// 0-255,256
         /// </summary>
-        public CharacterIDCollection(string text)
+        public CharacterCollection(string text)
         {
             if (text == null)
                 throw new ArgumentNullException(nameof(text));
@@ -40,9 +42,9 @@ namespace JSSoft.Font
             {
                 if (item.IndexOf('-') >= 0)
                 {
-                    var ss = StringUtility.Split(item, '-');
-                    var min = uint.Parse(ss[0]);
-                    var max = uint.Parse(ss[1]);
+                    var ss = item.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+                    var min = Parse(ss[0]);
+                    var max = Parse(ss[1]);
                     for (var i = min; i <= max; i++)
                     {
                         idList.Add(i);
@@ -58,6 +60,11 @@ namespace JSSoft.Font
 
         public override string ToString()
         {
+            return this.ToString(string.Empty, null);
+        }
+
+        public string ToString(string format, IFormatProvider provider)
+        {
             var itemList = new List<string>();
             var items = this.OrderBy(item => item).ToArray();
             var idList = new List<uint>(this.Count);
@@ -70,12 +77,12 @@ namespace JSSoft.Font
                 }
                 else
                 {
-                    itemList.Add(ToString(idList));
+                    itemList.Add(ToString(idList, format, provider));
                     idList.Clear();
                     idList.Add(item);
                 }
             }
-            itemList.Add(ToString(idList));
+            itemList.Add(ToString(idList, format, provider));
             return string.Join(",", itemList);
         }
 
@@ -97,13 +104,24 @@ namespace JSSoft.Font
             set => this.itemList[index] = value;
         }
 
-        private static string ToString(IEnumerable<uint> items)
+        private static uint Parse(string text)
+        {
+            var match = Regex.Match(text, "^0x([0-9a-fA-F]+)");
+            if (match.Success == true)
+            {
+                return uint.Parse(match.Groups[1].Value, NumberStyles.HexNumber);
+            }
+            return uint.Parse(text);
+        }
+
+        private static string ToString(IEnumerable<uint> items, string format, IFormatProvider provider)
         {
             if (items.Any())
             {
+                var prefix = format == "x" || format == "X" ? "0x" : string.Empty;
                 if (items.Count() == 1)
-                    return $"{items.First()}";
-                return $"{items.First()}-{items.Last()}";
+                    return $"{prefix}{items.First().ToString(format, provider)}";
+                return $"{prefix}{items.First().ToString(format, provider)}-{prefix}{items.Last().ToString(format, provider)}";
             }
             return string.Empty;
         }

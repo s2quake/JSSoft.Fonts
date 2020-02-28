@@ -19,20 +19,16 @@ namespace JSSoft.Font.ConsoleHost
                 parser.Parse(Environment.CommandLine);
 
                 var font = new FontDescriptor(settings.FontPath, (uint)settings.DPI, settings.Size);
+                var characters = Enumerable.Range(0, 255).Select(item => (uint)item).ToArray();
                 var dataSettings = new FontDataSettings()
                 {
                     Width = settings.TextureWidth,
                     Height = settings.TextureHeight,
+                    Characters = characters,
                 };
-                var data = new FontData(font, dataSettings);
-                var characterList = new List<uint>(255);
+                var data = font.CreateData(dataSettings);
                 var filename = Path.GetFullPath(settings.FileName);
                 var directory = Path.GetDirectoryName(filename);
-                for (var i = 0u; i < 256; i++)
-                {
-                    characterList.Add(i);
-                }
-                data.Generate(characterList.ToArray());
                 data.Save(filename);
                 data.SavePages(directory);
 

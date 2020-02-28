@@ -64,8 +64,8 @@ namespace JSSoft.Font.ApplicationHost.Serializations
         [XmlElement]
         public string CharactersValue
         {
-            get => $"{new CharacterIDCollection(this.Characters)}";
-            set => this.Characters = new CharacterIDCollection(value).ToArray();
+            get => $"{new CharacterCollection(this.Characters):X}";
+            set => this.Characters = new CharacterCollection(value).ToArray();
         }
 
         internal static ExportSettingsInfo Create(ShellViewModel shell)

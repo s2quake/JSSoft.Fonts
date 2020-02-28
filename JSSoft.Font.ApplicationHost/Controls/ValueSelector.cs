@@ -1,39 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
     [TemplatePart(Name = nameof(PART_EditableComboBox), Type = typeof(ComboBox))]
-    public class DPISelector : Control
+    public class ValueSelector : Control
     {
         public const string PART_EditableComboBox = nameof(PART_EditableComboBox);
 
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(int), typeof(DPISelector),
+            DependencyProperty.Register(nameof(Value), typeof(int), typeof(ValueSelector),
                 new FrameworkPropertyMetadata(0, ValuePropertyChangedCallback));
 
-        private static readonly DependencyPropertyKey ValueListPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(ValueList), typeof(IList<int>), typeof(DPISelector),
+        public static readonly DependencyProperty ValuesProperty =
+            DependencyProperty.Register(nameof(Values), typeof(int[]), typeof(ValueSelector),
                 new FrameworkPropertyMetadata(null));
-        public static readonly DependencyProperty ValueListProperty = ValueListPropertyKey.DependencyProperty;
 
         private static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register(nameof(ComboBox.Text), typeof(string), typeof(DPISelector),
+            DependencyProperty.Register(nameof(ComboBox.Text), typeof(string), typeof(ValueSelector),
                 new FrameworkPropertyMetadata(null, TextPropertyChangedCallback));
 
-        private readonly ObservableCollection<int> valueList = new ObservableCollection<int>() { 72, 96 };
         private ComboBox comboBox;
 
-        public DPISelector()
+        public ValueSelector()
         {
-            this.SetValue(ValueListPropertyKey, this.valueList);
+
         }
 
         public override void OnApplyTemplate()
@@ -42,8 +42,8 @@ namespace JSSoft.Font.ApplicationHost.Controls
             this.comboBox = this.Template.FindName(PART_EditableComboBox, this) as ComboBox;
             if (this.comboBox != null)
             {
-                this.comboBox.ItemsSource = this.valueList;
-                this.comboBox.SelectedItem = this.valueList.FirstOrDefault();
+                this.comboBox.Text = $"{0}";
+                BindingOperations.SetBinding(this.comboBox, ItemsControl.ItemsSourceProperty, new Binding(nameof(Values)) { Source = this });
                 BindingOperations.SetBinding(this, TextProperty, new Binding(nameof(ComboBox.Text)) { Source = this.comboBox });
             }
         }
@@ -54,11 +54,18 @@ namespace JSSoft.Font.ApplicationHost.Controls
             set => this.SetValue(ValueProperty, value);
         }
 
-        public IList<int> ValueList => (IList<int>)this.GetValue(ValueListProperty);
+        public string Text => (string)this.GetValue(TextProperty);
+
+        [TypeConverter(typeof(ValuesTypeConverter))]
+        public int[] Values
+        {
+            get => (int[])this.GetValue(ValuesProperty);
+            set => this.SetValue(ValuesProperty, value);
+        }
 
         private static void ValuePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is DPISelector control)
+            if (d is ValueSelector control)
             {
                 control.UpdateComboBoxText();
             }
@@ -66,7 +73,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
         private static void TextPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is DPISelector control)
+            if (d is ValueSelector control)
             {
                 control.UpdateValue();
             }
@@ -82,9 +89,14 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
         private void UpdateValue()
         {
-            var text = (string)this.GetValue(TextProperty);
-            var value = int.Parse(text);
-            this.SetValue(ValueProperty, value);
+            if (int.TryParse(this.Text, out var value) == true)
+            {
+                this.SetValue(ValueProperty, value);
+            }
+            else
+            {
+                this.SetValue(ValueProperty, 0);
+            }
         }
     }
 }

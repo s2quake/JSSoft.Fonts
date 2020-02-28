@@ -3,7 +3,7 @@
                     xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
                     xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls">
 
-    <ControlTemplate x:Key="DPISelector_ComboBox_Template" TargetType="{x:Type ComboBox}">
+    <ControlTemplate x:Key="ValueSelector_ComboBox_Template" TargetType="{x:Type ComboBox}">
         <Grid x:Name="MainGrid" SnapsToDevicePixels="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -75,12 +75,12 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="DPISelector_Template" TargetType="{x:Type jsfc:DPISelector}">
-        <ComboBox x:Name="PART_EditableComboBox" IsEditable="True" Template="{StaticResource DPISelector_ComboBox_Template}" />
+    <ControlTemplate x:Key="ValueSelector_Template" TargetType="{x:Type jsfc:ValueSelector}">
+        <ComboBox x:Name="PART_EditableComboBox" IsEditable="True" Template="{StaticResource ValueSelector_ComboBox_Template}" />
     </ControlTemplate>
 
-    <Style TargetType="{x:Type jsfc:DPISelector}">
-        <Setter Property="Template" Value="{StaticResource DPISelector_Template}"/>
+    <Style TargetType="{x:Type jsfc:ValueSelector}">
+        <Setter Property="Template" Value="{StaticResource ValueSelector_Template}"/>
     </Style>
     
 </ResourceDictionary>

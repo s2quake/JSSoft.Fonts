@@ -17,40 +17,19 @@ namespace JSSoft.Font
         private readonly FontDescriptor fontDescriptor;
         private readonly FontDataSettings settings;
 
-        public FontData(FontDescriptor fontDescriptor, FontDataSettings settings)
+        private FontData(FontDescriptor fontDescriptor, FontDataSettings settings)
         {
             this.fontDescriptor = fontDescriptor ?? throw new ArgumentNullException(nameof(fontDescriptor));
             this.settings = settings ?? throw new ArgumentNullException(nameof(settings));
         }
 
-        public void Generate(params uint[] characters)
+        internal static FontData Create(FontDescriptor fontDescriptor, FontDataSettings settings)
         {
-            var query = from item in characters
-                        where this.fontDescriptor.Glyphs.ContainsKey(item)
-                        let glyph = this.fontDescriptor.Glyphs[item]
-                        where glyph.Bitmap != null
-                        let metrics = glyph.Metrics
-                        orderby metrics.Width descending
-                        orderby metrics.Height descending
-                        select glyph;
-            var items = query.ToArray();
-            var index = 0;
-            var name = this.fontDescriptor.Name;
-            var pageList = new List<FontPage>();
-            var page = new FontPage(index++, name, this.settings);
-
-            pageList.Add(page);
-            foreach (var item in items)
+            var fontData = new FontData(fontDescriptor, settings)
             {
-                if (page.Verify(item) == false)
-                {
-                    page = new FontPage(index++, name, this.settings);
-                    pageList.Add(page);
-                }
-                page.Add(item);
-            }
-
-            this.Pages = pageList.ToArray();
+                Pages = GeneratePages(fontDescriptor, settings),
+            };
+            return fontData;
         }
 
         public void Save(string filename)
@@ -90,5 +69,36 @@ namespace JSSoft.Font
         public int PageHeight => this.settings.Height;
 
         public FontPage[] Pages { get; private set; } = new FontPage[] { };
+
+        private static FontPage[] GeneratePages(FontDescriptor fontDescriptor, FontDataSettings settings)
+        {
+            var characters = settings.Characters ?? new uint[] { };
+            var query = from item in characters
+                        where fontDescriptor.Glyphs.ContainsKey(item)
+                        let glyph = fontDescriptor.Glyphs[item]
+                        where glyph.Bitmap != null
+                        let metrics = glyph.Metrics
+                        orderby metrics.Width descending
+                        orderby metrics.Height descending
+                        select glyph;
+            var items = query.ToArray();
+            var index = 0;
+            var name = fontDescriptor.Name;
+            var pageList = new List<FontPage>();
+            var page = new FontPage(index++, name, settings);
+
+            pageList.Add(page);
+            foreach (var item in items)
+            {
+                if (page.Verify(item) == false)
+                {
+                    page = new FontPage(index++, name, settings);
+                    pageList.Add(page);
+                }
+                page.Add(item);
+            }
+
+            return pageList.ToArray();
+        }
     }
 }

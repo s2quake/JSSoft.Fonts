@@ -15,5 +15,7 @@ namespace JSSoft.Font
         public FontPadding Padding { get; set; }
 
         public FontSpacing Spacing { get; set; }
+
+        public uint[] Characters { get; set; }
     }
 }

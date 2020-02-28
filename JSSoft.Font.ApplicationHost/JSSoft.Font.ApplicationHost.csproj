@@ -76,8 +76,10 @@
     <Compile Include="Character.cs" />
     <Compile Include="CharacterGroup.cs" />
     <Compile Include="ColorUtility.cs" />
-    <Compile Include="Controls\DPISelector.cs" />
+    <Compile Include="Commands\OpenFontCommand.cs" />
+    <Compile Include="Controls\ValueSelector.cs" />
     <Compile Include="Controls\SpacingControl.cs" />
+    <Compile Include="Controls\ValuesTypeConverter.cs" />
     <Compile Include="Controls\ZoomLevelItem.cs" />
     <Compile Include="Controls\ZoomLevelControl.cs" />
     <Compile Include="Controls\CharacterControl.cs" />
@@ -101,6 +103,7 @@
       <DependentUpon>SelectColorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExportSettings.cs" />
+    <Compile Include="Input\FontCommands.cs" />
     <Compile Include="MenuItems\FileMenus\RecentSettingsItemMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\RecentSettingsMenuItem.cs" />
     <Compile Include="MenuItems\ToolMenuItem.cs" />
@@ -133,7 +136,7 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="IShell.cs" />
-    <Page Include="Assets\DPISelector.xaml">
+    <Page Include="Assets\ValueSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
