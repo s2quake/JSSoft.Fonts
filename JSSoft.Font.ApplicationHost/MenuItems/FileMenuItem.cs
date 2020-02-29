@@ -14,7 +14,9 @@ namespace JSSoft.Font.ApplicationHost.MenuItems
     [Order(0)]
     class FileMenuItem : MenuItemBase
     {
-        public FileMenuItem()
+        [ImportingConstructor]
+        public FileMenuItem(IServiceProvider serviceProvider)
+            : base(serviceProvider)
         {
             this.DisplayName = "_File";
         }

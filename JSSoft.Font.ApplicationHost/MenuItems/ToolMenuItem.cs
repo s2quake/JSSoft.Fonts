@@ -14,7 +14,9 @@ namespace JSSoft.Font.ApplicationHost.MenuItems
     [Order(2)]
     class ToolMenuItem : MenuItemBase
     {
-        public ToolMenuItem()
+        [ImportingConstructor]
+        public ToolMenuItem(IServiceProvider serviceProvider)
+            : base(serviceProvider)
         {
             this.DisplayName = "_Tool";
         }

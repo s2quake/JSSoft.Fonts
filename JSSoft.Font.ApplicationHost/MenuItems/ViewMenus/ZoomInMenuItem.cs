@@ -15,10 +15,11 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
     [ParentType(typeof(ViewMenuItem))]
     class ZoomInMenuItem : MenuItemBase
     {
-        private readonly Lazy<IShell> shell;
+        private readonly IShell shell;
 
         [ImportingConstructor]
-        public ZoomInMenuItem(Lazy<IShell> shell)
+        public ZoomInMenuItem(IServiceProvider serviceProvider, IShell shell)
+            : base(serviceProvider)
         {
             this.shell = shell;
             this.DisplayName = "Zoom In";
@@ -26,10 +27,8 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
             this.Icon = "Images/zoom-in.png";
         }
 
-        protected override bool OnCanExecute(object parameter) => this.Shell.IsProgressing == false;
+        protected override bool OnCanExecute(object parameter) => this.shell.IsProgressing == false;
 
-        protected override void OnExecute(object parameter) => this.Shell.ZoomLevel *= 2.0;
-
-        private IShell Shell => this.shell.Value;
+        protected override void OnExecute(object parameter) => this.shell.ZoomLevel *= 2.0;
     }
 }

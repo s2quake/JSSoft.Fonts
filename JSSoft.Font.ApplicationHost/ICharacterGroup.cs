@@ -8,6 +8,10 @@ namespace JSSoft.Font.ApplicationHost
 
         bool? IsChecked { get; set; }
 
+        uint Min { get; }
+
+        uint Max { get; }
+
         ICharacterRow[] Items { get; }
     }
 }

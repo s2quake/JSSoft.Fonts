@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using JSSoft.Font.ApplicationHost.Commands;
+using Microsoft.Win32;
 using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
@@ -13,40 +14,30 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
     [ParentType(typeof(FileMenuItem))]
     class SaveSettingsMenuItem : MenuItemBase
     {
-        private readonly Lazy<IShell> shell;
+        private readonly IShell shell;
 
         [ImportingConstructor]
-        public SaveSettingsMenuItem(Lazy<IShell> shell)
+        public SaveSettingsMenuItem(IServiceProvider serviceProvider, IShell shell)
+            : base(serviceProvider)
         {
             this.shell = shell;
             this.DisplayName = "Save Settings...";
-            this.Dispatcher.InvokeAsync(() =>
-            {
-                this.Shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
-                this.Shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();
-            });
+            this.shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
+            this.shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();
         }
 
-        protected override bool OnCanExecute(object parameter)
-        {
-            return this.Shell.IsProgressing == false && this.Shell.IsOpened == true;
-        }
+        protected override bool OnCanExecute(object parameter) => SaveSettingsCommand.CanExecute(this.shell);
 
         protected async override void OnExecute(object parameter)
         {
-            var dialog = new SaveFileDialog()
+            try
             {
-                Filter = "settings files (*.xml)|*.xml|all files (*.*)|*.*",
-                FilterIndex = 1,
-                RestoreDirectory = true,
-            };
-
-            if (dialog.ShowDialog() == true)
+                await SaveSettingsCommand.ExecuteAsync(this.shell);
+            }
+            catch (Exception e)
             {
-                await this.Shell.SaveSettingsAsync(dialog.FileName);
+                AppMessageBox.ShowError(e);
             }
         }
-
-        private IShell Shell => this.shell.Value;
     }
 }

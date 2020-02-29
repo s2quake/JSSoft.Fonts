@@ -17,26 +17,20 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
     [Order(10)]
     class RecentSettingsMenuItem : MenuItemBase
     {
-        private readonly Lazy<ShellViewModel> shell;
+        private readonly ShellViewModel shell;
         private readonly Dictionary<string, RecentSettingsItemMenuItem> itemByPath = new Dictionary<string, RecentSettingsItemMenuItem>();
         private readonly ObservableCollection<RecentSettingsItemMenuItem> itemList = new ObservableCollection<RecentSettingsItemMenuItem>();
 
         [ImportingConstructor]
-        public RecentSettingsMenuItem(Lazy<ShellViewModel> shell)
+        public RecentSettingsMenuItem(IServiceProvider serviceProvider,ShellViewModel shell)
+            : base(serviceProvider)
         {
             this.shell = shell;
             this.DisplayName = "Recent Settings";
+            this.shell.RecentSettings.CollectionChanged += RecentSettings_CollectionChanged;
         }
 
         public override IEnumerable<IMenuItem> ItemsSource => this.itemList;
-
-        protected override void OnImportsSatisfied()
-        {
-            this.Dispatcher.InvokeAsync(() =>
-            {
-                this.Shell.RecentSettings.CollectionChanged += RecentSettings_CollectionChanged;
-            });
-        }
 
         private void RecentSettings_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -46,7 +40,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
                 {
                     if (item is string text && this.itemByPath.ContainsKey(text) == false)
                     {
-                        var viewModel = new RecentSettingsItemMenuItem(this.Shell, text);
+                        var viewModel = new RecentSettingsItemMenuItem(this.ServiceProvider, this.shell, text);
                         this.itemByPath.Add(text, viewModel);
                         this.itemList.Add(viewModel);
                     }
@@ -82,9 +76,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 
         protected override bool OnCanExecute(object parameter)
         {
-            return this.Shell.IsProgressing == false && this.Shell.RecentSettings.Any();
+            return this.shell.IsProgressing == false && this.shell.RecentSettings.Any();
         }
-
-        private ShellViewModel Shell => this.shell.Value;
     }
 }

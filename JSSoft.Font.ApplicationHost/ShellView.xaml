@@ -30,6 +30,7 @@
         </DataTemplate>
 
         <jsfv:CharacterToDisplayTextConverter x:Key="CharacterToDisplayTextConverter" />
+        <jsfv:GroupRangeToDisplayTextConverter x:Key="GroupRangeToDisplayTextConverter" />
     </mui:ModernWindow.Resources>
 
     <Grid>
@@ -59,7 +60,7 @@
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <ListBox ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, Delay=0}" BorderThickness="0 1 1 0" BorderBrush="{StaticResource ItemBorder}"
+            <ListBox x:Name="GroupList" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, Delay=0}" BorderThickness="0 1 1 0" BorderBrush="{StaticResource ItemBorder}"
                      ItemTemplate="{StaticResource ListBox_ItemTemplate}" ItemContainerStyle="{StaticResource FlatListBoxItem}" Grid.ColumnSpan="2" />
             <GridSplitter Grid.Column="2" Background="{StaticResource WindowBackground}" />
             <jsfc:CharacterView x:Name="CharacterView" Grid.Column="3" CharacterGroup="{Binding SelectedGroup}" BorderThickness="1 1 0 0 " 
@@ -71,9 +72,10 @@
                 <ItemsPanelTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                     </Grid>
                 </ItemsPanelTemplate>
@@ -82,11 +84,13 @@
             <StatusBarItem Grid.Column="0" Padding="3 0">
                 <jsfc:ZoomLevelControl Width="100" HorizontalAlignment="Left" Value="{Binding ZoomLevel, Mode=TwoWay}" PopupPlacement="Top" />
             </StatusBarItem>
-
             <StatusBarItem Grid.Column="1">
-                <TextBlock Text="{Binding Character, ElementName=CharacterView, Converter={StaticResource CharacterToDisplayTextConverter}}" HorizontalAlignment="Center" />
+                <TextBlock Text="{Binding SelectedItem, ElementName=GroupList, Converter={StaticResource GroupRangeToDisplayTextConverter}}" HorizontalAlignment="Left" />
             </StatusBarItem>
             <StatusBarItem Grid.Column="2">
+                <TextBlock Text="{Binding Character, ElementName=CharacterView, Converter={StaticResource CharacterToDisplayTextConverter}}" HorizontalAlignment="Center" />
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="3">
             </StatusBarItem>
         </StatusBar>
     </Grid>

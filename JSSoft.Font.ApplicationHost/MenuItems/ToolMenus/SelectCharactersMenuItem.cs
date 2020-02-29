@@ -14,16 +14,16 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ToolMenus
 {
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(ToolMenuItem))]
-    class ExportSettingsMenuItem : MenuItemBase
+    class SelectCharactersMenuItem : MenuItemBase
     {
         private readonly IShell shell;
 
         [ImportingConstructor]
-        public ExportSettingsMenuItem(IServiceProvider serviceProvider, IShell shell)
+        public SelectCharactersMenuItem(IServiceProvider serviceProvider, IShell shell)
             : base(serviceProvider)
         {
             this.shell = shell;
-            this.DisplayName = "Export Settings...";
+            this.DisplayName = "Select Characters...";
             this.shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
             this.shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();
         }
@@ -33,17 +33,12 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ToolMenus
             return this.shell.IsProgressing == false;
         }
 
-        protected override void OnExecute(object parameter)
+        protected override async void OnExecute(object parameter)
         {
-            var settings = this.shell.Settings;
-            var dialog = new ExportSettingsViewModel(settings);
+            var dialog = new SelectCharactersViewModel(this.shell.SelectedCharacters);
             if (dialog.ShowDialog() == true)
             {
-                settings.Padding = dialog.Padding;
-                settings.HorizontalSpace = dialog.HorizontalSpace;
-                settings.VerticalSpace = dialog.VerticalSpace;
-                settings.TextureWidth = dialog.TextureWidth;
-                settings.TextureHeight = dialog.TextureHeight;
+                await this.shell.SelectCharactersAsync(dialog.Characters);
             }
         }
     }

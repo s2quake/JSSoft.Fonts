@@ -76,6 +76,9 @@
     <Compile Include="Character.cs" />
     <Compile Include="CharacterGroup.cs" />
     <Compile Include="ColorUtility.cs" />
+    <Compile Include="Commands\LoadSettingsCommand.cs" />
+    <Compile Include="Commands\ExportFontCommand.cs" />
+    <Compile Include="Commands\SaveSettingsCommand.cs" />
     <Compile Include="Commands\OpenFontCommand.cs" />
     <Compile Include="Controls\ValueSelector.cs" />
     <Compile Include="Controls\SpacingControl.cs" />
@@ -83,12 +86,14 @@
     <Compile Include="Controls\ZoomLevelItem.cs" />
     <Compile Include="Controls\ZoomLevelControl.cs" />
     <Compile Include="Controls\CharacterControl.cs" />
+    <Compile Include="Converters\GroupRangeToDisplayTextConverter.cs" />
     <Compile Include="Converters\CharacterToDisplayTextConverter.cs" />
     <Compile Include="Converters\MultiplicationConverter.cs" />
     <Compile Include="Dialogs\ViewModels\ExportSettingsViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\PreviewItemViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\PreviewViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\FontLoadSettingsViewModel.cs" />
+    <Compile Include="Dialogs\ViewModels\SelectCharactersViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\SelectColorViewModel.cs" />
     <Compile Include="Dialogs\Views\ExportSettingsView.xaml.cs">
       <DependentUpon>ExportSettingsView.xaml</DependentUpon>
@@ -99,16 +104,19 @@
     <Compile Include="Dialogs\Views\FontLoadSettingsView.xaml.cs">
       <DependentUpon>FontLoadSettingsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\Views\SelectCharactersView.xaml.cs">
+      <DependentUpon>SelectCharactersView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\Views\SelectColorView.xaml.cs">
       <DependentUpon>SelectColorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExportSettings.cs" />
-    <Compile Include="Input\FontCommands.cs" />
     <Compile Include="MenuItems\FileMenus\RecentSettingsItemMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\RecentSettingsMenuItem.cs" />
     <Compile Include="MenuItems\ToolMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\LoadSettingsMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\SaveSettingsMenuItem.cs" />
+    <Compile Include="MenuItems\ToolMenus\SelectCharactersMenuItem.cs" />
     <Compile Include="MenuItems\ToolMenus\ExportSettingsMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\ExportFontMenuItem.cs" />
@@ -169,6 +177,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\Views\FontLoadSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\Views\SelectCharactersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -52,10 +52,35 @@ namespace JSSoft.Font
                 }
                 else
                 {
-                    idList.Add(uint.Parse(item));
+                    idList.Add(Parse(item));
                 }
             }
             this.itemList = idList;
+        }
+
+        public static string ToString(uint[] characters)
+        {
+            return $"{new CharacterCollection(characters):X}";
+        }
+
+        public static void Validate(string text)
+        {
+            if (text == null)
+                throw new ArgumentNullException(nameof(text));
+            var items = text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var item in items)
+            {
+                if (item.IndexOf('-') >= 0)
+                {
+                    var ss = item.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+                    var min = Parse(ss[0]);
+                    var max = Parse(ss[1]);
+                }
+                else
+                {
+                    Parse(item);
+                }
+            }
         }
 
         public override string ToString()

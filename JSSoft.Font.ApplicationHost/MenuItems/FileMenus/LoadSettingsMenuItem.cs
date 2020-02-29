@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using JSSoft.Font.ApplicationHost.Commands;
+using Microsoft.Win32;
 using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
@@ -13,35 +14,28 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
     [ParentType(typeof(FileMenuItem))]
     class LoadSettingsMenuItem : MenuItemBase
     {
-        private readonly Lazy<IShell> shell;
+        private readonly IShell shell;
 
         [ImportingConstructor]
-        public LoadSettingsMenuItem(Lazy<IShell> shell)
+        public LoadSettingsMenuItem(IServiceProvider serviceProvider, IShell shell)
+            : base(serviceProvider)
         {
             this.shell = shell;
             this.DisplayName = "Load Settings...";
         }
 
-        protected override bool OnCanExecute(object parameter)
-        {
-            return this.Shell.IsProgressing == false;
-        }
+        protected override bool OnCanExecute(object parameter) => LoadSettingsCommand.CanExecute(this.shell);
 
         protected async override void OnExecute(object parameter)
         {
-            var dialog = new OpenFileDialog()
+            try
             {
-                Filter = "settings files (*.xml)|*.xml|all files (*.*)|*.*",
-                FilterIndex = 1,
-                RestoreDirectory = true,
-            };
-
-            if (dialog.ShowDialog() == true)
+                await LoadSettingsCommand.ExecuteAsync(this.shell);
+            }
+            catch (Exception e)
             {
-                await this.Shell.LoadSettingsAsync(dialog.FileName);
+                AppMessageBox.ShowError(e);
             }
         }
-
-        private IShell Shell => this.shell.Value;
     }
 }

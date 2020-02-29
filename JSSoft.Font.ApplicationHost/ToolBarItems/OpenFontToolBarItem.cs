@@ -19,19 +19,29 @@ namespace JSSoft.Font.ApplicationHost.ToolBarItems
     [Order(-1)]
     class OpenFontToolBarItem : ToolBarItemBase
     {
-        private readonly Lazy<IShell> shell;
+        private readonly IShell shell;
 
         [ImportingConstructor]
-        public OpenFontToolBarItem(Lazy<IShell> shell)
+        public OpenFontToolBarItem(IShell shell)
         {
             this.shell = shell;
+            this.DisplayName = "Open Font...";
             this.Icon = "/JSSoft.Font.ApplicationHost;component/Images/open-folder-with-document.png";
+            this.InputGesture = new KeyGesture(Key.O, ModifierKeys.Control);
         }
 
-        protected override bool OnCanExecute(object parameter) => OpenFontCommand.CanExecute(this.Shell);
+        protected override bool OnCanExecute(object parameter) => OpenFontCommand.CanExecute(this.shell);
 
-        protected override void OnExecute(object parameter) => OpenFontCommand.Execute(this.Shell);
-
-        private IShell Shell => this.shell.Value;
+        protected override async void OnExecute(object parameter)
+        {
+            try
+            {
+                await OpenFontCommand.ExecuteAsync(this.shell);
+            }
+            catch (Exception e)
+            {
+                AppMessageBox.ShowError(e);
+            }
+        }
     }
 }

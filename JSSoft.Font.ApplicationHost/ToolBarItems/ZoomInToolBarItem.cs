@@ -6,6 +6,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace JSSoft.Font.ApplicationHost.ToolBarItems
 {
@@ -13,20 +14,19 @@ namespace JSSoft.Font.ApplicationHost.ToolBarItems
     [ParentType(typeof(IShell))]
     class ZoomInToolBarItem : ToolBarItemBase
     {
-        private readonly Lazy<IShell> shell;
+        private readonly IShell shell;
 
         [ImportingConstructor]
-        public ZoomInToolBarItem(Lazy<IShell> shell)
+        public ZoomInToolBarItem(IShell shell)
         {
             this.shell = shell;
-            this.Icon = "Images/zoom-in.png";
             this.DisplayName = "Zoom In";
+            this.InputGesture = new KeyGesture(Key.OemPlus, ModifierKeys.Control);
+            this.Icon = "Images/zoom-in.png";
         }
 
-        protected override bool OnCanExecute(object parameter) => this.Shell.IsProgressing == false;
+        protected override bool OnCanExecute(object parameter) => this.shell.IsProgressing == false;
 
-        protected override void OnExecute(object parameter) => this.Shell.ZoomLevel *= 2.0;
-
-        private IShell Shell => this.shell.Value;
+        protected override void OnExecute(object parameter) => this.shell.ZoomLevel *= 2.0;
     }
 }

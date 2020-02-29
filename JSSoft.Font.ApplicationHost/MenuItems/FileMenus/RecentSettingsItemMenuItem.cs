@@ -13,7 +13,8 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
     [ParentType(typeof(RecentSettingsMenuItem))]
     class RecentSettingsItemMenuItem : MenuItemBase
     {
-        public RecentSettingsItemMenuItem(IShell shell, string filename)
+        public RecentSettingsItemMenuItem(IServiceProvider serviceProvider, IShell shell, string filename)
+            : base(serviceProvider)
         {
             this.Shell = shell;
             this.Filename = filename;
@@ -29,7 +30,14 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 
         protected async override void OnExecute(object parameter)
         {
-            await this.Shell.LoadSettingsAsync(this.Filename);
+            try
+            {
+                await this.Shell.LoadSettingsAsync(this.Filename);
+            }
+            catch (Exception e)
+            {
+                AppMessageBox.ShowError(e);
+            }
         }
 
         private IShell Shell { get; }

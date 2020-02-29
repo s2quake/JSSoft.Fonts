@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace JSSoft.Font.ApplicationHost.Commands
 {
-    public static class OpenFontCommand
+    public static class LoadSettingsCommand
     {
         public static bool CanExecute(IShell shell)
         {
@@ -20,31 +20,15 @@ namespace JSSoft.Font.ApplicationHost.Commands
         {
             var dialog = new OpenFileDialog()
             {
-                Filter = Resources.FontFilter,
+                Filter = "settings files (*.jsfs)|*.jsfs|all files (*.*)|*.*",
                 FilterIndex = 1,
                 RestoreDirectory = true,
             };
 
             if (dialog.ShowDialog() == true)
             {
-                var settings = GetSettings(dialog.FileName);
-                if (settings != null)
-                {
-                    if (shell.IsOpened == true)
-                        await shell.CloseAsync();
-                    await shell.OpenAsync(dialog.FileName, settings.Size, settings.DPI, settings.FaceIndex);
-                }
+                await shell.LoadSettingsAsync(dialog.FileName);
             }
-        }
-
-        private static FontLoadSettingsViewModel GetSettings(string path)
-        {
-            var dialog = new FontLoadSettingsViewModel(path);
-            if (dialog.ShowDialog() == true)
-            {
-                return dialog;
-            }
-            return null;
         }
     }
 }

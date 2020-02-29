@@ -87,11 +87,11 @@ namespace JSSoft.Font.ApplicationHost
 
         void IPartImportsSatisfiedNotification.OnImportsSatisfied()
         {
-            var items = MenuItemUtility.GetMenuItems<IMenuItem>(this.Shell, this.menuItems);
-            foreach (var item in items)
-            {
-                this.SetInputBindings(item);
-            }
+            //var items = MenuItemUtility.GetMenuItems<IMenuItem>(this.Shell, this.menuItems);
+            //foreach (var item in items)
+            //{
+            //    this.SetInputBindings(item);
+            //}
         }
 
         #endregion

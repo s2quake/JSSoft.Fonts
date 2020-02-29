@@ -21,6 +21,8 @@ namespace JSSoft.Font.ApplicationHost
 
         Task<FontData> PreviewAsync();
 
+        Task SelectCharactersAsync(params uint[] characters);
+
         bool IsOpened { get; }
 
         bool IsModified { get; }
@@ -34,6 +36,8 @@ namespace JSSoft.Font.ApplicationHost
         ExportSettings Settings { get; }
 
         IEnumerable<ICharacterGroup> Groups { get; }
+
+        uint[] SelectedCharacters { get; }
 
         ICharacterGroup SelectedGroup { get; set; }
 

@@ -13,13 +13,12 @@ namespace JSSoft.Font.ApplicationHost
     class CharacterGroup : ListBoxItemViewModel, ICharacterGroup
     {
         private readonly CharacterContext context;
-        private readonly string name;
         private bool? isChecked = false;
 
         public CharacterGroup(CharacterContext context, string name, uint min, uint max)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
-            this.name = name;
+            this.Name = name;
             this.Min = min;
             this.Max = max;
             this.Items = this.CreateItems(min, max);
@@ -46,7 +45,9 @@ namespace JSSoft.Font.ApplicationHost
             }
         }
 
-        public override string DisplayName => this.name;
+        public string Name { get; }
+
+        public override string DisplayName => $"{this.Name}";
 
         public uint Min { get; }
 
@@ -97,7 +98,7 @@ namespace JSSoft.Font.ApplicationHost
 
         #region ICharacterGroup
 
-        string ICharacterGroup.Name => this.name;
+        string ICharacterGroup.Name => this.Name;
 
         ICharacterRow[] ICharacterGroup.Items => this.Items;
 

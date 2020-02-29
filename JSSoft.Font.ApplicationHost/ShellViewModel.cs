@@ -23,8 +23,7 @@ namespace JSSoft.Font.ApplicationHost
     [Export]
     class ShellViewModel : ScreenBase, IShell
     {
-        private readonly IEnumerable<IMenuItem> menuItems;
-        private readonly IEnumerable<IToolBarItem> toolBarItems;
+        private readonly IServiceProvider serviceProvider;
         private readonly IAppConfiguration configs;
         private readonly ObservableCollection<CharacterGroup> groupList = new ObservableCollection<CharacterGroup>();
         private ObservableCollection<uint> selectedCharacters;
@@ -35,10 +34,10 @@ namespace JSSoft.Font.ApplicationHost
         private CharacterContext context;
 
         [ImportingConstructor]
-        public ShellViewModel([ImportMany]IEnumerable<IMenuItem> menuItems, [ImportMany]IEnumerable<IToolBarItem> toolBarItems, IAppConfiguration configs)
+        public ShellViewModel(IServiceProvider serviceProvider, IAppConfiguration configs)
+            : base(serviceProvider)
         {
-            this.menuItems = menuItems;
-            this.toolBarItems = toolBarItems;
+            this.serviceProvider = serviceProvider;
             this.configs = configs;
             this.DisplayName = "JSFont";
             this.Settings.PropertyChanged += ExportSettings_PropertyChanged;
@@ -166,6 +165,26 @@ namespace JSSoft.Font.ApplicationHost
             }
         }
 
+        public async Task SelectCharactersAsync(params uint[] characters)
+        {
+            try
+            {
+                await this.BeginProgressAsync();
+                await this.Dispatcher.InvokeAsync(() =>
+                {
+                    foreach (var item in this.Groups)
+                    {
+                        item.IsChecked = false;
+                    }
+                    this.UpdateCheckState(characters);
+                });
+            }
+            finally
+            {
+                await this.EndProgressAsync();
+            }
+        }
+
         private static CharacterGroup[] CreateGroups(CharacterContext context, string name, uint min, uint max)
         {
             if (max - min <= 0xff)
@@ -175,14 +194,15 @@ namespace JSSoft.Font.ApplicationHost
             else
             {
                 var groupList = new List<CharacterGroup>();
+                var index = 0;
                 while (max - min > 0xff)
                 {
-                    groupList.Add(new CharacterGroup(context, name, min, min + 0xff));
+                    groupList.Add(new CharacterGroup(context, $"{name} {index++}", min, min + 0xff));
                     min += 0xff + 1;
                 }
                 if (max - min <= 0xff)
                 {
-                    groupList.Add(new CharacterGroup(context, name, min, max));
+                    groupList.Add(new CharacterGroup(context, $"{name} {index++}", min, max));
                 }
                 return groupList.ToArray();
             }
@@ -208,9 +228,11 @@ namespace JSSoft.Font.ApplicationHost
 
         public CharacterRow[] CharacterRows => this.selectedGroup != null ? this.selectedGroup.Items : new CharacterRow[] { };
 
-        public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems(this, this.menuItems);
+        public uint[] SelectedCharacters => this.selectedCharacters.ToArray();
 
-        public IEnumerable<IToolBarItem> ToolBarItems => ToolBarItemUtility.GetToolBarItems(this, this.toolBarItems);
+        public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems<IMenuItem>(this, this.serviceProvider);
+
+        public IEnumerable<IToolBarItem> ToolBarItems => ToolBarItemUtility.GetToolBarItems(this, this.serviceProvider);
 
         public int VerticalAdvance => (this.FontDescriptor != null ? this.FontDescriptor.Height : 22);
 
@@ -290,8 +312,8 @@ namespace JSSoft.Font.ApplicationHost
         protected async override void OnInitialize()
         {
             base.OnInitialize();
-            await this.OpenAsync(@"..\..\..\Fonts\SF-Mono-Semibold.otf", 11, 96, 0);
-            //await this.OpenAsync(@"..\..\..\Fonts\gulim.ttc", 14, 72, 0);
+            //await this.OpenAsync(@"..\..\..\Fonts\SF-Mono-Semibold.otf", 22, 96, 0);
+            await this.OpenAsync(@"..\..\..\Fonts\gulim.ttc", 14, 72, 0);
             //await this.OpenAsync(@"C:\Users\s2quake\Desktop\AppleSDGothicNeo-Semibold.otf");
             //await this.LoadSettingsAsync(@"..\..\..\Fonts\settings.xml");
         }

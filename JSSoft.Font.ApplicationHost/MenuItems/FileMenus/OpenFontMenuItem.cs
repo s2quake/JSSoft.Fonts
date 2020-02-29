@@ -1,6 +1,5 @@
 ﻿using JSSoft.Font.ApplicationHost.Commands;
 using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
-using JSSoft.Font.ApplicationHost.Input;
 using JSSoft.Font.ApplicationHost.Properties;
 using Microsoft.Win32;
 using Ntreev.Library;
@@ -20,22 +19,29 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
     [Order(0)]
     class OpenFontMenuItem : MenuItemBase
     {
-        private readonly Lazy<IShell> shell;
+        private readonly IShell shell;
 
         [ImportingConstructor]
-        public OpenFontMenuItem(Lazy<IShell> shell)
+        public OpenFontMenuItem(IServiceProvider serviceProvider, IShell shell)
+            : base(serviceProvider)
         {
             this.shell = shell;
             this.DisplayName = "Open Font...";
-            //this.InputGesture = new KeyGesture(Key.O, ModifierKeys.Control);
+            this.InputGesture = new KeyGesture(Key.O, ModifierKeys.Control);
         }
 
-        public override ICommand Command => FontCommands.OpenFont;
+        protected override bool OnCanExecute(object parameter) => OpenFontCommand.CanExecute(this.shell);
 
-        protected override bool OnCanExecute(object parameter) => OpenFontCommand.CanExecute(this.Shell);
-
-        protected override void OnExecute(object parameter) => OpenFontCommand.Execute(this.Shell);
-
-        private IShell Shell => this.shell.Value;
+        protected override async void OnExecute(object parameter)
+        {
+            try
+            {
+                await OpenFontCommand.ExecuteAsync(this.shell);
+            }
+            catch (Exception e)
+            {
+                AppMessageBox.ShowError(e);
+            }
+        }
     }
 }
