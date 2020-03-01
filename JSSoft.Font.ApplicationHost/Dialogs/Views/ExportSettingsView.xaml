@@ -1,7 +1,6 @@
 ﻿<UserControl x:Class="JSSoft.Font.ApplicationHost.Dialogs.Views.ExportSettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
@@ -26,9 +25,9 @@
             <jsfc:SpacingControl nmfc:PropertyItemsControl.Header="Spacing" 
                                  Horizontal="{Binding HorizontalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  Vertical="{Binding VerticalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="Texture Width" Values="64 128 256 1024 2048"
+            <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="Texture Width" Values="64 128 256 512 1024 2048 4096"
                                 Value="{Binding TextureWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="Texture Height" Values="64 128 256 1024 2048"
+            <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="Texture Height" Values="64 128 256 512 1024 2048 4096"
                                 Value="{Binding TextureHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Button x:Name="SelectBackgroundColor" nmfc:PropertyItemsControl.Header="Background"
                     Background="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" />

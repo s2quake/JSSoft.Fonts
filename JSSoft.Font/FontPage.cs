@@ -13,7 +13,7 @@ namespace JSSoft.Font
     public sealed class FontPage
     {
         private readonly List<FontGlyphData> glyphList = new List<FontGlyphData>();
-        private readonly bool[,] pixels;
+        private readonly (byte x, byte y)[,] pixels;
         private readonly FontDataSettings settings;
 
         public FontPage(int index, string name, FontDataSettings settings)
@@ -23,7 +23,7 @@ namespace JSSoft.Font
             this.settings = settings;
             this.Width = settings.Width;
             this.Height = settings.Height;
-            this.pixels = new bool[settings.Width, settings.Height];
+            this.pixels = new (byte, byte)[settings.Width, settings.Height];
         }
 
         public bool Verify(FontGlyph glyph)
@@ -123,7 +123,7 @@ namespace JSSoft.Font
                     if (bottom + spacing.Vertical < this.Height)
                         bottom += spacing.Vertical;
                     var rect = Rectangle.FromLTRB(x, y, right, bottom);
-                    if (this.IsEmpty(rect) == true)
+                    if (this.IsEmpty(ref x, ref y, rect) == true)
                     {
                         return rect.Location;
                     }
@@ -132,7 +132,7 @@ namespace JSSoft.Font
             return null;
         }
 
-        private bool IsEmpty(Rectangle rectangle)
+        private bool IsEmpty(ref int x1, ref int y1, Rectangle rectangle)
         {
             if (rectangle.Right >= this.Width || rectangle.Bottom >= this.Height)
                 return false;
@@ -140,8 +140,16 @@ namespace JSSoft.Font
             {
                 for (var y = rectangle.Top; y < rectangle.Bottom; y++)
                 {
-                    if (this.pixels[x, y] == true)
+                    if (this.pixels[x, y].x != 0)
+                    {
+                        x1 = this.pixels[x, y].x;
                         return false;
+                    }
+                    if (this.pixels[x, y].y != 0)
+                    {
+                        y1 = this.pixels[x, y].y;
+                        return false;
+                    }
                 }
             }
             return true;
@@ -153,7 +161,7 @@ namespace JSSoft.Font
             {
                 for (var y = rectangle.Top; y < rectangle.Bottom; y++)
                 {
-                    this.pixels[x, y] = true;
+                    this.pixels[x, y] = ((byte)rectangle.Right, (byte)rectangle.Bottom);
                 }
             }
         }
@@ -167,8 +175,6 @@ namespace JSSoft.Font
             var padding = this.settings.Padding;
 
             graphics.CompositingMode = CompositingMode.SourceCopy;
-            //graphics.FillRectangle(backgroundBrush, new Rectangle(0, 0, this.Width, this.Height));
-
             foreach (var item in this.glyphList)
             {
                 var metrics = item.Metrics;
