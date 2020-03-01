@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
-    [TemplatePart(Name = nameof(PART_ComboBox), Type = typeof(ComboBox))]
+    [TemplatePart(Name = PART_ComboBox, Type = typeof(ComboBox))]
     public class ZoomLevelControl : Control
     {
         public const string PART_ComboBox = nameof(PART_ComboBox);

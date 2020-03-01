@@ -12,7 +12,7 @@ using System.Windows.Markup;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
-    [TemplatePart(Name = nameof(PART_EditableComboBox), Type = typeof(ComboBox))]
+    [TemplatePart(Name = PART_EditableComboBox, Type = typeof(ComboBox))]
     public class ValueSelector : Control
     {
         public const string PART_EditableComboBox = nameof(PART_EditableComboBox);

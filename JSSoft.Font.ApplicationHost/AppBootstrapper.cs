@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace JSSoft.Font.ApplicationHost
 {
-    class AppBootstrapper : AppBootstrapper<IShell>
+    class AppBootstrapper : AppBootstrapperBase
     {
         public AppBootstrapper()
+            : base(typeof(IShell))
         {
 
         }

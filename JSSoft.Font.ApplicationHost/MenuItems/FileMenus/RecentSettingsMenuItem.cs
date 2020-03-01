@@ -1,14 +1,10 @@
-﻿using Microsoft.Win32;
-using Ntreev.Library;
+﻿using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 {
@@ -22,8 +18,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
         private readonly ObservableCollection<RecentSettingsItemMenuItem> itemList = new ObservableCollection<RecentSettingsItemMenuItem>();
 
         [ImportingConstructor]
-        public RecentSettingsMenuItem(IServiceProvider serviceProvider,ShellViewModel shell)
-            : base(serviceProvider)
+        public RecentSettingsMenuItem(ShellViewModel shell)
         {
             this.shell = shell;
             this.DisplayName = "Recent Settings";
@@ -40,7 +35,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
                 {
                     if (item is string text && this.itemByPath.ContainsKey(text) == false)
                     {
-                        var viewModel = new RecentSettingsItemMenuItem(this.ServiceProvider, this.shell, text);
+                        var viewModel = new RecentSettingsItemMenuItem(this.shell, text);
                         this.itemByPath.Add(text, viewModel);
                         this.itemList.Add(viewModel);
                     }

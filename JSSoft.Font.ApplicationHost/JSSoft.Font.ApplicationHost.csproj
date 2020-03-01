@@ -89,12 +89,16 @@
     <Compile Include="Converters\GroupRangeToDisplayTextConverter.cs" />
     <Compile Include="Converters\CharacterToDisplayTextConverter.cs" />
     <Compile Include="Converters\MultiplicationConverter.cs" />
+    <Compile Include="Dialogs\ViewModels\AboutViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\ExportSettingsViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\PreviewItemViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\PreviewViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\FontLoadSettingsViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\SelectCharactersViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\SelectColorViewModel.cs" />
+    <Compile Include="Dialogs\Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\Views\ExportSettingsView.xaml.cs">
       <DependentUpon>ExportSettingsView.xaml</DependentUpon>
     </Compile>
@@ -113,11 +117,13 @@
     <Compile Include="ExportSettings.cs" />
     <Compile Include="MenuItems\FileMenus\RecentSettingsItemMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\RecentSettingsMenuItem.cs" />
+    <Compile Include="MenuItems\HelpMenus\AboutMenuItem.cs" />
     <Compile Include="MenuItems\ToolMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\LoadSettingsMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\SaveSettingsMenuItem.cs" />
     <Compile Include="MenuItems\ToolMenus\SelectCharactersMenuItem.cs" />
     <Compile Include="MenuItems\ToolMenus\ExportSettingsMenuItem.cs" />
+    <Compile Include="MenuItems\HelpMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\ExportFontMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenus\PreviewMenuItem.cs" />
@@ -128,7 +134,6 @@
     <Compile Include="ToolBarItems\ZoomInToolBarItem.cs" />
     <Compile Include="ToolBarItems\OpenFontToolBarItem.cs" />
     <Compile Include="Controls\CharacterView.cs" />
-    <Compile Include="Converters\FieldNameToValueConverter.cs" />
     <Compile Include="ICharacter.cs" />
     <Compile Include="ICharacterGroup.cs" />
     <Compile Include="ICharacterRow.cs" />
@@ -165,6 +170,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Assets\ZoomLevelControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\Views\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

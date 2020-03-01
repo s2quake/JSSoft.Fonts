@@ -16,10 +16,10 @@ namespace JSSoft.Font.ApplicationHost
     class Character : PropertyChangedBase, ICharacter
     {
         private readonly CharacterContext context;
+        private readonly FontGlyph glyph;
         private bool isChecked;
         private ImageSource source;
         private GlyphMetrics glyphMetrics;
-        private FontGlyph glyph;
 
         internal Character(uint id)
         {

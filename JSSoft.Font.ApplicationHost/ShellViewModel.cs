@@ -356,7 +356,8 @@ namespace JSSoft.Font.ApplicationHost
             var characterByID = query.ToDictionary(item => item.ID);
             foreach (var item in items)
             {
-                characterByID[item].SetChecked(true);
+                if (characterByID.ContainsKey(item) == true)
+                    characterByID[item].SetChecked(true);
             }
         }
 

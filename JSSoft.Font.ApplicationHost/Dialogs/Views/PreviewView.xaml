@@ -26,12 +26,12 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <ToolBarTray>
-            <nmfc:ExpandableToolBar>
+            <nmfc:ModernToolBar>
                 <nmfc:IconButton x:Name="ZoomOut" Source="/JSSoft.Font.ApplicationHost;component/Images/zoom-out.png" Click="ZoomOut_Click" />
                 <nmfc:IconButton x:Name="ZoomIn" Source="/JSSoft.Font.ApplicationHost;component/Images/zoom-in.png" Click="ZoomIn_Click" />
                 <jsfc:ZoomLevelControl x:Name="ZoomLevel" Margin="4 0" />
                 <Border Width="4" />
-            </nmfc:ExpandableToolBar>
+            </nmfc:ModernToolBar>
             <ToolBar ToolBarTray.IsLocked="True">
                 <Label Content="B: " VerticalAlignment="Center" ToolTip="Background Color" />
                 <Button x:Name="SelectBackgroundColor" Background="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" ToolTip="Background Color" />

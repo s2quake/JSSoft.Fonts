@@ -1,20 +1,12 @@
-﻿using Microsoft.Win32;
-using Ntreev.Library;
-using Ntreev.ModernUI.Framework;
+﻿using Ntreev.ModernUI.Framework;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 {
     [ParentType(typeof(RecentSettingsMenuItem))]
     class RecentSettingsItemMenuItem : MenuItemBase
     {
-        public RecentSettingsItemMenuItem(IServiceProvider serviceProvider, IShell shell, string filename)
-            : base(serviceProvider)
+        public RecentSettingsItemMenuItem(IShell shell, string filename)
         {
             this.Shell = shell;
             this.Filename = filename;

@@ -1,12 +1,7 @@
 ﻿using JSSoft.Font.ApplicationHost.Commands;
-using Microsoft.Win32;
 using Ntreev.ModernUI.Framework;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
@@ -18,8 +13,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
         private readonly IShell shell;
 
         [ImportingConstructor]
-        public ExportFontMenuItem(IServiceProvider serviceProvider, IShell shell)
-            : base(serviceProvider)
+        public ExportFontMenuItem(IShell shell)
         {
             this.shell = shell;
             this.DisplayName = "Export Font...";

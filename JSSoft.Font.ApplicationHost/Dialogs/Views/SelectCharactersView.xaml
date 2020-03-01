@@ -14,15 +14,8 @@
 
     <StackPanel>
         <TextBlock Text="Characters" />
-        <TextBox x:Name="Characters" Height="100" HorizontalScrollBarVisibility="Disabled" TextWrapping="WrapWithOverflow">
-            <TextBox.Text>
-                <Binding Path="CharactersText" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" ValidatesOnExceptions="True">
-                    <!--<Binding.ValidationRules>
-                        <local:SelectCharactersValidationRule />
-                    </Binding.ValidationRules>-->
-                </Binding>
-            </TextBox.Text>
-            </TextBox>
+        <TextBox x:Name="Characters" Height="100" HorizontalScrollBarVisibility="Disabled" TextWrapping="WrapWithOverflow"
+                 Text="{Binding CharactersText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="Select" Content="OK" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />
             <Border Width="4" />

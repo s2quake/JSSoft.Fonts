@@ -12,7 +12,7 @@ using Xceed.Wpf.DataGrid;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
-    [TemplatePart(Name = nameof(PART_DataGrid), Type = typeof(ModernDataGridControl))]
+    [TemplatePart(Name = PART_DataGrid, Type = typeof(ModernDataGridControl))]
     public class CharacterView : Control
     { 
         public const string PART_DataGrid = nameof(PART_DataGrid);

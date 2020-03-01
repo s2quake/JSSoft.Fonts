@@ -59,8 +59,8 @@ namespace JSSoft.Font
                 var bottom = location.Y + height + padding.Top + padding.Bottom;
                 var spacingRight = Math.Min(right + spacing.Horizontal, this.Width);
                 var spacingBottom = Math.Min(bottom + spacing.Vertical, this.Height);
-                var rectangle = new Rectangle(location.X, location.Y, right - location.X, bottom - location.Y);
                 var spacingRectangle = new Rectangle(location.X, location.Y, spacingRight - location.X, spacingBottom - location.Y);
+                var rectangle = new Rectangle(location.X + padding.Left, location.Y + padding.Top, width, height);
                 this.FillRectangle(spacingRectangle);
                 this.glyphList.Add(new FontGlyphData(this, glyph, rectangle));
             }
@@ -80,7 +80,7 @@ namespace JSSoft.Font
 
         public static Color DefaultForegroundColor { get; } = Color.White;
 
-        public static Color DefaultPaddingColor { get; } = Color.Red;
+        public static Color DefaultPaddingColor { get; } = Color.Transparent;
 
         public int Index { get; }
 
@@ -173,9 +173,10 @@ namespace JSSoft.Font
             {
                 var metrics = item.Metrics;
                 var glyphBitmap = this.CloneBitmap(item.Bitmap, this.ForegroundColor);
-                var rect = new Rectangle(item.Rectangle.Left + padding.Left, item.Rectangle.Top + padding.Top, metrics.Width, metrics.Height);
+                var rect = new Rectangle(item.Rectangle.Left, item.Rectangle.Top, metrics.Width, metrics.Height);
+                var paddingRect = Rectangle.FromLTRB(item.Rectangle.Left - padding.Left, item.Rectangle.Top - padding.Top, item.Rectangle.Right + padding.Right, item.Rectangle.Bottom + padding.Bottom);
                 graphics.CompositingMode = CompositingMode.SourceCopy;
-                graphics.FillRectangle(paddingBrush, item.Rectangle);
+                graphics.FillRectangle(paddingBrush, paddingRect);
                 graphics.FillRectangle(backgroundBrush, rect);
                 graphics.CompositingMode = CompositingMode.SourceOver;
                 graphics.DrawImage(glyphBitmap, rect);

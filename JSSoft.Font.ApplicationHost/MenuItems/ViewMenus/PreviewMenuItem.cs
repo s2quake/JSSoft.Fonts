@@ -1,14 +1,6 @@
 ﻿using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
-using Microsoft.Win32;
-using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
 {
@@ -19,8 +11,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
         private readonly IShell shell;
 
         [ImportingConstructor]
-        public PreviewMenuItem(IServiceProvider serviceProvider, IShell shell)
-            : base(serviceProvider)
+        public PreviewMenuItem(IShell shell)
         {
             this.shell = shell;
             this.DisplayName = "Preview";

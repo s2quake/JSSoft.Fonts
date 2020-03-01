@@ -1,12 +1,7 @@
 ﻿using JSSoft.Font.ApplicationHost.Commands;
-using Microsoft.Win32;
 using Ntreev.ModernUI.Framework;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 {
@@ -17,8 +12,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
         private readonly IShell shell;
 
         [ImportingConstructor]
-        public SaveSettingsMenuItem(IServiceProvider serviceProvider, IShell shell)
-            : base(serviceProvider)
+        public SaveSettingsMenuItem(IShell shell)
         {
             this.shell = shell;
             this.DisplayName = "Save Settings...";

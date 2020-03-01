@@ -15,8 +15,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems
     class ViewMenuItem : MenuItemBase
     {
         [ImportingConstructor]
-        public ViewMenuItem(IServiceProvider serviceProvider)
-            : base(serviceProvider)
+        public ViewMenuItem()
         {
             this.DisplayName = "_View";
         }

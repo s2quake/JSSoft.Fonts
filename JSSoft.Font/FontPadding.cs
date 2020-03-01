@@ -16,6 +16,14 @@ namespace JSSoft.Font
             this.Bottom = bottom;
         }
 
+        public FontPadding(int thickness)
+        {
+            this.Left = thickness;
+            this.Top = thickness;
+            this.Right = thickness;
+            this.Bottom = thickness;
+        }
+
         public int Left { get; set; }
 
         public int Top { get; set; }

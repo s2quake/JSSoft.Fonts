@@ -11,7 +11,7 @@ using System.Windows.Media;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
-    [TemplatePart(Name = nameof(PART_Viewbox), Type = typeof(Viewbox))]
+    [TemplatePart(Name = PART_Viewbox, Type = typeof(Viewbox))]
     public class CharacterControl : Control
     {
         public const string PART_Viewbox = nameof(PART_Viewbox);
@@ -38,18 +38,18 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
         }
 
-        public void Save()
-        {
-            if (image.Source is System.Windows.Media.Imaging.BitmapImage bitmap)
-            {
-                var encoder = new System.Windows.Media.Imaging.PngBitmapEncoder();
-                encoder.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(bitmap));
-                using (var fileStream = new System.IO.FileStream(@"C:\Users\s2quake\Desktop\character.png", System.IO.FileMode.Create))
-                {
-                    encoder.Save(fileStream);
-                }
-            }
-        }
+        //public void Save()
+        //{
+        //    if (image.Source is System.Windows.Media.Imaging.BitmapImage bitmap)
+        //    {
+        //        var encoder = new System.Windows.Media.Imaging.PngBitmapEncoder();
+        //        encoder.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(bitmap));
+        //        using (var fileStream = new System.IO.FileStream(@"C:\Users\s2quake\Desktop\character.png", System.IO.FileMode.Create))
+        //        {
+        //            encoder.Save(fileStream);
+        //        }
+        //    }
+        //}
 
         public override void OnApplyTemplate()
         {

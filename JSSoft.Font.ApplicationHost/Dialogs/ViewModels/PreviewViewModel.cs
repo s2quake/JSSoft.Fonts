@@ -10,7 +10,6 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
 {
     class PreviewViewModel : ModalDialogBase
     {
-        private readonly FontData fontData;
         private PreviewItemViewModel image;
         private Color backgroundColor = ColorUtility.FromColor(FontPage.DefaultBackgroundColor);
         private Color foregroundColor = ColorUtility.FromColor(FontPage.DefaultForegroundColor);
@@ -24,7 +23,6 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
                 var page = fontData.Pages[i];
                 itemList.Add(new PreviewItemViewModel(this, i, page));
             }
-            this.fontData = fontData;
             this.Items = itemList.ToArray();
             this.image = itemList.First();
             this.DisplayName = "Preview";

@@ -26,7 +26,7 @@
     </ControlTemplate>
 
     <ContextMenu x:Key="CharacterControl_ContextMenu">
-        <MenuItem Header="Save" Click="Save_Click" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterControl}}}" />
+
     </ContextMenu>
 
     <Style TargetType="{x:Type jsfc:CharacterControl}">

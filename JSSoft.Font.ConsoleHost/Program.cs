@@ -31,7 +31,6 @@ namespace JSSoft.Font.ConsoleHost
                 var directory = Path.GetDirectoryName(filename);
                 data.Save(filename);
                 data.SavePages(directory);
-
             }
             catch (Exception e)
             {

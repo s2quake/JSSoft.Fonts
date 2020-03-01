@@ -49,14 +49,14 @@
             </Menu.ItemContainerStyle>
         </Menu>
         <ToolBarTray Grid.Row="1">
-            <nmfc:ExpandableToolBar ItemsSource="{Binding ToolBarItems}" />
+            <nmfc:ModernToolBar ItemsSource="{Binding ToolBarItems}" />
             <ToolBar ToolBarTray.IsLocked="True">
             </ToolBar>
         </ToolBarTray>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="69" />
-                <ColumnDefinition Width="181"/>
+                <ColumnDefinition Width="181" />
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
