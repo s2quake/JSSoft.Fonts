@@ -81,7 +81,8 @@ namespace JSSoft.Font.ApplicationHost
                 await this.BeginProgressAsync();
                 await Task.Run(() =>
                 {
-                    var dataSettings = this.Settings.Convert(this.selectedCharacters.ToArray());
+                    var name = Path.GetFileNameWithoutExtension(filename);
+                    var dataSettings = this.Settings.Convert(name, this.selectedCharacters.ToArray());
                     var data = this.FontDescriptor.CreateData(dataSettings);
                     var fullPath = Path.GetFullPath(filename);
                     var directory = Path.GetDirectoryName(fullPath);
@@ -154,7 +155,7 @@ namespace JSSoft.Font.ApplicationHost
                 await this.BeginProgressAsync();
                 var value = await Task.Run(() =>
                 {
-                    var dataSettings = this.Settings.Convert(this.selectedCharacters.ToArray());
+                    var dataSettings = this.Settings.Convert(string.Empty, this.selectedCharacters.ToArray());
                     return this.FontDescriptor.CreateData(dataSettings);
                 });
                 return value;
@@ -312,8 +313,9 @@ namespace JSSoft.Font.ApplicationHost
         protected async override void OnInitialize()
         {
             base.OnInitialize();
-            //await this.OpenAsync(@"..\..\..\Fonts\SF-Mono-Semibold.otf", 22, 96, 0);
-            await this.OpenAsync(@"..\..\..\Fonts\gulim.ttc", 14, 72, 0);
+            //await this.OpenAsync(@"..\..\..\Fonts\Courier-01.ttf", 12, 144, 0);
+            await this.OpenAsync(@"..\..\..\Fonts\SF-Mono-Regular.otf", 11, 144, 0);
+            //await this.OpenAsync(@"..\..\..\Fonts\gulim.ttc", 14, 72, 0);
             //await this.OpenAsync(@"C:\Users\s2quake\Desktop\AppleSDGothicNeo-Semibold.otf");
             //await this.LoadSettingsAsync(@"..\..\..\Fonts\settings.xml");
         }

@@ -38,7 +38,7 @@ namespace JSSoft.Font.Serializations
             return new PageSerializationInfo()
             {
                 ID = page.Index,
-                File = $"{page.Name}{page.Index}.png",
+                File = $"{page.Name}_{page.Index}.png",
             };
         }
     }

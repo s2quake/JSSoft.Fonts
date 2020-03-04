@@ -91,10 +91,11 @@ namespace JSSoft.Font.ApplicationHost
             settings.VerticalSpace = this.VerticalSpace;
         }
 
-        internal FontDataSettings Convert(uint[] characters)
+        internal FontDataSettings Convert(string name, uint[] characters)
         {
             return new FontDataSettings()
             {
+                Name = name,
                 Width = this.TextureWidth,
                 Height = this.TextureHeight,
                 Padding = new FontPadding((int)this.Padding.Left, (int)this.Padding.Top, (int)this.Padding.Right, (int)this.Padding.Bottom),

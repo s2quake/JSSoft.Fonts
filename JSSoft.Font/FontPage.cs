@@ -12,77 +12,20 @@ namespace JSSoft.Font
 {
     public sealed class FontPage
     {
-        private readonly List<FontGlyphData> glyphList = new List<FontGlyphData>();
-        private readonly (byte x, byte y)[,] pixels;
         private readonly FontDataSettings settings;
         private readonly FontNode node;
 
-        public FontPage(int index, string name, FontDataSettings settings)
+        public FontPage(int index, FontDataSettings settings)
         {
             this.Index = index;
-            this.Name = name ?? throw new ArgumentNullException(nameof(name));
             this.settings = settings;
+            this.Name = settings.Name;
             this.Width = settings.Width;
             this.Height = settings.Height;
-            this.pixels = new (byte, byte)[settings.Width, settings.Height];
-            this.node = FontNode.Create(settings);
+            this.node = FontNode.Create(this, settings);
         }
 
-        public Rectangle Verify(FontGlyph glyph)
-        {
-            if (glyph.Bitmap == null)
-                return Rectangle.Empty;
-
-            var metrics = glyph.Metrics;
-            var width = metrics.Width;
-            var height = metrics.Height;
-
-
-
-            //    var right = location.X + width + padding.Left + padding.Right;
-            //    var bottom = location.Y + height + padding.Top + padding.Bottom;
-            //    var spacingRight = Math.Min(right + spacing.Horizontal, this.Width);
-            //    var spacingBottom = Math.Min(bottom + spacing.Vertical, this.Height);
-            //    var spacingRectangle = new Rectangle(location.X, location.Y, spacingRight - location.X, spacingBottom - location.Y);
-            //    var rectangle = new Rectangle(location.X + padding.Left, location.Y + padding.Top, width, height);
-
-            return this.node.ReserveRegion(width, height);
-
-            //if (this.HitTest(width, height) is Point)
-            //{
-            //    return true;
-            //}
-
-            //return false;
-        }
-
-        public void Add(FontGlyph glyph, Rectangle rectangle)
-        {
-            if (glyph.Bitmap == null)
-                throw new InvalidOperationException();
-            if (rectangle == Rectangle.Empty)
-                throw new ArgumentException("empty rectangle does not allowed.", nameof(rectangle));
-
-            var padding = this.settings.Padding;
-            var spacing = this.settings.Spacing;
-            var metrics = glyph.Metrics;
-            var width = metrics.Width;
-            var height = metrics.Height;
-
-            //this.node.Add(glyph, rectangle);
-
-            //if (this.HitTest(width, height) is Point location)
-            //{
-            //    var right = location.X + width + padding.Left + padding.Right;
-            //    var bottom = location.Y + height + padding.Top + padding.Bottom;
-            //    var spacingRight = Math.Min(right + spacing.Horizontal, this.Width);
-            //    var spacingBottom = Math.Min(bottom + spacing.Vertical, this.Height);
-            //    var spacingRectangle = new Rectangle(location.X, location.Y, spacingRight - location.X, spacingBottom - location.Y);
-            //    var rectangle = new Rectangle(location.X + padding.Left, location.Y + padding.Top, width, height);
-            //    this.FillRectangle(spacingRectangle);
-            this.glyphList.Add(new FontGlyphData(this, glyph, rectangle));
-            //}
-        }
+        public IReservator ReserveRegion(FontGlyph glyph) => this.node.ReserveRegion(glyph);
 
         public void Save(string filename)
         {
@@ -118,68 +61,9 @@ namespace JSSoft.Font
         {
             get
             {
-                foreach (var item in this.glyphList)
+                foreach (var item in this.node.GlyphList)
                 {
                     yield return item;
-                }
-            }
-        }
-
-        private Point? HitTest(int width, int height)
-        {
-            var padding = this.settings.Padding;
-            var spacing = this.settings.Spacing;
-
-            for (var y = 0; y < this.Height - height; y++)
-            {
-                for (var x = 0; x < this.Width - width; x++)
-                {
-                    var right = x + width + padding.Left + padding.Right;
-                    var bottom = y + height + padding.Top + padding.Bottom;
-                    if (right + spacing.Horizontal < this.Width)
-                        right += spacing.Horizontal;
-                    if (bottom + spacing.Vertical < this.Height)
-                        bottom += spacing.Vertical;
-                    var rect = Rectangle.FromLTRB(x, y, right, bottom);
-                    if (this.IsEmpty(ref x, ref y, rect) == true)
-                    {
-                        return rect.Location;
-                    }
-                }
-            }
-            return null;
-        }
-
-        private bool IsEmpty(ref int x1, ref int y1, Rectangle rectangle)
-        {
-            if (rectangle.Right >= this.Width || rectangle.Bottom >= this.Height)
-                return false;
-            for (var x = rectangle.Left; x < rectangle.Right; x++)
-            {
-                for (var y = rectangle.Top; y < rectangle.Bottom; y++)
-                {
-                    if (this.pixels[x, y].x != 0)
-                    {
-                        x1 = this.pixels[x, y].x;
-                        return false;
-                    }
-                    if (this.pixels[x, y].y != 0)
-                    {
-                        y1 = this.pixels[x, y].y;
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-
-        private void FillRectangle(Rectangle rectangle)
-        {
-            for (var x = rectangle.Left; x < rectangle.Right; x++)
-            {
-                for (var y = rectangle.Top; y < rectangle.Bottom; y++)
-                {
-                    this.pixels[x, y] = ((byte)rectangle.Right, (byte)rectangle.Bottom);
                 }
             }
         }
@@ -193,7 +77,7 @@ namespace JSSoft.Font
             var padding = this.settings.Padding;
 
             graphics.CompositingMode = CompositingMode.SourceCopy;
-            foreach (var item in this.glyphList)
+            foreach (var item in this.node.GlyphList)
             {
                 var metrics = item.Metrics;
                 var glyphBitmap = this.CloneBitmap(item.Bitmap, this.ForegroundColor);

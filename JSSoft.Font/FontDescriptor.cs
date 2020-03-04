@@ -123,8 +123,7 @@ namespace JSSoft.Font
         {
             if (ftbmp.Rows > 0 && ftbmp.Width > 0)
             {
-                var bitmap = ftbmp.ToGdipBitmap(System.Drawing.Color.White);
-                return bitmap;
+                return ftbmp.ToGdipBitmap(System.Drawing.Color.White);
             }
             return null;
         }

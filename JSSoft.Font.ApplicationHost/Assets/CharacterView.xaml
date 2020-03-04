@@ -22,13 +22,6 @@
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="CharacterControl" Property="BorderBrush" Value="{StaticResource Accent}" />
             </MultiDataTrigger>
-            <!--<MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding CharacterGroup.IsChecked, RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterView}}}" Value="True" />
-                    <Condition Binding="{Binding IsEnabled}" Value="True" />
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="CharacterControl" Property="BorderBrush" Value="{StaticResource Accent}" />
-            </MultiDataTrigger>-->
         </DataTemplate.Triggers>
     </DataTemplate>
 
@@ -40,8 +33,7 @@
         <Grid>
             <Border x:Name="rootBorder" Background="{TemplateBinding Background}" BorderBrush="{DynamicResource DataGridGridLines}" BorderThickness="0 0 0 1">
                 <Grid VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
-                    <ContentPresenter x:Name="contentPresenter" 
-                                      Margin="{TemplateBinding Padding}" 
+                    <ContentPresenter Margin="{TemplateBinding Padding}" 
                                       Content="{TemplateBinding Content}" 
                                       ContentTemplate="{TemplateBinding ContentTemplate}"
                                       ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />

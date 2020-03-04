@@ -8,9 +8,11 @@ namespace JSSoft.Font
 {
     public class FontDataSettings
     {
-        public int Width { get; set; } = 128;
+        public string Name { get; set; } = string.Empty;
 
-        public int Height { get; set; } = 128;
+        public int Width { get; set; } = 512;
+
+        public int Height { get; set; } = 512;
 
         public FontPadding Padding { get; set; }
 

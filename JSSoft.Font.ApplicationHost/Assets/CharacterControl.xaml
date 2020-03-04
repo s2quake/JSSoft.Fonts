@@ -15,7 +15,7 @@
 
     <ControlTemplate x:Key="CharacterControl_Template" TargetType="{x:Type jsfc:CharacterControl}">
         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                <Viewbox x:Name="PART_Viewbox" />
+            <Viewbox x:Name="PART_Viewbox" />
         </Border>
     </ControlTemplate>
 

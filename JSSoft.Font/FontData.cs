@@ -1,12 +1,9 @@
 ﻿using JSSoft.Font.Serializations;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -51,7 +48,7 @@ namespace JSSoft.Font
         {
             foreach (var item in this.Pages)
             {
-                var itemPath = Path.Combine(path, $"{item.Name}{item.Index}.png");
+                var itemPath = Path.Combine(path, $"{item.Name}_{item.Index}.png");
                 item.Save(itemPath);
             }
         }
@@ -83,21 +80,27 @@ namespace JSSoft.Font
                         select glyph;
             var items = query.ToArray();
             var index = 0;
-            var name = fontDescriptor.Name;
             var pageList = new List<FontPage>();
-            var page = new FontPage(index++, name, settings);
+            var page = new FontPage(index++, settings);
 
             pageList.Add(page);
             foreach (var item in items)
             {
-                var rectangle = page.Verify(item);
-                if (rectangle == Rectangle.Empty)
+                var reservator = page.ReserveRegion(item);
+                if (reservator == null)
                 {
-                    page = new FontPage(index++, name, settings);
+                    page = new FontPage(index++, settings);
                     pageList.Add(page);
-                    rectangle = page.Verify(item);
+                    reservator = page.ReserveRegion(item);
                 }
-                page.Add(item, rectangle);
+                try
+                {
+                    reservator.Reserve();
+                }
+                catch
+                {
+                    reservator.Reject();
+                }
             }
 
             return pageList.ToArray();

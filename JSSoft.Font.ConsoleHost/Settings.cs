@@ -25,11 +25,15 @@ namespace JSSoft.Font.ConsoleHost
         public int Size { get; set; }
 
         [CommandProperty]
-        [DefaultValue(128)]
+        [DefaultValue(0)]
+        public int Face { get; set; }
+
+        [CommandProperty]
+        [DefaultValue(512)]
         public int TextureWidth { get; set; }
 
         [CommandProperty]
-        [DefaultValue(128)]
+        [DefaultValue(512)]
         public int TextureHeight { get; set; }
 
         [CommandProperty("characters", IsRequired = true)]
