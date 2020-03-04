@@ -13,7 +13,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         private PreviewItemViewModel image;
         private Color backgroundColor = ColorUtility.FromColor(FontPage.DefaultBackgroundColor);
         private Color foregroundColor = ColorUtility.FromColor(FontPage.DefaultForegroundColor);
-        private Color paddingColor = ColorUtility.FromColor(FontPage.DefaultPaddingColor);
+        private Color paddingColor = Colors.Blue;
 
         public PreviewViewModel(FontData fontData)
         {

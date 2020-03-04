@@ -90,12 +90,14 @@ namespace JSSoft.Font
             pageList.Add(page);
             foreach (var item in items)
             {
-                if (page.Verify(item) == false)
+                var rectangle = page.Verify(item);
+                if (rectangle == Rectangle.Empty)
                 {
                     page = new FontPage(index++, name, settings);
                     pageList.Add(page);
+                    rectangle = page.Verify(item);
                 }
-                page.Add(item);
+                page.Add(item, rectangle);
             }
 
             return pageList.ToArray();

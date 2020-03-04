@@ -32,7 +32,12 @@ namespace JSSoft.Font.ConsoleHost
         [DefaultValue(128)]
         public int TextureHeight { get; set; }
 
-        [CommandPropertyArray]
-        public string[] Characters { get; set; }
+        [CommandProperty("characters", IsRequired = true)]
+        public string CharactersText { get; set; }
+
+        public uint[] GetCharacters()
+        {
+            return new CharacterCollection(this.CharactersText).ToArray();
+        }
     }
 }

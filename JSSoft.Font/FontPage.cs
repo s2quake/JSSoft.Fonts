@@ -15,6 +15,7 @@ namespace JSSoft.Font
         private readonly List<FontGlyphData> glyphList = new List<FontGlyphData>();
         private readonly (byte x, byte y)[,] pixels;
         private readonly FontDataSettings settings;
+        private readonly FontNode node;
 
         public FontPage(int index, string name, FontDataSettings settings)
         {
@@ -24,28 +25,43 @@ namespace JSSoft.Font
             this.Width = settings.Width;
             this.Height = settings.Height;
             this.pixels = new (byte, byte)[settings.Width, settings.Height];
+            this.node = FontNode.Create(settings);
         }
 
-        public bool Verify(FontGlyph glyph)
+        public Rectangle Verify(FontGlyph glyph)
         {
             if (glyph.Bitmap == null)
-                return false;
+                return Rectangle.Empty;
 
             var metrics = glyph.Metrics;
             var width = metrics.Width;
             var height = metrics.Height;
-            if (this.HitTest(width, height) is Point)
-            {
-                return true;
-            }
 
-            return false;
+
+
+            //    var right = location.X + width + padding.Left + padding.Right;
+            //    var bottom = location.Y + height + padding.Top + padding.Bottom;
+            //    var spacingRight = Math.Min(right + spacing.Horizontal, this.Width);
+            //    var spacingBottom = Math.Min(bottom + spacing.Vertical, this.Height);
+            //    var spacingRectangle = new Rectangle(location.X, location.Y, spacingRight - location.X, spacingBottom - location.Y);
+            //    var rectangle = new Rectangle(location.X + padding.Left, location.Y + padding.Top, width, height);
+
+            return this.node.ReserveRegion(width, height);
+
+            //if (this.HitTest(width, height) is Point)
+            //{
+            //    return true;
+            //}
+
+            //return false;
         }
 
-        public void Add(FontGlyph glyph)
+        public void Add(FontGlyph glyph, Rectangle rectangle)
         {
             if (glyph.Bitmap == null)
-                return;
+                throw new InvalidOperationException();
+            if (rectangle == Rectangle.Empty)
+                throw new ArgumentException("empty rectangle does not allowed.", nameof(rectangle));
 
             var padding = this.settings.Padding;
             var spacing = this.settings.Spacing;
@@ -53,17 +69,19 @@ namespace JSSoft.Font
             var width = metrics.Width;
             var height = metrics.Height;
 
-            if (this.HitTest(width, height) is Point location)
-            {
-                var right = location.X + width + padding.Left + padding.Right;
-                var bottom = location.Y + height + padding.Top + padding.Bottom;
-                var spacingRight = Math.Min(right + spacing.Horizontal, this.Width);
-                var spacingBottom = Math.Min(bottom + spacing.Vertical, this.Height);
-                var spacingRectangle = new Rectangle(location.X, location.Y, spacingRight - location.X, spacingBottom - location.Y);
-                var rectangle = new Rectangle(location.X + padding.Left, location.Y + padding.Top, width, height);
-                this.FillRectangle(spacingRectangle);
-                this.glyphList.Add(new FontGlyphData(this, glyph, rectangle));
-            }
+            //this.node.Add(glyph, rectangle);
+
+            //if (this.HitTest(width, height) is Point location)
+            //{
+            //    var right = location.X + width + padding.Left + padding.Right;
+            //    var bottom = location.Y + height + padding.Top + padding.Bottom;
+            //    var spacingRight = Math.Min(right + spacing.Horizontal, this.Width);
+            //    var spacingBottom = Math.Min(bottom + spacing.Vertical, this.Height);
+            //    var spacingRectangle = new Rectangle(location.X, location.Y, spacingRight - location.X, spacingBottom - location.Y);
+            //    var rectangle = new Rectangle(location.X + padding.Left, location.Y + padding.Top, width, height);
+            //    this.FillRectangle(spacingRectangle);
+            this.glyphList.Add(new FontGlyphData(this, glyph, rectangle));
+            //}
         }
 
         public void Save(string filename)

@@ -17,5 +17,7 @@ namespace JSSoft.Font
         public FontSpacing Spacing { get; set; }
 
         public uint[] Characters { get; set; }
+
+        internal int Capacity => this.Characters.Length;
     }
 }

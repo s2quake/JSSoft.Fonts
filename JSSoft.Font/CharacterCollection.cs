@@ -75,6 +75,8 @@ namespace JSSoft.Font
                     var ss = item.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
                     var min = Parse(ss[0]);
                     var max = Parse(ss[1]);
+                    if (min >= max)
+                        throw new InvalidOperationException($"min must be less than max: '{item}'");
                 }
                 else
                 {

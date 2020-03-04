@@ -19,12 +19,11 @@ namespace JSSoft.Font.ConsoleHost
                 parser.Parse(Environment.CommandLine);
 
                 var font = new FontDescriptor(settings.FontPath, (uint)settings.DPI, settings.Size);
-                var characters = Enumerable.Range(0, 255).Select(item => (uint)item).ToArray();
                 var dataSettings = new FontDataSettings()
                 {
                     Width = settings.TextureWidth,
                     Height = settings.TextureHeight,
-                    Characters = characters,
+                    Characters = settings.GetCharacters(),
                 };
                 var data = font.CreateData(dataSettings);
                 var filename = Path.GetFullPath(settings.FileName);

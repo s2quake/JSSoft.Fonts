@@ -31,5 +31,9 @@ namespace JSSoft.Font
         public int Right { get; set; }
 
         public int Bottom { get; set; }
+
+        internal int Horizontal => this.Left + this.Right;
+
+        internal int Vertical => this.Top + this.Bottom;
     }
 }
