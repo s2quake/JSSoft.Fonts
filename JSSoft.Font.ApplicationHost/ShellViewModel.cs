@@ -26,7 +26,7 @@ namespace JSSoft.Font.ApplicationHost
         private readonly IServiceProvider serviceProvider;
         private readonly IAppConfiguration configs;
         private readonly ObservableCollection<CharacterGroup> groupList = new ObservableCollection<CharacterGroup>();
-        private ObservableCollection<uint> selectedCharacters;
+        private ObservableCollection<uint> selectedCharacters = new ObservableCollection<uint>();
         private CharacterGroup selectedGroup;
         private double zoomLevel = 1.0;
         private bool isOpened;
@@ -314,7 +314,7 @@ namespace JSSoft.Font.ApplicationHost
         {
             base.OnInitialize();
             //await this.OpenAsync(@"..\..\..\Fonts\Courier-01.ttf", 12, 144, 0);
-            await this.OpenAsync(@"..\..\..\Fonts\SF-Mono-Regular.otf", 11, 144, 0);
+            //await this.OpenAsync(@"..\..\..\Fonts\SF-Mono-Regular.otf", 11, 144, 0);
             //await this.OpenAsync(@"..\..\..\Fonts\gulim.ttc", 14, 72, 0);
             //await this.OpenAsync(@"C:\Users\s2quake\Desktop\AppleSDGothicNeo-Semibold.otf");
             //await this.LoadSettingsAsync(@"..\..\..\Fonts\settings.xml");

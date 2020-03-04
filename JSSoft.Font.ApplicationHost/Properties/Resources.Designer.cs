@@ -61,7 +61,7 @@ namespace JSSoft.Font.ApplicationHost.Properties {
         }
         
         /// <summary>
-        ///   font files (*.otf;*.ttc)|*.otf;*.ttc|all files (*.*)|*.*과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   font files (*.otf;*.ttc;*.ttf)|*.otf;*.ttc;*.ttf|all files (*.*)|*.*과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string FontFilter {
             get {

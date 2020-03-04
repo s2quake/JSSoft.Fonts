@@ -26,7 +26,7 @@ namespace JSSoft.Font.ApplicationHost.ToolBarItems
         {
             this.shell = shell;
             this.DisplayName = "Open Font...";
-            this.Icon = "/JSSoft.Font.ApplicationHost;component/Images/open-folder-with-document.png";
+            this.Icon = "/jsfontApp;component/Images/open-folder-with-document.png";
             this.InputGesture = new KeyGesture(Key.O, ModifierKeys.Control);
         }
 

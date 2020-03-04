@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FontFilter" xml:space="preserve">
-    <value>font files (*.otf;*.ttc)|*.otf;*.ttc|all files (*.*)|*.*</value>
+    <value>font files (*.otf;*.ttc;*.ttf)|*.otf;*.ttc;*.ttf|all files (*.*)|*.*</value>
   </data>
 </root>
