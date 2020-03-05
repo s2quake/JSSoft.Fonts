@@ -65,6 +65,10 @@ namespace JSSoft.Font
 
         public int PageHeight => this.settings.Height;
 
+        public FontPadding Padding => this.settings.Padding;
+
+        public FontSpacing Spacing => this.settings.Spacing;
+
         public FontPage[] Pages { get; private set; } = new FontPage[] { };
 
         private static FontPage[] GeneratePages(FontDescriptor fontDescriptor, FontDataSettings settings)

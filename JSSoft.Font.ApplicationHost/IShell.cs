@@ -37,9 +37,11 @@ namespace JSSoft.Font.ApplicationHost
 
         IEnumerable<ICharacterGroup> Groups { get; }
 
-        uint[] SelectedCharacters { get; }
+        uint[] CheckedCharacters { get; }
 
         ICharacterGroup SelectedGroup { get; set; }
+
+        ICharacter SelectedCharacter { get; set; }
 
         IEnumerable<string> RecentSettings { get; }
 

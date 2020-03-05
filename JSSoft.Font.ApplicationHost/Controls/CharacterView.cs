@@ -1,4 +1,5 @@
-﻿using Ntreev.ModernUI.Framework.DataGrid.Controls;
+﻿using Ntreev.Library.Linq;
+using Ntreev.ModernUI.Framework.DataGrid.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
 {
     [TemplatePart(Name = PART_DataGrid, Type = typeof(ModernDataGridControl))]
     public class CharacterView : Control
-    { 
+    {
         public const string PART_DataGrid = nameof(PART_DataGrid);
 
         public static readonly DependencyProperty CharacterGroupProperty =
@@ -111,7 +112,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
             if (Keyboard.Modifiers == ModifierKeys.None && e.Key == Key.Space && this.Character != null)
             {
-                foreach(var item in this.gridControl.SelectedCellRanges)
+                foreach (var item in this.gridControl.SelectedCellRanges)
                 {
                     this.ToggleChecked(item);
                 }
@@ -194,16 +195,44 @@ namespace JSSoft.Font.ApplicationHost.Controls
             if (this.CharacterGroup != null && this.CharacterGroup.Items != null)
             {
                 this.groupView.CharacterGroup = this.CharacterGroup;
+                this.Character = null;
             }
             else
             {
                 this.groupView.CharacterGroup = null;
+                this.Character = null;
             }
         }
 
         private void UpdateSelectedItem()
         {
+            if (this.Character != null && this.Character.Row is ICharacterRow row)
+            {
+                var column = row.Items.IndexOf(this.Character);
+                for (var i = 0; i < this.gridControl.Items.Count; i++)
+                {
+                    if (this.gridControl.Items.GetItemAt(i) is CharacterRowView rowView && rowView.Row == row)
+                    {
+                        if (object.Equals(this.gridControl.CurrentItem, rowView) == false)
+                        {
+                            this.gridControl.CurrentItem = rowView;
+                        }
+                        break;
+                    }
+                }
 
+                for (var i = 0; i < this.gridControl.Columns.Count; i++)
+                {
+                    if (this.gridControl.Columns[i] is ColumnBase columnBase && columnBase.FieldName == $"Item{column:X}")
+                    {
+                        if (this.gridControl.CurrentColumn != columnBase)
+                        {
+                            this.gridControl.CurrentColumn = columnBase;
+                        }
+                        break;
+                    }
+                }
+            }
         }
 
         private void UpdateActualItemHeight()

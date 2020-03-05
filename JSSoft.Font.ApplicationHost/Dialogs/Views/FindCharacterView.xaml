@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="JSSoft.Font.ApplicationHost.Dialogs.Views.FindCharacterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
+             xmlns:jsfv="clr-namespace:JSSoft.Font.ApplicationHost.Converters"
+             xmlns:local="clr-namespace:JSSoft.Font.ApplicationHost.Dialogs.Views"
+             mc:Ignorable="d" Width="400">
+
+    <UserControl.Resources>
+
+    </UserControl.Resources>
+
+    <StackPanel>
+        <TextBlock Text="Character" />
+        <TextBox x:Name="Character" HorizontalScrollBarVisibility="Disabled" 
+                 Text="{Binding CharacterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
+        <nmfc:ErrorBlinker  />
+        <CheckBox x:Name="ByCharacter" Content="Search by Character" Checked="ByCharacter_Checked" Unchecked="ByCharacter_Unchecked"
+                  HorizontalAlignment="Left" Margin="0 4" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="Find" Content="Find" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />
+            <Border Width="4" />
+            <Button x:Name="TryClose" Content="Cancel" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
+        </StackPanel>
+    </StackPanel>
+    
+</UserControl>

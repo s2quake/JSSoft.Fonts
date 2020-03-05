@@ -26,8 +26,9 @@ namespace JSSoft.Font.ApplicationHost
         private readonly IServiceProvider serviceProvider;
         private readonly IAppConfiguration configs;
         private readonly ObservableCollection<CharacterGroup> groupList = new ObservableCollection<CharacterGroup>();
-        private ObservableCollection<uint> selectedCharacters = new ObservableCollection<uint>();
+        private ObservableCollection<uint> checkedCharacters = new ObservableCollection<uint>();
         private CharacterGroup selectedGroup;
+        private Character selectedCharacter;
         private double zoomLevel = 1.0;
         private bool isOpened;
         private bool isModified;
@@ -82,7 +83,7 @@ namespace JSSoft.Font.ApplicationHost
                 await Task.Run(() =>
                 {
                     var name = Path.GetFileNameWithoutExtension(filename);
-                    var dataSettings = this.Settings.Convert(name, this.selectedCharacters.ToArray());
+                    var dataSettings = this.Settings.Convert(name, this.checkedCharacters.ToArray());
                     var data = this.FontDescriptor.CreateData(dataSettings);
                     var fullPath = Path.GetFullPath(filename);
                     var directory = Path.GetDirectoryName(fullPath);
@@ -155,7 +156,7 @@ namespace JSSoft.Font.ApplicationHost
                 await this.BeginProgressAsync();
                 var value = await Task.Run(() =>
                 {
-                    var dataSettings = this.Settings.Convert(string.Empty, this.selectedCharacters.ToArray());
+                    var dataSettings = this.Settings.Convert(string.Empty, this.checkedCharacters.ToArray());
                     return this.FontDescriptor.CreateData(dataSettings);
                 });
                 return value;
@@ -227,9 +228,25 @@ namespace JSSoft.Font.ApplicationHost
             }
         }
 
+        public Character SelectedCharacter
+        {
+            get => this.selectedCharacter;
+            set
+            {
+                if (this.selectedCharacter != value)
+                {
+                    if (value != null && value.Row != null)
+                        this.SelectedGroup = value.Row.Group;
+                    this.selectedCharacter = value;
+                    this.NotifyOfPropertyChange(nameof(SelectedCharacter));
+                    this.NotifyOfPropertyChange(nameof(CharacterRows));
+                }
+            }
+        }
+
         public CharacterRow[] CharacterRows => this.selectedGroup != null ? this.selectedGroup.Items : new CharacterRow[] { };
 
-        public uint[] SelectedCharacters => this.selectedCharacters.ToArray();
+        public uint[] CheckedCharacters => this.checkedCharacters.ToArray();
 
         public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems<IMenuItem>(this, this.serviceProvider);
 
@@ -320,7 +337,7 @@ namespace JSSoft.Font.ApplicationHost
             //await this.LoadSettingsAsync(@"..\..\..\Fonts\settings.xml");
         }
 
-        private void SelectedCharacters_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void CheckedCharacters_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             this.IsModified = true;
         }
@@ -335,10 +352,10 @@ namespace JSSoft.Font.ApplicationHost
             return Task.Run(() =>
             {
                 this.FontDescriptor = new FontDescriptor(fontPath, (uint)dpi, size, faceIndex);
-                this.selectedCharacters = new ObservableCollection<uint>();
-                this.selectedCharacters.CollectionChanged += SelectedCharacters_CollectionChanged;
+                this.checkedCharacters = new ObservableCollection<uint>();
+                this.checkedCharacters.CollectionChanged += CheckedCharacters_CollectionChanged;
                 this.groupList.Clear();
-                this.context = new CharacterContext(this.FontDescriptor, this.selectedCharacters);
+                this.context = new CharacterContext(this.FontDescriptor, this.checkedCharacters);
                 foreach (var (name, min, max) in NamesList.Items)
                 {
                     var items = CreateGroups(this.context, name, min, max);
@@ -502,6 +519,22 @@ namespace JSSoft.Font.ApplicationHost
                 if (value is CharacterGroup group && this.Groups.Contains(group) == false)
                     throw new ArgumentException(nameof(value));
                 this.SelectedGroup = value as CharacterGroup;
+            }
+        }
+
+        ICharacter IShell.SelectedCharacter
+        {
+            get => this.SelectedCharacter;
+            set
+            {
+                if (value is Character || value is null)
+                {
+                    this.SelectedCharacter = value as Character;
+                }
+                else
+                {
+                    throw new ArgumentException(nameof(value));
+                }
             }
         }
 

@@ -18,20 +18,21 @@ namespace JSSoft.Font.ConsoleHost
             {
                 parser.Parse(Environment.CommandLine);
 
-                var fullpath = Path.GetFullPath(settings.FileName);
-                var name = Path.GetFileNameWithoutExtension(fullpath);
-                var font = new FontDescriptor(settings.FontPath, (uint)settings.DPI, settings.Size, settings.Face);
+                var inputPath = Path.GetFullPath(settings.FontPath);
+                var outputPath = Path.GetFullPath(settings.FileName);
+                var name = Path.GetFileNameWithoutExtension(outputPath);
+                var font = new FontDescriptor(inputPath, (uint)settings.DPI, settings.Size, settings.Face);
                 var dataSettings = new FontDataSettings()
                 {
                     Name = name,
                     Width = settings.TextureWidth,
                     Height = settings.TextureHeight,
-                    Characters = settings.GetCharacters(),
+                    Characters = settings.Characters.ToArray(),
                 };
                 
                 var data = font.CreateData(dataSettings);
-                var directory = Path.GetDirectoryName(fullpath);
-                data.Save(fullpath);
+                var directory = Path.GetDirectoryName(outputPath);
+                data.Save(outputPath);
                 data.SavePages(directory);
             }
             catch (Exception e)

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace JSSoft.Font
 {
+    [TypeConverter(typeof(FontSpacingConverter))]
     public struct FontSpacing
     {
         public FontSpacing(int horizontal, int vertical)
@@ -14,8 +16,78 @@ namespace JSSoft.Font
             this.Vertical = vertical;
         }
 
+        public static FontSpacing Parse(string s)
+        {
+            if (s == null)
+                throw new ArgumentNullException(nameof(s));
+            var items = s.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var values = items.Select(item => int.Parse(item)).ToArray();
+            switch (values.Length)
+            {
+                case 1:
+                    {
+                        var value0 = values[0];
+                        return new FontSpacing(value0, value0);
+                    }
+                case 2:
+                    {
+                        var value0 = values[0];
+                        var value1 = values[1];
+                        return new FontSpacing(value0, value1);
+                    }
+                default:
+                    throw new FormatException($"invalid format: \"{s}\"");
+            }
+        }
+
+        public static bool TryParse(string s, out FontSpacing result)
+        {
+            if (s == null)
+            {
+                result = FontSpacing.Empty;
+                return false;
+            }
+            var items = s.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var valueList = new List<int>(items.Length);
+            for (var i = 0; i < items.Length; i++)
+            {
+                if (int.TryParse(items[i], out var v) == true)
+                {
+                    valueList.Add(v);
+                }
+                else
+                {
+                    result = FontSpacing.Empty;
+                    return false;
+                }
+            }
+            switch (valueList.Count)
+            {
+                case 1:
+                    {
+                        var value0 = valueList[0];
+                        result = new FontSpacing(value0, value0);
+                        return true;
+                    }
+                case 2:
+                    {
+                        var value0 = valueList[0];
+                        var value1 = valueList[1];
+                        result = new FontSpacing(value0, value1);
+                        return true;
+                    }
+                default:
+                    {
+                        result = FontSpacing.Empty;
+                        return false;
+                    }
+            }
+        }
+
         public int Horizontal { get; set; }
 
         public int Vertical { get; set; }
+
+        public static readonly FontSpacing Empty = new FontSpacing();
     }
 }

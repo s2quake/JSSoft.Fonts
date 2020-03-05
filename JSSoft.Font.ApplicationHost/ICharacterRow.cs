@@ -2,6 +2,8 @@
 {
     public interface ICharacterRow
     {
+        ICharacterGroup Group { get; }
+
         uint Index { get; }
 
         bool? IsChecked { get; set; }

@@ -64,6 +64,7 @@
                      ItemTemplate="{StaticResource ListBox_ItemTemplate}" ItemContainerStyle="{StaticResource FlatListBoxItem}" Grid.ColumnSpan="2" />
             <GridSplitter Grid.Column="2" Background="{StaticResource WindowBackground}" />
             <jsfc:CharacterView x:Name="CharacterView" Grid.Column="3" CharacterGroup="{Binding SelectedGroup}" BorderThickness="1 1 0 0 " 
+                                Character="{Binding SelectedCharacter, Mode=TwoWay}"
                                 ItemHeight="{Binding VerticalAdvance}" ZoomLevel="{Binding ZoomLevel}" />
         </Grid>
         <nmfc:ProgressContent Grid.Row="2" Visibility="{Binding IsProgressing, Converter={StaticResource BooleanToVisibilityConverter}}" d:IsHidden="True" />

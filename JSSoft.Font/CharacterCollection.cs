@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace JSSoft.Font
 {
+    [TypeConverter(typeof(CharacterCollectionConverter))]
     public class CharacterCollection : IEnumerable<uint>, IFormattable
     {
         private readonly List<uint> itemList;
@@ -29,30 +31,23 @@ namespace JSSoft.Font
         /// <summary>
         /// 0-255,256
         /// </summary>
-        public CharacterCollection(string text)
+        public static CharacterCollection Parse(string text)
         {
             if (text == null)
                 throw new ArgumentNullException(nameof(text));
             var items = text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            var idList = new List<uint>();
-            foreach (var item in items)
+            var capacity = GetCapacity(items);
+            var characters = new CharacterCollection(capacity);
+            Enumerate(items, (item) =>
             {
-                if (item.IndexOf('-') >= 0)
+                var min = item.min;
+                var max = item.max;
+                for (var i = min; i <= max; i++)
                 {
-                    var ss = item.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
-                    var min = Parse(ss[0]);
-                    var max = Parse(ss[1]);
-                    for (var i = min; i <= max; i++)
-                    {
-                        idList.Add(i);
-                    }
+                    characters.Add(i);
                 }
-                else
-                {
-                    idList.Add(Parse(item));
-                }
-            }
-            this.itemList = idList;
+            });
+            return characters;
         }
 
         public static string ToString(uint[] characters)
@@ -65,21 +60,13 @@ namespace JSSoft.Font
             if (text == null)
                 throw new ArgumentNullException(nameof(text));
             var items = text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var item in items)
+            Enumerate(items, (item) =>
             {
-                if (item.IndexOf('-') >= 0)
-                {
-                    var ss = item.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
-                    var min = Parse(ss[0]);
-                    var max = Parse(ss[1]);
-                    if (min >= max)
-                        throw new InvalidOperationException($"min must be less than max: '{item}'");
-                }
-                else
-                {
-                    Parse(item);
-                }
-            }
+                var min = item.min;
+                var max = item.max;
+                if (min >= max)
+                    throw new InvalidOperationException($"min must be less than max: '{min} < {max}'");
+            });
         }
 
         public override string ToString()
@@ -128,7 +115,38 @@ namespace JSSoft.Font
             set => this.itemList[index] = value;
         }
 
-        private static uint Parse(string text)
+        public static readonly CharacterCollection Empty = new CharacterCollection();
+
+        private static void Enumerate(string[] items, Action<(uint min, uint max)> action)
+        {
+            foreach (var item in items)
+            {
+                if (item.IndexOf('-') >= 0)
+                {
+                    var ss = item.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+                    var min = ParseText(ss[0]);
+                    var max = ParseText(ss[1]);
+                    action((min, max));
+                }
+                else
+                {
+                    var v = ParseText(item);
+                    action((v, v));
+                }
+            }
+        }
+
+        private static int GetCapacity(string[] items)
+        {
+            var capacity = 0u;
+            Enumerate(items, (item) =>
+            {
+                capacity += (item.max - item.min + 1);
+            });
+            return (int)capacity;
+        }
+
+        private static uint ParseText(string text)
         {
             var match = Regex.Match(text, "^0x([0-9a-fA-F]+)");
             if (match.Success == true)

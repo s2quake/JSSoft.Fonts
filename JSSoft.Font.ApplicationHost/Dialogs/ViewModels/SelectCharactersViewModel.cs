@@ -44,7 +44,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
                 {
                     CharacterCollection.Validate(value);
                     this.charactersText = value;
-                    this.characters = new CharacterCollection(value).ToArray();
+                    this.characters = CharacterCollection.Parse(value).ToArray();
                     this.CanSelect = true;
                     this.NotifyOfPropertyChange(nameof(Characters));
                     this.NotifyOfPropertyChange(nameof(CharactersText));

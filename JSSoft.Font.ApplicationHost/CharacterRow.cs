@@ -26,8 +26,9 @@ namespace JSSoft.Font.ApplicationHost
             this.IsEnabled = this.ActiveItems.Length > 0;
         }
 
-        public CharacterRow(CharacterContext context, uint min, uint max)
+        public CharacterRow(CharacterGroup group, CharacterContext context, uint min, uint max)
         {
+            this.Group = group;
             this.context = context ?? throw new ArgumentNullException(nameof(context));
             if (min >= max)
                 throw new ArgumentOutOfRangeException(nameof(min));
@@ -36,7 +37,7 @@ namespace JSSoft.Font.ApplicationHost
             var itemList = new List<Character>(0x10);
             for (var i = 0u; i < itemList.Capacity; i++)
             {
-                var item = new Character(this.context, i + min);
+                var item = new Character(this, this.context, i + min);
                 itemList.Add(item);
                 item.PropertyChanged += Item_PropertyChanged;
             }
@@ -82,6 +83,8 @@ namespace JSSoft.Font.ApplicationHost
 
         public bool IsEnabled { get; }
 
+        public CharacterGroup Group { get; }
+
         public void SetChecked(bool value)
         {
             if (this.isChecked != value)
@@ -123,6 +126,8 @@ namespace JSSoft.Font.ApplicationHost
         #region ICharacterRow
 
         ICharacter[] ICharacterRow.Items => this.Items;
+
+        ICharacterGroup ICharacterRow.Group => this.Group;
 
         #endregion
     }

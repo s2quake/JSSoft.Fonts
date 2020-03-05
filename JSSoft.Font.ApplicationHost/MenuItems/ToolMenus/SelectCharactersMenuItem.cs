@@ -21,12 +21,12 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ToolMenus
 
         protected override bool OnCanExecute(object parameter)
         {
-            return this.shell.IsProgressing == false;
+            return this.shell.IsProgressing == false && this.shell.IsOpened == true;
         }
 
         protected override async void OnExecute(object parameter)
         {
-            var dialog = new SelectCharactersViewModel(this.shell.SelectedCharacters);
+            var dialog = new SelectCharactersViewModel(this.shell.CheckedCharacters);
             if (dialog.ShowDialog() == true)
             {
                 await this.shell.SelectCharactersAsync(dialog.Characters);

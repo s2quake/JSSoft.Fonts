@@ -16,6 +16,9 @@ namespace JSSoft.Font.ConsoleHost
         [CommandProperty(IsRequired = true)]
         public string FileName { get; set; }
 
+        [CommandProperty("characters", IsRequired = true)]
+        public CharacterCollection Characters { get; set; } = CharacterCollection.Empty;
+
         [CommandProperty("dpi")]
         [DefaultValue(72)]
         public int DPI { get; set; }
@@ -36,12 +39,12 @@ namespace JSSoft.Font.ConsoleHost
         [DefaultValue(512)]
         public int TextureHeight { get; set; }
 
-        [CommandProperty("characters", IsRequired = true)]
-        public string CharactersText { get; set; }
+        [CommandProperty]
+        [DefaultValue("1")]
+        public FontPadding Padding { get; set; }
 
-        public uint[] GetCharacters()
-        {
-            return new CharacterCollection(this.CharactersText).ToArray();
-        }
+        [CommandProperty]
+        [DefaultValue("1")]
+        public int Spacing { get; set; }
     }
 }

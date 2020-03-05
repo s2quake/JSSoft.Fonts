@@ -96,6 +96,7 @@
     <Compile Include="Dialogs\ViewModels\PreviewItemViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\PreviewViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\FontLoadSettingsViewModel.cs" />
+    <Compile Include="Dialogs\ViewModels\FindCharacterViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\SelectCharactersViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\SelectColorViewModel.cs" />
     <Compile Include="Dialogs\Views\AboutView.xaml.cs">
@@ -110,6 +111,9 @@
     <Compile Include="Dialogs\Views\FontLoadSettingsView.xaml.cs">
       <DependentUpon>FontLoadSettingsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\Views\FindCharacterView.xaml.cs">
+      <DependentUpon>FindCharacterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\Views\SelectCharactersView.xaml.cs">
       <DependentUpon>SelectCharactersView.xaml</DependentUpon>
     </Compile>
@@ -123,6 +127,7 @@
     <Compile Include="MenuItems\ToolMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\LoadSettingsMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\SaveSettingsMenuItem.cs" />
+    <Compile Include="MenuItems\ToolMenus\FindCharacterMenuItem.cs" />
     <Compile Include="MenuItems\ToolMenus\SelectCharactersMenuItem.cs" />
     <Compile Include="MenuItems\ToolMenus\ExportSettingsMenuItem.cs" />
     <Compile Include="MenuItems\HelpMenuItem.cs" />
@@ -190,6 +195,10 @@
     <Page Include="Dialogs\Views\FontLoadSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\Views\FindCharacterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\Views\SelectCharactersView.xaml">
       <SubType>Designer</SubType>

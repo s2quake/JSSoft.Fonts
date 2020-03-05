@@ -46,11 +46,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharacterCollection.cs" />
+    <Compile Include="CharacterCollectionConverter.cs" />
     <Compile Include="FontDescriptor.cs" />
     <Compile Include="FontGlyphData.cs" />
     <Compile Include="FontGlyph.cs" />
     <Compile Include="FontNodeContext.cs" />
     <Compile Include="FontNode.cs" />
+    <Compile Include="FontSpacingConverter.cs" />
+    <Compile Include="FontPaddingConverter.cs" />
     <Compile Include="FontSpacing.cs" />
     <Compile Include="FontPadding.cs" />
     <Compile Include="FontPage.cs" />

@@ -64,7 +64,7 @@ namespace JSSoft.Font.ApplicationHost
             while (i1 < max)
             {
                 var i2 = Math.Min(i1 + 16, max);
-                var item = new CharacterRow(this.context, i1, i2);
+                var item = new CharacterRow(this, this.context, i1, i2);
                 itemList.Add(item);
                 item.PropertyChanged += Item_PropertyChanged;
                 i1 = i2;

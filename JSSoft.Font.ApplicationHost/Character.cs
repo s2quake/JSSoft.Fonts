@@ -26,9 +26,10 @@ namespace JSSoft.Font.ApplicationHost
             this.ID = id;
         }
 
-        public Character(CharacterContext context, uint id)
+        public Character(CharacterRow row, CharacterContext context, uint id)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
+            this.Row = row;
             this.ID = id;
             this.IsEnabled = this.context.Glyphs.ContainsKey(id);
             if (this.context.Glyphs.ContainsKey(id))
@@ -109,6 +110,8 @@ namespace JSSoft.Font.ApplicationHost
             }
         }
 
+        public CharacterRow Row { get; }
+
         public void SetChecked(bool value)
         {
             if (this.isChecked != value)
@@ -117,5 +120,11 @@ namespace JSSoft.Font.ApplicationHost
                 this.NotifyOfPropertyChange(nameof(IsChecked));
             }
         }
+
+        #region ICharacter
+
+        ICharacterRow ICharacter.Row => this.Row;
+
+        #endregion
     }
 }

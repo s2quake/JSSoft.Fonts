@@ -55,10 +55,18 @@ namespace JSSoft.Font.Serializations
         public int Aa { get; set; }
 
         [XmlAttribute("padding")]
-        public string Padding { get; set; }
+        public string Padding
+        {
+            get => $"{this.PaddingValue}";
+            set => this.PaddingValue = FontPadding.Parse(value);
+        }
 
         [XmlAttribute("spacing")]
-        public string Spacing { get; set; }
+        public string Spacing
+        {
+            get => $"{this.SpacingValue}";
+            set => this.SpacingValue = FontSpacing.Parse(value);
+        }
 
         [XmlAttribute("outline")]
         public int Outline { get; set; }
@@ -76,38 +84,16 @@ namespace JSSoft.Font.Serializations
                 StretchH = 100,
                 Smooth = 1,
                 Aa = 1,
-                PaddingValue = (0, 0, 0, 0),
-                SpacingValue = (1, 1),
+                PaddingValue = fontData.Padding,
+                SpacingValue = fontData.Spacing,
                 Outline = 0,
             };
         }
 
         [XmlIgnore]
-        public (int Top, int Right, int Bottom, int Left) PaddingValue
-        {
-            get
-            {
-                var items = this.Padding.Split(',');
-                return (int.Parse(items[0]), int.Parse(items[1]), int.Parse(items[2]), int.Parse(items[3]));
-            }
-            set
-            {
-                this.Padding = $"{value.Top},{value.Right},{value.Bottom},{value.Left}";
-            }
-        }
+        public FontPadding PaddingValue { get; set; }
 
         [XmlIgnore]
-        public (int Vertical, int Horizontal) SpacingValue
-        {
-            get
-            {
-                var items = this.Padding.Split(',');
-                return (int.Parse(items[0]), int.Parse(items[1]));
-            }
-            set
-            {
-                this.Spacing = $"{value.Vertical},{value.Horizontal}";
-            }
-        }
+        public FontSpacing SpacingValue { get; set; }
     }
 }
