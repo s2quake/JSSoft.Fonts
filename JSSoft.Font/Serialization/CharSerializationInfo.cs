@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System;
+using System.Security;
 using System.Xml.Serialization;
 
 namespace JSSoft.Font.Serializations

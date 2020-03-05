@@ -27,5 +27,7 @@ namespace JSSoft.Font
         public int VerticalAdvance { get; set; }
 
         public int BaseLine { get; set; }
+
+        public static readonly GlyphMetrics Empty = new GlyphMetrics();
     }
 }

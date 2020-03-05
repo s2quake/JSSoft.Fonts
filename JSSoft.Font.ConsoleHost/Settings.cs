@@ -45,6 +45,6 @@ namespace JSSoft.Font.ConsoleHost
 
         [CommandProperty]
         [DefaultValue("1")]
-        public int Spacing { get; set; }
+        public FontSpacing Spacing { get; set; }
     }
 }

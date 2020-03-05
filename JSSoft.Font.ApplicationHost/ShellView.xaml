@@ -5,12 +5,13 @@
                   xmlns:mui="http://firstfloorsoftware.com/ModernUI"
                   xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
                   xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                  xmlns:cal="http://www.caliburnproject.org"
                   xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
                   xmlns:nmgc="clr-namespace:Ntreev.ModernUI.Framework.DataGrid.Controls;assembly=Ntreev.ModernUI.Framework.DataGrid"
                   xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
                   xmlns:jsfv="clr-namespace:JSSoft.Font.ApplicationHost.Converters"
                   xmlns:vm="clr-namespace:JSSoft.Font.ApplicationHost"
-                  Height="550" Width="800" Style="{StaticResource ModernWindow_Style}" Title="{Binding DisplayName}">
+                  Height="550" Width="890" Style="{StaticResource ModernWindow_Style}" Title="{Binding DisplayName}">
 
     <mui:ModernWindow.Resources>
         <DataTemplate x:Key="ListBox_ItemTemplate">
@@ -28,6 +29,26 @@
                 </DataTrigger>
             </DataTemplate.Triggers>-->
         </DataTemplate>
+
+        <Style x:Key="PropertyWindow_ItemContainerStyle" TargetType="{x:Type ContentPresenter}">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <nmfc:ModernExpander x:Name="expander" Header="{Binding DisplayName}" IsExpanded="True" 
+                                             Loaded="Expander_Loaded"
+                                             Unloaded="Expander_Unloaded">
+                            <ContentControl cal:View.Model="{Binding}" />
+                        </nmfc:ModernExpander>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
 
         <jsfv:CharacterToDisplayTextConverter x:Key="CharacterToDisplayTextConverter" />
         <jsfv:GroupRangeToDisplayTextConverter x:Key="GroupRangeToDisplayTextConverter" />
@@ -49,23 +70,29 @@
             </Menu.ItemContainerStyle>
         </Menu>
         <ToolBarTray Grid.Row="1">
-            <nmfc:ModernToolBar ItemsSource="{Binding ToolBarItems}" />
+            <nmfc:ModernToolBar ItemsSource="{Binding ToolBarItems}"/>
             <ToolBar ToolBarTray.IsLocked="True">
             </ToolBar>
         </ToolBarTray>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="69" />
-                <ColumnDefinition Width="181" />
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="200" MinWidth="100" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" MinWidth="100" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="200" MinWidth="100" />
             </Grid.ColumnDefinitions>
             <ListBox x:Name="GroupList" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, Delay=0}" BorderThickness="0 1 1 0" BorderBrush="{StaticResource ItemBorder}"
-                     ItemTemplate="{StaticResource ListBox_ItemTemplate}" ItemContainerStyle="{StaticResource FlatListBoxItem}" Grid.ColumnSpan="2" />
-            <GridSplitter Grid.Column="2" Background="{StaticResource WindowBackground}" />
-            <jsfc:CharacterView x:Name="CharacterView" Grid.Column="3" CharacterGroup="{Binding SelectedGroup}" BorderThickness="1 1 0 0 " 
+                     ItemTemplate="{StaticResource ListBox_ItemTemplate}" ItemContainerStyle="{StaticResource FlatListBoxItem}" />
+            <GridSplitter Grid.Column="1" Width="5" Background="{StaticResource WindowBackground}" />
+            <jsfc:CharacterView x:Name="CharacterView" Grid.Column="2" CharacterGroup="{Binding SelectedGroup}" BorderThickness="1 1 0 0 " 
                                 Character="{Binding SelectedCharacter, Mode=TwoWay}"
                                 ItemHeight="{Binding VerticalAdvance}" ZoomLevel="{Binding ZoomLevel}" />
+            <GridSplitter Grid.Column="3" Width="5" Background="{StaticResource WindowBackground}" Visibility="{Binding Visibility, ElementName=PropertyWindow}" />
+            <ScrollViewer Grid.Column="4" x:Name="PropertyWindow">
+                <ItemsControl x:Name="properties" ItemsSource="{Binding PropertyService.Properties}" 
+                              ItemContainerStyle="{StaticResource PropertyWindow_ItemContainerStyle}" />
+            </ScrollViewer>
         </Grid>
         <nmfc:ProgressContent Grid.Row="2" Visibility="{Binding IsProgressing, Converter={StaticResource BooleanToVisibilityConverter}}" d:IsHidden="True" />
         <StatusBar Grid.Row="3">

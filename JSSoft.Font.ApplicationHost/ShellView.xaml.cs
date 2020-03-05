@@ -21,23 +21,23 @@ namespace JSSoft.Font.ApplicationHost
     /// <summary>
     /// ShellView.xaml에 대한 상호 작용 논리
     /// </summary>
-    [Export(typeof(ShellView))]
-    public partial class ShellView : ModernWindow, IPartImportsSatisfiedNotification
+    [Export]
+    public partial class ShellView : ModernWindow
     {
-        private readonly Lazy<IShell> shell = null;
-        private readonly IEnumerable<IMenuItem> menuItems;
+        public static readonly RoutedCommand ShowPropertyWindow =
+            new RoutedUICommand(nameof(ShowPropertyWindow), nameof(ShowPropertyWindow), typeof(ShellView));
+
+        public static readonly RoutedCommand HidePropertyWindow =
+            new RoutedUICommand(nameof(HidePropertyWindow), nameof(HidePropertyWindow), typeof(ShellView));
+
+        [Import]
+        private IAppConfiguration configs = null;
 
         public ShellView()
         {
             InitializeComponent();
-        }
-
-        [ImportingConstructor]
-        public ShellView(Lazy<IShell> shell, [ImportMany]IEnumerable<IMenuItem> menuItems)
-        {
-            this.shell = shell;
-            this.menuItems = menuItems.ToArray();
-            this.InitializeComponent();
+            this.CommandBindings.Add(new CommandBinding(ShowPropertyWindow, ShowPropertyWindow_Execute, ShowPropertyWindow_CanExecute));
+            this.CommandBindings.Add(new CommandBinding(HidePropertyWindow, HidePropertyWindow_Execute, HidePropertyWindow_CanExecute));
         }
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)
@@ -45,55 +45,51 @@ namespace JSSoft.Font.ApplicationHost
             base.OnPreviewKeyDown(e);
         }
 
-        private void SetInputBindings(IMenuItem menuItem)
+        private void Expander_Loaded(object sender, RoutedEventArgs e)
         {
-            if (menuItem.InputGesture != null)
-            {
-                if (menuItem.IsVisible == true)
-                    this.InputBindings.Add(new InputBinding(menuItem.Command, menuItem.InputGesture));
+            var expander = sender as Expander;
+            if (expander.DataContext == null)
+                return;
 
-                if (menuItem is INotifyPropertyChanged notifyObject)
-                {
-                    notifyObject.PropertyChanged += (s, e) =>
-                    {
-                        if (menuItem.IsVisible == true)
-                        {
-                            this.InputBindings.Add(new InputBinding(menuItem.Command, menuItem.InputGesture));
-                        }
-                        else
-                        {
-                            for (var i = 0; i < this.InputBindings.Count; i++)
-                            {
-                                if (this.InputBindings[i].Command == menuItem)
-                                {
-                                    this.InputBindings.RemoveAt(i);
-                                    break;
-                                }
-                            }
-                        }
-                    };
-                }
-            }
-
-            foreach (var item in menuItem.ItemsSource)
+            if (this.configs.TryGetValue<bool>(this.GetType(), expander.DataContext.GetType(), nameof(expander.IsExpanded), out var isExpanded) == true)
             {
-                this.SetInputBindings(item);
+                expander.IsExpanded = isExpanded;
             }
         }
 
-        private IShell Shell => this.shell.Value;
-
-        #region IPartImportsSatisfiedNotification
-
-        void IPartImportsSatisfiedNotification.OnImportsSatisfied()
+        private void Expander_Unloaded(object sender, RoutedEventArgs e)
         {
-            //var items = MenuItemUtility.GetMenuItems<IMenuItem>(this.Shell, this.menuItems);
-            //foreach (var item in items)
-            //{
-            //    this.SetInputBindings(item);
-            //}
+            var expander = sender as Expander;
+            if (expander.DataContext == null)
+                return;
+
+            this.configs.SetValue(this.GetType(), expander.DataContext.GetType(), nameof(expander.IsExpanded), expander.IsExpanded);
         }
 
-        #endregion
+        private void ShowPropertyWindow_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.PropertyWindow.Visibility = Visibility.Visible;
+            e.Handled = true;
+            this.Focus();
+        }
+
+        private void ShowPropertyWindow_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = this.PropertyWindow.Visibility != Visibility.Visible;
+            e.Handled = true;
+        }
+
+        private void HidePropertyWindow_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.PropertyWindow.Visibility = Visibility.Collapsed;
+            e.Handled = true;
+            this.Focus();
+        }
+
+        private void HidePropertyWindow_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = this.PropertyWindow.Visibility == Visibility.Visible;
+            e.Handled = true;
+        }
     }
 }

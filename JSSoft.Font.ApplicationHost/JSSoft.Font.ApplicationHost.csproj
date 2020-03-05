@@ -82,6 +82,8 @@
     <Compile Include="Commands\ExportFontCommand.cs" />
     <Compile Include="Commands\SaveSettingsCommand.cs" />
     <Compile Include="Commands\OpenFontCommand.cs" />
+    <Compile Include="Controls\HeaderedContentList.cs" />
+    <Compile Include="Controls\HeaderedContentListItem.cs" />
     <Compile Include="Controls\ValueSelector.cs" />
     <Compile Include="Controls\SpacingControl.cs" />
     <Compile Include="Controls\ValuesTypeConverter.cs" />
@@ -121,6 +123,9 @@
       <DependentUpon>SelectColorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExportSettings.cs" />
+    <Compile Include="FontInfo.cs" />
+    <Compile Include="IPropertyItem.cs" />
+    <Compile Include="IPropertyService.cs" />
     <Compile Include="MenuItems\FileMenus\RecentSettingsItemMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\RecentSettingsMenuItem.cs" />
     <Compile Include="MenuItems\HelpMenus\AboutMenuItem.cs" />
@@ -133,9 +138,25 @@
     <Compile Include="MenuItems\HelpMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\ExportFontMenuItem.cs" />
+    <Compile Include="MenuItems\ViewMenus\HidePropertyWindowMenuItem.cs" />
+    <Compile Include="MenuItems\ViewMenus\ShowPropertyWindowMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenus\PreviewMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenus\ZoomOutMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenus\ZoomInMenuItem.cs" />
+    <Compile Include="PropertyItemBase.cs" />
+    <Compile Include="PropertyItems\ViewModels\CharacterGroupViewModel.cs" />
+    <Compile Include="PropertyItems\ViewModels\FontInfoViewModel.cs" />
+    <Compile Include="PropertyItems\ViewModels\GlyphMetricsViewModel.cs" />
+    <Compile Include="PropertyItems\Views\CharacterGroupView.xaml.cs">
+      <DependentUpon>CharacterGroupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyItems\Views\FontInfoView.xaml.cs">
+      <DependentUpon>FontInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyItems\Views\GlyphMetricsView.xaml.cs">
+      <DependentUpon>GlyphMetricsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyService.cs" />
     <Compile Include="Serializations\ExportSettingsInfo.cs" />
     <Compile Include="ToolBarItems\ZoomOutToolBarItem.cs" />
     <Compile Include="ToolBarItems\ZoomInToolBarItem.cs" />
@@ -156,6 +177,10 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="IShell.cs" />
+    <Page Include="Assets\HeaderedContentList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Assets\ValueSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -205,6 +230,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\Views\SelectColorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyItems\Views\CharacterGroupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyItems\Views\FontInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyItems\Views\GlyphMetricsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -290,5 +327,6 @@
     <Resource Include="Images\zoom-in.png" />
     <Resource Include="Images\zoom-out.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

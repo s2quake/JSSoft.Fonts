@@ -64,7 +64,7 @@ namespace JSSoft.Font
             {
                 var min = item.min;
                 var max = item.max;
-                if (min >= max)
+                if (min > max)
                     throw new InvalidOperationException($"min must be less than max: '{min} < {max}'");
             });
         }

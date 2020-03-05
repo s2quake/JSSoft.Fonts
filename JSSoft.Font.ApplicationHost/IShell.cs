@@ -33,6 +33,8 @@ namespace JSSoft.Font.ApplicationHost
 
         double ZoomLevel { get; set; }
 
+        FontInfo FontInfo { get; }
+
         ExportSettings Settings { get; }
 
         IEnumerable<ICharacterGroup> Groups { get; }
@@ -45,8 +47,14 @@ namespace JSSoft.Font.ApplicationHost
 
         IEnumerable<string> RecentSettings { get; }
 
+        IPropertyService PropertyService { get; }
+
         event EventHandler Opened;
 
         event EventHandler Closed;
+
+        event EventHandler SelectedGroupChanged;
+
+        event EventHandler SelectedcharacterChanged;
     }
 }

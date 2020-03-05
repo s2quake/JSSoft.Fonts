@@ -5,6 +5,7 @@
 
         <ResourceDictionary Source="CharacterControl.xaml" />
         <ResourceDictionary Source="CharacterView.xaml" />
+        <ResourceDictionary Source="HeaderedContentList.xaml" />
         <ResourceDictionary Source="ValueSelector.xaml" />
         <ResourceDictionary Source="SpacingControl.xaml" />
         <ResourceDictionary Source="ZoomLevelControl.xaml" />

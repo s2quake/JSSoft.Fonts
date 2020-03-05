@@ -32,14 +32,16 @@ namespace JSSoft.Font.ApplicationHost
         private double zoomLevel = 1.0;
         private bool isOpened;
         private bool isModified;
+        private FontInfo fontInfo = FontInfo.Empty;
         private CharacterContext context;
 
         [ImportingConstructor]
-        public ShellViewModel(IServiceProvider serviceProvider, IAppConfiguration configs)
+        public ShellViewModel(IServiceProvider serviceProvider, IAppConfiguration configs, PropertyService propertyService)
             : base(serviceProvider)
         {
             this.serviceProvider = serviceProvider;
             this.configs = configs;
+            this.PropertyService = propertyService;
             this.DisplayName = "JSFont";
             this.Settings.PropertyChanged += ExportSettings_PropertyChanged;
             this.Dispatcher.InvokeAsync(this.ReadRecentSettings);
@@ -224,6 +226,7 @@ namespace JSSoft.Font.ApplicationHost
                     this.selectedGroup = value;
                     this.NotifyOfPropertyChange(nameof(SelectedGroup));
                     this.NotifyOfPropertyChange(nameof(CharacterRows));
+                    this.OnSelectedGroupChanged(EventArgs.Empty);
                 }
             }
         }
@@ -240,6 +243,8 @@ namespace JSSoft.Font.ApplicationHost
                     this.selectedCharacter = value;
                     this.NotifyOfPropertyChange(nameof(SelectedCharacter));
                     this.NotifyOfPropertyChange(nameof(CharacterRows));
+                    this.PropertyService.SelectedObject = this.selectedCharacter;
+                    this.OnSelectedcharacterChanged(EventArgs.Empty);
                 }
             }
         }
@@ -309,13 +314,33 @@ namespace JSSoft.Font.ApplicationHost
 
         public FontDescriptor FontDescriptor { get; private set; }
 
+        public PropertyService PropertyService { get; }
+
+        public FontInfo FontInfo
+        {
+            get => this.fontInfo;
+            private set
+            {
+                this.fontInfo = value;
+                this.NotifyOfPropertyChange(nameof(FontInfo));
+            }
+        }
+
         public event EventHandler Opened;
 
         public event EventHandler Closed;
 
+        public event EventHandler SelectedGroupChanged;
+
+        public event EventHandler SelectedcharacterChanged;
+
         protected virtual void OnOpened(EventArgs e) => this.Opened?.Invoke(this, e);
 
         protected virtual void OnClosed(EventArgs e) => this.Closed?.Invoke(this, e);
+
+        protected virtual void OnSelectedGroupChanged(EventArgs e) => this.SelectedGroupChanged?.Invoke(this, e);
+
+        protected virtual void OnSelectedcharacterChanged(EventArgs e) => this.SelectedGroupChanged?.Invoke(this, e);
 
         protected override void OnDeactivate(bool close)
         {
@@ -327,14 +352,9 @@ namespace JSSoft.Font.ApplicationHost
             base.OnDeactivate(close);
         }
 
-        protected async override void OnInitialize()
+        protected override void OnInitialize()
         {
             base.OnInitialize();
-            //await this.OpenAsync(@"..\..\..\Fonts\Courier-01.ttf", 12, 144, 0);
-            //await this.OpenAsync(@"..\..\..\Fonts\SF-Mono-Regular.otf", 11, 144, 0);
-            //await this.OpenAsync(@"..\..\..\Fonts\gulim.ttc", 14, 72, 0);
-            //await this.OpenAsync(@"C:\Users\s2quake\Desktop\AppleSDGothicNeo-Semibold.otf");
-            //await this.LoadSettingsAsync(@"..\..\..\Fonts\settings.xml");
         }
 
         private void CheckedCharacters_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -456,6 +476,14 @@ namespace JSSoft.Font.ApplicationHost
                 }
                 this.DisplayName = this.FontDescriptor.Name;
                 this.SelectedGroup = this.Groups.FirstOrDefault();
+                this.FontInfo = new FontInfo()
+                {
+                    FaceName = this.FontDescriptor.Name,
+                    DPI = (int)this.FontDescriptor.DPI,
+                    Size = this.FontDescriptor.Size,
+                    Height = this.FontDescriptor.Height,
+                    BaseLine = this.FontDescriptor.BaseLine,
+                };
                 this.IsModified = false;
                 this.IsOpened = true;
                 this.OnOpened(EventArgs.Empty);
@@ -481,6 +509,7 @@ namespace JSSoft.Font.ApplicationHost
             await this.Dispatcher.InvokeAsync(() =>
             {
                 this.NotifyOfPropertyChange(nameof(this.VerticalAdvance));
+                this.FontInfo = FontInfo.Empty;
                 this.DisplayName = "JSFont";
                 this.IsOpened = false;
                 this.OnClosed(EventArgs.Empty);
@@ -537,6 +566,8 @@ namespace JSSoft.Font.ApplicationHost
                 }
             }
         }
+
+        IPropertyService IShell.PropertyService => this.PropertyService;
 
         #endregion
     }

@@ -16,24 +16,27 @@ namespace JSSoft.Font.ConsoleHost
             var parser = new CommandLineParser(settings);
             try
             {
-                parser.Parse(Environment.CommandLine);
-
-                var inputPath = Path.GetFullPath(settings.FontPath);
-                var outputPath = Path.GetFullPath(settings.FileName);
-                var name = Path.GetFileNameWithoutExtension(outputPath);
-                var font = new FontDescriptor(inputPath, (uint)settings.DPI, settings.Size, settings.Face);
-                var dataSettings = new FontDataSettings()
+                if (parser.Parse(Environment.CommandLine) == true)
                 {
-                    Name = name,
-                    Width = settings.TextureWidth,
-                    Height = settings.TextureHeight,
-                    Characters = settings.Characters.ToArray(),
-                };
-                
-                var data = font.CreateData(dataSettings);
-                var directory = Path.GetDirectoryName(outputPath);
-                data.Save(outputPath);
-                data.SavePages(directory);
+                    var inputPath = Path.GetFullPath(settings.FontPath);
+                    var outputPath = Path.GetFullPath(settings.FileName);
+                    var name = Path.GetFileNameWithoutExtension(outputPath);
+                    var font = new FontDescriptor(inputPath, (uint)settings.DPI, settings.Size, settings.Face);
+                    var dataSettings = new FontDataSettings()
+                    {
+                        Name = name,
+                        Width = settings.TextureWidth,
+                        Height = settings.TextureHeight,
+                        Padding = settings.Padding,
+                        Spacing = settings.Spacing,
+                        Characters = settings.Characters.ToArray(),
+                    };
+
+                    var data = font.CreateData(dataSettings);
+                    var directory = Path.GetDirectoryName(outputPath);
+                    data.Save(outputPath);
+                    data.SavePages(directory);
+                }
             }
             catch (Exception e)
             {

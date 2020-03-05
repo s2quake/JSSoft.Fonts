@@ -14,7 +14,7 @@
 
     <StackPanel>
         <TextBlock Text="Characters" />
-        <TextBox x:Name="Characters" Height="100" HorizontalScrollBarVisibility="Disabled" TextWrapping="WrapWithOverflow"
+        <TextBox x:Name="Characters" Height="100" HorizontalScrollBarVisibility="Disabled" TextWrapping="Wrap"
                  Text="{Binding CharactersText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="Select" Content="OK" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />

@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="JSSoft.Font.ApplicationHost.PropertyItems.Views.FontInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
+             mc:Ignorable="d" d:DesignWidth="300">
+
+    <jsfc:HeaderedContentList x:Name="content" HeaderWidth="0.5*">
+        <HeaderedContentControl Header="FaceName" Content="{Binding FontInfo.FaceName}" />
+        <HeaderedContentControl Header="DPI" Content="{Binding FontInfo.DPI}" />
+        <HeaderedContentControl Header="Size" Content="{Binding FontInfo.Size}" />
+        <HeaderedContentControl Header="Height" Content="{Binding FontInfo.Height}" />
+        <HeaderedContentControl Header="BaseLine" Content="{Binding FontInfo.BaseLine}" />
+    </jsfc:HeaderedContentList>
+
+</UserControl>
