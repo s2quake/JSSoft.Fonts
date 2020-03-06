@@ -51,10 +51,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
             base.PrepareContainerForItemOverride(element, item);
         }
 
-        public double HeaderActualWidth
-        {
-            get { return (double)GetValue(HeaderActualWidthPropertyKey.DependencyProperty); }
-        }
+        public double HeaderActualWidth => (double)GetValue(HeaderActualWidthPropertyKey.DependencyProperty);
 
         [TypeConverter(typeof(GridLengthConverter))]
         public GridLength HeaderWidth
