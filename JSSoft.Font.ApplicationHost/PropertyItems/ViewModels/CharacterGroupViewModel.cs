@@ -15,6 +15,7 @@ namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
         private readonly IShell shell;
         private uint min;
         private uint max;
+        private ICharacterGroup characterGroup;
 
         [ImportingConstructor]
         public CharacterGroupViewModel(IShell shell)
@@ -62,7 +63,7 @@ namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
 
         public override bool IsVisible => true;
 
-        public override object SelectedObject => null;
+        public override object SelectedObject => this.characterGroup;
 
         private void Shell_SelectedGroupChanged(object sender, EventArgs e)
         {
@@ -70,12 +71,15 @@ namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
             {
                 this.Min = group.Min;
                 this.Max = group.Max;
+                this.characterGroup = group;
             }
             else
             {
                 this.Min = 0;
                 this.Max = 0;
+                this.characterGroup = null;
             }
+            this.NotifyOfPropertyChange(nameof(SelectedObject));
         }
     }
 }

@@ -6,7 +6,17 @@
              xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
              mc:Ignorable="d" d:DesignWidth="300">
 
-    <jsfc:HeaderedContentList x:Name="content" HeaderWidth="0.5*">
+    <UserControl.Resources>
+        <Style x:Key="HeaderedContentList_ItemContainerStyle" TargetType="{x:Type jsfc:HeaderedContentListItem}" BasedOn="{StaticResource HeaderedContentList_ItemContainerStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DataContext.DataContext.SelectedObject, RelativeSource={RelativeSource Mode=Self}}" Value="{x:Null}">
+                    <Setter Property="Content" Value="{x:Null}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <jsfc:HeaderedContentList x:Name="content" HeaderWidth="0.5*" ItemContainerStyle="{StaticResource HeaderedContentList_ItemContainerStyle}">
         <HeaderedContentControl Header="ID" Content="{Binding GlyphMetrics.ID}" />
         <HeaderedContentControl Header="Width" Content="{Binding GlyphMetrics.Width}" />
         <HeaderedContentControl Header="Height" Content="{Binding GlyphMetrics.Height}" />

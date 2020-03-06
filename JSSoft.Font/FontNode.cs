@@ -115,13 +115,18 @@ namespace JSSoft.Font
                 new Point(r, b)
             };
             nodes = new FontNode[points.Length];
-            region = Rectangle.Empty;
+            region = Rectangle.FromLTRB(l, t, r, b);
             for (var i = 0; i < nodes.Length; i++)
             {
-                var node = this.HitTest(points[i]);
-                if (node == null)
+                nodes[i] = this.HitTest(region);
+                if (nodes[i] == null || nodes[i].Childs.Any() == true)
+                {
                     return false;
-                nodes[i] = node;
+                }
+                //if  (nodes[i] != null && nodes[i].Childs.Any() == true)
+                //{
+                //    int qwer = 0;
+                //}
             };
             if (r + spacing.Horizontal <= this.Rectangle.Width)
                 r += spacing.Horizontal;
@@ -143,6 +148,11 @@ namespace JSSoft.Font
 
         private void AddRegion(Rectangle rectangle)
         {
+            foreach (var item in this.rectangleList)
+            {
+                if (item.IntersectsWith(rectangle) == true)
+                    throw new ArgumentException("qwerqwrqwerwqe");
+            }
             this.rectangleList.Add(rectangle);
         }
 
@@ -152,8 +162,15 @@ namespace JSSoft.Font
                 return null;
             if (rectangle.Bottom + this.settings.Padding.Vertical > this.Rectangle.Height)
                 return null;
+
             if (this.FindEmptyRegion(rectangle, out var nodes, out var region) == false)
                 return null;
+
+            //foreach (var item in nodes)
+            //{
+            //    if (item == null)
+            //        return null;
+            //}
 
             var nodeList = new List<FontNode>(nodes.Length);
             foreach (var item in nodes.Distinct())
@@ -193,19 +210,19 @@ namespace JSSoft.Font
             this.glyphList.Add(new FontGlyphData(this.Page, glyph, glyphRegion));
         }
 
-        private FontNode HitTest(Point location)
+        private FontNode HitTest(Rectangle rectangle)
         {
-            if (Intersect(this.Rectangle, location) == false)
+            if (this.Rectangle.IntersectsWith(rectangle) == false)
                 return null;
 
             foreach (var item in this.rectangleList)
             {
-                if (Intersect(item, location) == true)
+                if (item.IntersectsWith(rectangle) == true)
                     return null;
             }
             foreach (var item in this.Childs)
             {
-                if (item.HitTest(location) is FontNode node)
+                if (item.HitTest(rectangle) is FontNode node)
                     return node;
             }
             return this;

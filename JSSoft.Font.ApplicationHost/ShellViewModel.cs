@@ -340,7 +340,7 @@ namespace JSSoft.Font.ApplicationHost
 
         protected virtual void OnSelectedGroupChanged(EventArgs e) => this.SelectedGroupChanged?.Invoke(this, e);
 
-        protected virtual void OnSelectedcharacterChanged(EventArgs e) => this.SelectedGroupChanged?.Invoke(this, e);
+        protected virtual void OnSelectedcharacterChanged(EventArgs e) => this.SelectedcharacterChanged?.Invoke(this, e);
 
         protected override void OnDeactivate(bool close)
         {
@@ -371,16 +371,17 @@ namespace JSSoft.Font.ApplicationHost
         {
             return Task.Run(() =>
             {
-                this.FontDescriptor = new FontDescriptor(fontPath, (uint)dpi, size, faceIndex);
+                var fontDescriptor = new FontDescriptor(fontPath, (uint)dpi, size, faceIndex);
                 this.checkedCharacters = new ObservableCollection<uint>();
                 this.checkedCharacters.CollectionChanged += CheckedCharacters_CollectionChanged;
                 this.groupList.Clear();
-                this.context = new CharacterContext(this.FontDescriptor, this.checkedCharacters);
+                this.context = new CharacterContext(fontDescriptor, this.checkedCharacters);
                 foreach (var (name, min, max) in NamesList.Items)
                 {
                     var items = CreateGroups(this.context, name, min, max);
                     Array.ForEach(items, item => this.groupList.Add(item));
                 }
+                this.FontDescriptor = fontDescriptor;
             });
         }
 

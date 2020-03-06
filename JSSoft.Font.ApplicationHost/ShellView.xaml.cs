@@ -30,11 +30,19 @@ namespace JSSoft.Font.ApplicationHost
         public static readonly RoutedCommand HidePropertyWindow =
             new RoutedUICommand(nameof(HidePropertyWindow), nameof(HidePropertyWindow), typeof(ShellView));
 
-        [Import]
-        private IAppConfiguration configs = null;
+        private readonly IAppConfiguration configs;
+        private GridLength propertyWidth;
+        private double propertyMinWidth;
 
         public ShellView()
         {
+            InitializeComponent();
+        }
+
+        [ImportingConstructor]
+        public ShellView(IAppConfiguration configs)
+        {
+            this.configs = configs;
             InitializeComponent();
             this.CommandBindings.Add(new CommandBinding(ShowPropertyWindow, ShowPropertyWindow_Execute, ShowPropertyWindow_CanExecute));
             this.CommandBindings.Add(new CommandBinding(HidePropertyWindow, HidePropertyWindow_Execute, HidePropertyWindow_CanExecute));
@@ -69,6 +77,8 @@ namespace JSSoft.Font.ApplicationHost
         private void ShowPropertyWindow_Execute(object sender, ExecutedRoutedEventArgs e)
         {
             this.PropertyWindow.Visibility = Visibility.Visible;
+            this.PropertyWindowColumn.Width = this.propertyWidth;
+            this.PropertyWindowColumn.MinWidth = this.propertyMinWidth;
             e.Handled = true;
             this.Focus();
         }
@@ -81,9 +91,17 @@ namespace JSSoft.Font.ApplicationHost
 
         private void HidePropertyWindow_Execute(object sender, ExecutedRoutedEventArgs e)
         {
+            this.propertyWidth = this.PropertyWindowColumn.Width;
+            this.propertyMinWidth = this.PropertyWindowColumn.MinWidth;
             this.PropertyWindow.Visibility = Visibility.Collapsed;
+            this.PropertyWindowColumn.Width = new GridLength(0);
+            this.PropertyWindowColumn.MinWidth = 0;
             e.Handled = true;
             this.Focus();
+            if (this.WindowState != WindowState.Maximized)
+            {
+                this.Dispatcher.InvokeAsync(() => this.SizeToContent = SizeToContent.Width);
+            }
         }
 
         private void HidePropertyWindow_CanExecute(object sender, CanExecuteRoutedEventArgs e)

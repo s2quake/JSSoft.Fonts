@@ -80,9 +80,10 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" MinWidth="100" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="200" MinWidth="100" />
+                <ColumnDefinition Width="200" x:Name="PropertyWindowColumn" MinWidth="100" />
             </Grid.ColumnDefinitions>
-            <ListBox x:Name="GroupList" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, Delay=0}" BorderThickness="0 1 1 0" BorderBrush="{StaticResource ItemBorder}"
+            <ListBox x:Name="GroupList" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, Delay=0}" 
+                     BorderThickness="0 1 1 0" BorderBrush="{StaticResource ItemBorder}"
                      ItemTemplate="{StaticResource ListBox_ItemTemplate}" ItemContainerStyle="{StaticResource FlatListBoxItem}" />
             <GridSplitter Grid.Column="1" Width="5" Background="{StaticResource WindowBackground}" />
             <jsfc:CharacterView x:Name="CharacterView" Grid.Column="2" CharacterGroup="{Binding SelectedGroup}" BorderThickness="1 1 0 0 " 

@@ -26,14 +26,15 @@ namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
 
         public override void SelectObject(object obj)
         {
-            this.character = obj as ICharacter;
-            if (this.character != null && this.character.IsEnabled == true)
+            if (obj is ICharacter character && character.IsEnabled == true)
             {
-                this.GlyphMetrics = this.character.GlyphMetrics;
+                this.GlyphMetrics = character.GlyphMetrics;
+                this.character = character;
             }
             else
             {
                 this.GlyphMetrics = GlyphMetrics.Empty;
+                this.character = null;
             }
             this.NotifyOfPropertyChange(nameof(SelectedObject));
             this.NotifyOfPropertyChange(nameof(GlyphMetrics));

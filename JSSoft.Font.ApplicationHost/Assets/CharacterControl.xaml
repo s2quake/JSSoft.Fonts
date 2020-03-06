@@ -15,7 +15,14 @@
 
     <ControlTemplate x:Key="CharacterControl_Template" TargetType="{x:Type jsfc:CharacterControl}">
         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-            <Viewbox x:Name="PART_Viewbox" />
+            <Viewbox x:Name="PART_Viewbox">
+                <Border>
+                    <Image Source="{TemplateBinding Source}" RenderOptions.BitmapScalingMode="NearestNeighbor"
+                           Margin="{TemplateBinding ImageMargin}"
+                           Width="{Binding Source.PixelWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                           Height="{Binding Source.PixelHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" />
+                </Border>
+            </Viewbox>
         </Border>
     </ControlTemplate>
 

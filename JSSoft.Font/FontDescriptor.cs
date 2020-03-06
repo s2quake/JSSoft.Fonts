@@ -1,14 +1,9 @@
-﻿using Ntreev.Library.Threading;
-using SharpFont;
+﻿using SharpFont;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace JSSoft.Font
 {
@@ -123,7 +118,14 @@ namespace JSSoft.Font
         {
             if (ftbmp.Rows > 0 && ftbmp.Width > 0)
             {
-                return ftbmp.ToGdipBitmap(System.Drawing.Color.White);
+                var bitmap = ftbmp.ToGdipBitmap(System.Drawing.Color.White);
+                return bitmap.Clone(new Rectangle(0, 0, bitmap.Width, bitmap.Height), PixelFormat.Format32bppArgb);
+                return bitmap;
+                //var bitmapBackground = new Bitmap(bitmap.Width, bitmap.Height);
+                //var graphics = Graphics.FromImage(bitmapBackground);
+                //graphics.FillRectangle(Brushes.Red, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
+                //graphics.DrawImage(bitmap, 0, 0, bitmap.Width, bitmap.Height);
+                //return bitmapBackground;
             }
             return null;
         }
