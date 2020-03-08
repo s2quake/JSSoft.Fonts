@@ -34,6 +34,7 @@ namespace JSSoft.Font.ApplicationHost
         private bool isModified;
         private FontInfo fontInfo = FontInfo.Empty;
         private CharacterContext context;
+        private string settingsPath = null;
 
         [ImportingConstructor]
         public ShellViewModel(IServiceProvider serviceProvider, IAppConfiguration configs, PropertyService propertyService)
@@ -99,12 +100,19 @@ namespace JSSoft.Font.ApplicationHost
             }
         }
 
+        public Task SaveSettingsAsync()
+        {
+            if (this.SettingsPath == string.Empty)
+                throw new InvalidOperationException("invalid settings path");
+            return this.SaveSettingsAsync(this.SettingsPath);
+        }
+
         public async Task SaveSettingsAsync(string filename)
         {
             try
             {
+                var fullPath = Path.GetFullPath(filename ?? throw new ArgumentNullException(nameof(filename)));
                 await this.BeginProgressAsync();
-                var fullPath = Path.GetFullPath(filename);
                 var info = await this.Dispatcher.InvokeAsync(() => ExportSettingsInfo.Create(this));
                 await WriteSettingsAsync(fullPath, info);
                 await this.Dispatcher.InvokeAsync(() =>
@@ -112,6 +120,7 @@ namespace JSSoft.Font.ApplicationHost
                     this.RecentSettings.Remove(fullPath);
                     this.RecentSettings.Insert(0, fullPath);
                     this.configs[nameof(RecentSettings)] = this.RecentSettings.ToArray();
+                    this.SettingsPath = filename;
                     this.IsModified = false;
                 });
             }
@@ -125,8 +134,8 @@ namespace JSSoft.Font.ApplicationHost
         {
             try
             {
+                var fullPath = Path.GetFullPath(filename ?? throw new ArgumentNullException(nameof(filename)));
                 await this.BeginProgressAsync();
-                var fullPath = Path.GetFullPath(filename);
                 var isOpened = await this.Dispatcher.InvokeAsync(() => this.isOpened);
                 var info = await ReadSettingsAsync(fullPath);
                 if (isOpened == true)
@@ -142,6 +151,7 @@ namespace JSSoft.Font.ApplicationHost
                     this.Settings.PropertyChanged -= ExportSettings_PropertyChanged;
                     this.Settings.Update(info);
                     this.Settings.PropertyChanged += ExportSettings_PropertyChanged;
+                    this.SettingsPath = filename;
                     this.IsModified = false;
                 });
             }
@@ -253,11 +263,9 @@ namespace JSSoft.Font.ApplicationHost
 
         public uint[] CheckedCharacters => this.checkedCharacters.ToArray();
 
-        public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems<IMenuItem>(this, this.serviceProvider);
+        public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems(this, this.serviceProvider);
 
         public IEnumerable<IToolBarItem> ToolBarItems => ToolBarItemUtility.GetToolBarItems(this, this.serviceProvider);
-
-        public int VerticalAdvance => (this.FontDescriptor != null ? this.FontDescriptor.Height : 22);
 
         public double ZoomLevel
         {
@@ -279,7 +287,6 @@ namespace JSSoft.Font.ApplicationHost
                 if (this.isOpened != value)
                 {
                     this.isOpened = value;
-                    this.NotifyOfPropertyChange(nameof(VerticalAdvance));
                     this.NotifyOfPropertyChange(nameof(IsOpened));
                 }
             }
@@ -300,6 +307,16 @@ namespace JSSoft.Font.ApplicationHost
         }
 
         public ExportSettings Settings { get; } = new ExportSettings();
+
+        public string SettingsPath
+        {
+            get => this.settingsPath ?? string.Empty;
+            private set
+            {
+                this.settingsPath = value;
+                this.NotifyOfPropertyChange(nameof(SettingsPath));
+            }
+        }
 
         public override string DisplayName
         {
@@ -509,9 +526,12 @@ namespace JSSoft.Font.ApplicationHost
         {
             await this.Dispatcher.InvokeAsync(() =>
             {
-                this.NotifyOfPropertyChange(nameof(this.VerticalAdvance));
-                this.FontInfo = FontInfo.Empty;
+                this.Groups.Clear();
                 this.DisplayName = "JSFont";
+                this.SelectedGroup = null;
+                this.SelectedCharacter = null;
+                this.FontInfo = FontInfo.Empty;
+                this.IsModified = false;
                 this.IsOpened = false;
                 this.OnClosed(EventArgs.Empty);
             });

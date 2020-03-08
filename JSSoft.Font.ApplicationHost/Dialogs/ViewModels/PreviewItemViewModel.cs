@@ -15,7 +15,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
     {
         private readonly PreviewViewModel parent;
         private readonly FontPage page;
-        private ImageSource image;
+        private ImageSource imageSource;
 
         public PreviewItemViewModel(PreviewViewModel parent, int index, FontPage page)
         {
@@ -42,13 +42,13 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
 
         public int Index { get; }
 
-        public ImageSource Image
+        public ImageSource ImageSource
         {
-            get => this.image;
+            get => this.imageSource;
             private set
             {
-                this.image = value;
-                this.NotifyOfPropertyChange(nameof(Image));
+                this.imageSource = value;
+                this.NotifyOfPropertyChange(nameof(ImageSource));
             }
         }
 
@@ -77,7 +77,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             });
             await this.Dispatcher.InvokeAsync(() =>
             {
-                this.Image = image;
+                this.ImageSource = image;
             });
         }
     }

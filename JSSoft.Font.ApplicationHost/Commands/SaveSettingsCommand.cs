@@ -16,7 +16,7 @@ namespace JSSoft.Font.ApplicationHost.Commands
             return shell.IsProgressing == false && shell.IsOpened == true;
         }
 
-        public static async Task ExecuteAsync(IShell shell)
+        public static async Task<bool> ExecuteAsync(IShell shell)
         {
             var dialog = new SaveFileDialog()
             {
@@ -25,10 +25,12 @@ namespace JSSoft.Font.ApplicationHost.Commands
                 RestoreDirectory = true,
             };
 
-            if (dialog.ShowDialog() == true)
+            var result = dialog.ShowDialog();
+            if (result == true)
             {
                 await shell.SaveSettingsAsync(dialog.FileName);
             }
+            return result == true;
         }
     }
 }

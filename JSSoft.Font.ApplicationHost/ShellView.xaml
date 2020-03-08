@@ -3,14 +3,11 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
                   xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-                  xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
-                  xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
                   xmlns:cal="http://www.caliburnproject.org"
                   xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
-                  xmlns:nmgc="clr-namespace:Ntreev.ModernUI.Framework.DataGrid.Controls;assembly=Ntreev.ModernUI.Framework.DataGrid"
                   xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
                   xmlns:jsfv="clr-namespace:JSSoft.Font.ApplicationHost.Converters"
-                  xmlns:vm="clr-namespace:JSSoft.Font.ApplicationHost"
+                  xmlns:jsmi="clr-namespace:JSSoft.Font.ApplicationHost.MenuItems"
                   Height="550" Width="890" Style="{StaticResource ModernWindow_Style}" Title="{Binding DisplayName}">
 
     <mui:ModernWindow.Resources>
@@ -23,11 +20,6 @@
                 <CheckBox x:Name="CheckBox" IsChecked="{Binding IsChecked, Mode=TwoWay}" IsThreeState="True" />
                 <TextBlock Grid.Column="1" Text="{Binding DisplayName}" />
             </Grid>
-            <!--<DataTemplate.Triggers>
-                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
-                    <Setter TargetName="CheckBox" Property="IsHitTestVisible" Value="False" />
-                </DataTrigger>
-            </DataTemplate.Triggers>-->
         </DataTemplate>
 
         <Style x:Key="PropertyWindow_ItemContainerStyle" TargetType="{x:Type ContentPresenter}">
@@ -50,6 +42,15 @@
             </Style.Triggers>
         </Style>
 
+        <Style TargetType="{x:Type jsfc:CharacterView}" BasedOn="{StaticResource {x:Type jsfc:CharacterView}}">
+            <Setter Property="ItemHeight" Value="22" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsOpened}" Value="True">
+                    <Setter Property="ItemHeight" Value="{Binding FontInfo.Height}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
         <jsfv:CharacterToDisplayTextConverter x:Key="CharacterToDisplayTextConverter" />
         <jsfv:GroupRangeToDisplayTextConverter x:Key="GroupRangeToDisplayTextConverter" />
     </mui:ModernWindow.Resources>
@@ -61,14 +62,12 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Menu ItemsSource="{Binding MenuItems}" VerticalAlignment="Bottom" Margin="0 2" Background="{StaticResource WindowBackground}">
-            <Menu.ItemContainerStyle>
-                <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource MenuItem_Style}">
-                    <Setter Property="Margin" Value="0" />
-                    <Setter Property="MinWidth" Value="50" />
-                </Style>
-            </Menu.ItemContainerStyle>
-        </Menu>
+        <nmfc:ModernMenu ItemsSource="{Binding MenuItems}" VerticalAlignment="Bottom" Margin="0 2" Background="{StaticResource WindowBackground}">
+            <nmfc:ModernMenuItem DataType="{x:Type jsmi:FileMenuItem}" />
+            <nmfc:ModernMenuItem DataType="{x:Type jsmi:ViewMenuItem}" />
+            <nmfc:ModernMenuItem DataType="{x:Type jsmi:ToolMenuItem}" />
+            <nmfc:ModernMenuItem DataType="{x:Type jsmi:HelpMenuItem}" />
+        </nmfc:ModernMenu>
         <ToolBarTray Grid.Row="1">
             <nmfc:ModernToolBar ItemsSource="{Binding ToolBarItems}"/>
             <ToolBar ToolBarTray.IsLocked="True">
@@ -87,11 +86,10 @@
                      ItemTemplate="{StaticResource ListBox_ItemTemplate}" ItemContainerStyle="{StaticResource FlatListBoxItem}" />
             <GridSplitter Grid.Column="1" Width="5" Background="{StaticResource WindowBackground}" />
             <jsfc:CharacterView x:Name="CharacterView" Grid.Column="2" CharacterGroup="{Binding SelectedGroup}" BorderThickness="1 1 0 0 " 
-                                Character="{Binding SelectedCharacter, Mode=TwoWay}"
-                                ItemHeight="{Binding VerticalAdvance}" ZoomLevel="{Binding ZoomLevel}" />
+                                Character="{Binding SelectedCharacter, Mode=TwoWay}" ZoomLevel="{Binding ZoomLevel}" />
             <GridSplitter Grid.Column="3" Width="5" Background="{StaticResource WindowBackground}" Visibility="{Binding Visibility, ElementName=PropertyWindow}" />
-            <ScrollViewer Grid.Column="4" x:Name="PropertyWindow">
-                <ItemsControl x:Name="properties" ItemsSource="{Binding PropertyService.Properties}" 
+            <ScrollViewer Grid.Column="4" x:Name="PropertyWindow" >
+                <ItemsControl x:Name="properties" ItemsSource="{Binding PropertyService.Properties}" BorderThickness="1 1 0 0" BorderBrush="{StaticResource ItemBorder}"
                               ItemContainerStyle="{StaticResource PropertyWindow_ItemContainerStyle}" />
             </ScrollViewer>
         </Grid>
@@ -109,7 +107,6 @@
                     </Grid>
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
-
             <StatusBarItem Grid.Column="0" Padding="3 0">
                 <jsfc:ZoomLevelControl Width="100" HorizontalAlignment="Left" Value="{Binding ZoomLevel, Mode=TwoWay}" PopupPlacement="Top" />
             </StatusBarItem>

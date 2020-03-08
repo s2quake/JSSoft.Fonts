@@ -4,9 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
+             xmlns:jsfv="clr-namespace:JSSoft.Font.ApplicationHost.Converters"
              mc:Ignorable="d" d:DesignWidth="300">
 
     <UserControl.Resources>
+        <jsfv:ValueToHexConverter x:Key="ValueToHexConverter" />
+
         <Style x:Key="HeaderedContentList_ItemContainerStyle" TargetType="{x:Type jsfc:HeaderedContentListItem}" BasedOn="{StaticResource HeaderedContentList_ItemContainerStyle}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding DataContext.DataContext.SelectedObject, RelativeSource={RelativeSource Mode=Self}}" Value="{x:Null}">
@@ -17,8 +20,8 @@
     </UserControl.Resources>
 
     <jsfc:HeaderedContentList x:Name="content" HeaderWidth="0.5*" ItemContainerStyle="{StaticResource HeaderedContentList_ItemContainerStyle}">
-        <HeaderedContentControl Header="Min" Content="{Binding MinString}" />
-        <HeaderedContentControl Header="Max" Content="{Binding MaxString}" />
+        <HeaderedContentControl Header="Min" Content="{Binding Min, Converter={StaticResource ValueToHexConverter}}" />
+        <HeaderedContentControl Header="Max" Content="{Binding Max, Converter={StaticResource ValueToHexConverter}}" />
     </jsfc:HeaderedContentList>
 
 </UserControl>

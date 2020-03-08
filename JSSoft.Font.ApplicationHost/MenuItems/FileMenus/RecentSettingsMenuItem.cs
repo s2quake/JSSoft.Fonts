@@ -3,6 +3,7 @@ using Ntreev.ModernUI.Framework;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 
@@ -10,6 +11,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 {
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(FileMenuItem))]
+    [Category("Recent")]
     [Order(10)]
     class RecentSettingsMenuItem : MenuItemBase
     {

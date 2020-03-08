@@ -1,34 +1,39 @@
 ﻿using JSSoft.Font.ApplicationHost.Commands;
+using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Windows;
 using System.Windows.Input;
 
 namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 {
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(FileMenuItem))]
-    class ExportFontMenuItem : MenuItemBase
+    [Category("Quit")]
+    [Order(int.MaxValue)]
+    class QuitMenuItem : MenuItemBase
     {
         private readonly IShell shell;
 
         [ImportingConstructor]
-        public ExportFontMenuItem(IShell shell)
+        public QuitMenuItem(IShell shell)
         {
             this.shell = shell;
-            this.DisplayName = "Export...";
-            this.InputGesture = new KeyGesture(Key.E, ModifierKeys.Control);
+            this.DisplayName = "Quit";
+            this.InputGesture = new KeyGesture(Key.F4, ModifierKeys.Alt);
             this.shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
             this.shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();
         }
 
-        protected override bool OnCanExecute(object parameter) => ExportFontCommand.CanExecute(this.shell);
+        protected override bool OnCanExecute(object parameter) => QuitCommand.CanExecute(this.shell);
 
-        protected async override void OnExecute(object parameter)
+        protected override async void OnExecute(object parameter)
         {
             try
             {
-                await ExportFontCommand.ExecuteAsync(this.shell);
+                await QuitCommand.ExecuteAsync(this.shell);
             }
             catch (Exception e)
             {

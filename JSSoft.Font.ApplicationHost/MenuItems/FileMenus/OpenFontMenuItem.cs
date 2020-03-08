@@ -20,6 +20,8 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
             this.shell = shell;
             this.DisplayName = "Open Font...";
             this.InputGesture = new KeyGesture(Key.O, ModifierKeys.Control);
+            this.shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
+            this.shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();
         }
 
         protected override bool OnCanExecute(object parameter) => OpenFontCommand.CanExecute(this.shell);

@@ -78,8 +78,10 @@
     <Compile Include="Character.cs" />
     <Compile Include="CharacterGroup.cs" />
     <Compile Include="ColorUtility.cs" />
+    <Compile Include="Commands\QuitCommand.cs" />
     <Compile Include="Commands\LoadSettingsCommand.cs" />
     <Compile Include="Commands\ExportFontCommand.cs" />
+    <Compile Include="Commands\CloseFontCommand.cs" />
     <Compile Include="Commands\SaveSettingsCommand.cs" />
     <Compile Include="Commands\OpenFontCommand.cs" />
     <Compile Include="Controls\HeaderedContentList.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="Converters\GroupRangeToDisplayTextConverter.cs" />
     <Compile Include="Converters\CharacterToDisplayTextConverter.cs" />
     <Compile Include="Converters\MultiplicationConverter.cs" />
+    <Compile Include="Converters\ValueToHexConverter.cs" />
     <Compile Include="Dialogs\ViewModels\AboutViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\ExportSettingsViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\PreviewItemViewModel.cs" />
@@ -126,8 +129,11 @@
     <Compile Include="FontInfo.cs" />
     <Compile Include="IPropertyItem.cs" />
     <Compile Include="IPropertyService.cs" />
+    <Compile Include="MenuItems\FileMenus\QuitMenuItem.cs" />
+    <Compile Include="MenuItems\FileMenus\CloseFontMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\RecentSettingsItemMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\RecentSettingsMenuItem.cs" />
+    <Compile Include="MenuItems\FileMenus\SaveSettingsAsMenuItem.cs" />
     <Compile Include="MenuItems\HelpMenus\AboutMenuItem.cs" />
     <Compile Include="MenuItems\ToolMenuItem.cs" />
     <Compile Include="MenuItems\FileMenus\LoadSettingsMenuItem.cs" />

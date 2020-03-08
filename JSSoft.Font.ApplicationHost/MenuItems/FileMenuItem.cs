@@ -12,6 +12,9 @@ namespace JSSoft.Font.ApplicationHost.MenuItems
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(IShell))]
     [Order(0)]
+    [CategoryDefinition("Settings")]
+    [CategoryDefinition("Recent")]
+    [CategoryDefinition("Quit")]
     class FileMenuItem : MenuItemBase
     {
         [ImportingConstructor]

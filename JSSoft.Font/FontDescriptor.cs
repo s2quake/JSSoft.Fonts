@@ -113,10 +113,8 @@ namespace JSSoft.Font
             };
             if (charItem.ID == (uint)'b')
             {
-                charItem.Bitmap.Save($@"C:\Users\s2quake\Desktop\Bitmap\{(char)charItem.ID}.bmp", ImageFormat.Bmp);
-                charItem.Bitmap.Save($@"C:\Users\s2quake\Desktop\Bitmap\{(char)charItem.ID}.png", ImageFormat.Png);
-
-                
+                //charItem.Bitmap.Save($@"C:\Users\s2quake\Desktop\Bitmap\{(char)charItem.ID}.bmp", ImageFormat.Bmp);
+                //charItem.Bitmap.Save($@"C:\Users\s2quake\Desktop\Bitmap\{(char)charItem.ID}.png", ImageFormat.Png);
             }
             this.glyphByID.Add(charCode, charItem);
         }
@@ -125,20 +123,7 @@ namespace JSSoft.Font
         {
             if (ftbmp.Rows > 0 && ftbmp.Width > 0)
             {
-                var bitmap = ftbmp.ToGdipBitmap();
-
-                var bitmap2 = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
-                for (var y = 0; y < bitmap.Height; y++)
-                {
-                    for (var x = 0; x < bitmap.Width; x++)
-                    {
-                        var color = bitmap.GetPixel(x, y);
-                        
-                        bitmap2.SetPixel(x, y, Color.FromArgb(color.A, 255, 255, 255));
-                    }
-                }
-
-                return bitmap2;
+                return ftbmp.ToGdipBitmap(Color.White);
                 //var bitmapBackground = new Bitmap(bitmap.Width, bitmap.Height);
                 //var graphics = Graphics.FromImage(bitmapBackground);
                 //graphics.FillRectangle(Brushes.Red, new Rectangle(0, 0, bitmap.Width, bitmap.Height));

@@ -42,7 +42,7 @@ namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
             {
                 this.min = value;
                 this.NotifyOfPropertyChange(nameof(Min));
-                this.NotifyOfPropertyChange(nameof(MinString));
+                //this.NotifyOfPropertyChange(nameof(MinString));
             }
         }
 
@@ -53,13 +53,13 @@ namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
             {
                 this.max = value;
                 this.NotifyOfPropertyChange(nameof(Max));
-                this.NotifyOfPropertyChange(nameof(MaxString));
+                //this.NotifyOfPropertyChange(nameof(MaxString));
             }
         }
 
-        public string MinString => $"0x{this.Min:X}";
+        //public string MinString => $"0x{this.Min:X}";
 
-        public string MaxString => $"0x{this.Max:X}";
+        //public string MaxString => $"0x{this.Max:X}";
 
         public override bool IsVisible => true;
 

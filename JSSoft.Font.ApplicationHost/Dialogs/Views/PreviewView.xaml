@@ -53,7 +53,7 @@
                 <DataTemplate>
                     <Grid>
                         <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                            <Image x:Name="Image" Source="{Binding Image}" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                            <Image x:Name="Image" Source="{Binding ImageSource}" RenderOptions.BitmapScalingMode="NearestNeighbor">
                                 <Image.Width>
                                     <MultiBinding Converter="{StaticResource MultiplicationConverter}">
                                         <Binding Path="Width" />

@@ -15,6 +15,8 @@ namespace JSSoft.Font.ApplicationHost
 
         Task ExportAsync(string filename);
 
+        Task SaveSettingsAsync();
+
         Task SaveSettingsAsync(string filename);
 
         Task LoadSettingsAsync(string filename);
@@ -36,6 +38,8 @@ namespace JSSoft.Font.ApplicationHost
         FontInfo FontInfo { get; }
 
         ExportSettings Settings { get; }
+
+        string SettingsPath { get; }
 
         IEnumerable<ICharacterGroup> Groups { get; }
 

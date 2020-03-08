@@ -47,7 +47,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
             this.viewbox = this.Template.FindName(PART_Viewbox, this) as Viewbox;
             if (this.viewbox != null)
             {
-                this.viewbox.Stretch = Stretch.None;
+                //this.viewbox.Stretch = Stretch.None;
             }
             this.UpdateImageLayout();
         }

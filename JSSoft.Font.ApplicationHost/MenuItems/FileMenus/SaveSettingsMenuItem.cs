@@ -1,12 +1,15 @@
 ﻿using JSSoft.Font.ApplicationHost.Commands;
 using Ntreev.ModernUI.Framework;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Windows.Input;
 
 namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 {
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(FileMenuItem))]
+    [CategoryName("Settings")]
     class SaveSettingsMenuItem : MenuItemBase
     {
         private readonly IShell shell;
@@ -16,6 +19,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
         {
             this.shell = shell;
             this.DisplayName = "Save Settings...";
+            this.InputGesture = new KeyGesture(Key.S, ModifierKeys.Control);
             this.shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
             this.shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();
         }
@@ -26,7 +30,10 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
         {
             try
             {
-                await SaveSettingsCommand.ExecuteAsync(this.shell);
+                if (this.shell.SettingsPath != string.Empty)
+                    await this.shell.SaveSettingsAsync();
+                else
+                    await SaveSettingsCommand.ExecuteAsync(this.shell);
             }
             catch (Exception e)
             {
