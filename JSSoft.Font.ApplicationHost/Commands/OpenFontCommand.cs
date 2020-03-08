@@ -27,13 +27,18 @@ namespace JSSoft.Font.ApplicationHost.Commands
 
             if (dialog.ShowDialog() == true)
             {
-                var settings = GetSettings(dialog.FileName);
-                if (settings != null)
-                {
-                    if (shell.IsOpened == true)
-                        await shell.CloseAsync();
-                    await shell.OpenAsync(dialog.FileName, settings.Size, settings.DPI, settings.FaceIndex);
-                }
+                await ExecuteAsync(shell, dialog.FileName);
+            }
+        }
+
+        public static async Task ExecuteAsync(IShell shell, string fontPath)
+        {
+            var settings = GetSettings(fontPath);
+            if (settings != null)
+            {
+                if (shell.IsOpened == true)
+                    await shell.CloseAsync();
+                await shell.OpenAsync(fontPath, settings.Size, settings.DPI, settings.FaceIndex);
             }
         }
 

@@ -98,10 +98,6 @@ namespace JSSoft.Font.ApplicationHost
             this.PropertyWindowColumn.MinWidth = 0;
             e.Handled = true;
             this.Focus();
-            if (this.WindowState != WindowState.Maximized)
-            {
-                this.Dispatcher.InvokeAsync(() => this.SizeToContent = SizeToContent.Width);
-            }
         }
 
         private void HidePropertyWindow_CanExecute(object sender, CanExecuteRoutedEventArgs e)

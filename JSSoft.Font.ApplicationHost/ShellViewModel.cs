@@ -46,6 +46,7 @@ namespace JSSoft.Font.ApplicationHost
             this.DisplayName = "JSFont";
             this.Settings.PropertyChanged += ExportSettings_PropertyChanged;
             this.Dispatcher.InvokeAsync(this.ReadRecentSettings);
+            this.Dispatcher.InvokeAsync(this.ReadRecentFonts);
         }
 
         public async Task OpenAsync(string fontPath, int size, int dpi, int faceIndex)
@@ -226,6 +227,8 @@ namespace JSSoft.Font.ApplicationHost
 
         public ObservableCollection<string> RecentSettings { get; } = new ObservableCollection<string>();
 
+        public ObservableCollection<string> RecentFonts { get; } = new ObservableCollection<string>();
+
         public CharacterGroup SelectedGroup
         {
             get => this.selectedGroup;
@@ -384,11 +387,12 @@ namespace JSSoft.Font.ApplicationHost
             this.IsModified = true;
         }
 
-        private Task OpenFontDescriptorAsync(string fontPath, int size, int dpi, int faceIndex)
+        private async Task OpenFontDescriptorAsync(string fontPath, int size, int dpi, int faceIndex)
         {
-            return Task.Run(() =>
+            var fullPath = Path.GetFullPath(fontPath);
+            await Task.Run(() =>
             {
-                var fontDescriptor = new FontDescriptor(fontPath, (uint)dpi, size, faceIndex);
+                var fontDescriptor = new FontDescriptor(fullPath, (uint)dpi, size, faceIndex);
                 this.checkedCharacters = new ObservableCollection<uint>();
                 this.checkedCharacters.CollectionChanged += CheckedCharacters_CollectionChanged;
                 this.groupList.Clear();
@@ -399,6 +403,12 @@ namespace JSSoft.Font.ApplicationHost
                     Array.ForEach(items, item => this.groupList.Add(item));
                 }
                 this.FontDescriptor = fontDescriptor;
+            });
+            await this.Dispatcher.InvokeAsync(() =>
+            {
+                this.RecentFonts.Remove(fullPath);
+                this.RecentFonts.Insert(0, fullPath);
+                this.configs[nameof(RecentFonts)] = this.RecentFonts.ToArray();
             });
         }
 
@@ -459,6 +469,27 @@ namespace JSSoft.Font.ApplicationHost
                         var fullPath = Path.GetFullPath(item);
                         if (File.Exists(fullPath) == true)
                             this.RecentSettings.Add(fullPath);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+        }
+
+        private void ReadRecentFonts()
+        {
+            if (this.configs.Contains(nameof(RecentFonts)) == true)
+            {
+                var settigns = this.configs[nameof(RecentFonts)] as string[];
+                foreach (var item in settigns)
+                {
+                    try
+                    {
+                        var fullPath = Path.GetFullPath(item);
+                        if (File.Exists(fullPath) == true)
+                            this.RecentFonts.Add(fullPath);
                     }
                     catch
                     {
@@ -560,6 +591,8 @@ namespace JSSoft.Font.ApplicationHost
         IEnumerable<ICharacterGroup> IShell.Groups => this.Groups;
 
         IEnumerable<string> IShell.RecentSettings => this.RecentSettings;
+
+        IEnumerable<string> IShell.RecentFonts => this.RecentFonts;
 
         ICharacterGroup IShell.SelectedGroup
         {

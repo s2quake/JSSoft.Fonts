@@ -51,6 +51,8 @@ namespace JSSoft.Font.ApplicationHost
 
         IEnumerable<string> RecentSettings { get; }
 
+        IEnumerable<string> RecentFonts { get; }
+
         IPropertyService PropertyService { get; }
 
         event EventHandler Opened;
