@@ -145,7 +145,7 @@
                      ItemTemplate="{StaticResource ListBox_ItemTemplate}" ItemContainerStyle="{StaticResource ListBox_ItemContainerStyle}" />
             <GridSplitter Grid.Column="1" Width="5" Background="{StaticResource WindowBackground}" />
             <jsfc:CharacterView x:Name="CharacterView" Grid.Column="2" CharacterGroup="{Binding SelectedGroup}" BorderThickness="1 1 0 0 " 
-                                Character="{Binding SelectedCharacter, Mode=TwoWay}" ZoomLevel="{Binding ZoomLevel}" Grid.ColumnSpan="2" Margin="5,0,0,0" />
+                                Character="{Binding SelectedCharacter, Mode=TwoWay}" ZoomLevel="{Binding ZoomLevel}" />
             <GridSplitter Grid.Column="3" Width="5" Background="{StaticResource WindowBackground}" Visibility="{Binding Visibility, ElementName=PropertyWindow}" />
             <ScrollViewer Grid.Column="4" x:Name="PropertyWindow" >
                 <ItemsControl x:Name="properties" ItemsSource="{Binding PropertyService.Properties}" BorderThickness="1 1 0 0" BorderBrush="{StaticResource ItemBorder}"
