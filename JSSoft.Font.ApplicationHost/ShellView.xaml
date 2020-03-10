@@ -18,7 +18,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <CheckBox x:Name="CheckBox" IsChecked="{Binding IsChecked, Mode=TwoWay}" IsThreeState="True" />
+                <CheckBox x:Name="CheckBox" IsChecked="{Binding IsChecked, Mode=OneWay}" Click="ListBoxItem_CheckBox_Click" />
                 <TextBlock Grid.Column="1" Text="{Binding DisplayName}" />
             </Grid>
         </DataTemplate>
@@ -41,6 +41,28 @@
                         <DockPanel LastChildFill="False" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </DataTemplate>
+
+        <DataTemplate x:Key="Undo_DropDownTemplate">
+            <ItemsControl ItemsSource="{Binding UndoService.UndoItems, RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <MenuItem x:Name="UndoItem" Header="{Binding}"
+                                  Click="UndoItem_Click" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Popup}}}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </DataTemplate>
+
+        <DataTemplate x:Key="Redo_DropDownTemplate">
+            <ItemsControl ItemsSource="{Binding UndoService.RedoItems, RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <MenuItem x:Name="RedoItem" Header="{Binding}"
+                                  Click="RedoItem_Click" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Popup}}}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
             </ItemsControl>
         </DataTemplate>
 
@@ -102,6 +124,12 @@
                 <nmfc:IconButton Source="Images/left-arrow.png" Command="{x:Static jsfi:FontCommands.NavigateBackward}"
                                  DropDownTemplate="{StaticResource Navigator_DataTemplate}" />
                 <nmfc:IconButton Source="Images/right-arrow.png" Command="{x:Static jsfi:FontCommands.NavigateForward}" />
+            </ToolBar>
+            <ToolBar ToolBarTray.IsLocked="True">
+                <nmfc:IconButton Source="/Ntreev.ModernUI.Framework;component/Images/undo.png" Command="{x:Static ApplicationCommands.Undo}" 
+                                 DropDownTemplate="{StaticResource Undo_DropDownTemplate}" />
+                <nmfc:IconButton Source="/Ntreev.ModernUI.Framework;component/Images/redo.png" Command="{x:Static ApplicationCommands.Redo}"
+                                 DropDownTemplate="{StaticResource Redo_DropDownTemplate}" />
             </ToolBar>
         </ToolBarTray>
         <Grid Grid.Row="2">

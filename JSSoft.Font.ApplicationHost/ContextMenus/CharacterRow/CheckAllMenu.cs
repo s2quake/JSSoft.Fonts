@@ -1,10 +1,6 @@
-﻿using Ntreev.ModernUI.Framework;
-using System;
-using System.Collections.Generic;
+﻿using JSSoft.Font.ApplicationHost.UndoActions;
+using Ntreev.ModernUI.Framework;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSSoft.Font.ApplicationHost.ContextMenus.CharacterRow
 {
@@ -13,8 +9,12 @@ namespace JSSoft.Font.ApplicationHost.ContextMenus.CharacterRow
     [DefaultMenu]
     class CheckAllMenu : MenuItemBase<ICharacterRow>
     {
-        public CheckAllMenu()
+        private readonly IUndoService undoService;
+
+        [ImportingConstructor]
+        public CheckAllMenu(IUndoService undoService)
         {
+            this.undoService = undoService;
             this.HideOnDisabled = true;
             this.DisplayName = "Check All";
         }
@@ -26,8 +26,7 @@ namespace JSSoft.Font.ApplicationHost.ContextMenus.CharacterRow
 
         protected override void OnExecute(ICharacterRow obj)
         {
-            obj.IsChecked = true;
+            this.undoService.Execute(new CheckCharacterRowAction(obj));
         }
     }
-
 }

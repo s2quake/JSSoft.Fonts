@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ntreev.ModernUI.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace JSSoft.Font.ApplicationHost
     {
         private const string CharacterNavigator = nameof(CharacterNavigator);
         private const string Shell = nameof(Shell);
+        private const string UndoService = nameof(UndoService);
 
         public static readonly DependencyProperty CharacterNavigatorProperty =
             DependencyProperty.RegisterAttached(CharacterNavigator, typeof(ICharacterNavigator), typeof(ApplicationService),
@@ -18,6 +20,10 @@ namespace JSSoft.Font.ApplicationHost
 
         public static readonly DependencyProperty ShellProperty =
             DependencyProperty.RegisterAttached(Shell, typeof(IShell), typeof(ApplicationService),
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
+
+        public static readonly DependencyProperty UndoServiceProperty =
+            DependencyProperty.RegisterAttached(UndoService, typeof(IUndoService), typeof(ApplicationService),
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
 
         public static ICharacterNavigator GetCharacterNavigator(DependencyObject d)
@@ -38,6 +44,17 @@ namespace JSSoft.Font.ApplicationHost
         public static void SetShell(DependencyObject d, IShell value)
         {
             d.SetValue(ShellProperty, value);
+        }
+
+
+        public static IUndoService GetUndoService(DependencyObject d)
+        {
+            return (IUndoService)d.GetValue(UndoServiceProperty);
+        }
+
+        public static void SetUndoService(DependencyObject d, IUndoService value)
+        {
+            d.SetValue(UndoServiceProperty, value);
         }
     }
 }

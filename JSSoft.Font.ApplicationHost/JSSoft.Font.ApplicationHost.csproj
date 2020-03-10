@@ -203,6 +203,13 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="IShell.cs" />
+    <Compile Include="UndoActions\UncheckCharacterGroupAction.cs" />
+    <Compile Include="UndoActions\CheckCharacterGroupAction.cs" />
+    <Compile Include="UndoActions\UncheckCharacterRowAction.cs" />
+    <Compile Include="UndoActions\CheckCharacterRowAction.cs" />
+    <Compile Include="UndoActions\UncheckCharacterAction.cs" />
+    <Compile Include="UndoActions\CheckCharacterAction.cs" />
+    <Compile Include="UndoService.cs" />
     <Page Include="Assets\HeaderedContentList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

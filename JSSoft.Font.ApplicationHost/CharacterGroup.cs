@@ -103,7 +103,7 @@ namespace JSSoft.Font.ApplicationHost
 
         string ICharacterGroup.Name => this.Name;
 
-        ICharacterRow[] ICharacterGroup.Items => this.Items;
+        ICharacterRow[] ICharacterGroup.Items => this.ActiveItems;
 
         public bool ContainsListCollection => false;
 

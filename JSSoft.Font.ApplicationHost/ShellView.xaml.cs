@@ -1,5 +1,6 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
 using JSSoft.Font.ApplicationHost.Input;
+using JSSoft.Font.ApplicationHost.UndoActions;
 using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,7 @@ namespace JSSoft.Font.ApplicationHost
 
         private readonly IAppConfiguration configs;
         private readonly ICharacterNavigator navigator;
+        private readonly IUndoService undoService;
         //private readonly IShell shell;
         //private readonly Stack<ICharacter> backwards = new Stack<ICharacter>();
         //private readonly Stack<ICharacter> forwards = new Stack<ICharacter>();
@@ -48,20 +50,26 @@ namespace JSSoft.Font.ApplicationHost
         }
 
         [ImportingConstructor]
-        public ShellView(IShell shell, IAppConfiguration configs, ICharacterNavigator navigator)
+        public ShellView(IShell shell, IAppConfiguration configs, ICharacterNavigator navigator, IUndoService undoService)
         {
             this.configs = configs;
             this.navigator = navigator;
+            this.undoService = undoService;
             InitializeComponent();
             this.CommandBindings.Add(new CommandBinding(ShowPropertyWindow, ShowPropertyWindow_Execute, ShowPropertyWindow_CanExecute));
             this.CommandBindings.Add(new CommandBinding(HidePropertyWindow, HidePropertyWindow_Execute, HidePropertyWindow_CanExecute));
             this.CommandBindings.Add(new CommandBinding(FontCommands.NavigateBackward, NavigateBackward_Execute, NavigateBackward_CanExecute));
             this.CommandBindings.Add(new CommandBinding(FontCommands.NavigateForward, NavigateForward_Execute, NavigateForward_CanExecute));
+            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Undo, Undo_Execute, Undo_CanExecute));
+            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Redo, Redo_Execute, Redo_CanExecute));
             ApplicationService.SetShell(this, shell);
             ApplicationService.SetCharacterNavigator(this, navigator);
+            ApplicationService.SetUndoService(this, undoService);
         }
 
         public ICharacterNavigator Navigator => this.navigator;
+
+        public IUndoService UndoService => this.undoService;
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
@@ -189,6 +197,30 @@ namespace JSSoft.Font.ApplicationHost
             e.Handled = true;
         }
 
+        private void Undo_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.undoService.Undo();
+            e.Handled = true;
+        }
+
+        private void Undo_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = this.undoService.CanUndo;
+            e.Handled = true;
+        }
+
+        private void Redo_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.undoService.Redo();
+            e.Handled = true;
+        }
+
+        private void Redo_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = this.undoService.CanRedo;
+            e.Handled = true;
+        }
+
         private async void Item_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem)
@@ -200,6 +232,52 @@ namespace JSSoft.Font.ApplicationHost
                 if (menuItem.DataContext is ICharacterNavigatorItem item)
                 {
                     await this.Dispatcher.InvokeAsync(() => this.navigator.Current = item, System.Windows.Threading.DispatcherPriority.Background);
+                }
+            }
+        }
+
+        private void UndoItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem)
+            {
+                if (menuItem.Tag is Popup popup)
+                {
+                    popup.IsOpen = false;
+                }
+                if (menuItem.DataContext is IUndo item)
+                {
+                    this.undoService.Undo(item);
+                }
+            }
+        }
+
+        private void RedoItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem)
+            {
+                if (menuItem.Tag is Popup popup)
+                {
+                    popup.IsOpen = false;
+                }
+                if (menuItem.DataContext is IUndo item)
+                {
+                    this.undoService.Redo(item);
+                }
+            }
+        }
+
+        private void ListBoxItem_CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox checkBox && checkBox.DataContext is ICharacterGroup group)
+            {
+                var isChecked = group.IsChecked ?? false;
+                if (isChecked == true)
+                {
+                    this.undoService.Execute(new UncheckCharacterGroupAction(group));
+                }
+                else
+                {
+                    this.undoService.Execute(new CheckCharacterGroupAction(group));
                 }
             }
         }

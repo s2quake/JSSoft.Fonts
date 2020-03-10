@@ -1,10 +1,6 @@
-﻿using Ntreev.ModernUI.Framework;
-using System;
-using System.Collections.Generic;
+﻿using JSSoft.Font.ApplicationHost.UndoActions;
+using Ntreev.ModernUI.Framework;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSSoft.Font.ApplicationHost.ContextMenus.Character
 {
@@ -13,8 +9,12 @@ namespace JSSoft.Font.ApplicationHost.ContextMenus.Character
     [DefaultMenu]
     class UncheckMenu : MenuItemBase<ICharacter>
     {
-        public UncheckMenu()
+        private readonly IUndoService undoService;
+
+        [ImportingConstructor]
+        public UncheckMenu(IUndoService undoService)
         {
+            this.undoService = undoService;
             this.HideOnDisabled = true;
             this.DisplayName = "Uncheck";
         }
@@ -26,7 +26,7 @@ namespace JSSoft.Font.ApplicationHost.ContextMenus.Character
 
         protected override void OnExecute(ICharacter obj)
         {
-            obj.IsChecked = false;
+            this.undoService.Execute(new UncheckCharacterAction(obj));
         }
     }
 }
