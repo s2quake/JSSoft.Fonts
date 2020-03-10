@@ -19,12 +19,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSSoft.Font.ConsoleHost", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ntreev.Library.Commands", "submodules\Ntreev.Library.Commands\Ntreev.Library.Commands.Net45\Ntreev.Library.Commands.csproj", "{0D96CC61-6D74-49B4-A558-33AC0DCF8529}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "JSSoft.Font.Sharing", "JSSoft.Font.Sharing\JSSoft.Font.Sharing.shproj", "{437FDF57-515A-42CB-B8B5-06EEC3C0760E}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		JSSoft.Font.Sharing\JSSoft.Font.Sharing.projitems*{05e4204b-2e5c-40a6-b28c-345cf45ffa72}*SharedItemsImports = 4
 		submodules\Ntreev.Library.Commands\Ntreev.Library.Commands.AssemblyInfo\Ntreev.Library.Commands.AssemblyInfo.projitems*{0d96cc61-6d74-49b4-a558-33ac0dcf8529}*SharedItemsImports = 4
 		submodules\Ntreev.Library\Ntreev.Library.AssemblyInfo\Ntreev.Library.AssemblyInfo.projitems*{1918437f-4fbf-4731-ac5b-981a4a4cb1f1}*SharedItemsImports = 4
 		submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.AssemblyInfo\Ntreev.ModernUI.AssemblyInfo.projitems*{1c55fed2-99eb-469d-9dac-a1f7b9e7c790}*SharedItemsImports = 4
 		submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.AssemblyInfo\Ntreev.ModernUI.AssemblyInfo.projitems*{20c3d3dd-de99-4126-9449-bca12e4d255d}*SharedItemsImports = 4
+		JSSoft.Font.Sharing\JSSoft.Font.Sharing.projitems*{437fdf57-515a-42cb-b8b5-06eec3c0760e}*SharedItemsImports = 13
+		JSSoft.Font.Sharing\JSSoft.Font.Sharing.projitems*{46b68156-3aa5-4d2c-afc5-1b6fb9120c3e}*SharedItemsImports = 4
+		JSSoft.Font.Sharing\JSSoft.Font.Sharing.projitems*{9bfdc602-9227-4bb1-8734-2983c2cd4b8c}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
