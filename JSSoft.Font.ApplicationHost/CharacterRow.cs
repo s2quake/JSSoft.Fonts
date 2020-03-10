@@ -85,6 +85,8 @@ namespace JSSoft.Font.ApplicationHost
 
         public CharacterGroup Group { get; }
 
+        public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems(this, AppBootstrapperBase.Current);
+
         public void SetChecked(bool value)
         {
             if (this.isChecked != value)

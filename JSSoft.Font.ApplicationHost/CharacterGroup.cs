@@ -1,4 +1,5 @@
-﻿using Ntreev.ModernUI.Framework.ViewModels;
+﻿using Ntreev.ModernUI.Framework;
+using Ntreev.ModernUI.Framework.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -56,6 +57,8 @@ namespace JSSoft.Font.ApplicationHost
         public CharacterRow[] Items { get; }
 
         public CharacterRow[] ActiveItems { get; }
+
+        public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems(this, AppBootstrapperBase.Current);
 
         private CharacterRow[] CreateItems(uint min, uint max)
         {

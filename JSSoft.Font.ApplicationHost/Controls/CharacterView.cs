@@ -58,9 +58,23 @@ namespace JSSoft.Font.ApplicationHost.Controls
             if (this.gridControl != null)
             {
                 this.gridControl.SelectionChanged += GridControl_SelectionChanged;
+                this.gridControl.PropertyChanged += GridControl_PropertyChanged;
                 this.gridControl.ItemsSource = this.groupView;
                 this.UpdateItemsSource();
                 this.UpdateActualItemHeight();
+            }
+        }
+
+        private void GridControl_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "CurrentItem")
+            {
+                int qwer = 0;
+            }
+
+            if (e.PropertyName == "CurrentColumn")
+            {
+                int qwer = 0;
             }
         }
 
@@ -208,6 +222,8 @@ namespace JSSoft.Font.ApplicationHost.Controls
         {
             if (this.Character != null && this.Character.Row is ICharacterRow row)
             {
+                this.gridControl.SelectionChanged -= GridControl_SelectionChanged;
+                this.gridControl.SelectedCellRanges.Clear();
                 var column = row.Items.IndexOf(this.Character);
                 for (var i = 0; i < this.gridControl.Items.Count; i++)
                 {
@@ -232,6 +248,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
                         break;
                     }
                 }
+                this.gridControl.SelectionChanged += GridControl_SelectionChanged;
             }
         }
 

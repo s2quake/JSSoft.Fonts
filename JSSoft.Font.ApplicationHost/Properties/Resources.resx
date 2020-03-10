@@ -120,4 +120,10 @@
   <data name="FontFilter" xml:space="preserve">
     <value>font files (*.otf;*.ttc;*.ttf)|*.otf;*.ttc;*.ttf|all files (*.*)|*.*</value>
   </data>
+  <data name="NavigateBackward" xml:space="preserve">
+    <value>Navigate Backward</value>
+  </data>
+  <data name="NavigateForward" xml:space="preserve">
+    <value>Navigate Forward</value>
+  </data>
 </root>

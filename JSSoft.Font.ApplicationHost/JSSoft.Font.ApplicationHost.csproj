@@ -84,6 +84,11 @@
     <Compile Include="Commands\CloseFontCommand.cs" />
     <Compile Include="Commands\SaveSettingsCommand.cs" />
     <Compile Include="Commands\OpenFontCommand.cs" />
+    <Compile Include="ContextMenus\CharacterGroup\CheckAllMenu.cs" />
+    <Compile Include="ContextMenus\CharacterGroup\UncheckAllMenu.cs" />
+    <Compile Include="ContextMenus\CharacterRow\UncheckAllMenu.cs" />
+    <Compile Include="ContextMenus\CharacterRow\CheckAllMenu.cs" />
+    <Compile Include="ContextMenus\Character\SaveViewMenu.cs" />
     <Compile Include="ContextMenus\Character\PrewViewMenu.cs" />
     <Compile Include="ContextMenus\Character\UncheckMenu.cs" />
     <Compile Include="ContextMenus\Character\CheckMenu.cs" />
@@ -133,6 +138,9 @@
       <DependentUpon>SelectColorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExportSettings.cs" />
+    <Compile Include="ICharacterNavigatorItem.cs" />
+    <Compile Include="ICharacterNavigator.cs" />
+    <Compile Include="Input\FontCommands.cs" />
     <Compile Include="FontInfo.cs" />
     <Compile Include="IPropertyItem.cs" />
     <Compile Include="IPropertyService.cs" />
@@ -158,6 +166,8 @@
     <Compile Include="MenuItems\ViewMenus\PreviewMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenus\ZoomOutMenuItem.cs" />
     <Compile Include="MenuItems\ViewMenus\ZoomInMenuItem.cs" />
+    <Compile Include="CharacterNavigator.cs" />
+    <Compile Include="CharacterNavigatorItem.cs" />
     <Compile Include="PropertyItemBase.cs" />
     <Compile Include="PropertyItems\ViewModels\CharacterGroupViewModel.cs" />
     <Compile Include="PropertyItems\ViewModels\FontInfoViewModel.cs" />
@@ -346,6 +356,9 @@
     <Resource Include="Images\zoom-in.png" />
     <Resource Include="Images\zoom-out.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\left-arrow.png" />
+    <Resource Include="Images\right-arrow.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

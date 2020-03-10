@@ -9,8 +9,8 @@
                     xmlns:vm="clr-namespace:JSSoft.Font.ApplicationHost">
 
     <DataTemplate x:Key="Cell_ContentTemplate">
-        <jsfc:CharacterControl x:Name="CharacterControl" Text="{Binding Text}" IsEnabled="{Binding IsEnabled}" 
-                               Source="{Binding Source, IsAsync=True}" GlyphMetrics="{Binding GlyphMetrics}"
+        <jsfc:CharacterControl x:Name="CharacterControl" IsEnabled="{Binding IsEnabled}" 
+                               Character="{Binding}"
                                BorderBrush="{StaticResource WindowBackground}" 
                                ZoomLevel="{Binding ZoomLevel, RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterView}}}"
                                BorderThickness="{Binding ItemThickness, RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterView}}}" />
@@ -60,9 +60,13 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <nmfc:ModernContextMenu x:Key="CharacterRowSelector_ContextMenu" DataContext="{Binding Path=PlacementTarget.DataContext.DataContext.Row, RelativeSource={RelativeSource Mode=Self}}" 
+                            ItemsSource="{Binding MenuItems}" />
+
     <Style x:Key="CharacterRowSelector_Style" TargetType="{x:Type xcdg:RowSelector}" BasedOn="{StaticResource DataRowSelector_Style}">
         <Setter Property="ContentTemplate" Value="{StaticResource CharacterRowSelector_ContentTemplate}" />
         <Setter Property="Template" Value="{StaticResource CharacterRowSelector_Template}" />
+        <Setter Property="ContextMenu" Value="{StaticResource CharacterRowSelector_ContextMenu}" />
         <EventSetter Event="MouseDoubleClick" Handler="RowSelector_MouseDoubleClick" />
     </Style>
 

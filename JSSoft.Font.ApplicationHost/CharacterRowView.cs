@@ -1,4 +1,5 @@
-﻿using Ntreev.ModernUI.Framework.ViewModels;
+﻿using Ntreev.ModernUI.Framework;
+using Ntreev.ModernUI.Framework.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,11 +11,9 @@ using System.Threading.Tasks;
 
 namespace JSSoft.Font.ApplicationHost
 {
-    class CharacterRowView : INotifyPropertyChanged
+    class CharacterRowView : PropertyChangedBase
     {
         private ICharacterRow row;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public CharacterRowView()
         {
@@ -27,7 +26,7 @@ namespace JSSoft.Font.ApplicationHost
             set
             {
                 this.row = value;
-                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
+                this.Refresh();
             }
         }
 

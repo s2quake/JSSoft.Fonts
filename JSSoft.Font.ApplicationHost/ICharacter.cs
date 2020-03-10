@@ -1,4 +1,5 @@
 ﻿using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace JSSoft.Font.ApplicationHost
 {
@@ -14,6 +15,6 @@ namespace JSSoft.Font.ApplicationHost
 
         bool IsEnabled { get; }
 
-        ImageSource Source { get; }
+        BitmapSource Source { get; }
     }
 }

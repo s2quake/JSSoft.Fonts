@@ -11,7 +11,7 @@ namespace JSSoft.Font.ApplicationHost.ContextMenus.Character
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(ICharacter))]
     [DefaultMenu]
-    class CheckMenu : MenuItemBase
+    class CheckMenu : MenuItemBase<ICharacter>
     {
         public CheckMenu()
         {
@@ -19,21 +19,14 @@ namespace JSSoft.Font.ApplicationHost.ContextMenus.Character
             this.DisplayName = "Check";
         }
 
-        protected override bool OnCanExecute(object parameter)
+        protected override bool OnCanExecute(ICharacter obj)
         {
-            if (parameter is ICharacter character && character.IsEnabled == true)
-            {
-                return character.IsChecked == false;
-            }
-            return false;
+            return obj.IsEnabled == true && obj.IsChecked == false;
         }
 
-        protected override void OnExecute(object parameter)
+        protected override void OnExecute(ICharacter obj)
         {
-            if (parameter is ICharacter character && character.IsEnabled == true)
-            {
-                character.IsChecked = true;
-            }
+            obj.IsChecked = true;
         }
     }
 }

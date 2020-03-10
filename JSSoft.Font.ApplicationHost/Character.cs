@@ -18,7 +18,7 @@ namespace JSSoft.Font.ApplicationHost
         private readonly CharacterContext context;
         private readonly FontGlyph glyph;
         private bool isChecked;
-        private ImageSource source;
+        private BitmapSource source;
         private GlyphMetrics glyphMetrics;
 
         internal Character(uint id)
@@ -46,6 +46,10 @@ namespace JSSoft.Font.ApplicationHost
 
         public override string ToString()
         {
+            if (this.Row != null && this.Row.Group is CharacterGroup group)
+            {
+                return $"{group.Name}: '{(char)this.ID}'";
+            }
             return $"{(char)this.ID}";
         }
 
@@ -68,7 +72,7 @@ namespace JSSoft.Font.ApplicationHost
             }
         }
 
-        public ImageSource Source
+        public BitmapSource Source
         {
             get
             {

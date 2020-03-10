@@ -17,22 +17,87 @@ namespace JSSoft.Font.ApplicationHost.Controls
     {
         public const string PART_Viewbox = nameof(PART_Viewbox);
 
-        public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register(nameof(Text), typeof(string), typeof(CharacterControl));
+        public static readonly DependencyProperty CharacterProperty =
+            DependencyProperty.Register(nameof(Character), typeof(ICharacter), typeof(CharacterControl),
+                new FrameworkPropertyMetadata(CharacterPropertyChangedCallback));
 
-        public static readonly DependencyProperty SourceProperty =
-            DependencyProperty.Register(nameof(Source), typeof(ImageSource), typeof(CharacterControl));
+        private static void CharacterPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            d.CoerceValue(ImageWidthProperty);
+            d.CoerceValue(ImageHeightProperty);
+            d.CoerceValue(ImageMarginProperty);
+        }
 
-        public static readonly DependencyProperty ImageMarginProperty =
-            DependencyProperty.Register(nameof(ImageMargin), typeof(Thickness), typeof(CharacterControl));
+        private static readonly DependencyPropertyKey ImageMarginPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(ImageMargin), typeof(Thickness), typeof(CharacterControl),
+                new FrameworkPropertyMetadata(ImageMarginPropertyChangedCallback, ImageMarginPropertyCoerceValueCallback));
+        public static readonly DependencyProperty ImageMarginProperty = ImageMarginPropertyKey.DependencyProperty;
 
-        public static readonly DependencyProperty GlyphMetricsProperty =
-            DependencyProperty.Register(nameof(GlyphMetrics), typeof(GlyphMetrics), typeof(CharacterControl),
-                new FrameworkPropertyMetadata(GlyphMetricsPropertyChangedCallback));
+        private static void ImageMarginPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            
+        }
+
+        private static object ImageMarginPropertyCoerceValueCallback(DependencyObject d, object baseValue)
+        {
+            if (d.GetValue(CharacterProperty) is ICharacter character)
+            {
+                var metrics = character.GlyphMetrics;
+                var left = metrics.HorizontalBearingX;
+                var top = metrics.BaseLine - metrics.HorizontalBearingY;
+                var right = metrics.HorizontalAdvance - (left + metrics.Width);
+                var bottom = metrics.VerticalAdvance - (top + metrics.Height);
+                return new Thickness(left, top, right, bottom);
+            }
+
+            return baseValue;
+        }
+
+        private static readonly DependencyPropertyKey ImageWidthPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(ImageWidth), typeof(double), typeof(CharacterControl),
+                new FrameworkPropertyMetadata(ImageWidthPropertyChangedCallback, ImageWidthPropertyCoerceValueCallback));
+        public static readonly DependencyProperty ImageWidthProperty = ImageWidthPropertyKey.DependencyProperty;
+
+        private static void ImageWidthPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+
+        private static object ImageWidthPropertyCoerceValueCallback(DependencyObject d, object baseValue)
+        {
+            if (d.GetValue(CharacterProperty) is ICharacter character)
+            {
+                var zoomLevel = (double)d.GetValue(ZoomLevelProperty);
+                var metrics = character.GlyphMetrics;
+                return metrics.HorizontalAdvance * zoomLevel; 
+            }
+            return baseValue;
+        }
+
+        private static readonly DependencyPropertyKey ImageHeightPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(ImageHeight), typeof(double), typeof(CharacterControl),
+                new FrameworkPropertyMetadata(ImageHeightPropertyChangedCallback, ImageHeightPropertyCoerceValueCallback));
+        public static readonly DependencyProperty ImageHeightProperty = ImageHeightPropertyKey.DependencyProperty;
 
         public static readonly DependencyProperty ZoomLevelProperty =
            DependencyProperty.Register(nameof(ZoomLevel), typeof(double), typeof(CharacterControl),
                new FrameworkPropertyMetadata(1.0, ZoomLevelPropertyChangedCallback));
+
+        private static void ImageHeightPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+
+        private static object ImageHeightPropertyCoerceValueCallback(DependencyObject d, object baseValue)
+        {
+            if (d.GetValue(CharacterProperty) is ICharacter character)
+            {
+                var zoomLevel = (double)d.GetValue(ZoomLevelProperty);
+                var metrics = character.GlyphMetrics;
+                return metrics.VerticalAdvance * zoomLevel;
+            }
+            return baseValue;
+        }
 
         private Viewbox viewbox;
 
@@ -47,7 +112,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
             this.viewbox = this.Template.FindName(PART_Viewbox, this) as Viewbox;
             if (this.viewbox != null)
             {
-                //this.viewbox.Stretch = Stretch.None;
+                //this.viewbox.UseLayoutRounding = false;
             }
             this.UpdateImageLayout();
         }
@@ -57,28 +122,16 @@ namespace JSSoft.Font.ApplicationHost.Controls
             base.OnPropertyChanged(e);
 
             var property = e.Property;
-            if (property == TextProperty || property == SourceProperty || property == GlyphMetricsProperty)
+            if (property == CharacterProperty)
             {
                 this.UpdateImageLayout();
             }
         }
 
-        public string Text
+        public ICharacter Character
         {
-            get => (string)this.GetValue(TextProperty);
-            set => this.SetValue(TextProperty, value);
-        }
-
-        public ImageSource Source
-        {
-            get => (ImageSource)this.GetValue(SourceProperty);
-            set => this.SetValue(SourceProperty, value);
-        }
-
-        public GlyphMetrics GlyphMetrics
-        {
-            get => (GlyphMetrics)this.GetValue(GlyphMetricsProperty);
-            set => this.SetValue(GlyphMetricsProperty, value);
+            get => (ICharacter)this.GetValue(CharacterProperty);
+            set => this.SetValue(CharacterProperty, value);
         }
 
         public double ZoomLevel
@@ -90,50 +143,50 @@ namespace JSSoft.Font.ApplicationHost.Controls
         public Thickness ImageMargin
         {
             get => (Thickness)this.GetValue(ImageMarginProperty);
-            set => this.SetValue(ImageMarginProperty, value);
         }
 
-        private static void GlyphMetricsPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public double ImageWidth
         {
-            if (d is CharacterControl self)
-            {
-                self.UpdateImageLayout();
-            }
+            get => (double)this.GetValue(ImageWidthProperty);
+        }
+
+        public double ImageHeight
+        {
+            get => (double)this.GetValue(ImageHeightProperty);
         }
 
         private static void ZoomLevelPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is CharacterControl self)
-            {
-                self.UpdateImageLayout();
-            }
+            d.CoerceValue(ImageWidthProperty);
+            d.CoerceValue(ImageHeightProperty);
+            d.CoerceValue(ImageMarginProperty);
         }
 
         private void UpdateImageLayout()
         {
-            var metrics = this.GlyphMetrics;
-            if (metrics.Width == 0 || metrics.Height == 0 || this.IsEnabled == false)
-            {
-                this.ImageMargin = new Thickness(0);
-                if (this.viewbox != null)
-                {
-                    this.viewbox.Width = double.NaN;
-                    this.viewbox.Height = double.NaN;
-                }
-            }
-            else
-            {
-                var left = metrics.HorizontalBearingX;
-                var top = metrics.BaseLine - metrics.HorizontalBearingY;
-                var right = metrics.HorizontalAdvance - (left + metrics.Width);
-                var bottom = metrics.VerticalAdvance - (top + metrics.Height);
-                this.ImageMargin = new Thickness(left, top, right, bottom);
-                if (this.viewbox != null)
-                {
-                    this.viewbox.Width = metrics.HorizontalAdvance * this.ZoomLevel;
-                    this.viewbox.Height = metrics.VerticalAdvance * this.ZoomLevel;
-                }
-            }
+            //var metrics = this.Character.GlyphMetrics;
+            //if (metrics.Width == 0 || metrics.Height == 0 || this.IsEnabled == false)
+            //{
+            //    this.ImageMargin = new Thickness(0);
+            //    if (this.viewbox != null)
+            //    {
+            //        this.viewbox.Width = double.NaN;
+            //        this.viewbox.Height = double.NaN;
+            //    }
+            //}
+            //else
+            //{
+            //    var left = metrics.HorizontalBearingX;
+            //    var top = metrics.BaseLine - metrics.HorizontalBearingY;
+            //    var right = metrics.HorizontalAdvance - (left + metrics.Width);
+            //    var bottom = metrics.VerticalAdvance - (top + metrics.Height);
+            //    this.ImageMargin = new Thickness(left, top, right, bottom);
+            //    if (this.viewbox != null)
+            //    {
+            //        this.viewbox.Width = metrics.HorizontalAdvance * this.ZoomLevel;
+            //        this.viewbox.Height = metrics.VerticalAdvance * this.ZoomLevel;
+            //    }
+            //}
         }
     }
 }

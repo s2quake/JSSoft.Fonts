@@ -68,5 +68,23 @@ namespace JSSoft.Font.ApplicationHost.Properties {
                 return ResourceManager.GetString("FontFilter", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Navigate Backward과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string NavigateBackward {
+            get {
+                return ResourceManager.GetString("NavigateBackward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Navigate Forward과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string NavigateForward {
+            get {
+                return ResourceManager.GetString("NavigateForward", resourceCulture);
+            }
+        }
     }
 }

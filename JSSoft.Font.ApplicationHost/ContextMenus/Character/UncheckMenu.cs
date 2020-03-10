@@ -11,7 +11,7 @@ namespace JSSoft.Font.ApplicationHost.ContextMenus.Character
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(ICharacter))]
     [DefaultMenu]
-    class UncheckMenu : MenuItemBase
+    class UncheckMenu : MenuItemBase<ICharacter>
     {
         public UncheckMenu()
         {
@@ -19,21 +19,14 @@ namespace JSSoft.Font.ApplicationHost.ContextMenus.Character
             this.DisplayName = "Uncheck";
         }
 
-        protected override bool OnCanExecute(object parameter)
+        protected override bool OnCanExecute(ICharacter obj)
         {
-            if (parameter is ICharacter character && character.IsEnabled == true)
-            {
-                return character.IsChecked == true;
-            }
-            return true;
+            return obj.IsEnabled == true && obj.IsChecked == true;
         }
 
-        protected override void OnExecute(object parameter)
+        protected override void OnExecute(ICharacter obj)
         {
-            if (parameter is ICharacter character && character.IsEnabled == true)
-            {
-                character.IsChecked = false;
-            }
+            obj.IsChecked = false;
         }
     }
 }

@@ -7,7 +7,8 @@
              xmlns:nmfv="clr-namespace:Ntreev.ModernUI.Framework.Converters;assembly=Ntreev.ModernUI.Framework"
              xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
              xmlns:jsfv="clr-namespace:JSSoft.Font.ApplicationHost.Converters"
-             mc:Ignorable="d" nmfc:DialogWindow.DesiredResizeMode="CanResize" d:DesignHeight="400" d:DesignWidth="400">
+             mc:Ignorable="d" nmfc:DialogWindow.DesiredResizeMode="CanResize" 
+             nmfc:DialogWindow.DesiredWidth="400" nmfc:DialogWindow.DesiredHeight="400">
 
     <UserControl.Resources>
         <jsfv:MultiplicationConverter x:Key="MultiplicationConverter" />
@@ -25,7 +26,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ToolBarTray>
+        <ToolBarTray Visibility="Collapsed">
             <nmfc:ModernToolBar>
                 <nmfc:IconButton x:Name="ZoomOut" Source="/jsfontApp;component/Images/zoom-out.png" Click="ZoomOut_Click" />
                 <nmfc:IconButton x:Name="ZoomIn" Source="/jsfontApp;component/Images/zoom-in.png" Click="ZoomIn_Click" />
@@ -43,8 +44,12 @@
                 <Button x:Name="SelectPaddingColor" Background="{Binding PaddingColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" ToolTip="Padding Color" />
             </ToolBar>
         </ToolBarTray>
-        <Viewbox Grid.Row="1" UseLayoutRounding="False">
-            <Image Grid.Column="1" Grid.Row="1" Source="/jsfontApp;component/Images/zoom-in.png" RenderOptions.BitmapScalingMode="NearestNeighbor" Stretch="None" Margin="1" />
-        </Viewbox>
+        <Border Grid.Row="1" BorderThickness="1" BorderBrush="Red" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <!--<jsfc:CharacterControl Grid.Row="1" Source="{Binding ImageSource}" GlyphMetrics="{Binding GlyphMetrics}" BorderThickness="1" BorderBrush="{StaticResource WindowBorder}" />-->
+            <Viewbox>
+                <Image Source="{Binding ImageSource}" Margin="{Binding Thickness}" 
+                       RenderOptions.BitmapScalingMode="NearestNeighbor" />
+            </Viewbox>
+        </Border>
     </Grid>
 </UserControl>

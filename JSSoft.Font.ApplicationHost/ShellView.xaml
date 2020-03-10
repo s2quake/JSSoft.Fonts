@@ -7,6 +7,7 @@
                   xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
                   xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
                   xmlns:jsfv="clr-namespace:JSSoft.Font.ApplicationHost.Converters"
+                  xmlns:jsfi="clr-namespace:JSSoft.Font.ApplicationHost.Input"
                   xmlns:jsmi="clr-namespace:JSSoft.Font.ApplicationHost.MenuItems"
                   Height="550" Width="890" Style="{StaticResource ModernWindow_Style}" Title="{Binding DisplayName}">
 
@@ -21,6 +22,33 @@
                 <TextBlock Grid.Column="1" Text="{Binding DisplayName}" />
             </Grid>
         </DataTemplate>
+
+        <DataTemplate x:Key="Navigator_DataTemplate">
+            <ItemsControl ItemsSource="{Binding Navigator.Items, RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type ContentPresenter}">
+                        <Setter Property="DockPanel.Dock" Value="Bottom" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <MenuItem x:Name="Item" Header="{Binding Character}" IsChecked="{Binding IsCurrent}" 
+                                  Click="Item_Click" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Popup}}}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <DockPanel LastChildFill="False" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </DataTemplate>
+
+        <nmfc:ModernContextMenu x:Key="ListBoxItem_ContextMenu" ItemsSource="{Binding MenuItems}"/>
+
+        <Style x:Key="ListBox_ItemContainerStyle" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource FlatListBoxItem}">
+            <Setter Property="ContextMenu" Value="{StaticResource ListBoxItem_ContextMenu}" />
+        </Style>
 
         <Style x:Key="PropertyWindow_ItemContainerStyle" TargetType="{x:Type ContentPresenter}">
             <Setter Property="Margin" Value="5" />
@@ -69,8 +97,11 @@
             <nmfc:ModernMenuItem DataType="{x:Type jsmi:HelpMenuItem}" />
         </nmfc:ModernMenu>
         <ToolBarTray Grid.Row="1">
-            <nmfc:ModernToolBar ItemsSource="{Binding ToolBarItems}"/>
+            <nmfc:ModernToolBar ItemsSource="{Binding ToolBarItems}" />
             <ToolBar ToolBarTray.IsLocked="True">
+                <nmfc:IconButton Source="Images/left-arrow.png" Command="{x:Static jsfi:FontCommands.NavigateBackward}"
+                                 DropDownTemplate="{StaticResource Navigator_DataTemplate}" />
+                <nmfc:IconButton Source="Images/right-arrow.png" Command="{x:Static jsfi:FontCommands.NavigateForward}" />
             </ToolBar>
         </ToolBarTray>
         <Grid Grid.Row="2">
@@ -83,10 +114,10 @@
             </Grid.ColumnDefinitions>
             <ListBox x:Name="GroupList" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, Delay=0}" 
                      BorderThickness="0 1 1 0" BorderBrush="{StaticResource ItemBorder}"
-                     ItemTemplate="{StaticResource ListBox_ItemTemplate}" ItemContainerStyle="{StaticResource FlatListBoxItem}" />
+                     ItemTemplate="{StaticResource ListBox_ItemTemplate}" ItemContainerStyle="{StaticResource ListBox_ItemContainerStyle}" />
             <GridSplitter Grid.Column="1" Width="5" Background="{StaticResource WindowBackground}" />
             <jsfc:CharacterView x:Name="CharacterView" Grid.Column="2" CharacterGroup="{Binding SelectedGroup}" BorderThickness="1 1 0 0 " 
-                                Character="{Binding SelectedCharacter, Mode=TwoWay}" ZoomLevel="{Binding ZoomLevel}" />
+                                Character="{Binding SelectedCharacter, Mode=TwoWay}" ZoomLevel="{Binding ZoomLevel}" Grid.ColumnSpan="2" Margin="5,0,0,0" />
             <GridSplitter Grid.Column="3" Width="5" Background="{StaticResource WindowBackground}" Visibility="{Binding Visibility, ElementName=PropertyWindow}" />
             <ScrollViewer Grid.Column="4" x:Name="PropertyWindow" >
                 <ItemsControl x:Name="properties" ItemsSource="{Binding PropertyService.Properties}" BorderThickness="1 1 0 0" BorderBrush="{StaticResource ItemBorder}"
