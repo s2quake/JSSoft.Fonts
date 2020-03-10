@@ -65,5 +65,6 @@
       <Name>Ntreev.Library</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\JSSoft.Font.Sharing\JSSoft.Font.Sharing.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

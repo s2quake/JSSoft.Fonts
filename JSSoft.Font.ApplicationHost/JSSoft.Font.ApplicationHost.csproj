@@ -368,5 +368,6 @@
     <Resource Include="Images\left-arrow.png" />
     <Resource Include="Images\right-arrow.png" />
   </ItemGroup>
+  <Import Project="..\JSSoft.Font.Sharing\JSSoft.Font.Sharing.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
