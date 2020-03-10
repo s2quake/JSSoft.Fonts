@@ -6,6 +6,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Input;
 
 namespace JSSoft.Font.ApplicationHost
@@ -36,6 +37,45 @@ namespace JSSoft.Font.ApplicationHost
         {
             var index = this.itemList.IndexOf(this.currentItem) + 1;
             this.Current = this.itemList[index];
+        }
+
+        public void Add(ICharacter character)
+        {
+            if (character != null)
+            {
+                var index = this.itemList.IndexOf(this.currentItem);
+                while (this.itemList.Count != index + 1)
+                {
+                    this.itemList.RemoveAt(this.itemList.Count - 1);
+                }
+                this.itemList.Add(new CharacterNavigatorItem(character));
+                if (this.currentItem != null)
+                    this.currentItem.IsCurrent = false;
+                this.currentItem = this.itemList.Last();
+                this.currentItem.IsCurrent = true;
+                this.currentCharacter = this.currentItem.Character;
+                while (this.itemList.Count >= this.MaximumCount)
+                {
+                    this.itemList.RemoveAt(0);
+                }
+                this.NotifyOfPropertyChange(nameof(Count));
+                this.NotifyOfPropertyChange(nameof(CanBackward));
+                this.NotifyOfPropertyChange(nameof(CanForward));
+                CommandManager.InvalidateRequerySuggested();
+            }
+        }
+
+        public void Clear()
+        {
+            if (this.currentItem != null)
+                this.currentItem.IsCurrent = false;
+            this.currentItem = null;
+            this.currentCharacter = null;
+            this.itemList.Clear();
+            this.NotifyOfPropertyChange(nameof(Count));
+            this.NotifyOfPropertyChange(nameof(CanBackward));
+            this.NotifyOfPropertyChange(nameof(CanForward));
+            CommandManager.InvalidateRequerySuggested();
         }
 
         public bool CanBackward
@@ -105,25 +145,7 @@ namespace JSSoft.Font.ApplicationHost
 
         private void Shell_SelectedcharacterChanged(object sender, EventArgs e)
         {
-            var character = this.shell.SelectedCharacter;
-            if (character != null)
-            {
-                var index = this.itemList.IndexOf(this.currentItem);
-                while (this.itemList.Count != index + 1)
-                {
-                    this.itemList.RemoveAt(this.itemList.Count - 1);
-                }
-                this.itemList.Add(new CharacterNavigatorItem(character));
-                if (this.currentItem != null)
-                    this.currentItem.IsCurrent = false;
-                this.currentItem = this.itemList.Last();
-                this.currentItem.IsCurrent = true;
-                this.currentCharacter = this.currentItem.Character;
-                this.NotifyOfPropertyChange(nameof(Count));
-                this.NotifyOfPropertyChange(nameof(CanBackward));
-                this.NotifyOfPropertyChange(nameof(CanForward));
-                CommandManager.InvalidateRequerySuggested();
-            }
+            this.Add(this.shell.SelectedCharacter);
         }
 
         #region ICharacterNavigator

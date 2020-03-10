@@ -48,18 +48,17 @@ namespace JSSoft.Font.ApplicationHost
         }
 
         [ImportingConstructor]
-        public ShellView(IAppConfiguration configs, ICharacterNavigator navigator)
+        public ShellView(IShell shell, IAppConfiguration configs, ICharacterNavigator navigator)
         {
             this.configs = configs;
             this.navigator = navigator;
-            //this.shell = shell;
-            //this.shell.Opened += Shell_Opened;
-            //this.shell.Closed += Shell_Closed;
             InitializeComponent();
             this.CommandBindings.Add(new CommandBinding(ShowPropertyWindow, ShowPropertyWindow_Execute, ShowPropertyWindow_CanExecute));
             this.CommandBindings.Add(new CommandBinding(HidePropertyWindow, HidePropertyWindow_Execute, HidePropertyWindow_CanExecute));
             this.CommandBindings.Add(new CommandBinding(FontCommands.NavigateBackward, NavigateBackward_Execute, NavigateBackward_CanExecute));
             this.CommandBindings.Add(new CommandBinding(FontCommands.NavigateForward, NavigateForward_Execute, NavigateForward_CanExecute));
+            ApplicationService.SetShell(this, shell);
+            ApplicationService.SetCharacterNavigator(this, navigator);
         }
 
         public ICharacterNavigator Navigator => this.navigator;

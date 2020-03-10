@@ -58,23 +58,9 @@ namespace JSSoft.Font.ApplicationHost.Controls
             if (this.gridControl != null)
             {
                 this.gridControl.SelectionChanged += GridControl_SelectionChanged;
-                this.gridControl.PropertyChanged += GridControl_PropertyChanged;
                 this.gridControl.ItemsSource = this.groupView;
                 this.UpdateItemsSource();
                 this.UpdateActualItemHeight();
-            }
-        }
-
-        private void GridControl_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "CurrentItem")
-            {
-                int qwer = 0;
-            }
-
-            if (e.PropertyName == "CurrentColumn")
-            {
-                int qwer = 0;
             }
         }
 
@@ -131,6 +117,40 @@ namespace JSSoft.Font.ApplicationHost.Controls
                     this.ToggleChecked(item);
                 }
             }
+        }
+
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnPreviewMouseLeftButtonDown(e);
+        }
+
+        protected override void OnMouseDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseDown(e);
+        }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+
+            //var container = this.gridControl.GetContainerFromItem(this.gridControl.CurrentItem);
+
+            //if (sender is ModernDataCell cell && cell.DataContext is CharacterRowView rowView)
+            //{
+            //    var column = cell.ParentColumn;
+            //    if (rowView[column.Index] is ICharacter character)
+            //    {
+            //        if (ApplicationService.GetCharacterNavigator(cell) is ICharacterNavigator navigator)
+            //        {
+            //            if (ApplicationService.GetShell(cell) is IShell shell)
+            //            {
+            //                shell.SelectedCharacter = character;
+            //                navigator.Add(character);
+            //                e.Handled = true;
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         protected override void OnMouseDoubleClick(MouseButtonEventArgs e)

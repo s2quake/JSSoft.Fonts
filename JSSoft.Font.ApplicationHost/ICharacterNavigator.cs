@@ -12,6 +12,10 @@ namespace JSSoft.Font.ApplicationHost
 
         void Backward();
 
+        void Add(ICharacter character);
+
+        void Clear();
+
         IEnumerable<ICharacterNavigatorItem> Items { get; }
 
         ICharacterNavigatorItem Current { get; set; }
@@ -25,7 +29,5 @@ namespace JSSoft.Font.ApplicationHost
         bool CanBackward { get; }
 
         int MaximumCount { get; set; }
-
-        TimeSpan RecordDely { get; set; }
     }
 }
