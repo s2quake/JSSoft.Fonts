@@ -61,8 +61,8 @@ namespace JSSoft.Font.ApplicationHost
             InitializeComponent();
             this.CommandBindings.Add(new CommandBinding(FontCommands.NavigateBackward, NavigateBackward_Execute, NavigateBackward_CanExecute));
             this.CommandBindings.Add(new CommandBinding(FontCommands.NavigateForward, NavigateForward_Execute, NavigateForward_CanExecute));
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Undo, Undo_Execute, Undo_CanExecute));
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Redo, Redo_Execute, Redo_CanExecute));
+            this.CommandBindings.Add(new CommandBinding(FontCommands.Undo, Undo_Execute, Undo_CanExecute));
+            this.CommandBindings.Add(new CommandBinding(FontCommands.Redo, Redo_Execute, Redo_CanExecute));
             ApplicationService.SetShell(this, shell);
             ApplicationService.SetConfigs(this, configs);
             ApplicationService.SetCharacterNavigator(this, navigator);
@@ -110,6 +110,11 @@ namespace JSSoft.Font.ApplicationHost
         {
             e.CanExecute = this.UndoService.CanUndo;
             e.Handled = true;
+
+            if (e.CanExecute == true)
+            {
+                int qwer = 0;
+            }
         }
 
         private void Redo_Execute(object sender, ExecutedRoutedEventArgs e)

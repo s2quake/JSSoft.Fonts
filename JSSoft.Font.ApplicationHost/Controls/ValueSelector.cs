@@ -29,12 +29,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Markup;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
-    [TemplatePart(Name = PART_EditableComboBox, Type = typeof(ComboBox))]
     public class ValueSelector : Control
     {
         public const string PART_EditableComboBox = nameof(PART_EditableComboBox);
@@ -45,13 +45,15 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
         public static readonly DependencyProperty ValuesProperty =
             DependencyProperty.Register(nameof(Values), typeof(int[]), typeof(ValueSelector),
-                new FrameworkPropertyMetadata(null));
+                new FrameworkPropertyMetadata(new int[] { }, (d, e) => { }, (d, baseValue) => baseValue ?? new int[] { }));
 
-        private static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register(nameof(ComboBox.Text), typeof(string), typeof(ValueSelector),
-                new FrameworkPropertyMetadata(null, TextPropertyChangedCallback));
+        private static readonly DependencyPropertyKey TextPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(ComboBox.Text), typeof(string), typeof(ValueSelector),
+                new FrameworkPropertyMetadata($"{0}", TextPropertyChangedCallback, TextPropertyCoerceValueCallback));
+        public static readonly DependencyProperty TextProperty = TextPropertyKey.DependencyProperty;
 
         private ComboBox comboBox;
+        private TextChangedEventHandler handler;
 
         public ValueSelector()
         {
@@ -61,12 +63,16 @@ namespace JSSoft.Font.ApplicationHost.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+            if (this.comboBox != null && this.handler != null)
+            {
+                this.comboBox.RemoveHandler(TextBoxBase.TextChangedEvent, handler);
+            }
             this.comboBox = this.Template.FindName(PART_EditableComboBox, this) as ComboBox;
             if (this.comboBox != null)
             {
-                this.comboBox.Text = $"{0}";
-                BindingOperations.SetBinding(this.comboBox, ItemsControl.ItemsSourceProperty, new Binding(nameof(Values)) { Source = this });
-                BindingOperations.SetBinding(this, TextProperty, new Binding(nameof(ComboBox.Text)) { Source = this.comboBox });
+                this.handler = new TextChangedEventHandler(ComboBox_TextChanged);
+                this.comboBox.AddHandler(TextBoxBase.TextChangedEvent, this.handler);
+
             }
         }
 
@@ -85,40 +91,27 @@ namespace JSSoft.Font.ApplicationHost.Controls
             set => this.SetValue(ValuesProperty, value);
         }
 
+        private void ComboBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.Source is TextBox textBox)
+            {
+                this.SetValue(ValueProperty, int.Parse(textBox.Text));
+            }
+        }
+
         private static void ValuePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is ValueSelector control)
-            {
-                control.UpdateComboBoxText();
-            }
+            d.CoerceValue(TextProperty);
         }
 
         private static void TextPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is ValueSelector control)
-            {
-                control.UpdateValue();
-            }
+
         }
 
-        private void UpdateComboBoxText()
+        private static object TextPropertyCoerceValueCallback(DependencyObject d, object baseValue)
         {
-            if (this.comboBox != null)
-            {
-                this.comboBox.Text = $"{this.Value}";
-            }
-        }
-
-        private void UpdateValue()
-        {
-            if (int.TryParse(this.Text, out var value) == true)
-            {
-                this.SetValue(ValueProperty, value);
-            }
-            else
-            {
-                this.SetValue(ValueProperty, 0);
-            }
+            return $"{d.GetValue(ValueProperty)}";
         }
     }
 }

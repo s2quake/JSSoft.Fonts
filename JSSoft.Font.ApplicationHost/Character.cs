@@ -70,14 +70,40 @@ namespace JSSoft.Font.ApplicationHost
         {
             if (this.Row != null && this.Row.Group is CharacterGroup group)
             {
-                return $"{group.Name}: '{(char)this.ID}'";
+                return $"{group.Name}: '{this.Text}'";
             }
             return $"{(char)this.ID}";
         }
 
         public uint ID { get; }
 
-        public char Text => (char)this.ID;
+        public string Text
+        {
+            get
+            {
+                switch (this.ID)
+                {
+                    case 0:
+                        return "\\0";
+                    case 7:
+                        return "\\a";
+                    case 8:
+                        return "\\b";
+                    case 12:
+                        return "\\f";
+                    case 10:
+                        return "\\n";
+                    case 13:
+                        return "\\r";
+                    case 9:
+                        return "\\t";
+                    case 11:
+                        return "\\v";
+                    default:
+                        return $"{(char)this.ID}";
+                }
+            }
+        }
 
         public bool IsEnabled { get; }
 
@@ -139,7 +165,7 @@ namespace JSSoft.Font.ApplicationHost
         public CharacterRow Row { get; }
 
         public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems(this, AppBootstrapperBase.Current);
-             
+
         #region ICharacter
 
         ICharacterRow ICharacter.Row => this.Row;

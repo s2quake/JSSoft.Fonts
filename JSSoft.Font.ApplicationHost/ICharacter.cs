@@ -33,6 +33,8 @@ namespace JSSoft.Font.ApplicationHost
 
         uint ID { get; }
 
+        string Text { get; }
+
         bool IsChecked { get; set; }
 
         bool IsEnabled { get; }

@@ -62,9 +62,9 @@
             <nmfc:IconButton Source="/jsfontApp;component/Images/right-arrow.png" Command="{x:Static jsfi:FontCommands.NavigateForward}" />
         </ToolBar>
         <ToolBar ToolBarTray.IsLocked="True">
-            <nmfc:IconButton Source="/Ntreev.ModernUI.Framework;component/Images/undo.png" Command="{x:Static ApplicationCommands.Undo}"
+            <nmfc:IconButton Source="/Ntreev.ModernUI.Framework;component/Images/undo.png" Command="{x:Static jsfi:FontCommands.Undo}"
                              DropDownTemplate="{StaticResource Undo_DropDownTemplate}" />
-            <nmfc:IconButton Source="/Ntreev.ModernUI.Framework;component/Images/redo.png" Command="{x:Static ApplicationCommands.Redo}"
+            <nmfc:IconButton Source="/Ntreev.ModernUI.Framework;component/Images/redo.png" Command="{x:Static jsfi:FontCommands.Redo}"
                              DropDownTemplate="{StaticResource Redo_DropDownTemplate}" />
         </ToolBar>
     </ToolBarTray>

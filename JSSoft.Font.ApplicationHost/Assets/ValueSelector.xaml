@@ -99,7 +99,9 @@ SOFTWARE.
     </ControlTemplate>
 
     <ControlTemplate x:Key="ValueSelector_Template" TargetType="{x:Type jsfc:ValueSelector}">
-        <ComboBox x:Name="PART_EditableComboBox" IsEditable="True" Template="{StaticResource ValueSelector_ComboBox_Template}" />
+        <ComboBox x:Name="PART_EditableComboBox" ItemsSource="{TemplateBinding Values}"
+                  Text="{TemplateBinding Text}" IsEditable="True" 
+                  Template="{StaticResource ValueSelector_ComboBox_Template}" />
     </ControlTemplate>
 
     <Style TargetType="{x:Type jsfc:ValueSelector}">

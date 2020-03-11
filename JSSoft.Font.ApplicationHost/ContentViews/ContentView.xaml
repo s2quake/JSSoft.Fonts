@@ -18,7 +18,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <CheckBox x:Name="CheckBox" IsChecked="{Binding IsChecked, Mode=OneWay}" Click="ListBoxItem_CheckBox_Click" />
+                <CheckBox x:Name="CheckBox" IsChecked="{Binding IsChecked, Mode=OneWay}" IsThreeState="True" Click="ListBoxItem_CheckBox_Click" />
                 <TextBlock Grid.Column="1" Text="{Binding DisplayName}" />
             </Grid>
         </DataTemplate>
