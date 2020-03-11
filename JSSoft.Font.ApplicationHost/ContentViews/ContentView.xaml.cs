@@ -1,0 +1,130 @@
+﻿using JSSoft.Font.ApplicationHost.Input;
+using JSSoft.Font.ApplicationHost.UndoActions;
+using Ntreev.ModernUI.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace JSSoft.Font.ApplicationHost.ContentViews
+{
+    /// <summary>
+    /// ContentView.xaml에 대한 상호 작용 논리
+    /// </summary>
+    public partial class ContentView : UserControl
+    {
+        private GridLength propertyWidth;
+        private double propertyMinWidth;
+
+        private CommandBinding showPropertyWindowCommand;
+        private CommandBinding HidePropertyWindowCommand;
+
+        public ContentView()
+        {
+            InitializeComponent();
+            this.showPropertyWindowCommand = new CommandBinding(FontCommands.ShowPropertyWindow, ShowPropertyWindow_Execute, ShowPropertyWindow_CanExecute);
+            this.HidePropertyWindowCommand = new CommandBinding(FontCommands.HidePropertyWindow, HidePropertyWindow_Execute, HidePropertyWindow_CanExecute);
+        }
+
+        public IUndoService UndoService => ApplicationService.GetUndoService(this);
+
+        public IAppConfiguration Configs => ApplicationService.GetConfigs(this);
+
+        private void ShowPropertyWindow_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.PropertyWindow.Visibility = Visibility.Visible;
+            this.PropertyWindowColumn.Width = this.propertyWidth;
+            this.PropertyWindowColumn.MinWidth = this.propertyMinWidth;
+            e.Handled = true;
+            this.Focus();
+        }
+
+        private void ShowPropertyWindow_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = this.PropertyWindow.Visibility != Visibility.Visible;
+            e.Handled = true;
+        }
+
+        private void HidePropertyWindow_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.propertyWidth = this.PropertyWindowColumn.Width;
+            this.propertyMinWidth = this.PropertyWindowColumn.MinWidth;
+            this.PropertyWindow.Visibility = Visibility.Collapsed;
+            this.PropertyWindowColumn.Width = new GridLength(0);
+            this.PropertyWindowColumn.MinWidth = 0;
+            e.Handled = true;
+            this.Focus();
+        }
+
+        private void HidePropertyWindow_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = this.PropertyWindow.Visibility == Visibility.Visible;
+            e.Handled = true;
+        }
+
+        private void Expander_Loaded(object sender, RoutedEventArgs e)
+        {
+            var expander = sender as Expander;
+            if (expander.DataContext == null)
+                return;
+
+            if (this.Configs.TryGetValue<bool>(this.GetType(), expander.DataContext.GetType(), nameof(expander.IsExpanded), out var isExpanded) == true)
+            {
+                expander.IsExpanded = isExpanded;
+            }
+        }
+
+        private void Expander_Unloaded(object sender, RoutedEventArgs e)
+        {
+            var expander = sender as Expander;
+            if (expander.DataContext == null)
+                return;
+
+            this.Configs.SetValue(this.GetType(), expander.DataContext.GetType(), nameof(expander.IsExpanded), expander.IsExpanded);
+        }
+
+        private void ListBoxItem_CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox checkBox && checkBox.DataContext is ICharacterGroup group)
+            {
+                var isChecked = group.IsChecked ?? false;
+                if (isChecked == true)
+                {
+                    this.UndoService.Execute(new UncheckCharacterGroupAction(group));
+                }
+                else
+                {
+                    this.UndoService.Execute(new CheckCharacterGroupAction(group));
+                }
+            }
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Window.GetWindow(this) is Window window)
+            {
+                window.CommandBindings.Add(this.showPropertyWindowCommand);
+                window.CommandBindings.Add(this.HidePropertyWindowCommand);
+            }
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (Window.GetWindow(this) is Window window)
+            {
+                window.CommandBindings.Remove(this.showPropertyWindowCommand);
+                window.CommandBindings.Remove(this.HidePropertyWindowCommand);
+            }
+        }
+    }
+}

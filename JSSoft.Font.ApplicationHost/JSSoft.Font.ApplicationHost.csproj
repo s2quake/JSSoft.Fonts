@@ -85,6 +85,9 @@
     <Compile Include="Commands\CloseFontCommand.cs" />
     <Compile Include="Commands\SaveSettingsCommand.cs" />
     <Compile Include="Commands\OpenFontCommand.cs" />
+    <Compile Include="ContentViews\ContentView.xaml.cs">
+      <DependentUpon>ContentView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ContextMenus\CharacterGroup\CheckAllMenu.cs" />
     <Compile Include="ContextMenus\CharacterGroup\UncheckAllMenu.cs" />
     <Compile Include="ContextMenus\CharacterRow\UncheckAllMenu.cs" />
@@ -169,6 +172,9 @@
     <Compile Include="MenuItems\ViewMenus\ZoomInMenuItem.cs" />
     <Compile Include="CharacterNavigator.cs" />
     <Compile Include="CharacterNavigatorItem.cs" />
+    <Compile Include="ContentViews\MenuView.xaml.cs">
+      <DependentUpon>MenuView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PropertyItemBase.cs" />
     <Compile Include="PropertyItems\ViewModels\CharacterGroupViewModel.cs" />
     <Compile Include="PropertyItems\ViewModels\FontInfoViewModel.cs" />
@@ -184,6 +190,9 @@
     </Compile>
     <Compile Include="PropertyService.cs" />
     <Compile Include="Serializations\ExportSettingsInfo.cs" />
+    <Compile Include="ContentViews\StatusBarView.xaml.cs">
+      <DependentUpon>StatusBarView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ToolBarItems\ZoomOutToolBarItem.cs" />
     <Compile Include="ToolBarItems\ZoomInToolBarItem.cs" />
     <Compile Include="ToolBarItems\OpenFontToolBarItem.cs" />
@@ -203,6 +212,9 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="IShell.cs" />
+    <Compile Include="ContentViews\ToolBarView.xaml.cs">
+      <DependentUpon>ToolBarView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UndoActions\UncheckCharacterGroupAction.cs" />
     <Compile Include="UndoActions\CheckCharacterGroupAction.cs" />
     <Compile Include="UndoActions\UncheckCharacterRowAction.cs" />
@@ -238,6 +250,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ContentViews\ContentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\Views\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -270,6 +286,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ContentViews\MenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PropertyItems\Views\CharacterGroupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -283,6 +303,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContentViews\StatusBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContentViews\ToolBarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

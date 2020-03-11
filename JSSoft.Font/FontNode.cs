@@ -37,7 +37,6 @@ namespace JSSoft.Font
         private readonly List<Rectangle> rectangleList;
         private readonly FontDataSettings settings;
         private readonly List<FontGlyphData> glyphList;
-
         private readonly List<Point> rightBottomList;
 
         private FontNode(FontPage page, FontNode parent, Rectangle rectangle, FontDataSettings settings)
@@ -102,11 +101,6 @@ namespace JSSoft.Font
 
         public IReadOnlyList<FontGlyphData> GlyphList => this.glyphList;
 
-        private static bool Intersect(Rectangle rectangle, Point location)
-        {
-            return location.X >= rectangle.Left && location.X < rectangle.Right && location.Y >= rectangle.Top && location.Y < rectangle.Bottom;
-        }
-
         private static Rectangle[] Slice(Rectangle rectangle)
         {
             var centerX = rectangle.Left + rectangle.Width / 2;
@@ -145,10 +139,6 @@ namespace JSSoft.Font
                 {
                     return false;
                 }
-                //if  (nodes[i] != null && nodes[i].Childs.Any() == true)
-                //{
-                //    int qwer = 0;
-                //}
             };
             if (r + spacing.Horizontal <= this.Rectangle.Width)
                 r += spacing.Horizontal;
@@ -173,7 +163,7 @@ namespace JSSoft.Font
             foreach (var item in this.rectangleList)
             {
                 if (item.IntersectsWith(rectangle) == true)
-                    throw new ArgumentException("qwerqwrqwerwqe");
+                    throw new ArgumentException("Unable to reserve region.");
             }
             this.rectangleList.Add(rectangle);
         }
@@ -184,15 +174,8 @@ namespace JSSoft.Font
                 return null;
             if (rectangle.Bottom + this.settings.Padding.Vertical > this.Rectangle.Height)
                 return null;
-
             if (this.FindEmptyRegion(rectangle, out var nodes, out var region) == false)
                 return null;
-
-            //foreach (var item in nodes)
-            //{
-            //    if (item == null)
-            //        return null;
-            //}
 
             var nodeList = new List<FontNode>(nodes.Length);
             foreach (var item in nodes.Distinct())
@@ -223,7 +206,6 @@ namespace JSSoft.Font
             this.pointList.Remove(lt);
             this.pointList.Remove(lb);
 
-            //if (this.rightBottomList.Contains(rt) == false)
             this.pointList.Insert(0, rt);
             if (this.rightBottomList.Contains(lb) == false)
                 this.pointList.Add(lb);

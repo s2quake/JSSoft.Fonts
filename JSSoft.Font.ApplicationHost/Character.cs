@@ -139,16 +139,7 @@ namespace JSSoft.Font.ApplicationHost
         public CharacterRow Row { get; }
 
         public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems(this, AppBootstrapperBase.Current);
-
-        public void SetChecked(bool value)
-        {
-            if (this.isChecked != value)
-            {
-                this.isChecked = value;
-                this.NotifyOfPropertyChange(nameof(IsChecked));
-            }
-        }
-
+             
         #region ICharacter
 
         ICharacterRow ICharacter.Row => this.Row;

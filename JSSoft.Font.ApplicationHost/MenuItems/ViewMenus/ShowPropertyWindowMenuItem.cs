@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
+using JSSoft.Font.ApplicationHost.Input;
 using Ntreev.ModernUI.Framework;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
@@ -39,7 +40,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
             this.shellView = shellView;
             this.HideOnDisabled = true;
             this.DisplayName = "Show Property Window";
-            ShellView.HidePropertyWindow.CanExecuteChanged += HidePropertyWindow_CanExecuteChanged;
+            FontCommands.HidePropertyWindow.CanExecuteChanged += HidePropertyWindow_CanExecuteChanged;
         }
 
         private void HidePropertyWindow_CanExecuteChanged(object sender, System.EventArgs e)
@@ -49,12 +50,12 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
 
         protected override bool OnCanExecute(object parameter)
         {
-            return ShellView.ShowPropertyWindow.CanExecute(parameter, this.shellView);
+            return FontCommands.ShowPropertyWindow.CanExecute(parameter, this.shellView);
         }
 
         protected override void OnExecute(object parameter)
         {
-            ShellView.ShowPropertyWindow.Execute(parameter, this.shellView);
+            FontCommands.ShowPropertyWindow.Execute(parameter, this.shellView);
             this.InvokeCanExecuteChangedEvent();
         }
     }

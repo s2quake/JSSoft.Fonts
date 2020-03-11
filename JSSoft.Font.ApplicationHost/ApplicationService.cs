@@ -35,6 +35,7 @@ namespace JSSoft.Font.ApplicationHost
         private const string CharacterNavigator = nameof(CharacterNavigator);
         private const string Shell = nameof(Shell);
         private const string UndoService = nameof(UndoService);
+        private const string Configs = nameof(Configs);
 
         public static readonly DependencyProperty CharacterNavigatorProperty =
             DependencyProperty.RegisterAttached(CharacterNavigator, typeof(ICharacterNavigator), typeof(ApplicationService),
@@ -46,6 +47,10 @@ namespace JSSoft.Font.ApplicationHost
 
         public static readonly DependencyProperty UndoServiceProperty =
             DependencyProperty.RegisterAttached(UndoService, typeof(IUndoService), typeof(ApplicationService),
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
+
+        public static readonly DependencyProperty ConfigsProperty =
+            DependencyProperty.RegisterAttached(Configs, typeof(IAppConfiguration), typeof(ApplicationService),
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
 
         public static ICharacterNavigator GetCharacterNavigator(DependencyObject d)
@@ -68,7 +73,6 @@ namespace JSSoft.Font.ApplicationHost
             d.SetValue(ShellProperty, value);
         }
 
-
         public static IUndoService GetUndoService(DependencyObject d)
         {
             return (IUndoService)d.GetValue(UndoServiceProperty);
@@ -77,6 +81,16 @@ namespace JSSoft.Font.ApplicationHost
         public static void SetUndoService(DependencyObject d, IUndoService value)
         {
             d.SetValue(UndoServiceProperty, value);
+        }
+
+        public static IAppConfiguration GetConfigs(DependencyObject d)
+        {
+            return (IAppConfiguration)d.GetValue(ConfigsProperty);
+        }
+
+        public static void SetConfigs(DependencyObject d, IAppConfiguration value)
+        {
+            d.SetValue(ConfigsProperty, value);
         }
     }
 }

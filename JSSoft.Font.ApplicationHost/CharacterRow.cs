@@ -32,17 +32,16 @@ namespace JSSoft.Font.ApplicationHost
 {
     class CharacterRow : PropertyChangedBase, ICharacterRow
     {
-        private readonly CharacterContext context;
         private bool? isChecked = false;
 
         internal CharacterRow(uint index)
         {
-            this.Index = index;
             var itemList = new List<Character>(0x10);
             for (var i = 0u; i < itemList.Capacity; i++)
             {
-                itemList.Add(new Character(i)); 
+                itemList.Add(new Character(i));
             }
+            this.Index = index;
             this.Items = itemList.ToArray();
             this.ActiveItems = itemList.Where(item => item.IsEnabled).ToArray();
             this.IsEnabled = this.ActiveItems.Length > 0;
@@ -50,19 +49,20 @@ namespace JSSoft.Font.ApplicationHost
 
         public CharacterRow(CharacterGroup group, CharacterContext context, uint min, uint max)
         {
-            this.Group = group;
-            this.context = context ?? throw new ArgumentNullException(nameof(context));
+            if (context == null)
+                throw new ArgumentNullException(nameof(context));
             if (min >= max)
-                throw new ArgumentOutOfRangeException(nameof(min));
+                throw new ArgumentOutOfRangeException(nameof(min), $"min must be less than max: '{min} < {max}'");
 
-            this.Index = (min & 0xfffffff0) >> 4;
             var itemList = new List<Character>(0x10);
             for (var i = 0u; i < itemList.Capacity; i++)
             {
-                var item = new Character(this, this.context, i + min);
+                var item = new Character(this, context, i + min);
                 itemList.Add(item);
                 item.PropertyChanged += Item_PropertyChanged;
             }
+            this.Group = group ?? throw new ArgumentOutOfRangeException(nameof(group));
+            this.Index = (min & 0xfffffff0) >> 4;
             this.Items = itemList.ToArray();
             this.ActiveItems = itemList.Where(item => item.IsEnabled).ToArray();
             this.IsEnabled = this.ActiveItems.Length > 0;
@@ -96,7 +96,7 @@ namespace JSSoft.Font.ApplicationHost
                     foreach (var item in this.Items)
                     {
                         item.PropertyChanged -= Item_PropertyChanged;
-                        item.SetChecked(this.isChecked.Value);
+                        item.IsChecked = this.isChecked.Value;
                         item.PropertyChanged += Item_PropertyChanged;
                     }
                 }
@@ -118,7 +118,7 @@ namespace JSSoft.Font.ApplicationHost
                 foreach (var item in this.Items)
                 {
                     item.PropertyChanged -= Item_PropertyChanged;
-                    item.SetChecked(this.isChecked.Value);
+                    item.IsChecked = this.isChecked.Value;
                     item.PropertyChanged += Item_PropertyChanged;
                 }
             }

@@ -135,10 +135,12 @@ SOFTWARE.
         </nmgc:ModernDataGridControl>
     </ControlTemplate>
 
-    <Style TargetType="{x:Type jsfc:CharacterView}">
+    <Style x:Key="CharacterView_Style" TargetType="{x:Type jsfc:CharacterView}">
         <Setter Property="Template" Value="{StaticResource CharacterView_Template}" />
         <Setter Property="BorderBrush" Value="{StaticResource ItemBorder}" />
         <Setter Property="ItemThickness" Value="1 1 1 1" />
     </Style>
+
+    <Style TargetType="{x:Type jsfc:CharacterView}" BasedOn="{StaticResource CharacterView_Style}" />
 
 </ResourceDictionary>

@@ -24,7 +24,6 @@ using SharpFont;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 
 namespace JSSoft.Font
@@ -87,6 +86,16 @@ namespace JSSoft.Font
             return FontData.Create(this, settings);
         }
 
+        public void Dispose()
+        {
+            this.glyphByID.Clear();
+            this.Height = 0;
+            this.face?.Dispose();
+            this.face = null;
+            this.lib?.Dispose();
+            this.lib = null;
+        }
+
         public uint DPI { get; private set; }
 
         public int Size { get; private set; }
@@ -133,11 +142,6 @@ namespace JSSoft.Font
                 Bitmap = this.CreateBitmap(ftbmp),
                 Metrics = glyphMetrics,
             };
-            if (charItem.ID == (uint)'b')
-            {
-                //charItem.Bitmap.Save($@"C:\Users\s2quake\Desktop\Bitmap\{(char)charItem.ID}.bmp", ImageFormat.Bmp);
-                //charItem.Bitmap.Save($@"C:\Users\s2quake\Desktop\Bitmap\{(char)charItem.ID}.png", ImageFormat.Png);
-            }
             this.glyphByID.Add(charCode, charItem);
         }
 
@@ -146,11 +150,6 @@ namespace JSSoft.Font
             if (ftbmp.Rows > 0 && ftbmp.Width > 0)
             {
                 return ftbmp.ToGdipBitmap(Color.White);
-                //var bitmapBackground = new Bitmap(bitmap.Width, bitmap.Height);
-                //var graphics = Graphics.FromImage(bitmapBackground);
-                //graphics.FillRectangle(Brushes.Red, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
-                //graphics.DrawImage(bitmap, 0, 0, bitmap.Width, bitmap.Height);
-                //return bitmapBackground;
             }
             return null;
         }
@@ -170,16 +169,6 @@ namespace JSSoft.Font
             }
             this.face.Glyph.RenderGlyph(RenderMode.Normal);
             return this.face.Glyph;
-        }
-
-        public void Dispose()
-        {
-            this.glyphByID.Clear();
-            this.Height = 0;
-            this.face?.Dispose();
-            this.face = null;
-            this.lib?.Dispose();
-            this.lib = null;
         }
     }
 }

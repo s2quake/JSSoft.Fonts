@@ -50,7 +50,6 @@
     <Compile Include="FontDescriptor.cs" />
     <Compile Include="FontGlyphData.cs" />
     <Compile Include="FontGlyph.cs" />
-    <Compile Include="FontNodeContext.cs" />
     <Compile Include="FontNode.cs" />
     <Compile Include="FontSpacingConverter.cs" />
     <Compile Include="FontPaddingConverter.cs" />

@@ -60,9 +60,6 @@ namespace JSSoft.Font.ApplicationHost
             set => this.row.IsChecked = value;
         }
 
-        public object this[int index]
-        {
-            get => this.row.Items[index];
-        }
+        public object this[int index] => this.row.Items[index];
     }
 }

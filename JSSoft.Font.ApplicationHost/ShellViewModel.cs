@@ -56,7 +56,7 @@ namespace JSSoft.Font.ApplicationHost
         private bool isModified;
         private FontInfo fontInfo = FontInfo.Empty;
         private CharacterContext context;
-        private string settingsPath = null;
+        private string settingsPath;
 
         [ImportingConstructor]
         public ShellViewModel(IServiceProvider serviceProvider, IAppConfiguration configs, PropertyService propertyService)
@@ -446,7 +446,7 @@ namespace JSSoft.Font.ApplicationHost
             foreach (var item in items)
             {
                 if (characterByID.ContainsKey(item) == true)
-                    characterByID[item].SetChecked(true);
+                    characterByID[item].IsChecked = true;
             }
         }
 
@@ -541,10 +541,6 @@ namespace JSSoft.Font.ApplicationHost
                     if (item.IsVisible == true)
                         this.Groups.Add(item);
                 }
-                foreach (var item in this.Groups)
-                {
-                    item.PropertyChanged += Group_PropertyChanged;
-                }
                 this.DisplayName = this.FontDescriptor.Name;
                 this.SelectedGroup = this.Groups.FirstOrDefault();
                 this.FontInfo = new FontInfo()
@@ -559,11 +555,6 @@ namespace JSSoft.Font.ApplicationHost
                 this.IsOpened = true;
                 this.OnOpened(EventArgs.Empty);
             });
-        }
-
-        private void Group_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-
         }
 
         private async Task BeginCloseAsync()

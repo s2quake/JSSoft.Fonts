@@ -28,6 +28,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace JSSoft.Font.ApplicationHost
 {
@@ -36,7 +37,6 @@ namespace JSSoft.Font.ApplicationHost
     class PropertyService : PropertyChangedBase, IPropertyService
     {
         private IPropertyItem[] propertyItems;
-
         private object selectedObject;
 
         [ImportingConstructor]
@@ -46,7 +46,7 @@ namespace JSSoft.Font.ApplicationHost
             {
                 this.propertyItems = EnumerableUtility.TopologicalSort(propertyItems.Select(item => item.Value)).ToArray();
                 this.NotifyOfPropertyChange(nameof(Properties));
-            }, System.Windows.Threading.DispatcherPriority.ApplicationIdle);
+            }, DispatcherPriority.ApplicationIdle);
         }
 
         public object SelectedObject
