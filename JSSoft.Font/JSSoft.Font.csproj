@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="CharacterCollection.cs" />
     <Compile Include="CharacterCollectionConverter.cs" />
+    <Compile Include="FontBitmapConverter.cs" />
     <Compile Include="FontDescriptor.cs" />
     <Compile Include="FontGlyphData.cs" />
     <Compile Include="FontGlyph.cs" />

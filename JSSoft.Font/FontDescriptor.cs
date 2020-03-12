@@ -24,6 +24,7 @@ using SharpFont;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 
 namespace JSSoft.Font
@@ -139,17 +140,17 @@ namespace JSSoft.Font
             var charItem = new FontGlyph()
             {
                 ID = charCode,
-                Bitmap = this.CreateBitmap(ftbmp),
+                Bitmap = this.CreateBitmap(ftbmp, charCode),
                 Metrics = glyphMetrics,
             };
             this.glyphByID.Add(charCode, charItem);
         }
 
-        private Bitmap CreateBitmap(FTBitmap ftbmp)
+        private Bitmap CreateBitmap(FTBitmap ftbmp, uint charCode)
         {
             if (ftbmp.Rows > 0 && ftbmp.Width > 0)
             {
-                return ftbmp.ToGdipBitmap(Color.White);
+                return FontBitmapConverter.Convert(ftbmp, Color.White, charCode);
             }
             return null;
         }
