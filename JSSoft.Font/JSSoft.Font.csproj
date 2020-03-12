@@ -49,6 +49,7 @@
     <Compile Include="CharacterCollectionConverter.cs" />
     <Compile Include="FontBitmapConverter.cs" />
     <Compile Include="FontDescriptor.cs" />
+    <Compile Include="FontGlyphUtility.cs" />
     <Compile Include="FontGlyphData.cs" />
     <Compile Include="FontGlyph.cs" />
     <Compile Include="FontNode.cs" />

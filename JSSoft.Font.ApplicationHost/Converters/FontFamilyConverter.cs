@@ -27,21 +27,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace JSSoft.Font.ApplicationHost.Converters
 {
-    class CharacterToDisplayTextConverter : IValueConverter
+    class FontFamilyConverter : IMultiValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is ICharacter character)
+            if (values.Length == 2 && values[0] is Uri baseUri && values[1] is string faceName)
             {
-                return $"0x{character.ID:X}    {character.ID}";
+                return new FontFamily(baseUri, faceName);
             }
-            return value;
+            return null;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

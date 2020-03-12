@@ -21,8 +21,10 @@
 // SOFTWARE.
 
 using Ntreev.ModernUI.Framework;
+using Ntreev.ModernUI.Framework.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -37,6 +39,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
     {
         private readonly PreviewViewModel parent;
         private readonly FontPage page;
+        private readonly ObservableCollection<GlyphItemViewModel> glyphList = new ObservableCollection<GlyphItemViewModel>();
         private ImageSource imageSource;
 
         public PreviewItemViewModel(PreviewViewModel parent, int index, FontPage page)
@@ -45,21 +48,11 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             this.page = page;
             this.Index = index;
             this.parent.PropertyChanged += Parent_PropertyChanged;
-            this.RefreshImage();
-        }
-
-        private void Parent_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
+            foreach (var item in page.Glyphs)
             {
-                case nameof(PreviewViewModel.BackgroundColor):
-                case nameof(PreviewViewModel.ForegroundColor):
-                case nameof(PreviewViewModel.PaddingColor):
-                    {
-                        this.RefreshImage();
-                    }
-                    break;
+                this.glyphList.Add(new GlyphItemViewModel(item));
             }
+            this.RefreshImage();
         }
 
         public int Index { get; }
@@ -77,6 +70,8 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         public double Width => (double)this.page.Width;
 
         public double Height => (double)this.page.Height;
+
+        public IEnumerable<GlyphItemViewModel> Glyphs => this.glyphList;
 
         public async void RefreshImage()
         {
@@ -101,6 +96,20 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             {
                 this.ImageSource = image;
             });
+        }
+
+        private void Parent_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(PreviewViewModel.BackgroundColor):
+                case nameof(PreviewViewModel.ForegroundColor):
+                case nameof(PreviewViewModel.PaddingColor):
+                    {
+                        this.RefreshImage();
+                    }
+                    break;
+            }
         }
     }
 }

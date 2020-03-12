@@ -87,6 +87,8 @@ namespace JSSoft.Font
 
         public int PageHeight => this.settings.Height;
 
+        public Uri BaseUri => this.fontDescriptor.BaseUri;
+
         public FontPadding Padding => this.settings.Padding;
 
         public FontSpacing Spacing => this.settings.Spacing;

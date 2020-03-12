@@ -44,8 +44,9 @@ namespace JSSoft.Font
         public FontDescriptor(string path, uint dpi, int size, int faceIndex)
         {
             var pixelSize = (double)size * dpi / 72;
+            var fullPath = Path.GetFullPath(path);
             this.lib = new Library();
-            this.face = new Face(this.lib, Path.GetFullPath(path), faceIndex);
+            this.face = new Face(this.lib, fullPath, faceIndex);
             this.face.SetCharSize(0, size, 0, dpi);
             this.Height = (int)Math.Round(this.face.Height * pixelSize / this.face.UnitsPerEM);
             this.BaseLine = this.Height + (this.Height * this.face.Descender / this.face.Height);
@@ -59,6 +60,7 @@ namespace JSSoft.Font
             this.DPI = dpi;
             this.Size = size;
             this.FontPath = path;
+            this.BaseUri = new Uri(fullPath);
         }
 
         public static string[] GetFaces(string path)
@@ -97,19 +99,21 @@ namespace JSSoft.Font
             this.lib = null;
         }
 
-        public uint DPI { get; private set; }
+        public uint DPI { get; }
 
-        public int Size { get; private set; }
+        public int Size { get;  }
 
         public int Height { get; private set; }
 
         public int BaseLine { get; private set; }
 
-        public string Name { get; private set; } = string.Empty;
+        public string Name { get; } = string.Empty;
 
-        public int FaceIndex { get; private set; }
+        public int FaceIndex { get; }
 
         public string FontPath { get; private set; }
+
+        public Uri BaseUri { get; }
 
         public IReadOnlyDictionary<uint, FontGlyph> Glyphs => this.glyphByID;
 

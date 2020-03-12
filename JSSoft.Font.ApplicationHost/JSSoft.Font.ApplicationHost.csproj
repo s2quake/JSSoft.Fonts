@@ -104,12 +104,14 @@
     <Compile Include="Controls\ZoomLevelItem.cs" />
     <Compile Include="Controls\ZoomLevelControl.cs" />
     <Compile Include="Controls\CharacterControl.cs" />
+    <Compile Include="Converters\CharCodeToDisplayTextConverter.cs" />
     <Compile Include="Converters\GroupRangeToDisplayTextConverter.cs" />
-    <Compile Include="Converters\CharacterToDisplayTextConverter.cs" />
+    <Compile Include="Converters\FontFamilyConverter.cs" />
     <Compile Include="Converters\MultiplicationConverter.cs" />
     <Compile Include="Converters\ValueToHexConverter.cs" />
     <Compile Include="Dialogs\ViewModels\AboutViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\ExportSettingsViewModel.cs" />
+    <Compile Include="Dialogs\ViewModels\GlyphItemViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\PreviewCharacterViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\PreviewItemViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\PreviewViewModel.cs" />

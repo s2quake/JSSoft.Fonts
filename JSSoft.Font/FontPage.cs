@@ -27,6 +27,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -118,31 +119,37 @@ namespace JSSoft.Font
         private Bitmap CloneBitmap(Bitmap bitmap, Color color)
         {
             var rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-            var newBitmap = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
-            var data = newBitmap.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
-            var ptr = data.Scan0;
-            var length = Math.Abs(data.Stride) * data.Height;
-            var bytes = new byte[length];
+            var bitmap2 = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
+            var data1 = bitmap.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+            var data2 = bitmap2.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+            var bytes1 = new byte[Math.Abs(data1.Stride) * data1.Height];
+            var bytes2 = new byte[Math.Abs(data2.Stride) * data2.Height];
 
+            Marshal.Copy(data1.Scan0, bytes1, 0, bytes1.Length);
             for (var y = 0; y < bitmap.Height; y++)
             {
                 for (var x = 0; x < bitmap.Width; x++)
                 {
-                    var pixel = bitmap.GetPixel(x, y);
-                    var bf = ((float)pixel.B / 255) * ((float)color.B / 255);
-                    var gf = ((float)pixel.G / 255) * ((float)color.G / 255);
-                    var rf = ((float)pixel.R / 255) * ((float)color.R / 255);
-                    var af = ((float)pixel.A / 255) * ((float)color.A / 255);
+                    var b = bytes1[x * 4 + y * data1.Stride + 0];
+                    var g = bytes1[x * 4 + y * data1.Stride + 1];
+                    var r = bytes1[x * 4 + y * data1.Stride + 2];
+                    var a = bytes1[x * 4 + y * data1.Stride + 3];
 
-                    bytes[x * 4 + y * data.Stride + 0] = (byte)(bf * 255.0f);
-                    bytes[x * 4 + y * data.Stride + 1] = (byte)(gf * 255.0f);
-                    bytes[x * 4 + y * data.Stride + 2] = (byte)(rf * 255.0f);
-                    bytes[x * 4 + y * data.Stride + 3] = (byte)(af * 255.0f);
+                    var bf =  ((float)b / 255) * ((float)color.B / 255);
+                    var gf =  ((float)g / 255) * ((float)color.G / 255);
+                    var rf =  ((float)r / 255) * ((float)color.R / 255);
+                    var af = ((float)a / 255) * ((float)color.A / 255);
+
+                    bytes2[x * 4 + y * data2.Stride + 0] = (byte)(bf * 255.0f);
+                    bytes2[x * 4 + y * data2.Stride + 1] = (byte)(gf * 255.0f);
+                    bytes2[x * 4 + y * data2.Stride + 2] = (byte)(rf * 255.0f);
+                    bytes2[x * 4 + y * data2.Stride + 3] = (byte)(af * 255.0f);
                 }
             }
-            System.Runtime.InteropServices.Marshal.Copy(bytes, 0, ptr, length);
-            newBitmap.UnlockBits(data);
-            return newBitmap;
+            Marshal.Copy(bytes2, 0, data2.Scan0, bytes2.Length);
+            bitmap2.UnlockBits(data2);
+            bitmap.UnlockBits(data1);
+            return bitmap2;
         }
     }
 }

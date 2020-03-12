@@ -33,6 +33,9 @@ namespace JSSoft.Font
         {
             var data = new byte[ftbmp.Rows * ftbmp.Width];
             var bitmap = new Bitmap(ftbmp.Width, ftbmp.Rows, PixelFormat.Format32bppArgb);
+            var rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+            var data2 = bitmap.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+            var bytes2 = new byte[Math.Abs(data2.Stride) * data2.Height];
 
             for (var y = 0; y < ftbmp.Rows; y++)
             {
@@ -58,14 +61,18 @@ namespace JSSoft.Font
             {
                 for (var x = 0; x < bitmap.Width; x++)
                 {
-                    var v = data[y * bitmap.Width + x];
+                    var v = data[(y * bitmap.Width) + x];
                     if (v != 0)
                     {
-                        bitmap.SetPixel(x, y, color);
+                        bytes2[x * 4 + y * data2.Stride + 0] = color.B;
+                        bytes2[x * 4 + y * data2.Stride + 1] = color.G;
+                        bytes2[x * 4 + y * data2.Stride + 2] = color.R;
+                        bytes2[x * 4 + y * data2.Stride + 3] = color.A;
                     }
                 }
             }
-
+            Marshal.Copy(bytes2, 0, data2.Scan0, bytes2.Length);
+            bitmap.UnlockBits(data2);
             return bitmap;
         }
 

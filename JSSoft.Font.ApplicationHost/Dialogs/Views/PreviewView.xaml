@@ -33,7 +33,9 @@ SOFTWARE.
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="300" nmfc:DialogWindow.DesiredResizeMode="CanResize">
 
     <UserControl.Resources>
+
         <jsfv:MultiplicationConverter x:Key="MultiplicationConverter" />
+        <jsfv:FontFamilyConverter x:Key="FontFamilyConverter" />
         <nmfv:ColorToBrushConverter x:Key="ColorToBrushConverter" />
 
         <Style x:Key="ColorButton_Style" TargetType="{x:Type Button}">
@@ -41,6 +43,32 @@ SOFTWARE.
             <Setter Property="Height" Value="20" />
             <Setter Property="BorderBrush" Value="{StaticResource WindowBorder}" />
         </Style>
+
+        <DataTemplate x:Key="TabControl_ItemTemplate">
+            <TextBlock Text="{Binding Index, StringFormat=Page {0}}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="TabControl_ContentTemplate">
+            <Grid>
+                <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                    <Image x:Name="Image" Source="{Binding ImageSource}" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                        <Image.Width>
+                            <MultiBinding Converter="{StaticResource MultiplicationConverter}">
+                                <Binding Path="Width" />
+                                <Binding Path="Value" ElementName="ZoomLevel" />
+                            </MultiBinding>
+                        </Image.Width>
+                        <Image.Height>
+                            <MultiBinding Converter="{StaticResource MultiplicationConverter}">
+                                <Binding Path="Height" />
+                                <Binding Path="Value" ElementName="ZoomLevel" />
+                            </MultiBinding>
+                        </Image.Height>
+                    </Image>
+                </ScrollViewer>
+            </Grid>
+        </DataTemplate>
+
     </UserControl.Resources>
 
     <Grid>
@@ -66,35 +94,28 @@ SOFTWARE.
                 <Button x:Name="SelectPaddingColor" Background="{Binding PaddingColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" ToolTip="Padding Color" />
             </ToolBar>
         </ToolBarTray>
-        <TabControl Grid.Row="1" x:Name="ContentViewer" Style="{StaticResource TabControl_Page_Style}" ItemsSource="{Binding Items}" SelectedItem="{Binding Item}" BorderThickness="1">
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Index, StringFormat=Page {0}}" />
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                            <Image x:Name="Image" Source="{Binding ImageSource}" RenderOptions.BitmapScalingMode="NearestNeighbor">
-                                <Image.Width>
-                                    <MultiBinding Converter="{StaticResource MultiplicationConverter}">
-                                        <Binding Path="Width" />
-                                        <Binding Path="Value" ElementName="ZoomLevel" />
-                                    </MultiBinding>
-                                </Image.Width>
-                                <Image.Height>
-                                    <MultiBinding Converter="{StaticResource MultiplicationConverter}">
-                                        <Binding Path="Height" />
-                                        <Binding Path="Value" ElementName="ZoomLevel" />
-                                    </MultiBinding>
-                                </Image.Height>
-                            </Image>
-                        </ScrollViewer>
-                    </Grid>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
-        </TabControl>
+        <Grid Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" MinWidth="100" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" MinWidth="100" />
+            </Grid.ColumnDefinitions>
+            <ListBox ItemsSource="{Binding Path=SelectedItem.Glyphs, ElementName=ContentViewer}" 
+                     BorderThickness="1 1 0 1" BorderBrush="{StaticResource ItemBorder}">
+                <ListBox.FontFamily >
+                    <MultiBinding Converter="{StaticResource FontFamilyConverter}">
+                        <Binding Path="FontUri" />
+                        <Binding Path="FaceName" />
+                    </MultiBinding>
+                </ListBox.FontFamily>
+            </ListBox>
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+            <TabControl Grid.Column="2" x:Name="ContentViewer" Style="{StaticResource TabControl_Page_Style}" 
+                        ItemsSource="{Binding Items}" SelectedItem="{Binding Item}" 
+                        BorderThickness="1" BorderBrush="{StaticResource ItemBorder}"
+                        ContentTemplate="{StaticResource TabControl_ContentTemplate}"
+                        ItemTemplate="{StaticResource TabControl_ItemTemplate}" />
+        </Grid>
     </Grid>
 
 </UserControl>

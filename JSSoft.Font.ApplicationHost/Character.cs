@@ -77,33 +77,7 @@ namespace JSSoft.Font.ApplicationHost
 
         public uint ID { get; }
 
-        public string Text
-        {
-            get
-            {
-                switch (this.ID)
-                {
-                    case 0:
-                        return "\\0";
-                    case 7:
-                        return "\\a";
-                    case 8:
-                        return "\\b";
-                    case 12:
-                        return "\\f";
-                    case 10:
-                        return "\\n";
-                    case 13:
-                        return "\\r";
-                    case 9:
-                        return "\\t";
-                    case 11:
-                        return "\\v";
-                    default:
-                        return $"{(char)this.ID}";
-                }
-            }
-        }
+        public string Text => FontGlyphUtility.ToString(this.ID);
 
         public bool IsEnabled { get; }
 

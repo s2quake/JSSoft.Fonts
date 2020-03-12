@@ -8,8 +8,9 @@
              mc:Ignorable="d" d:DesignWidth="890">
 
     <UserControl.Resources>
-        <jsfv:CharacterToDisplayTextConverter x:Key="CharacterToDisplayTextConverter" />
+
         <jsfv:GroupRangeToDisplayTextConverter x:Key="GroupRangeToDisplayTextConverter" />
+        
     </UserControl.Resources>
 
     <StatusBar Grid.Row="3">
@@ -32,7 +33,7 @@
             <TextBlock Text="{Binding SelectedGroup, Converter={StaticResource GroupRangeToDisplayTextConverter}}" HorizontalAlignment="Left" />
         </StatusBarItem>
         <StatusBarItem Grid.Column="2">
-            <TextBlock Text="{Binding SelectedCharacter, Converter={StaticResource CharacterToDisplayTextConverter}}" HorizontalAlignment="Center" />
+            <TextBlock Text="{Binding Path=SelectedCharacter.ID, StringFormat={}0x{0:X}    {0}}" HorizontalAlignment="Center" />
         </StatusBarItem>
         <StatusBarItem Grid.Column="3">
         </StatusBarItem>
