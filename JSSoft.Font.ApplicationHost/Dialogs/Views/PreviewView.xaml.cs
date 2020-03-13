@@ -49,12 +49,20 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.Views
 
         private void ZoomIn_Click(object sender, RoutedEventArgs e)
         {
-            this.ZoomLevel.Value *= 2;
+            this.ZoomLevelControl.Value *= 2;
         }
 
         private void ZoomOut_Click(object sender, RoutedEventArgs e)
         {
-            this.ZoomLevel.Value /= 2;
+            this.ZoomLevelControl.Value /= 2;
+        }
+
+        private void Image_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is Image image)
+            {
+                image.Tag = e.GetPosition(image);
+            }
         }
     }
 }

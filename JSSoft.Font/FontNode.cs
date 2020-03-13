@@ -34,10 +34,10 @@ namespace JSSoft.Font
         private const int minimumLength = 128;
 
         private readonly List<Point> pointList;
-        private readonly List<Rectangle> rectangleList;
         private readonly FontDataSettings settings;
-        private readonly List<FontGlyphData> glyphList;
+        private readonly List<FontGlyphData> glyphList = new List<FontGlyphData>(10);
         private readonly List<Point> rightBottomList;
+        private int count;
 
         private FontNode(FontPage page, FontNode parent, Rectangle rectangle, FontDataSettings settings)
         {
@@ -46,18 +46,36 @@ namespace JSSoft.Font
             this.Rectangle = rectangle;
             this.pointList = parent == null ? new List<Point>(settings.Capacity * 2) { Point.Empty } : parent.pointList;
             this.rightBottomList = parent == null ? new List<Point>(settings.Capacity) : parent.rightBottomList;
-            this.glyphList = parent == null ? new List<FontGlyphData>(settings.Capacity) : parent.glyphList;
-            this.rectangleList = new List<Rectangle>();
             this.settings = settings;
-            if (rectangle.Width >= minimumLength && rectangle.Height >= minimumLength)
+            this.Childs = Slice(rectangle).Select(item => new FontNode(page, this, item, settings)).ToArray();
+            while (parent != null)
             {
-                var childRectangles = Slice(rectangle);
-                this.Childs = new FontNode[childRectangles.Length];
-                for (var i = 0; i < childRectangles.Length; i++)
+                parent.count++;
+                parent = parent.Parent;
+            }
+        }
+
+        public FontGlyphData HitTest(Point point)
+        {
+            if (Intersect(this.Rectangle, point) == false)
+                return null;
+            if (this.Childs.Any() == false)
+            {
+                foreach (var item in this.glyphList)
                 {
-                    this.Childs[i] = new FontNode(page, this, childRectangles[i], settings);
+                    if (Intersect(item.Rectangle, point) == true)
+                        return item;
                 }
             }
+            else
+            {
+                foreach (var item in this.Childs)
+                {
+                    if (item.HitTest(point) is FontGlyphData glyphData)
+                        return glyphData;
+                }
+            }
+            return null;
         }
 
         public static FontNode Create(FontPage page, FontDataSettings settings)
@@ -73,20 +91,17 @@ namespace JSSoft.Font
 
         public IReservator ReserveRegion(FontGlyph glyph)
         {
+            if (glyph == null)
+                throw new ArgumentNullException(nameof(glyph));
             if (glyph.Bitmap == null)
                 return null;
-
-            var metrics = glyph.Metrics;
-            var width = metrics.Width;
-            var height = metrics.Height;
+            if (this.Parent != null)
+                throw new InvalidOperationException("This method is only available on the root node.");
 
             foreach (var item in this.pointList)
             {
-                var rectangle = new Rectangle(item.X, item.Y, width, height);
-                if (this.ReserveRegion(glyph, rectangle) is IReservator reservator)
-                {
+                if (this.ReserveRegion(glyph, item) is IReservator reservator)
                     return reservator;
-                }
             }
             return null;
         }
@@ -103,6 +118,10 @@ namespace JSSoft.Font
 
         private static Rectangle[] Slice(Rectangle rectangle)
         {
+            if (rectangle.Width < minimumLength || rectangle.Height < minimumLength)
+            {
+                return new Rectangle[] { };
+            }
             var centerX = rectangle.Left + rectangle.Width / 2;
             var centerY = rectangle.Top + rectangle.Height / 2;
             return new Rectangle[]
@@ -114,104 +133,77 @@ namespace JSSoft.Font
             };
         }
 
-        private bool FindEmptyRegion(Rectangle rectangle, out FontNode[] nodes, out Rectangle region)
+        private static bool Intersect(Rectangle rectangle, Point location)
         {
-            var spacing = this.settings.Spacing;
-            var paddingH = this.settings.Padding.Horizontal;
-            var paddingV = this.settings.Padding.Vertical;
-            var l = rectangle.Left;
-            var t = rectangle.Top;
-            var r = rectangle.Right + paddingH;
-            var b = rectangle.Bottom + paddingV;
-            var points = new Point[]
-            {
-                new Point(l, t),
-                new Point(r, t),
-                new Point(l, b),
-                new Point(r, b)
-            };
-            nodes = new FontNode[points.Length];
-            region = Rectangle.FromLTRB(l, t, r, b);
-            for (var i = 0; i < nodes.Length; i++)
-            {
-                nodes[i] = this.HitTest(region);
-                if (nodes[i] == null || nodes[i].Childs.Any() == true)
-                {
-                    return false;
-                }
-            };
-            if (r + spacing.Horizontal <= this.Rectangle.Width)
-                r += spacing.Horizontal;
-            if (b + spacing.Vertical <= this.Rectangle.Height)
-                b += spacing.Vertical;
-            region = Rectangle.FromLTRB(l, t, r, b);
-            return true;
+            return location.X >= rectangle.Left && location.X < rectangle.Right && location.Y >= rectangle.Top && location.Y < rectangle.Bottom;
         }
 
-        private bool VerifyAddRegion(Rectangle rectangle)
+        private void CollectNode(Rectangle rectangle, List<FontNode> nodeList)
         {
-            foreach (var item in this.rectangleList)
+            if (this.Rectangle.IntersectsWith(rectangle) == false)
+                return;
+
+            foreach (var item in this.glyphList)
             {
                 if (item.IntersectsWith(rectangle) == true)
-                    return false;
+                    return;
             }
-            return true;
+
+            nodeList.Add(this);
+            foreach (var item in this.Childs)
+            {
+                item.CollectNode(rectangle, nodeList);
+            }
         }
 
-        private void AddRegion(Rectangle rectangle)
+        private void AddGlyphData(FontGlyphData glyphData)
         {
-            foreach (var item in this.rectangleList)
+            if (this.glyphList.Capacity >= this.glyphList.Count + 1)
             {
-                if (item.IntersectsWith(rectangle) == true)
-                    throw new ArgumentException("Unable to reserve region.");
+                this.glyphList.Capacity += 10;
             }
-            this.rectangleList.Add(rectangle);
+            this.glyphList.Add(glyphData);
         }
 
-        private IReservator ReserveRegion(FontGlyph glyph, Rectangle rectangle)
+        private IReservator ReserveRegion(FontGlyph glyph, Point point)
         {
-            if (rectangle.Right + this.settings.Padding.Horizontal > this.Rectangle.Width)
-                return null;
-            if (rectangle.Bottom + this.settings.Padding.Vertical > this.Rectangle.Height)
-                return null;
-            if (this.FindEmptyRegion(rectangle, out var nodes, out var region) == false)
+            var padding = this.settings.Padding;
+            var metrics = glyph.Metrics;
+            var width = metrics.Width;
+            var height = metrics.Height;
+            var rect = new Rectangle(point.X + padding.Left, point.Y + padding.Top, width, height);
+            var paddingRect = this.Page.GeneratePaddingRectangle(rect);
+            if (paddingRect.Right > this.Rectangle.Right || paddingRect.Bottom > this.Rectangle.Bottom)
                 return null;
 
-            var nodeList = new List<FontNode>(nodes.Length);
-            foreach (var item in nodes.Distinct())
-            {
-                if (item.VerifyAddRegion(region) == false)
-                    return null;
-                nodeList.Add(item);
-            }
-
-            return new Reservator(() => this.Reserve(glyph, nodeList.ToArray(), region));
+            var spacingRect = this.Page.GenerateSpacingRectangle(rect);
+            var nodeList = new List<FontNode>(this.count);
+            this.CollectNode(spacingRect, nodeList);
+            if (nodeList.Any() == false)
+                return null;
+            return new Reservator(() => this.Reserve(glyph, nodeList.ToArray(), rect));
         }
 
         private void Reserve(FontGlyph glyph, FontNode[] nodes, Rectangle region)
         {
+            var glyphData = new FontGlyphData(this.Page, glyph, region);
             foreach (var item in nodes)
             {
-                item.AddRegion(region);
+                item.AddGlyphData(glyphData);
             }
-            var lt = new Point(region.Left, region.Top);
-            var rt = new Point(region.Right, region.Top);
-            var lb = new Point(region.Left, region.Bottom);
-            var rb = new Point(region.Right, region.Bottom);
-            var padding = this.settings.Padding;
-            var glyphWidth = glyph.Metrics.Width;
-            var glyphHeight = glyph.Metrics.Height;
-            var glyphRegion = new Rectangle(region.Left + padding.Left, region.Top + padding.Top, glyphWidth, glyphHeight);
+            var spacingRect = glyphData.SpacingRectangle;
+            var lt = new Point(spacingRect.Left, spacingRect.Top);
+            var rt = new Point(spacingRect.Right, spacingRect.Top);
+            var lb = new Point(spacingRect.Left, spacingRect.Bottom);
+            var rb = new Point(spacingRect.Right, spacingRect.Bottom);
 
             this.pointList.Remove(lt);
             this.pointList.Remove(lb);
-
             this.pointList.Insert(0, rt);
             if (this.rightBottomList.Contains(lb) == false)
                 this.pointList.Add(lb);
 
             this.rightBottomList.Add(rb);
-            this.glyphList.Add(new FontGlyphData(this.Page, glyph, glyphRegion));
         }
 
         private FontNode HitTest(Rectangle rectangle)
@@ -219,7 +211,7 @@ namespace JSSoft.Font
             if (this.Rectangle.IntersectsWith(rectangle) == false)
                 return null;
 
-            foreach (var item in this.rectangleList)
+            foreach (var item in this.glyphList)
             {
                 if (item.IntersectsWith(rectangle) == true)
                     return null;

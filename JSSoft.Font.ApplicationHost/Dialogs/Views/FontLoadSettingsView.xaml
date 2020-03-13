@@ -32,12 +32,10 @@ SOFTWARE.
 
     <StackPanel>
         <nmfc:PropertyItemsControl>
-            <nmfc:NumericTextBox nmfc:PropertyItemsControl.Header="Size" 
-                                 Value="{Binding Size, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <jsfc:ValueSelector x:Name="DPI" nmfc:PropertyItemsControl.Header="DPI" Values="72 96"
+            <nmfc:NumericTextBox x:Name="Size" nmfc:PropertyItemsControl.Header="Size" />
+            <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="DPI" Values="72 96"
                                 Value="{Binding DPI, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <ComboBox nmfc:PropertyItemsControl.Header="Face List"
-                      ItemsSource="{Binding Faces}" SelectedItem="{Binding Face}" />
+            <ComboBox nmfc:PropertyItemsControl.Header="Face List" ItemsSource="{Binding Faces}" SelectedItem="{Binding Face}" />
         </nmfc:PropertyItemsControl>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="Select" Content="OK" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />

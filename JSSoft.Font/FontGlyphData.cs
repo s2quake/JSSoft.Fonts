@@ -38,6 +38,13 @@ namespace JSSoft.Font
             this.Page = page;
             this.glyph = glyph;
             this.Rectangle = rectangle;
+            this.PaddingRectangle = page.GeneratePaddingRectangle(rectangle); 
+            this.SpacingRectangle = page.GenerateSpacingRectangle(rectangle);
+        }
+
+        public bool IntersectsWith(Rectangle rectangle)
+        {
+            return this.SpacingRectangle.IntersectsWith(rectangle);
         }
 
         public uint ID => this.glyph.ID;
@@ -47,6 +54,10 @@ namespace JSSoft.Font
         public GlyphMetrics Metrics => this.glyph.Metrics;
 
         public Rectangle Rectangle { get; }
+
+        public Rectangle PaddingRectangle { get; }
+
+        public Rectangle SpacingRectangle { get; }
 
         public FontPage Page { get; }
     }

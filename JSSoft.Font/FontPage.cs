@@ -48,6 +48,8 @@ namespace JSSoft.Font
             this.node = FontNode.Create(this, settings);
         }
 
+        public FontGlyphData HitTest(Point point) => this.node.HitTest(point);
+
         public IReservator ReserveRegion(FontGlyph glyph) => this.node.ReserveRegion(glyph);
 
         public void Save(string filename)
@@ -91,26 +93,47 @@ namespace JSSoft.Font
             }
         }
 
+        internal Rectangle GeneratePaddingRectangle(Rectangle rectangle)
+        {
+            var padding = this.settings.Padding;
+            var l = rectangle.Left - padding.Left;
+            var t = rectangle.Top - padding.Top;
+            var r = rectangle.Right + padding.Right;
+            var b = rectangle.Bottom + padding.Bottom;
+            return Rectangle.FromLTRB(l, t, r, b);
+        }
+
+        internal Rectangle GenerateSpacingRectangle(Rectangle rectangle)
+        {
+            var padding = this.settings.Padding;
+            var spacing = this.settings.Spacing;
+            var l = rectangle.Left - padding.Left;
+            var t = rectangle.Top - padding.Top;
+            var r = rectangle.Right + padding.Right;
+            var b = rectangle.Bottom + padding.Bottom;
+            if (r + spacing.Horizontal < this.Width)
+                r += spacing.Horizontal;
+            if (b + spacing.Vertical < this.Height)
+                b += spacing.Vertical;
+            return Rectangle.FromLTRB(l, t, r, b);
+        }
+
         private void Save(Action<Bitmap> action)
         {
             var backgroundBrush = new SolidBrush(this.BackgroundColor);
             var paddingBrush = new SolidBrush(this.PaddingColor);
             var bitmap = new Bitmap(this.Width, this.Height);
             var graphics = Graphics.FromImage(bitmap);
-            var padding = this.settings.Padding;
 
             graphics.CompositingMode = CompositingMode.SourceCopy;
             foreach (var item in this.node.GlyphList)
             {
-                var metrics = item.Metrics;
                 var glyphBitmap = this.CloneBitmap(item.Bitmap, this.ForegroundColor);
-                var rect = new Rectangle(item.Rectangle.Left, item.Rectangle.Top, metrics.Width, metrics.Height);
-                var paddingRect = Rectangle.FromLTRB(item.Rectangle.Left - padding.Left, item.Rectangle.Top - padding.Top, item.Rectangle.Right + padding.Right, item.Rectangle.Bottom + padding.Bottom);
                 graphics.CompositingMode = CompositingMode.SourceCopy;
-                graphics.FillRectangle(paddingBrush, paddingRect);
-                graphics.FillRectangle(backgroundBrush, rect);
+                graphics.FillRectangle(paddingBrush, item.PaddingRectangle);
+                graphics.FillRectangle(backgroundBrush, item.Rectangle);
                 graphics.CompositingMode = CompositingMode.SourceOver;
-                graphics.DrawImage(glyphBitmap, rect);
+                graphics.DrawImage(glyphBitmap, item.Rectangle);
                 glyphBitmap.Dispose();
             }
             action(bitmap);
@@ -135,9 +158,9 @@ namespace JSSoft.Font
                     var r = bytes1[x * 4 + y * data1.Stride + 2];
                     var a = bytes1[x * 4 + y * data1.Stride + 3];
 
-                    var bf =  ((float)b / 255) * ((float)color.B / 255);
-                    var gf =  ((float)g / 255) * ((float)color.G / 255);
-                    var rf =  ((float)r / 255) * ((float)color.R / 255);
+                    var bf = ((float)b / 255) * ((float)color.B / 255);
+                    var gf = ((float)g / 255) * ((float)color.G / 255);
+                    var rf = ((float)r / 255) * ((float)color.R / 255);
                     var af = ((float)a / 255) * ((float)color.A / 255);
 
                     bytes2[x * 4 + y * data2.Stride + 0] = (byte)(bf * 255.0f);
@@ -153,4 +176,3 @@ namespace JSSoft.Font
         }
     }
 }
-

@@ -21,15 +21,15 @@
 // SOFTWARE.
 
 using Ntreev.ModernUI.Framework;
-using Ntreev.ModernUI.Framework.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -40,6 +40,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         private readonly PreviewViewModel parent;
         private readonly FontPage page;
         private readonly ObservableCollection<GlyphItemViewModel> glyphList = new ObservableCollection<GlyphItemViewModel>();
+        private GlyphItemViewModel glyph;
         private ImageSource imageSource;
 
         public PreviewItemViewModel(PreviewViewModel parent, int index, FontPage page)
@@ -47,12 +48,29 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             this.parent = parent;
             this.page = page;
             this.Index = index;
+            this.ClickCommand = new DelegateCommand(this.Click, this.CanClick);
             this.parent.PropertyChanged += Parent_PropertyChanged;
-            foreach (var item in page.Glyphs)
+            var query = page.Glyphs.OrderBy(item => item.ID);
+            foreach (var item in query)
             {
                 this.glyphList.Add(new GlyphItemViewModel(item));
             }
             this.RefreshImage();
+        }
+
+        public void Click(Point point)
+        {
+            var x = (int)(point.X / this.parent.ZoomLevel);
+            var y = (int)(point.Y / this.parent.ZoomLevel);
+            var data = this.page.HitTest(new System.Drawing.Point(x, y));
+            if (data != null)
+            {
+                var i = this.glyphList.FirstOrDefault(item => item.GlyphData == data);
+                if (i != null)
+                {
+                    this.Glyph = i;
+                }
+            }
         }
 
         public int Index { get; }
@@ -71,7 +89,59 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
 
         public double Height => (double)this.page.Height;
 
+        public double ActualWidth => (double)this.page.Width * this.parent.ZoomLevel;
+
+        public double ActualHeight => (double)this.page.Height * this.parent.ZoomLevel;
+
         public IEnumerable<GlyphItemViewModel> Glyphs => this.glyphList;
+
+        public GlyphItemViewModel Glyph
+        {
+            get => this.glyph;
+            set
+            {
+                this.glyph = value;
+                this.NotifyOfPropertyChange(nameof(Glyph));
+                this.NotifyOfPropertyChange(nameof(GlyphMargin));
+                this.NotifyOfPropertyChange(nameof(ActualGlyphMargin));
+            }
+        }
+
+        public Thickness GlyphMargin
+        {
+            get
+            {
+                if (this.glyph != null)
+                {
+                    var rect = this.glyph.Rectangle;
+                    var l = rect.Left;
+                    var t = rect.Top;
+                    var r = this.Width - rect.Right;
+                    var b = this.Height - rect.Bottom;
+                    return new Thickness(l, t, r, b);
+                }
+                return new Thickness(0);
+            }
+        }
+
+        public Thickness ActualGlyphMargin
+        {
+            get
+            {
+                if (this.glyph != null)
+                {
+                    var rect = this.glyph.Rectangle;
+                    var l = rect.Left;
+                    var t = rect.Top;
+                    var r = this.Width - rect.Right;
+                    var b = this.Height - rect.Bottom;
+                    return new Thickness(l * this.parent.ZoomLevel, t * this.parent.ZoomLevel, r * this.parent.ZoomLevel, b * this.parent.ZoomLevel);
+                }
+                return new Thickness(0);
+            }
+        }
+
+        public ICommand ClickCommand { get; }
 
         public async void RefreshImage()
         {
@@ -98,6 +168,23 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             });
         }
 
+        private bool CanClick(object parameter)
+        {
+            return parameter is Point;
+        }
+
+        private void Click(object parameter)
+        {
+            if (parameter is Point point)
+            {
+                this.Click(point);
+            }
+            else
+            {
+                throw new ArgumentException($"{nameof(parameter)} must be a point");
+            }
+        }
+
         private void Parent_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
@@ -107,6 +194,13 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
                 case nameof(PreviewViewModel.PaddingColor):
                     {
                         this.RefreshImage();
+                    }
+                    break;
+                case nameof(PreviewViewModel.ActualWidth):
+                case nameof(PreviewViewModel.ActualHeight):
+                    {
+                        this.NotifyOfPropertyChange(e.PropertyName);
+                        this.NotifyOfPropertyChange(nameof(ActualGlyphMargin));
                     }
                     break;
             }

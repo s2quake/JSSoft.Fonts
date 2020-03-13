@@ -37,6 +37,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         private Color backgroundColor = ColorUtility.FromColor(FontPage.DefaultBackgroundColor);
         private Color foregroundColor = ColorUtility.FromColor(FontPage.DefaultForegroundColor);
         private Color paddingColor = Colors.Blue;
+        private double zoomLevel = 1.0;
 
         public PreviewViewModel(FontData fontData)
         {
@@ -129,6 +130,22 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
                 this.NotifyOfPropertyChange(nameof(Item));
             }
         }
+
+        public double ZoomLevel
+        {
+            get => this.zoomLevel;
+            set
+            {
+                this.zoomLevel = value;
+                this.NotifyOfPropertyChange(nameof(ZoomLevel));
+                this.NotifyOfPropertyChange(nameof(ActualWidth));
+                this.NotifyOfPropertyChange(nameof(ActualHeight));
+            }
+        }
+
+        public double ActualWidth => this.fontData.PageWidth * this.zoomLevel;
+
+        public double ActualHeight => this.fontData.PageHeight * this.zoomLevel;
 
         public Uri FontUri => this.fontData.BaseUri;
 

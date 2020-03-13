@@ -30,7 +30,7 @@ SOFTWARE.
              xmlns:nmfv="clr-namespace:Ntreev.ModernUI.Framework.Converters;assembly=Ntreev.ModernUI.Framework"
              xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
              xmlns:jsfv="clr-namespace:JSSoft.Font.ApplicationHost.Converters"
-             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="300" nmfc:DialogWindow.DesiredResizeMode="CanResize">
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="300" nmfc:DialogWindow.DesiredResizeMode="CanResize">
 
     <UserControl.Resources>
 
@@ -49,24 +49,24 @@ SOFTWARE.
         </DataTemplate>
 
         <DataTemplate x:Key="TabControl_ContentTemplate">
-            <Grid>
-                <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                    <Image x:Name="Image" Source="{Binding ImageSource}" RenderOptions.BitmapScalingMode="NearestNeighbor">
-                        <Image.Width>
-                            <MultiBinding Converter="{StaticResource MultiplicationConverter}">
-                                <Binding Path="Width" />
-                                <Binding Path="Value" ElementName="ZoomLevel" />
-                            </MultiBinding>
-                        </Image.Width>
-                        <Image.Height>
-                            <MultiBinding Converter="{StaticResource MultiplicationConverter}">
-                                <Binding Path="Height" />
-                                <Binding Path="Value" ElementName="ZoomLevel" />
-                            </MultiBinding>
-                        </Image.Height>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                <Grid Width="{Binding ActualWidth}" Height="{Binding ActualHeight}">
+                    <Image x:Name="Image" Source="{Binding ImageSource}" 
+                           RenderOptions.BitmapScalingMode="NearestNeighbor" PreviewMouseLeftButtonDown="Image_PreviewMouseLeftButtonDown" >
+                        <Image.InputBindings>
+                            <MouseBinding Gesture="LeftClick" 
+                                          Command="{Binding ClickCommand}" 
+                                          CommandParameter="{Binding Path=Tag, ElementName=Image}" />
+                        </Image.InputBindings>
                     </Image>
-                </ScrollViewer>
-            </Grid>
+                    <Border x:Name="Bd" BorderBrush="Red" BorderThickness="1" Margin="{Binding ActualGlyphMargin}" />
+                </Grid>
+            </ScrollViewer>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Glyph}" Value="{x:Null}">
+                    <Setter TargetName="Bd" Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
         </DataTemplate>
 
     </UserControl.Resources>
@@ -80,7 +80,7 @@ SOFTWARE.
             <nmfc:ModernToolBar>
                 <nmfc:IconButton x:Name="ZoomOut" Source="/jsfontApp;component/Images/zoom-out.png" Click="ZoomOut_Click" />
                 <nmfc:IconButton x:Name="ZoomIn" Source="/jsfontApp;component/Images/zoom-in.png" Click="ZoomIn_Click" />
-                <jsfc:ZoomLevelControl x:Name="ZoomLevel" Margin="4 0" />
+                <jsfc:ZoomLevelControl x:Name="ZoomLevelControl" Margin="4 0" Value="{Binding ZoomLevel, Mode=TwoWay}" />
                 <Border Width="4" />
             </nmfc:ModernToolBar>
             <ToolBar ToolBarTray.IsLocked="True">
@@ -100,7 +100,8 @@ SOFTWARE.
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" MinWidth="100" />
             </Grid.ColumnDefinitions>
-            <ListBox ItemsSource="{Binding Path=SelectedItem.Glyphs, ElementName=ContentViewer}" 
+            <ListBox x:Name="Glyphs" ItemsSource="{Binding Path=SelectedItem.Glyphs, ElementName=ContentViewer}" 
+                     SelectedItem="{Binding Path=SelectedItem.Glyph, ElementName=ContentViewer}"
                      BorderThickness="1 1 0 1" BorderBrush="{StaticResource ItemBorder}">
                 <ListBox.FontFamily >
                     <MultiBinding Converter="{StaticResource FontFamilyConverter}">
