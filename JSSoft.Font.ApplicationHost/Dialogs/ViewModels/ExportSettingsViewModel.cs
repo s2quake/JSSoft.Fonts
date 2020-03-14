@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using Ntreev.ModernUI.Framework;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
@@ -47,9 +48,9 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             this.DisplayName = "Export Settings";
         }
 
-        public void OK()
+        public async Task OKAsync()
         {
-            this.TryClose(true);
+            await this.TryCloseAsync(true);
         }
 
         public void SelectBackgroundColor()

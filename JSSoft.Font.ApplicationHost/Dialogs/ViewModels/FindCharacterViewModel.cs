@@ -26,6 +26,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
 {
@@ -41,9 +42,9 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             this.DisplayName = "Find Character";
         }
 
-        public void Find()
+        public async Task FindAsync()
         {
-            this.TryClose(true);
+            await this.TryCloseAsync(true);
         }
 
         public uint Character

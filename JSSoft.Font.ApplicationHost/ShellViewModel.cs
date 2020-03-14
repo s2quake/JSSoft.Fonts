@@ -31,6 +31,7 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -380,19 +381,17 @@ namespace JSSoft.Font.ApplicationHost
 
         protected virtual void OnSelectedcharacterChanged(EventArgs e) => this.SelectedcharacterChanged?.Invoke(this, e);
 
-        protected override void OnDeactivate(bool close)
+        protected override async Task OnDeactivateAsync(bool close, CancellationToken cancellationToken)
         {
+            await base.OnDeactivateAsync(close, cancellationToken);
             if (close == true)
             {
-                this.FontDescriptor?.Dispose();
-                this.FontDescriptor = null;
+                await Task.Run(() =>
+                {
+                    this.FontDescriptor?.Dispose();
+                    this.FontDescriptor = null;
+                });
             }
-            base.OnDeactivate(close);
-        }
-
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
         }
 
         private void CheckedCharacters_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

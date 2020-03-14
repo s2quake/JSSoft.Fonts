@@ -1,402 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{46B68156-3AA5-4D2C-AFC5-1B6FB9120C3E}</ProjectGuid>
+    <TargetFrameworks>netcoreapp3.0;net472</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>JSSoft.Font.ApplicationHost</RootNamespace>
+    <Version>0.9.0.0</Version>
+    <AssemblyVersion>0.9.0.0</AssemblyVersion>
+    <FileVersion>0.9.0.0</FileVersion>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicense>https://github.com/s2quake/JSSoft.Font/blob/master/LICENSE.md</PackageLicense>
+    <Copyright>Copyright © JS Soft 2020</Copyright>
+    <Description>library for bitmap font generator</Description>
+    <Company>JSSoft</Company>
+    <Authors>s2quake</Authors>
+    <RepositoryUrl>https://github.com/s2quake/JSSoft.Font</RepositoryUrl>
+    <PackageTags>jsfont</PackageTags>
+    <UseWPF>true</UseWPF>
     <AssemblyName>jsfontApp</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>true</UseVSHostingProcess>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>App.ico</ApplicationIcon>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
+    <None Remove="Images\**\*.png" />
+    <Resource Include="Images\**\*.png" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net472'">
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+    <!-- <PackageReference Include="System.ValueTuple" Version="4.5.0" /> -->
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.0'">
+    <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.4.0.5" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="4.5.0" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net472'">
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="3.4.0" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="ApplicationService.cs" />
-    <Compile Include="Assets\CharacterControl.xaml.cs">
-      <DependentUpon>CharacterControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Assets\CharacterView.xaml.cs">
-      <DependentUpon>CharacterView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CharacterContext.cs" />
-    <Compile Include="CharacterRowView.cs" />
-    <Compile Include="CharacterGroupView.cs" />
-    <Compile Include="CharacterRow.cs" />
-    <Compile Include="Character.cs" />
-    <Compile Include="CharacterGroup.cs" />
-    <Compile Include="ColorUtility.cs" />
-    <Compile Include="Commands\QuitCommand.cs" />
-    <Compile Include="Commands\LoadSettingsCommand.cs" />
-    <Compile Include="Commands\ExportFontCommand.cs" />
-    <Compile Include="Commands\CloseFontCommand.cs" />
-    <Compile Include="Commands\SaveSettingsCommand.cs" />
-    <Compile Include="Commands\OpenFontCommand.cs" />
-    <Compile Include="ContentViews\ContentView.xaml.cs">
-      <DependentUpon>ContentView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ContextMenus\CharacterGroup\CheckAllMenu.cs" />
-    <Compile Include="ContextMenus\CharacterGroup\UncheckAllMenu.cs" />
-    <Compile Include="ContextMenus\CharacterRow\UncheckAllMenu.cs" />
-    <Compile Include="ContextMenus\CharacterRow\CheckAllMenu.cs" />
-    <Compile Include="ContextMenus\Character\SaveViewMenu.cs" />
-    <Compile Include="ContextMenus\Character\PrewViewMenu.cs" />
-    <Compile Include="ContextMenus\Character\UncheckMenu.cs" />
-    <Compile Include="ContextMenus\Character\CheckMenu.cs" />
-    <Compile Include="Controls\HeaderedContentList.cs" />
-    <Compile Include="Controls\HeaderedContentListItem.cs" />
-    <Compile Include="Controls\ValueSelector.cs" />
-    <Compile Include="Controls\SpacingControl.cs" />
-    <Compile Include="Controls\ValuesTypeConverter.cs" />
-    <Compile Include="Controls\ZoomLevelItem.cs" />
-    <Compile Include="Controls\ZoomLevelControl.cs" />
-    <Compile Include="Controls\CharacterControl.cs" />
-    <Compile Include="Converters\CharCodeToDisplayTextConverter.cs" />
-    <Compile Include="Converters\FontFamilyConverter.cs" />
-    <Compile Include="Converters\MultiplicationConverter.cs" />
-    <Compile Include="Converters\ValueToHexConverter.cs" />
-    <Compile Include="Dialogs\ViewModels\AboutViewModel.cs" />
-    <Compile Include="Dialogs\ViewModels\ExportSettingsViewModel.cs" />
-    <Compile Include="Dialogs\ViewModels\GlyphItemViewModel.cs" />
-    <Compile Include="Dialogs\ViewModels\PreviewCharacterViewModel.cs" />
-    <Compile Include="Dialogs\ViewModels\PreviewItemViewModel.cs" />
-    <Compile Include="Dialogs\ViewModels\PreviewViewModel.cs" />
-    <Compile Include="Dialogs\ViewModels\FontLoadSettingsViewModel.cs" />
-    <Compile Include="Dialogs\ViewModels\FindCharacterViewModel.cs" />
-    <Compile Include="Dialogs\ViewModels\SelectCharactersViewModel.cs" />
-    <Compile Include="Dialogs\ViewModels\SelectColorViewModel.cs" />
-    <Compile Include="Dialogs\Views\AboutView.xaml.cs">
-      <DependentUpon>AboutView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Views\ExportSettingsView.xaml.cs">
-      <DependentUpon>ExportSettingsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Views\PreviewCharacterView.xaml.cs">
-      <DependentUpon>PreviewCharacterView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Views\PreviewView.xaml.cs">
-      <DependentUpon>PreviewView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Views\FontLoadSettingsView.xaml.cs">
-      <DependentUpon>FontLoadSettingsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Views\FindCharacterView.xaml.cs">
-      <DependentUpon>FindCharacterView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Views\SelectCharactersView.xaml.cs">
-      <DependentUpon>SelectCharactersView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Views\SelectColorView.xaml.cs">
-      <DependentUpon>SelectColorView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ExportSettings.cs" />
-    <Compile Include="ICharacterNavigatorItem.cs" />
-    <Compile Include="ICharacterNavigator.cs" />
-    <Compile Include="Input\FontCommands.cs" />
-    <Compile Include="FontInfo.cs" />
-    <Compile Include="IPropertyItem.cs" />
-    <Compile Include="IPropertyService.cs" />
-    <Compile Include="MenuItems\FileMenus\QuitMenuItem.cs" />
-    <Compile Include="MenuItems\FileMenus\CloseFontMenuItem.cs" />
-    <Compile Include="MenuItems\FileMenus\RecentFontsItemMenuItem.cs" />
-    <Compile Include="MenuItems\FileMenus\RecentSettingsItemMenuItem.cs" />
-    <Compile Include="MenuItems\FileMenus\RecentFontsMenuItem.cs" />
-    <Compile Include="MenuItems\FileMenus\RecentSettingsMenuItem.cs" />
-    <Compile Include="MenuItems\FileMenus\SaveSettingsAsMenuItem.cs" />
-    <Compile Include="MenuItems\HelpMenus\AboutMenuItem.cs" />
-    <Compile Include="MenuItems\ToolMenuItem.cs" />
-    <Compile Include="MenuItems\FileMenus\LoadSettingsMenuItem.cs" />
-    <Compile Include="MenuItems\FileMenus\SaveSettingsMenuItem.cs" />
-    <Compile Include="MenuItems\ToolMenus\FindCharacterMenuItem.cs" />
-    <Compile Include="MenuItems\ToolMenus\SelectCharactersMenuItem.cs" />
-    <Compile Include="MenuItems\ToolMenus\ExportSettingsMenuItem.cs" />
-    <Compile Include="MenuItems\HelpMenuItem.cs" />
-    <Compile Include="MenuItems\ViewMenuItem.cs" />
-    <Compile Include="MenuItems\FileMenus\ExportFontMenuItem.cs" />
-    <Compile Include="MenuItems\ViewMenus\HidePropertyWindowMenuItem.cs" />
-    <Compile Include="MenuItems\ViewMenus\ShowPropertyWindowMenuItem.cs" />
-    <Compile Include="MenuItems\ViewMenus\PreviewMenuItem.cs" />
-    <Compile Include="MenuItems\ViewMenus\ZoomOutMenuItem.cs" />
-    <Compile Include="MenuItems\ViewMenus\ZoomInMenuItem.cs" />
-    <Compile Include="CharacterNavigator.cs" />
-    <Compile Include="CharacterNavigatorItem.cs" />
-    <Compile Include="ContentViews\MenuView.xaml.cs">
-      <DependentUpon>MenuView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PropertyItemBase.cs" />
-    <Compile Include="PropertyItems\ViewModels\CharacterGroupViewModel.cs" />
-    <Compile Include="PropertyItems\ViewModels\FontInfoViewModel.cs" />
-    <Compile Include="PropertyItems\ViewModels\GlyphMetricsViewModel.cs" />
-    <Compile Include="PropertyItems\Views\CharacterGroupView.xaml.cs">
-      <DependentUpon>CharacterGroupView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PropertyItems\Views\FontInfoView.xaml.cs">
-      <DependentUpon>FontInfoView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PropertyItems\Views\GlyphMetricsView.xaml.cs">
-      <DependentUpon>GlyphMetricsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PropertyService.cs" />
-    <Compile Include="Serializations\ExportSettingsInfo.cs" />
-    <Compile Include="ContentViews\StatusBarView.xaml.cs">
-      <DependentUpon>StatusBarView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ToolBarItems\ZoomOutToolBarItem.cs" />
-    <Compile Include="ToolBarItems\ZoomInToolBarItem.cs" />
-    <Compile Include="ToolBarItems\OpenFontToolBarItem.cs" />
-    <Compile Include="Controls\CharacterView.cs" />
-    <Compile Include="ICharacter.cs" />
-    <Compile Include="ICharacterGroup.cs" />
-    <Compile Include="ICharacterRow.cs" />
-    <Compile Include="MenuItems\FileMenuItem.cs" />
-    <Compile Include="MenuItems\FileMenus\OpenFontMenuItem.cs" />
-    <Compile Include="ShellView.xaml.cs">
-      <DependentUpon>ShellView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShellViewModel.cs" />
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="AppBootstrapper.cs" />
-    <Compile Include="IShell.cs" />
-    <Compile Include="ContentViews\ToolBarView.xaml.cs">
-      <DependentUpon>ToolBarView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UndoActions\UncheckCharacterGroupAction.cs" />
-    <Compile Include="UndoActions\CheckCharacterGroupAction.cs" />
-    <Compile Include="UndoActions\UncheckCharacterRowAction.cs" />
-    <Compile Include="UndoActions\CheckCharacterRowAction.cs" />
-    <Compile Include="UndoActions\UncheckCharacterAction.cs" />
-    <Compile Include="UndoActions\CheckCharacterAction.cs" />
-    <Compile Include="UndoService.cs" />
-    <Page Include="Assets\HeaderedContentList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\ValueSelector.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\SpacingControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\CharacterControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\CharacterView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\FontUI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\ZoomLevelControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ContentViews\ContentView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\Views\AboutView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\Views\ExportSettingsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\Views\PreviewCharacterView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\Views\PreviewView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\Views\FontLoadSettingsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\Views\FindCharacterView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\Views\SelectCharactersView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\Views\SelectColorView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ContentViews\MenuView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PropertyItems\Views\CharacterGroupView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PropertyItems\Views\FontInfoView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PropertyItems\Views\GlyphMetricsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShellView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ContentViews\StatusBarView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ContentViews\ToolBarView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <PackageReference Include="Caliburn.Micro" Version="4.0.105-alpha" />
+    <PackageReference Include="Caliburn.Micro.Core" Version="4.0.105-alpha" />
+    <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0660" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+    <PackageReference Include="ModernUI.WPFCore" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
+    <ProjectReference Include="..\submodules\Ntreev.Library\Ntreev.Library\Ntreev.Library.csproj" />
+    <ProjectReference Include="..\submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework.csproj" />
+    <ProjectReference Include="..\submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework.DataGrid\Ntreev.ModernUI.Framework.DataGrid.csproj" />
+    <ProjectReference Include="..\JSSoft.Font\JSSoft.Font.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\JSSoft.Font\JSSoft.Font.csproj">
-      <Project>{9bfdc602-9227-4bb1-8734-2983c2cd4b8c}</Project>
-      <Name>JSSoft.Font</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\submodules\Ntreev.Library\Ntreev.Library.Net45\Ntreev.Library.csproj">
-      <Project>{1918437f-4fbf-4731-ac5b-981a4a4cb1f1}</Project>
-      <Name>Ntreev.Library</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework.DataGrid\Ntreev.ModernUI.Framework.DataGrid.csproj">
-      <Project>{1c55fed2-99eb-469d-9dac-a1f7b9e7c790}</Project>
-      <Name>Ntreev.ModernUI.Framework.DataGrid</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework.csproj">
-      <Project>{20c3d3dd-de99-4126-9449-bca12e4d255d}</Project>
-      <Name>Ntreev.ModernUI.Framework</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Caliburn.Micro">
-      <Version>3.2.0</Version>
-    </PackageReference>
-    <PackageReference Include="Extended.Wpf.Toolkit">
-      <Version>3.4.0</Version>
-    </PackageReference>
-    <PackageReference Include="MahApps.Metro">
-      <Version>1.5.0</Version>
-    </PackageReference>
-    <PackageReference Include="ModernUI.WPF">
-      <Version>1.0.9</Version>
-    </PackageReference>
-    <PackageReference Include="SharpFont">
-      <Version>4.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="SharpFont.Dependencies">
-      <Version>2.6.0</Version>
-    </PackageReference>
-    <PackageReference Include="System.ValueTuple">
-      <Version>4.5.0</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\open-folder-with-document.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="App.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\zoom-in.png" />
-    <Resource Include="Images\zoom-out.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\left-arrow.png" />
-    <Resource Include="Images\right-arrow.png" />
-  </ItemGroup>
-  <Import Project="..\JSSoft.Font.Sharing\JSSoft.Font.Sharing.projitems" Label="Shared" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

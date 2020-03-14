@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using Ntreev.ModernUI.Framework;
+using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
@@ -34,9 +35,9 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             this.DisplayName = "Select Color";
         }
 
-        public void Select()
+        public async Task SelectAsync()
         {
-            this.TryClose(true);
+            await this.TryCloseAsync(true);
         }
 
         public Color CurrentColor

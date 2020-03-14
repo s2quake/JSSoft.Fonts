@@ -23,6 +23,7 @@
 using Ntreev.ModernUI.Framework;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
 {
@@ -38,9 +39,9 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             this.DisplayName = "Select Characters";
         }
 
-        public void Select()
+        public async Task SelectAsync()
         {
-            this.TryClose(true);
+            await this.TryCloseAsync(true);
         }
 
         public uint[] Characters

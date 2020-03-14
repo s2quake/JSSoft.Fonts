@@ -43,7 +43,11 @@ namespace JSSoft.Font
                 case PixelMode.Lcd:
                     throw new NotImplementedException();
                 default:
+#if NET45
                     return ftbmp.ToGdipBitmap();
+#else
+                    throw new NotImplementedException();
+#endif
             }
         }
 

@@ -25,6 +25,8 @@ using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
@@ -164,12 +166,12 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
 
         public string FaceName => this.fontData.Name;
 
-        protected override void OnDeactivate(bool close)
+        protected override async Task OnDeactivateAsync(bool close, CancellationToken cancellationToken)
         {
-            base.OnDeactivate(close);
+            await base.OnDeactivateAsync(close, cancellationToken);
             if (close == true)
             {
-                this.configs?.Commit(this);
+                await this.Dispatcher.InvokeAsync(() => this.configs?.Commit(this));
             }
         }
     }
