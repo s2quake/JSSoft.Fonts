@@ -1,0 +1,16 @@
+﻿[*.{cs,vb}]
+
+# IDE0003: 한정자 제거
+dotnet_style_qualification_for_field = false:none
+
+# IDE0003: 한정자 제거
+dotnet_style_qualification_for_property = false:none
+
+# IDE0003: 한정자 제거
+dotnet_style_qualification_for_event = false:none
+
+# IDE0003: 한정자 제거
+dotnet_style_qualification_for_method = false:none
+
+# IDE0005: Using 지시문은 필요하지 않습니다.
+dotnet_diagnostic.IDE0005.severity = error

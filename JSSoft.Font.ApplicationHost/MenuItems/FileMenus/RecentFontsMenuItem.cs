@@ -20,7 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

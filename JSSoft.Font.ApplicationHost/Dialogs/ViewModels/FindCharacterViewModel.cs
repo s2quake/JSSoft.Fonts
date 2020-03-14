@@ -23,12 +23,9 @@
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
 {
@@ -62,24 +59,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         public string CharacterText
         {
             get => this.characterText ?? string.Empty;
-            set
-            {
-                this.Update(value);
-                //try
-                //{
-                //    this.character = char.Parse(value);
-                //    this.CanFind = true;
-                //    this.NotifyOfPropertyChange(nameof(Character));
-                //    this.NotifyOfPropertyChange(nameof(CharacterText));
-                //    this.NotifyOfPropertyChange(nameof(CanFind));
-                //}
-                //catch
-                //{
-                //    this.CanFind = false;
-                //    this.NotifyOfPropertyChange(nameof(CanFind));
-                //    throw;
-                //}
-            }
+            set => this.Update(value);
         }
 
         [ConfigurationProperty]

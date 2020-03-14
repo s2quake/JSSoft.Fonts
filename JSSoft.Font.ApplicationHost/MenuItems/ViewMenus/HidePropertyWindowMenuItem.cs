@@ -20,11 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
 using JSSoft.Font.ApplicationHost.Input;
 using Ntreev.ModernUI.Framework;
 using System.ComponentModel.Composition;
-using System.Windows.Input;
 
 namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
 {

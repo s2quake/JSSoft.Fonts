@@ -22,25 +22,9 @@
 
 using FirstFloor.ModernUI.Windows.Controls;
 using JSSoft.Font.ApplicationHost.Input;
-using JSSoft.Font.ApplicationHost.UndoActions;
 using Ntreev.ModernUI.Framework;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace JSSoft.Font.ApplicationHost
 {
@@ -110,11 +94,6 @@ namespace JSSoft.Font.ApplicationHost
         {
             e.CanExecute = this.UndoService.CanUndo;
             e.Handled = true;
-
-            if (e.CanExecute == true)
-            {
-                int qwer = 0;
-            }
         }
 
         private void Redo_Execute(object sender, ExecutedRoutedEventArgs e)

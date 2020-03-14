@@ -62,13 +62,13 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         {
             var x = (int)(point.X / this.parent.ZoomLevel);
             var y = (int)(point.Y / this.parent.ZoomLevel);
-            var data = this.page.HitTest(new System.Drawing.Point(x, y));
-            if (data != null)
+            var glyphData = this.page.HitTest(new System.Drawing.Point(x, y));
+            if (glyphData != null)
             {
-                var i = this.glyphList.FirstOrDefault(item => item.GlyphData == data);
-                if (i != null)
+                var viewModel = this.glyphList.FirstOrDefault(item => item.GlyphData == glyphData);
+                if (viewModel != null)
                 {
-                    this.Glyph = i;
+                    this.Glyph = viewModel;
                 }
             }
         }

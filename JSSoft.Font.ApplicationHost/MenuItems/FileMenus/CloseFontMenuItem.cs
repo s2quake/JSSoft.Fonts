@@ -25,7 +25,6 @@ using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
 using System.ComponentModel.Composition;
-using System.Windows.Input;
 
 namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 {

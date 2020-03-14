@@ -20,14 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
-using JSSoft.Font.ApplicationHost.Properties;
-using Microsoft.Win32;
 using Ntreev.ModernUI.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JSSoft.Font.ApplicationHost.Commands

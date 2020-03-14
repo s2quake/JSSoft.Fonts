@@ -21,15 +21,6 @@
 // SOFTWARE.
 
 using Ntreev.ModernUI.Framework;
-using Ntreev.ModernUI.Framework.ViewModels;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSSoft.Font.ApplicationHost
 {

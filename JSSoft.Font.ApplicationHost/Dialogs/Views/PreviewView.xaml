@@ -102,7 +102,8 @@ SOFTWARE.
             </Grid.ColumnDefinitions>
             <ListBox x:Name="Glyphs" ItemsSource="{Binding Path=SelectedItem.Glyphs, ElementName=ContentViewer}" 
                      SelectedItem="{Binding Path=SelectedItem.Glyph, ElementName=ContentViewer}"
-                     BorderThickness="1 1 0 1" BorderBrush="{StaticResource ItemBorder}">
+                     BorderThickness="1 1 0 1" BorderBrush="{StaticResource ItemBorder}"
+                     SelectionChanged="Glyphs_SelectionChanged">
                 <ListBox.FontFamily >
                     <MultiBinding Converter="{StaticResource FontFamilyConverter}">
                         <Binding Path="FontUri" />

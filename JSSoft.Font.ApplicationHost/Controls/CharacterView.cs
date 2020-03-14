@@ -22,14 +22,9 @@
 
 using Ntreev.Library.Linq;
 using Ntreev.ModernUI.Framework.DataGrid.Controls;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using Xceed.Wpf.DataGrid;
 
@@ -154,25 +149,6 @@ namespace JSSoft.Font.ApplicationHost.Controls
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
-
-            //var container = this.gridControl.GetContainerFromItem(this.gridControl.CurrentItem);
-
-            //if (sender is ModernDataCell cell && cell.DataContext is CharacterRowView rowView)
-            //{
-            //    var column = cell.ParentColumn;
-            //    if (rowView[column.Index] is ICharacter character)
-            //    {
-            //        if (ApplicationService.GetCharacterNavigator(cell) is ICharacterNavigator navigator)
-            //        {
-            //            if (ApplicationService.GetShell(cell) is IShell shell)
-            //            {
-            //                shell.SelectedCharacter = character;
-            //                navigator.Add(character);
-            //                e.Handled = true;
-            //            }
-            //        }
-            //    }
-            //}
         }
 
         protected override void OnMouseDoubleClick(MouseButtonEventArgs e)

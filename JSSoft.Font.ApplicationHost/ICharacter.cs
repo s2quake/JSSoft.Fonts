@@ -20,7 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace JSSoft.Font.ApplicationHost

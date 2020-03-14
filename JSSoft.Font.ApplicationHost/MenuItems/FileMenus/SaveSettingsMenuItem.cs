@@ -23,7 +23,6 @@
 using JSSoft.Font.ApplicationHost.Commands;
 using Ntreev.ModernUI.Framework;
 using System;
-using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
 

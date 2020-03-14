@@ -105,7 +105,6 @@
     <Compile Include="Controls\ZoomLevelControl.cs" />
     <Compile Include="Controls\CharacterControl.cs" />
     <Compile Include="Converters\CharCodeToDisplayTextConverter.cs" />
-    <Compile Include="Converters\GroupRangeToDisplayTextConverter.cs" />
     <Compile Include="Converters\FontFamilyConverter.cs" />
     <Compile Include="Converters\MultiplicationConverter.cs" />
     <Compile Include="Converters\ValueToHexConverter.cs" />

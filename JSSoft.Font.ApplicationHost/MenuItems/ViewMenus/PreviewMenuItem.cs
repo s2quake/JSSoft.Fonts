@@ -31,11 +31,13 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
     class PreviewMenuItem : MenuItemBase
     {
         private readonly IShell shell;
+        private readonly IAppConfiguration configs;
 
         [ImportingConstructor]
-        public PreviewMenuItem(IShell shell)
+        public PreviewMenuItem(IShell shell, IAppConfiguration configs)
         {
             this.shell = shell;
+            this.configs = configs;
             this.DisplayName = "Preview";
             this.shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
             this.shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();
@@ -49,11 +51,8 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
         protected async override void OnExecute(object parameter)
         {
             var images = await this.shell.PreviewAsync();
-            var dialog = new PreviewViewModel(images);
-            if (dialog.ShowDialog() == true)
-            {
-
-            }
+            var dialog = new PreviewViewModel(this.configs, images);
+            dialog.ShowDialog();
         }
     }
 }

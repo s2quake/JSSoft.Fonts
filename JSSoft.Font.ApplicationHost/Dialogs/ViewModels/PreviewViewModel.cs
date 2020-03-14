@@ -20,18 +20,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
 {
     class PreviewViewModel : ModalDialogBase
     {
+        private readonly IAppConfiguration configs;
         private readonly FontData fontData;
         private PreviewItemViewModel image;
         private Color backgroundColor = ColorUtility.FromColor(FontPage.DefaultBackgroundColor);
@@ -40,17 +40,26 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         private double zoomLevel = 1.0;
 
         public PreviewViewModel(FontData fontData)
+            : this(null, fontData)
         {
+
+        }
+
+        public PreviewViewModel(IAppConfiguration configs, FontData fontData)
+        {
+            this.configs = configs;
+            this.fontData = fontData ?? throw new ArgumentNullException(nameof(fontData));
+            this.DisplayName = "Preview";
+            this.configs?.Update(this);
+
             var itemList = new List<PreviewItemViewModel>(fontData.Pages.Length);
             for (var i = 0; i < fontData.Pages.Length; i++)
             {
                 var page = fontData.Pages[i];
                 itemList.Add(new PreviewItemViewModel(this, i, page));
             }
-            this.fontData = fontData;
             this.Items = itemList.ToArray();
             this.image = itemList.First();
-            this.DisplayName = "Preview";
         }
 
         public void SelectBackgroundColor()
@@ -89,6 +98,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             }
         }
 
+        [ConfigurationProperty]
         public Color BackgroundColor
         {
             get => this.backgroundColor;
@@ -99,6 +109,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             }
         }
 
+        [ConfigurationProperty]
         public Color ForegroundColor
         {
             get => this.foregroundColor;
@@ -109,6 +120,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             }
         }
 
+        [ConfigurationProperty]
         public Color PaddingColor
         {
             get => this.paddingColor;
@@ -131,6 +143,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             }
         }
 
+        [ConfigurationProperty]
         public double ZoomLevel
         {
             get => this.zoomLevel;
@@ -150,5 +163,14 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         public Uri FontUri => this.fontData.BaseUri;
 
         public string FaceName => this.fontData.Name;
+
+        protected override void OnDeactivate(bool close)
+        {
+            base.OnDeactivate(close);
+            if (close == true)
+            {
+                this.configs?.Commit(this);
+            }
+        }
     }
 }

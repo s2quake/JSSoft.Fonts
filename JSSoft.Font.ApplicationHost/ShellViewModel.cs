@@ -21,7 +21,6 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Serializations;
-using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
@@ -32,10 +31,7 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Xml;
 using System.Xml.Serialization;
 

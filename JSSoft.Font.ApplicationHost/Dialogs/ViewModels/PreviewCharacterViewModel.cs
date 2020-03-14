@@ -22,10 +22,6 @@
 
 using Ntreev.ModernUI.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
@@ -37,8 +33,6 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         {
             this.Character = character ?? throw new ArgumentNullException(nameof(character));
             this.DisplayName = "Preview";
-
-
         }
 
         public ICharacter Character { get; }
