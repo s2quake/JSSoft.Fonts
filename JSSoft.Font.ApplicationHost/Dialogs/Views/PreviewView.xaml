@@ -59,7 +59,7 @@ SOFTWARE.
                                           CommandParameter="{Binding Path=Tag, ElementName=Image}" />
                         </Image.InputBindings>
                     </Image>
-                    <Border x:Name="Bd" BorderBrush="Red" BorderThickness="1" Margin="{Binding ActualGlyphMargin}" />
+                    <Border x:Name="Bd" BorderBrush="Red" BorderThickness="1" Margin="{Binding ActualGlyphMargin}" Loaded="Bd_Loaded" />
                 </Grid>
             </ScrollViewer>
             <DataTemplate.Triggers>

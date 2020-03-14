@@ -64,7 +64,6 @@ namespace JSSoft.Font.ApplicationHost.Controls
             {
                 this.handler = new TextChangedEventHandler(ComboBox_TextChanged);
                 this.comboBox.AddHandler(TextBoxBase.TextChangedEvent, this.handler);
-
             }
         }
 

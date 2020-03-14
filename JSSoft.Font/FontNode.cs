@@ -136,21 +136,36 @@ namespace JSSoft.Font
             return location.X >= rectangle.Left && location.X < rectangle.Right && location.Y >= rectangle.Top && location.Y < rectangle.Bottom;
         }
 
-        private void CollectNode(Rectangle rectangle, List<FontNode> nodeList)
+        private bool CollectNode(Rectangle rectangle, List<FontNode> nodeList)
         {
             if (this.Rectangle.IntersectsWith(rectangle) == false)
-                return;
+                return false;
 
-            foreach (var item in this.glyphList)
+            if (this.Childs.Any() == false)
             {
-                if (item.IntersectsWith(rectangle) == true)
-                    return;
+                foreach (var item in this.glyphList)
+                {
+                    if (item.IntersectsWith(rectangle) == true)
+                        return false;
+                }
+                nodeList.Add(this);
+                return true;
             }
-
-            nodeList.Add(this);
-            foreach (var item in this.Childs)
+            else
             {
-                item.CollectNode(rectangle, nodeList);
+                var i = 0;
+                foreach (var item in this.Childs)
+                {
+                    if(item.CollectNode(rectangle, nodeList) == true)
+                    {
+                        i++;
+                    }
+                }
+                if (i > 0)
+                {
+                    nodeList.Add(this);
+                }
+                return i != 0;
             }
         }
 

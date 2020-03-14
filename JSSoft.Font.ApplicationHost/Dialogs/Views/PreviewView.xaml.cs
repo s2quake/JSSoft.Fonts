@@ -31,6 +31,8 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.Views
     /// </summary>
     public partial class PreviewView : UserControl
     {
+        private Border bd;
+
         public PreviewView()
         {
             InitializeComponent();
@@ -60,6 +62,15 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.Views
             {
                 listBox.ScrollIntoView(item);
             }
+            if (this.bd != null && this.bd.Visibility == Visibility.Visible)
+            {
+                this.bd.BringIntoView();
+            }
+        }
+        
+        private void Bd_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.bd = sender as Border;
         }
     }
 }
