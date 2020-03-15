@@ -33,6 +33,7 @@ SOFTWARE.
         <TextBlock x:Name="Version" FontSize="11" Text="Version 1.0.0.0" />
         <Border Height="20" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="OK" Content="OK" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
             <Button x:Name="TryClose" Content="OK" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
         </StackPanel>
     </StackPanel>

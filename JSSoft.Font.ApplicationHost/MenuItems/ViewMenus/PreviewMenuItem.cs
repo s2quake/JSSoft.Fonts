@@ -52,7 +52,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
         {
             var images = await this.shell.PreviewAsync();
             var dialog = new PreviewViewModel(this.configs, images);
-            dialog.ShowDialog();
+            await dialog.ShowDialogAsync();
         }
     }
 }

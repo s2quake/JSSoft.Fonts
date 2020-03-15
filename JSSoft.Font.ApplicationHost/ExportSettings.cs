@@ -108,6 +108,13 @@ namespace JSSoft.Font.ApplicationHost
             settings.VerticalSpace = this.VerticalSpace;
         }
 
+        public ExportSettings Clone()
+        {
+            var settings = new ExportSettings();
+            this.CopyTo(settings);
+            return settings;
+        }
+
         internal FontDataSettings Convert(string name, uint[] characters)
         {
             return new FontDataSettings()

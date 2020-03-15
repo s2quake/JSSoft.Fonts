@@ -49,10 +49,10 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ToolMenus
             return this.shell.IsProgressing == false && this.shell.IsOpened == true;
         }
 
-        protected override void OnExecute(object parameter)
+        protected async override void OnExecute(object parameter)
         {
             var dialog = new FindCharacterViewModel();
-            if (dialog.ShowDialog() == true)
+            if (await dialog.ShowDialogAsync() == true)
             {
                 var query = from characterGroup in this.shell.Groups
                             from row in characterGroup.Items

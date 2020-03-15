@@ -64,37 +64,37 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             this.image = itemList.First();
         }
 
-        public void SelectBackgroundColor()
+        public async Task SelectBackgroundColorAsync()
         {
             var dialog = new SelectColorViewModel()
             {
                 CurrentColor = this.BackgroundColor
             };
-            if (dialog.ShowDialog() == true)
+            if (await dialog.ShowDialogAsync() == true)
             {
                 this.BackgroundColor = dialog.CurrentColor;
             }
         }
 
-        public void SelectForegroundColor()
+        public async Task SelectForegroundColorAsync()
         {
             var dialog = new SelectColorViewModel()
             {
                 CurrentColor = this.ForegroundColor
             };
-            if (dialog.ShowDialog() == true)
+            if (await dialog.ShowDialogAsync() == true)
             {
                 this.ForegroundColor = dialog.CurrentColor;
             }
         }
 
-        public void SelectPaddingColor()
+        public async Task SelectPaddingColorAsync()
         {
             var dialog = new SelectColorViewModel()
             {
                 CurrentColor = this.PaddingColor
             };
-            if (dialog.ShowDialog() == true)
+            if (await dialog.ShowDialogAsync() == true)
             {
                 this.PaddingColor = dialog.CurrentColor;
             }

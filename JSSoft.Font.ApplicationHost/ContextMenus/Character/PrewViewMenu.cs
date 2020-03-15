@@ -45,7 +45,7 @@ namespace JSSoft.Font.ApplicationHost.ContextMenus.Character
         protected override void OnExecute(ICharacter obj)
         {
             var dialog = new PreviewCharacterViewModel(obj);
-            dialog.ShowDialog();
+            dialog.ShowDialogAsync();
         }
     }
 }

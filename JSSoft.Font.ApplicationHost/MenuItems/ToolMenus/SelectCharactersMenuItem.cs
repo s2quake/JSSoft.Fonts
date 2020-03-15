@@ -49,7 +49,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ToolMenus
         protected override async void OnExecute(object parameter)
         {
             var dialog = new SelectCharactersViewModel(this.shell.CheckedCharacters);
-            if (dialog.ShowDialog() == true)
+            if (await dialog.ShowDialogAsync() == true)
             {
                 await this.shell.SelectCharactersAsync(dialog.Characters);
             }

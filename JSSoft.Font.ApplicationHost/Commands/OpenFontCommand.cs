@@ -51,7 +51,7 @@ namespace JSSoft.Font.ApplicationHost.Commands
 
         public static async Task ExecuteAsync(IShell shell, string fontPath)
         {
-            var settings = GetSettings(fontPath);
+            var settings = await GetSettingsAsync(fontPath);
             if (settings != null)
             {
                 if (shell.IsOpened == true)
@@ -60,10 +60,10 @@ namespace JSSoft.Font.ApplicationHost.Commands
             }
         }
 
-        private static FontLoadSettingsViewModel GetSettings(string path)
+        private static async Task<FontLoadSettingsViewModel> GetSettingsAsync(string path)
         {
             var dialog = new FontLoadSettingsViewModel(path);
-            if (dialog.ShowDialog() == true)
+            if (await dialog.ShowDialogAsync() == true)
             {
                 return dialog;
             }

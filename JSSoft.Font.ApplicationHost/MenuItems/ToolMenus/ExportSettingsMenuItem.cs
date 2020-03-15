@@ -46,11 +46,11 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ToolMenus
             return this.shell.IsProgressing == false;
         }
 
-        protected override void OnExecute(object parameter)
+        protected async override void OnExecute(object parameter)
         {
             var settings = this.shell.Settings;
             var dialog = new ExportSettingsViewModel(settings);
-            if (dialog.ShowDialog() == true)
+            if (await dialog.ShowDialogAsync() == true)
             {
                 settings.Padding = dialog.Padding;
                 settings.HorizontalSpace = dialog.HorizontalSpace;

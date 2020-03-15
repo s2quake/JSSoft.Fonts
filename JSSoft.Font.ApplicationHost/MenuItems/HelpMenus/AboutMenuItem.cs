@@ -39,7 +39,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.HelpMenus
         protected override void OnExecute(object parameter)
         {
             var dialog = new AboutViewModel();
-            dialog.ShowDialog();
+            dialog.ShowDialogAsync();
         }
     }
 }

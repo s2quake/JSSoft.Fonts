@@ -22,6 +22,7 @@
 
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
+using System.Threading.Tasks;
 
 namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
 {
@@ -31,6 +32,11 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         {
             this.DisplayName = "About";
             this.Version = AppUtility.ProductVersion;
+        }
+
+        public Task OKAsync()
+        {
+            return this.TryCloseAsync(true);
         }
 
         public string Version { get; }
