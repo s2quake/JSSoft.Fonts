@@ -18,7 +18,7 @@
     <PackageTags>jsfont</PackageTags>
     <UseWPF>true</UseWPF>
     <AssemblyName>jsfontApp</AssemblyName>
-    <PlatformTarget>x86</PlatformTarget>
+    <ApplicationIcon>App.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Images\**\*.png" />
@@ -30,7 +30,6 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
-    <!-- <PackageReference Include="System.ValueTuple" Version="4.5.0" /> -->
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.0'">
     <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.4.0.5" />

@@ -27,6 +27,19 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-    <PackageReference Include="SharpFont.Dependencies" Version="2.6.0" />
+    <PackageReference Include="SharpFont.Dependencies" Version="2.6.0" GeneratePathProperty="true" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Update="$(PkgSharpFont_Dependencies)\bin\msvc10\x86\freetype6.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(PkgSharpFont_Dependencies)\bin\msvc10\x64\freetype6.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Target Name="TakeAction" AfterTargets="Build">
+    <Message Text="Project File Name = $(PkgSharpFont_Dependencies)" />
+    <!--<Delete Files="$(OutputPath)freetype6.dll" />-->
+    <!--<Copy SourceFiles="$(PkgSharpFont_Dependencies)\bin\msvc10\x64\freetype6.dll" DestinationFolder="$(OutputPath)" />-->
+  </Target>
 </Project>
