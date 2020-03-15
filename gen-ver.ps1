@@ -1,46 +1,24 @@
-$majorVersion=0
-$minorVersion=9
-$assemblyFilePath = ".\JSSoft.Font.Sharing\AssemblyInfo.cs"
-
-$assemblyPath = Join-Path (Split-Path $myInvocation.MyCommand.Definition) $assemblyFilePath -Resolve
+$majorVersion = 0
+$minorVersion = 9
 $version = "$majorVersion.$minorVersion"
 $fileVersion = "$majorVersion.$minorVersion" + "." + (Get-Date -Format yy) + (Get-Date).DayOfYear + "." + (Get-Date -Format HHmm)
 
-if (Test-Path $assemblyPath) {
-    $content = Get-Content $assemblyPath -Encoding UTF8
-
-    $pattern1 = "(AssemblyVersion[(]`").+(`"[)]])"
-    if ($content -match $pattern1) {
-        $content = $content -replace $pattern1, "`${1}$version`$2"
-    }
-
-    $pattern2 = "(AssemblyFileVersion[(]`").+(`"[)]])"
-    if ($content -match $pattern2) {
-        $content = $content -replace $pattern2, "`${1}$fileVersion`$2"
-    }
-
-    $pattern3 = "(AssemblyInformationalVersion[(]`").+(`"[)]])"
-    if ($content -match $pattern3) {
-        $content = $content -replace $pattern3, "`${1}$fileVersion`$2"
-    }
-
-    $backupPath = $assemblyPath + ".bak"
-    Copy-Item $assemblyPath $backupPath
-    Set-Content $assemblyPath $content -Encoding UTF8
-
-    if ($null -eq (Get-Content $assemblyPath)) {
-        Remove-Item $assemblyPath
-        Copy-Item $backupPath $assemblyPath
-        Remove-Item $backupPath
-        throw "replace version failed: $assemblyPath"
-    }
-    else {
-        Remove-Item $backupPath
+Get-ChildItem -Path $PSScriptRoot -Include "*.csproj" -Depth 1 -Name | ForEach-Object {
+    [xml]$doc = Get-Content $_
+    if (($doc.Project.Sdk -eq "Microsoft.NET.Sdk") -or ($doc.Project.Sdk -eq "Microsoft.NET.Sdk.WindowsDesktop")) {
+        foreach ($obj in $doc.Project.PropertyGroup) {        
+            if ($obj.Version) {
+                $obj.Version = $fileVersion
+            }
+            if ($obj.FileVersion) {
+                $obj.FileVersion = $fileVersion
+            }
+            if ($obj.AssemblyVersion) {
+                $obj.AssemblyVersion = $version
+            }
+        }
+        $doc.Save($_)
     }
 }
-else {
-    throw "assembly path not found: $assemblyPath"
-}
 
-Set-Content version.txt $fileVersion -NoNewline
-Write-Host $fileVersion -NoNewline
+Write-Host $fileVersion
