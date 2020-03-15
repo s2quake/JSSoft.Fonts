@@ -1,6 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;net472</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;net45</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -12,7 +12,7 @@
     <RepositoryUrl>https://github.com/s2quake/JSSoft.Font</RepositoryUrl>
     <AssemblyName>jsfont</AssemblyName>
   </PropertyGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net472'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net45'">
     <Reference Include="System.ComponentModel.Composition" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.0'">
@@ -34,7 +34,7 @@
     <Message Text="Project File Name = $(PlatformTarget)" />
     <Copy SourceFiles="$(PkgSharpFont_Dependencies)\bin\msvc10\x64\freetype6.dll" DestinationFolder="$(OutputPath)" />
   </Target>
-  <Target Name="CopyFreeType6FileToOutputDirectory_net472" AfterTargets="Build" Condition="'$(TargetFramework)'=='net472'">
+  <Target Name="CopyFreeType6FileToOutputDirectory_net45" AfterTargets="Build" Condition="'$(TargetFramework)'=='net45'">
     <Message Text="Project File Name = $(PkgSharpFont_Dependencies)" />
     <Message Text="Project File Name = $(PlatformTarget)" />
     <Copy SourceFiles="$(PkgSharpFont_Dependencies)\bin\msvc10\x64\freetype6.dll" DestinationFolder="$(OutputPath)" />

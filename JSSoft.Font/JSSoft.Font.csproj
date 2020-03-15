@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;net472</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;net45</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -17,7 +17,7 @@
     <RepositoryUrl>https://github.com/s2quake/JSSoft.Font</RepositoryUrl>
     <PackageTags>jsfont</PackageTags>
   </PropertyGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net472'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net45'">
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="SharpFont" Version="4.0.1" />
   </ItemGroup>
