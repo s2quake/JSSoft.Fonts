@@ -38,7 +38,7 @@ namespace JSSoft.Font.ConsoleHost
                 if (parser.Parse(Environment.CommandLine) == true)
                 {
                     var inputPath = Path.GetFullPath(settings.FontPath);
-                    var outputPath = Path.GetFullPath(settings.FileName);
+                    var outputPath = Path.GetFullPath(settings.OutputPath);
                     var name = Path.GetFileNameWithoutExtension(outputPath);
                     var font = new FontDescriptor(inputPath, (uint)settings.DPI, settings.Size, settings.Face);
                     var dataSettings = new FontDataSettings()

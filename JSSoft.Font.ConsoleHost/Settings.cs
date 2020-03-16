@@ -25,13 +25,14 @@ using System.ComponentModel;
 
 namespace JSSoft.Font.ConsoleHost
 {
+    [ResourceDescription("Properties/Resources")]
     class Settings
     {
         [CommandProperty(IsRequired = true)]
         public string FontPath { get; set; }
 
         [CommandProperty(IsRequired = true)]
-        public string FileName { get; set; }
+        public string OutputPath { get; set; }
 
         [CommandProperty("characters", IsRequired = true)]
         public CharacterCollection Characters { get; set; } = CharacterCollection.Empty;
@@ -41,7 +42,7 @@ namespace JSSoft.Font.ConsoleHost
         public int DPI { get; set; }
 
         [CommandProperty]
-        [DefaultValue(22)]
+        [DefaultValue(14)]
         public int Size { get; set; }
 
         [CommandProperty]
