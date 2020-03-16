@@ -96,7 +96,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
                 if (this.ByCharacter == true)
                 {
                     if (value.Length > 1)
-                        throw new ArgumentException("length must be 1.");
+                        throw new ArgumentException(Resources.Exception_LengthMustBeOne);
                     if (value.Length == 1)
                     {
                         this.character = (uint)value.First();

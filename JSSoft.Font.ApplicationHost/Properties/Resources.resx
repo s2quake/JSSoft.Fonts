@@ -300,4 +300,19 @@
   <data name="PNGFilter" xml:space="preserve">
     <value>png files (*.png)|*.png|all files (*.*)|*.*</value>
   </data>
+  <data name="Exception_FontDoesNotOpen" xml:space="preserve">
+    <value>Font does not open.</value>
+  </data>
+  <data name="Exception_FontAlreadyOpen" xml:space="preserve">
+    <value>Font already open.</value>
+  </data>
+  <data name="Exception_InvalidSettingsPath" xml:space="preserve">
+    <value>Invalid settings path</value>
+  </data>
+  <data name="Exception_MinLessMax" xml:space="preserve">
+    <value>min must be less than max</value>
+  </data>
+  <data name="Exception_LengthMustBeOne" xml:space="preserve">
+    <value>length must be 1.</value>
+  </data>
 </root>

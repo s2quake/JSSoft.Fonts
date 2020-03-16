@@ -97,6 +97,51 @@ namespace JSSoft.Font.ApplicationHost.Properties {
         }
         
         /// <summary>
+        ///   Font already open.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Exception_FontAlreadyOpen {
+            get {
+                return ResourceManager.GetString("Exception_FontAlreadyOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Font does not open.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Exception_FontDoesNotOpen {
+            get {
+                return ResourceManager.GetString("Exception_FontDoesNotOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Invalid settings path과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Exception_InvalidSettingsPath {
+            get {
+                return ResourceManager.GetString("Exception_InvalidSettingsPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   length must be 1.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Exception_LengthMustBeOne {
+            get {
+                return ResourceManager.GetString("Exception_LengthMustBeOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   min must be less than max과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Exception_MinLessMax {
+            get {
+                return ResourceManager.GetString("Exception_MinLessMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   font files (*.otf;*.ttc;*.ttf)|*.otf;*.ttc;*.ttf|all files (*.*)|*.*과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string FontFilter {

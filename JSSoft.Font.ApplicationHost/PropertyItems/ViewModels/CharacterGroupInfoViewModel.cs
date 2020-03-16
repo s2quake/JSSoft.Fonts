@@ -22,46 +22,77 @@
 
 using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.Library;
+using System;
 using System.ComponentModel.Composition;
 
 namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
 {
     [Export(typeof(IPropertyItem))]
     [Dependency(typeof(FontInfoViewModel))]
-    class GlyphMetricsViewModel : PropertyItemBase
+    class CharacterGroupInfoViewModel : PropertyItemBase
     {
-        private ICharacter character;
+        private readonly IShell shell;
+        private uint min;
+        private uint max;
+        private ICharacterGroup characterGroup;
 
-        public GlyphMetricsViewModel()
+        [ImportingConstructor]
+        public CharacterGroupInfoViewModel(IShell shell)
         {
-            this.DisplayName = Resources.Title_CharacterInfo;
+            this.shell = shell;
+            this.DisplayName = Resources.Title_GroupInfo;
+            this.shell.SelectedGroupChanged += Shell_SelectedGroupChanged;
         }
 
         public override bool CanSupport(object obj)
         {
-            return obj is ICharacter;
+            return true;
         }
 
         public override void SelectObject(object obj)
         {
-            if (obj is ICharacter character && character.IsEnabled == true)
-            {
-                this.GlyphMetrics = character.GlyphMetrics;
-                this.character = character;
-            }
-            else
-            {
-                this.GlyphMetrics = GlyphMetrics.Empty;
-                this.character = null;
-            }
-            this.NotifyOfPropertyChange(nameof(SelectedObject));
-            this.NotifyOfPropertyChange(nameof(GlyphMetrics));
+
         }
 
-        public GlyphMetrics GlyphMetrics { get; private set; }
+        public uint Min
+        {
+            get => this.min;
+            private set
+            {
+                this.min = value;
+                this.NotifyOfPropertyChange(nameof(Min));
+            }
+        }
+
+        public uint Max
+        {
+            get => this.max;
+            private set
+            {
+                this.max = value;
+                this.NotifyOfPropertyChange(nameof(Max));
+            }
+        }
 
         public override bool IsVisible => true;
 
-        public override object SelectedObject => this.character;
+        public override object SelectedObject => this.characterGroup;
+
+        private void Shell_SelectedGroupChanged(object sender, EventArgs e)
+        {
+            if (this.shell.SelectedGroup is ICharacterGroup group)
+            {
+                this.Min = group.Min;
+                this.Max = group.Max;
+                this.characterGroup = group;
+            }
+            else
+            {
+                this.Min = 0;
+                this.Max = 0;
+                this.characterGroup = null;
+            }
+            this.NotifyOfPropertyChange(nameof(SelectedObject));
+        }
     }
 }

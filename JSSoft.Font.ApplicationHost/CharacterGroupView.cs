@@ -27,13 +27,13 @@ using System.ComponentModel;
 
 namespace JSSoft.Font.ApplicationHost
 {
-    class CharacterGroupView : IBindingList, ITypedList
+    class CharacterGroupInfoView : IBindingList, ITypedList
     {
         private readonly PropertyDescriptorCollection properties;
         private readonly List<CharacterRowView> rowList = new List<CharacterRowView>(0x10);
         private ICharacterGroup group;
 
-        public CharacterGroupView()
+        public CharacterGroupInfoView()
         {
             var propList = new List<PropertyDescriptor>(0x10);
             for (var i = 0u; i < propList.Capacity; i++)

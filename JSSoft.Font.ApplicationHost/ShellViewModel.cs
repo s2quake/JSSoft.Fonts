@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using JSSoft.Font.ApplicationHost.Serializations;
 using Ntreev.ModernUI.Framework;
 using System;
@@ -122,7 +123,7 @@ namespace JSSoft.Font.ApplicationHost
         public Task SaveSettingsAsync()
         {
             if (this.SettingsPath == string.Empty)
-                throw new InvalidOperationException("invalid settings path");
+                throw new InvalidOperationException(Resources.Exception_InvalidSettingsPath);
             return this.SaveSettingsAsync(this.SettingsPath);
         }
 
@@ -522,7 +523,7 @@ namespace JSSoft.Font.ApplicationHost
             await this.Dispatcher.InvokeAsync(() =>
             {
                 if (this.IsOpened == true)
-                    throw new InvalidOperationException("font already open.");
+                    throw new InvalidOperationException(Resources.Exception_FontAlreadyOpen);
             });
         }
 
@@ -558,7 +559,7 @@ namespace JSSoft.Font.ApplicationHost
             await this.Dispatcher.InvokeAsync(() =>
             {
                 if (this.IsOpened == false)
-                    throw new InvalidOperationException("font does not open.");
+                    throw new InvalidOperationException(Resources.Exception_FontDoesNotOpen);
             });
         }
 

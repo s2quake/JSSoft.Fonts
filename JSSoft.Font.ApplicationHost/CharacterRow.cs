@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace JSSoft.Font.ApplicationHost
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
             if (min >= max)
-                throw new ArgumentOutOfRangeException(nameof(min), $"min must be less than max: '{min} < {max}'");
+                throw new ArgumentOutOfRangeException(nameof(min), $"{Resources.Exception_MinLessMax}: '{min} < {max}'");
 
             var itemList = new List<Character>(0x10);
             for (var i = 0u; i < itemList.Capacity; i++)

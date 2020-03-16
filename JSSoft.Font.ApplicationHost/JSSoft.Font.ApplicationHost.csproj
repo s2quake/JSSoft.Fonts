@@ -177,17 +177,17 @@
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
     <Compile Include="PropertyItemBase.cs" />
-    <Compile Include="PropertyItems\ViewModels\CharacterGroupViewModel.cs" />
+    <Compile Include="PropertyItems\ViewModels\CharacterGroupInfoViewModel.cs" />
     <Compile Include="PropertyItems\ViewModels\FontInfoViewModel.cs" />
-    <Compile Include="PropertyItems\ViewModels\GlyphMetricsViewModel.cs" />
-    <Compile Include="PropertyItems\Views\CharacterGroupView.xaml.cs">
-      <DependentUpon>CharacterGroupView.xaml</DependentUpon>
+    <Compile Include="PropertyItems\ViewModels\CharacterInfoViewModel.cs" />
+    <Compile Include="PropertyItems\Views\CharacterInfoGroupView.xaml.cs">
+      <DependentUpon>CharacterInfoGroupView.xaml</DependentUpon>
     </Compile>
     <Compile Include="PropertyItems\Views\FontInfoView.xaml.cs">
       <DependentUpon>FontInfoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PropertyItems\Views\GlyphMetricsView.xaml.cs">
-      <DependentUpon>GlyphMetricsView.xaml</DependentUpon>
+    <Compile Include="PropertyItems\Views\CharacterInfoView.xaml.cs">
+      <DependentUpon>CharacterInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="PropertyService.cs" />
     <Compile Include="Serializations\ExportSettingsInfo.cs" />
@@ -291,7 +291,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PropertyItems\Views\CharacterGroupView.xaml">
+    <Page Include="PropertyItems\Views\CharacterInfoGroupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -299,7 +299,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PropertyItems\Views\GlyphMetricsView.xaml">
+    <Page Include="PropertyItems\Views\CharacterInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

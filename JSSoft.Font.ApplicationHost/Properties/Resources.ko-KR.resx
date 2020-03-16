@@ -300,4 +300,19 @@
   <data name="PNGFilter" xml:space="preserve">
     <value>png 파일 (*.png)|*.png|모든 파일 (*.*)|*.*</value>
   </data>
+  <data name="Exception_FontDoesNotOpen" xml:space="preserve">
+    <value>글꼴이 열리지 않았습니다.</value>
+  </data>
+  <data name="Exception_FontAlreadyOpen" xml:space="preserve">
+    <value>글꼴이 이미 열려있습니다.</value>
+  </data>
+  <data name="Exception_InvalidSettingsPath" xml:space="preserve">
+    <value>잘못된 설정 경로입니다.</value>
+  </data>
+  <data name="Exception_MinLessMax" xml:space="preserve">
+    <value>최소값은 최대값보다 작아야 합니다</value>
+  </data>
+  <data name="Exception_LengthMustBeOne" xml:space="preserve">
+    <value>길이는 1이여야만 합니다.</value>
+  </data>
 </root>
