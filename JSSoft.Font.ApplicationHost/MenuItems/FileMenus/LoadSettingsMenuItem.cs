@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Commands;
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
 using System;
 using System.ComponentModel.Composition;
@@ -39,7 +40,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
         public LoadSettingsMenuItem(IShell shell)
         {
             this.shell = shell;
-            this.DisplayName = "Load Settings...";
+            this.DisplayName = Resources.MenuItem_LoadSettings;
             this.InputGesture = new KeyGesture(Key.O, ModifierKeys.Control | ModifierKeys.Shift);
             this.shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
             this.shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();

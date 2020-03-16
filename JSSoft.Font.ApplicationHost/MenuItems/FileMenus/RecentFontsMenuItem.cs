@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -43,7 +44,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
         public RecentFontsMenuItem(ShellViewModel shell)
         {
             this.shell = shell;
-            this.DisplayName = "Recent Fonts";
+            this.DisplayName = Resources.MenuItem_RecentFonts;
             this.shell.RecentFonts.CollectionChanged += RecentFonts_CollectionChanged;
         }
 

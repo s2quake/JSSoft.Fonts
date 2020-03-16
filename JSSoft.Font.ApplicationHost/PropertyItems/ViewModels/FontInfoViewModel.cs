@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using System;
 using System.ComponentModel.Composition;
 
@@ -35,7 +36,7 @@ namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
         public FontInfoViewModel(IShell shell)
         {
             this.shell = shell;
-            this.DisplayName = "Font Info";
+            this.DisplayName = Resources.Title_FontInfo;
             this.shell.Opened += Shell_Opened;
             this.shell.Closed += Shell_Closed;
         }
@@ -47,17 +48,7 @@ namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
 
         public override void SelectObject(object obj)
         {
-            //this.character = obj as ICharacter;
-            //if (this.character != null && this.character.IsEnabled == true)
-            //{
-            //    this.GlyphMetrics = this.character.GlyphMetrics;
-            //}
-            //else
-            //{
-            //    this.GlyphMetrics = GlyphMetrics.Empty;
-            //}
-            //this.NotifyOfPropertyChange(nameof(SelectedObject));
-            //this.NotifyOfPropertyChange(nameof(GlyphMetrics));
+           
         }
 
         public FontInfo FontInfo

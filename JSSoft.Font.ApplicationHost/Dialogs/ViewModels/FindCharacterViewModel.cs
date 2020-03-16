@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
@@ -38,7 +39,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
 
         public FindCharacterViewModel()
         {
-            this.DisplayName = "Find Character";
+            this.DisplayName = Resources.Title_FindCharacter;
         }
 
         public void Find()

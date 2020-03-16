@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
@@ -36,7 +37,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
         public ZoomInMenuItem(IShell shell)
         {
             this.shell = shell;
-            this.DisplayName = "Zoom In";
+            this.DisplayName = Resources.MenuItem_ZoomIn;
             this.InputGesture = new KeyGesture(Key.OemPlus, ModifierKeys.Control);
             this.Icon = "Images/zoom-in.png";
         }

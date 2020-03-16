@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Commands;
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
@@ -40,7 +41,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
         public OpenFontMenuItem(IShell shell)
         {
             this.shell = shell;
-            this.DisplayName = "Open Font...";
+            this.DisplayName = Resources.MenuItem_OpenFont;
             this.InputGesture = new KeyGesture(Key.O, ModifierKeys.Control);
             this.shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
             this.shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();

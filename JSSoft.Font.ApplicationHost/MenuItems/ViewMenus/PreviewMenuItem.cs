@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
 using System.ComponentModel.Composition;
 
@@ -38,7 +39,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
         {
             this.shell = shell;
             this.configs = configs;
-            this.DisplayName = "Preview";
+            this.DisplayName = Resources.MenuItem_Preview;
             this.shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
             this.shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();
         }

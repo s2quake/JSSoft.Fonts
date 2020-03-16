@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
 using System;
 using System.Windows;
@@ -32,7 +33,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         public PreviewCharacterViewModel(ICharacter character)
         {
             this.Character = character ?? throw new ArgumentNullException(nameof(character));
-            this.DisplayName = "Preview";
+            this.DisplayName = Resources.Title_Preview;
         }
 
         public ICharacter Character { get; }

@@ -39,7 +39,7 @@ SOFTWARE.
         </Style>
     </UserControl.Resources>
 
-    <jsfc:HeaderedContentList x:Name="content" HeaderWidth="0.5*" ItemContainerStyle="{StaticResource HeaderedContentList_ItemContainerStyle}">
+    <jsfc:HeaderedContentList HeaderWidth="0.5*" ItemContainerStyle="{StaticResource HeaderedContentList_ItemContainerStyle}">
         <HeaderedContentControl Header="FaceName" Content="{Binding FontInfo.FaceName}" />
         <HeaderedContentControl Header="DPI" Content="{Binding FontInfo.DPI}" />
         <HeaderedContentControl Header="Size" Content="{Binding FontInfo.Size}" />

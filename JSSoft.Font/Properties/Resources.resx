@@ -117,130 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FontFilter" xml:space="preserve">
-    <value>font files (*.otf;*.ttc;*.ttf)|*.otf;*.ttc;*.ttf|all files (*.*)|*.*</value>
+  <data name="Exception_InvalidFormat" xml:space="preserve">
+    <value>Invalid format</value>
   </data>
-  <data name="Command_NavigateBackward" xml:space="preserve">
-    <value>Navigate Backward</value>
+  <data name="Exception_RootOnlyCanBeUsed" xml:space="preserve">
+    <value>This method is only available on the root node</value>
   </data>
-  <data name="Command_NavigateForward" xml:space="preserve">
-    <value>Navigate Forward</value>
-  </data>
-  <data name="MenuItem_File" xml:space="preserve">
-    <value>_File</value>
-  </data>
-  <data name="MenuItem_View" xml:space="preserve">
-    <value>_View</value>
-  </data>
-  <data name="MenuItem_Help" xml:space="preserve">
-    <value>_Help</value>
-  </data>
-  <data name="MenuItem_Tool" xml:space="preserve">
-    <value>_Tool</value>
-  </data>
-  <data name="MenuItem_OpenFont" xml:space="preserve">
-    <value>_Open Font...</value>
-  </data>
-  <data name="MenuItem_Close" xml:space="preserve">
-    <value>_Close</value>
-  </data>
-  <data name="MenuItem_Export" xml:space="preserve">
-    <value>_Export...</value>
-  </data>
-  <data name="MenuItem_LoadSettings" xml:space="preserve">
-    <value>_Load Export Settings...</value>
-  </data>
-  <data name="MenuItem_Quit" xml:space="preserve">
-    <value>_Quit</value>
-  </data>
-  <data name="MenuItem_RecentFonts" xml:space="preserve">
-    <value>Recent Fonts</value>
-  </data>
-  <data name="MenuItem_RecentSettings" xml:space="preserve">
-    <value>Recent Settings</value>
-  </data>
-  <data name="MenuItem_SaveSettings" xml:space="preserve">
-    <value>_SaveSettings...</value>
-  </data>
-  <data name="MenuItem_SaveSettingsAs" xml:space="preserve">
-    <value>Save Settings _As...</value>
-  </data>
-  <data name="MenuItem_About" xml:space="preserve">
-    <value>_About...</value>
-  </data>
-  <data name="MenuItem_EditExportSettings" xml:space="preserve">
-    <value>_Edit Export Settings...</value>
-  </data>
-  <data name="MenuItem_FindCharacter" xml:space="preserve">
-    <value>_Fint Character...</value>
-  </data>
-  <data name="MenuItem_SelectCharacters" xml:space="preserve">
-    <value>_Select Characters...</value>
-  </data>
-  <data name="MenuItem_HidePropertyWindow" xml:space="preserve">
-    <value>Hide _Property Window</value>
-  </data>
-  <data name="MenuItem_ShowPropertyWindow" xml:space="preserve">
-    <value>Show _Property Window</value>
-  </data>
-  <data name="MenuItem_Preview" xml:space="preserve">
-    <value>Pre_view...</value>
-  </data>
-  <data name="MenuItem_ZoomIn" xml:space="preserve">
-    <value>Zoom _In</value>
-  </data>
-  <data name="MenuItem_ZoomOut" xml:space="preserve">
-    <value>Zomm _Out</value>
-  </data>
-  <data name="ToolBarItem_OpenFont" xml:space="preserve">
-    <value>Open Font</value>
-  </data>
-  <data name="ToolBarItem_ZoomIn" xml:space="preserve">
-    <value>Zoom In</value>
-  </data>
-  <data name="ToolBarItem_ZoomOut" xml:space="preserve">
-    <value>Zoom Out</value>
-  </data>
-  <data name="Title_CharacterInfo" xml:space="preserve">
-    <value>Character Info</value>
-  </data>
-  <data name="Title_GroupInfo" xml:space="preserve">
-    <value>Group Info</value>
-  </data>
-  <data name="Title_FontInfo" xml:space="preserve">
-    <value>Font Info</value>
-  </data>
-  <data name="Button_Find" xml:space="preserve">
-    <value>_Find</value>
-  </data>
-  <data name="Label_UnicodeValue" xml:space="preserve">
-    <value>Unicode _Value</value>
-  </data>
-  <data name="CheckBox_SearchByCharacter" xml:space="preserve">
-    <value>_Search by Character</value>
-  </data>
-  <data name="Title_About" xml:space="preserve">
-    <value>About</value>
-  </data>
-  <data name="Title_EditExportSettings" xml:space="preserve">
-    <value>Edit Export Settings</value>
-  </data>
-  <data name="Title_FindCharacter" xml:space="preserve">
-    <value>Find Character</value>
-  </data>
-  <data name="Title_FontOptions" xml:space="preserve">
-    <value>Font Options</value>
-  </data>
-  <data name="Title_PreviewCharacter" xml:space="preserve">
-    <value>Preview Character</value>
-  </data>
-  <data name="Title_Preview" xml:space="preserve">
-    <value>Preview</value>
-  </data>
-  <data name="Title_SelectCharacters" xml:space="preserve">
-    <value>Select Characters</value>
-  </data>
-  <data name="Title_SelectColor" xml:space="preserve">
-    <value>Select Color</value>
+  <data name="Exception_MinLessMax" xml:space="preserve">
+    <value>min must be less than max</value>
   </data>
 </root>

@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
@@ -49,7 +50,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         {
             this.configs = configs;
             this.fontData = fontData ?? throw new ArgumentNullException(nameof(fontData));
-            this.DisplayName = "Preview";
+            this.DisplayName = Resources.Title_Preview;
             this.configs?.Update(this);
 
             var itemList = new List<PreviewItemViewModel>(fontData.Pages.Length);

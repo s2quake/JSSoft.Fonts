@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 
@@ -29,7 +30,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
     {
         public AboutViewModel()
         {
-            this.DisplayName = "About";
+            this.DisplayName = Resources.Title_About;
             this.Version = AppUtility.ProductVersion;
         }
 

@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Commands;
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
@@ -40,7 +41,7 @@ namespace JSSoft.Font.ApplicationHost.ToolBarItems
         public OpenFontToolBarItem(IShell shell)
         {
             this.shell = shell;
-            this.DisplayName = "Open Font...";
+            this.DisplayName = Resources.ToolBarItem_OpenFont;
             this.Icon = "/jsfontApp;component/Images/open-folder-with-document.png";
             this.InputGesture = new KeyGesture(Key.O, ModifierKeys.Control);
         }

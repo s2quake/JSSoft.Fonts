@@ -42,7 +42,7 @@ SOFTWARE.
         </Style>
     </UserControl.Resources>
 
-    <jsfc:HeaderedContentList x:Name="content" HeaderWidth="0.5*" ItemContainerStyle="{StaticResource HeaderedContentList_ItemContainerStyle}">
+    <jsfc:HeaderedContentList HeaderWidth="0.5*" ItemContainerStyle="{StaticResource HeaderedContentList_ItemContainerStyle}">
         <HeaderedContentControl Header="Min" Content="{Binding Min, Converter={StaticResource ValueToHexConverter}}" />
         <HeaderedContentControl Header="Max" Content="{Binding Max, Converter={StaticResource ValueToHexConverter}}" />
     </jsfc:HeaderedContentList>

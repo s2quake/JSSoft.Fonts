@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
 using System.Linq;
 
@@ -36,7 +37,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             var faces = FontDescriptor.GetFaces(path);
             this.Faces = faces;
             this.face = faces.FirstOrDefault();
-            this.DisplayName = "Font Options";
+            this.DisplayName = Resources.Title_FontOptions;
         }
 
         public void Select()

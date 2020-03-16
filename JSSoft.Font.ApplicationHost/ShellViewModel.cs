@@ -37,8 +37,8 @@ using System.Xml.Serialization;
 
 namespace JSSoft.Font.ApplicationHost
 {
-    [Export(typeof(IShell))]
     [Export]
+    [Export(typeof(IShell))]
     class ShellViewModel : ScreenBase, IShell
     {
         private readonly IServiceProvider serviceProvider;

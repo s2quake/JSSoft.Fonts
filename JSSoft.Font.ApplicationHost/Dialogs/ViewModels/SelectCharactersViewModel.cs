@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
 using System;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         {
             this.characters = characters ?? throw new ArgumentNullException(nameof(characters));
             this.charactersText = CharacterCollection.ToString(characters);
-            this.DisplayName = "Select Characters";
+            this.DisplayName = Resources.Title_SelectCharacters;
         }
 
         public void Select()

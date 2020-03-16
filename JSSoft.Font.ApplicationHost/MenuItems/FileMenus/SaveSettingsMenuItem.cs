@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Commands;
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
 using System;
 using System.ComponentModel.Composition;
@@ -39,7 +40,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
         public SaveSettingsMenuItem(IShell shell)
         {
             this.shell = shell;
-            this.DisplayName = "Save Settings...";
+            this.DisplayName = Resources.MenuItem_SaveSettings;
             this.InputGesture = new KeyGesture(Key.S, ModifierKeys.Control);
             this.shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
             this.shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();
