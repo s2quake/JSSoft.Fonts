@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Microsoft.Win32;
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
@@ -36,7 +37,7 @@ namespace JSSoft.Font.ApplicationHost.ContextMenus.Character
     {
         public SaveViewMenu()
         {
-            this.DisplayName = "Save";
+            this.DisplayName = Resources.MenuItem_SaveCharacter;
         }
 
         protected override bool OnCanExecute(ICharacter obj)
@@ -48,7 +49,7 @@ namespace JSSoft.Font.ApplicationHost.ContextMenus.Character
         {
             var dialog = new SaveFileDialog()
             {
-                Filter = "png files (*.png)|*.png|all files (*.*)|*.*",
+                Filter = Resources.PNGFilter,
                 FilterIndex = 1,
                 RestoreDirectory = true,
             };

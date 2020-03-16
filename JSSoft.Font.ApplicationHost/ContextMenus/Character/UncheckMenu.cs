@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using JSSoft.Font.ApplicationHost.UndoActions;
 using Ntreev.ModernUI.Framework;
 using System.ComponentModel.Composition;
@@ -38,7 +39,7 @@ namespace JSSoft.Font.ApplicationHost.ContextMenus.Character
         {
             this.undoService = undoService;
             this.HideOnDisabled = true;
-            this.DisplayName = "Uncheck";
+            this.DisplayName = Resources.MenuItem_UncheckCharacter;
         }
 
         protected override bool OnCanExecute(ICharacter obj)

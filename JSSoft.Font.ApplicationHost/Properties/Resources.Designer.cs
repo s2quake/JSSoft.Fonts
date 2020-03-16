@@ -106,6 +106,96 @@ namespace JSSoft.Font.ApplicationHost.Properties {
         }
         
         /// <summary>
+        ///   _Background Color과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Label_BackgroundColor {
+            get {
+                return ResourceManager.GetString("Label_BackgroundColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   _DPI과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Label_DPI {
+            get {
+                return ResourceManager.GetString("Label_DPI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   _Font과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Label_Font {
+            get {
+                return ResourceManager.GetString("Label_Font", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   _Font Color과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Label_FontColor {
+            get {
+                return ResourceManager.GetString("Label_FontColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   _Padding과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Label_Padding {
+            get {
+                return ResourceManager.GetString("Label_Padding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   P_adding Color과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Label_PaddingColor {
+            get {
+                return ResourceManager.GetString("Label_PaddingColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   _Size과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Label_Size {
+            get {
+                return ResourceManager.GetString("Label_Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   _Spacing과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Label_Spacing {
+            get {
+                return ResourceManager.GetString("Label_Spacing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Texture _Height과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Label_TextureHeight {
+            get {
+                return ResourceManager.GetString("Label_TextureHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Texture _Width과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Label_TextureWidth {
+            get {
+                return ResourceManager.GetString("Label_TextureWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Unicode _Value과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string Label_UnicodeValue {
@@ -120,6 +210,33 @@ namespace JSSoft.Font.ApplicationHost.Properties {
         public static string MenuItem_About {
             get {
                 return ResourceManager.GetString("MenuItem_About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   _CheckCharacter과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MenuItem_CheckCharacter {
+            get {
+                return ResourceManager.GetString("MenuItem_CheckCharacter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   _Check Character Group과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MenuItem_CheckCharacterGroup {
+            get {
+                return ResourceManager.GetString("MenuItem_CheckCharacterGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   _Check Character Row과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MenuItem_CheckCharacterRow {
+            get {
+                return ResourceManager.GetString("MenuItem_CheckCharacterRow", resourceCulture);
             }
         }
         
@@ -214,6 +331,15 @@ namespace JSSoft.Font.ApplicationHost.Properties {
         }
         
         /// <summary>
+        ///   _Preview Character과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MenuItem_PreviewCharacter {
+            get {
+                return ResourceManager.GetString("MenuItem_PreviewCharacter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   _Quit과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string MenuItem_Quit {
@@ -237,6 +363,15 @@ namespace JSSoft.Font.ApplicationHost.Properties {
         public static string MenuItem_RecentSettings {
             get {
                 return ResourceManager.GetString("MenuItem_RecentSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   _Save Character...과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MenuItem_SaveCharacter {
+            get {
+                return ResourceManager.GetString("MenuItem_SaveCharacter", resourceCulture);
             }
         }
         
@@ -286,6 +421,33 @@ namespace JSSoft.Font.ApplicationHost.Properties {
         }
         
         /// <summary>
+        ///   _Uncheck Character과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MenuItem_UncheckCharacter {
+            get {
+                return ResourceManager.GetString("MenuItem_UncheckCharacter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   _Uncheck Character Group과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MenuItem_UncheckCharacterGroup {
+            get {
+                return ResourceManager.GetString("MenuItem_UncheckCharacterGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   _Uncheck Character Row과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MenuItem_UncheckCharacterRow {
+            get {
+                return ResourceManager.GetString("MenuItem_UncheckCharacterRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   _View과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string MenuItem_View {
@@ -309,6 +471,15 @@ namespace JSSoft.Font.ApplicationHost.Properties {
         public static string MenuItem_ZoomOut {
             get {
                 return ResourceManager.GetString("MenuItem_ZoomOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   png files (*.png)|*.png|all files (*.*)|*.*과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string PNGFilter {
+            get {
+                return ResourceManager.GetString("PNGFilter", resourceCulture);
             }
         }
         

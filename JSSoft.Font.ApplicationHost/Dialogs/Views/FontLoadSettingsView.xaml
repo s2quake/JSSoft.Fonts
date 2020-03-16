@@ -29,14 +29,16 @@ SOFTWARE.
              xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
              xmlns:nmfp="clr-namespace:Ntreev.ModernUI.Framework.Properties;assembly=Ntreev.ModernUI.Framework"
              xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
+             xmlns:jsfp="clr-namespace:JSSoft.Font.ApplicationHost.Properties"
              mc:Ignorable="d" Width="400">
 
     <StackPanel>
         <nmfc:PropertyItemsControl>
-            <nmfc:NumericTextBox x:Name="Size" nmfc:PropertyItemsControl.Header="Size" />
-            <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="DPI" Values="72 96"
+            <nmfc:NumericTextBox x:Name="Size" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Size}" />
+            <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_DPI}" 
+                                Values="72 96"
                                 Value="{Binding DPI, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <ComboBox nmfc:PropertyItemsControl.Header="Face List" ItemsSource="{Binding Faces}" SelectedItem="{Binding Face}" />
+            <ComboBox nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Font}" ItemsSource="{Binding Faces}" SelectedItem="{Binding Face}" />
         </nmfc:PropertyItemsControl>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="Select" Content="{x:Static nmfp:Resources.Button_OK}" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />

@@ -243,4 +243,61 @@
   <data name="Title_SelectColor" xml:space="preserve">
     <value>Select Color</value>
   </data>
+  <data name="MenuItem_PreviewCharacter" xml:space="preserve">
+    <value>_Preview Character</value>
+  </data>
+  <data name="MenuItem_SaveCharacter" xml:space="preserve">
+    <value>_Save Character...</value>
+  </data>
+  <data name="MenuItem_CheckCharacter" xml:space="preserve">
+    <value>_CheckCharacter</value>
+  </data>
+  <data name="MenuItem_UncheckCharacter" xml:space="preserve">
+    <value>_Uncheck Character</value>
+  </data>
+  <data name="MenuItem_CheckCharacterGroup" xml:space="preserve">
+    <value>_Check Character Group</value>
+  </data>
+  <data name="MenuItem_UncheckCharacterGroup" xml:space="preserve">
+    <value>_Uncheck Character Group</value>
+  </data>
+  <data name="MenuItem_CheckCharacterRow" xml:space="preserve">
+    <value>_Check Character Row</value>
+  </data>
+  <data name="MenuItem_UncheckCharacterRow" xml:space="preserve">
+    <value>_Uncheck Character Row</value>
+  </data>
+  <data name="Label_Padding" xml:space="preserve">
+    <value>_Padding</value>
+  </data>
+  <data name="Label_Spacing" xml:space="preserve">
+    <value>_Spacing</value>
+  </data>
+  <data name="Label_TextureWidth" xml:space="preserve">
+    <value>Texture _Width</value>
+  </data>
+  <data name="Label_TextureHeight" xml:space="preserve">
+    <value>Texture _Height</value>
+  </data>
+  <data name="Label_BackgroundColor" xml:space="preserve">
+    <value>_Background Color</value>
+  </data>
+  <data name="Label_FontColor" xml:space="preserve">
+    <value>_Font Color</value>
+  </data>
+  <data name="Label_PaddingColor" xml:space="preserve">
+    <value>P_adding Color</value>
+  </data>
+  <data name="Label_Size" xml:space="preserve">
+    <value>_Size</value>
+  </data>
+  <data name="Label_DPI" xml:space="preserve">
+    <value>_DPI</value>
+  </data>
+  <data name="Label_Font" xml:space="preserve">
+    <value>_Font</value>
+  </data>
+  <data name="PNGFilter" xml:space="preserve">
+    <value>png files (*.png)|*.png|all files (*.*)|*.*</value>
+  </data>
 </root>

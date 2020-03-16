@@ -42,11 +42,11 @@ namespace JSSoft.Font.ApplicationHost.Input
             new RoutedUICommand(nameof(HidePropertyWindow), nameof(HidePropertyWindow), typeof(FontCommands));
 
         public static readonly RoutedUICommand Undo =
-            new RoutedUICommand(nameof(Undo), nameof(Undo), typeof(FontCommands),
+            new RoutedUICommand(ApplicationCommands.Undo.Text, nameof(Undo), typeof(FontCommands),
                 new InputGestureCollection() { new KeyGesture(Key.Z, ModifierKeys.Control) });
 
         public static readonly RoutedUICommand Redo =
-            new RoutedUICommand(nameof(Redo), nameof(Redo), typeof(FontCommands),
+            new RoutedUICommand(ApplicationCommands.Redo.Text, nameof(Redo), typeof(FontCommands),
                 new InputGestureCollection() { new KeyGesture(Key.Y, ModifierKeys.Control) });
     }
 }

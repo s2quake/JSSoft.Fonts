@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FontFilter" xml:space="preserve">
-    <value>폰트 파일 (*.otf;*.ttc;*.ttf)|*.otf;*.ttc;*.ttf|모든 파일 (*.*)|*.*</value>
+    <value>글꼴 파일 (*.otf;*.ttc;*.ttf)|*.otf;*.ttc;*.ttf|모든 파일 (*.*)|*.*</value>
   </data>
   <data name="Command_NavigateBackward" xml:space="preserve">
     <value>뒤로 탐색</value>
@@ -139,7 +139,7 @@
     <value>도구(_T)</value>
   </data>
   <data name="MenuItem_OpenFont" xml:space="preserve">
-    <value>폰트 열기(_O)...</value>
+    <value>글꼴 열기(_O)...</value>
   </data>
   <data name="MenuItem_Close" xml:space="preserve">
     <value>닫기(_C)</value>
@@ -154,7 +154,7 @@
     <value>끝내기(_Q)</value>
   </data>
   <data name="MenuItem_RecentFonts" xml:space="preserve">
-    <value>최근에 사용한 폰트</value>
+    <value>최근에 사용한 글꼴</value>
   </data>
   <data name="MenuItem_RecentSettings" xml:space="preserve">
     <value>최근에 사용한 출력 설정</value>
@@ -193,7 +193,7 @@
     <value>축소(_O)</value>
   </data>
   <data name="ToolBarItem_OpenFont" xml:space="preserve">
-    <value>폰트 열기</value>
+    <value>글꼴 열기</value>
   </data>
   <data name="ToolBarItem_ZoomIn" xml:space="preserve">
     <value>확대</value>
@@ -208,7 +208,7 @@
     <value>문자 집합 정보</value>
   </data>
   <data name="Title_FontInfo" xml:space="preserve">
-    <value>폰트 정보</value>
+    <value>글꼴 정보</value>
   </data>
   <data name="Button_Find" xml:space="preserve">
     <value>찾기(_F)</value>
@@ -229,7 +229,7 @@
     <value>문자 찾기</value>
   </data>
   <data name="Title_FontOptions" xml:space="preserve">
-    <value>폰트 설정</value>
+    <value>글꼴 설정</value>
   </data>
   <data name="Title_PreviewCharacter" xml:space="preserve">
     <value>문자 미리보기</value>
@@ -242,5 +242,62 @@
   </data>
   <data name="Title_SelectColor" xml:space="preserve">
     <value>색상 선택</value>
+  </data>
+  <data name="MenuItem_PreviewCharacter" xml:space="preserve">
+    <value>문자 미리보기(_P)</value>
+  </data>
+  <data name="MenuItem_SaveCharacter" xml:space="preserve">
+    <value>문자 저장(_S)...</value>
+  </data>
+  <data name="MenuItem_CheckCharacter" xml:space="preserve">
+    <value>문자 선택(_C)</value>
+  </data>
+  <data name="MenuItem_UncheckCharacter" xml:space="preserve">
+    <value>문자 선택 해제(_U)</value>
+  </data>
+  <data name="MenuItem_CheckCharacterGroup" xml:space="preserve">
+    <value>문자 집합 선택(_C)</value>
+  </data>
+  <data name="MenuItem_UncheckCharacterGroup" xml:space="preserve">
+    <value>문자 집합 선택 해제(_U)</value>
+  </data>
+  <data name="MenuItem_CheckCharacterRow" xml:space="preserve">
+    <value>문자 행 선택(_C)</value>
+  </data>
+  <data name="MenuItem_UncheckCharacterRow" xml:space="preserve">
+    <value>문자 행 선택 해제(_U)</value>
+  </data>
+  <data name="Label_Padding" xml:space="preserve">
+    <value>여백(_P)</value>
+  </data>
+  <data name="Label_Spacing" xml:space="preserve">
+    <value>간격(_S)</value>
+  </data>
+  <data name="Label_TextureWidth" xml:space="preserve">
+    <value>텍스쳐 너비(_W)</value>
+  </data>
+  <data name="Label_TextureHeight" xml:space="preserve">
+    <value>텍스쳐 높이(_H)</value>
+  </data>
+  <data name="Label_BackgroundColor" xml:space="preserve">
+    <value>배경 색상(_B)</value>
+  </data>
+  <data name="Label_FontColor" xml:space="preserve">
+    <value>글꼴 색상(_F)</value>
+  </data>
+  <data name="Label_PaddingColor" xml:space="preserve">
+    <value>여백 색상(_A)</value>
+  </data>
+  <data name="Label_Size" xml:space="preserve">
+    <value>크기(_S)</value>
+  </data>
+  <data name="Label_DPI" xml:space="preserve">
+    <value>_DPI</value>
+  </data>
+  <data name="Label_Font" xml:space="preserve">
+    <value>글꼴(_F)</value>
+  </data>
+  <data name="PNGFilter" xml:space="preserve">
+    <value>png 파일 (*.png)|*.png|모든 파일 (*.*)|*.*</value>
   </data>
 </root>
