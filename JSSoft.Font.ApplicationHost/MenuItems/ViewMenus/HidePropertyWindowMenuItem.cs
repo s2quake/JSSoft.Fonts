@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Input;
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
 using System.ComponentModel.Composition;
 
@@ -37,7 +38,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
         {
             this.shellView = shellView;
             this.HideOnDisabled = true;
-            this.DisplayName = "Hide Property Window";
+            this.DisplayName = Resources.MenuItem_HidePropertyWindow;
             FontCommands.ShowPropertyWindow.CanExecuteChanged += ShowPropertyWindow_CanExecuteChanged;
         }
 

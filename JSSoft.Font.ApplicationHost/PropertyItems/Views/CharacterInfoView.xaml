@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ====================================================================================================================-->
-<UserControl x:Class="JSSoft.Font.ApplicationHost.PropertyItems.Views.GlyphMetricsView"
+<UserControl x:Class="JSSoft.Font.ApplicationHost.PropertyItems.Views.CharacterInfoView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -39,7 +39,7 @@ SOFTWARE.
         </Style>
     </UserControl.Resources>
 
-    <jsfc:HeaderedContentList x:Name="content" HeaderWidth="0.5*" ItemContainerStyle="{StaticResource HeaderedContentList_ItemContainerStyle}">
+    <jsfc:HeaderedContentList HeaderWidth="0.5*" ItemContainerStyle="{StaticResource HeaderedContentList_ItemContainerStyle}">
         <HeaderedContentControl Header="ID" Content="{Binding GlyphMetrics.ID}" />
         <HeaderedContentControl Header="Width" Content="{Binding GlyphMetrics.Width}" />
         <HeaderedContentControl Header="Height" Content="{Binding GlyphMetrics.Height}" />

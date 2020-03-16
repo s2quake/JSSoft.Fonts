@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
@@ -36,7 +37,7 @@ namespace JSSoft.Font.ApplicationHost.ToolBarItems
         public ZoomOutToolBarItem(IShell shell)
         {
             this.shell = shell;
-            this.DisplayName = "Zoom Out";
+            this.DisplayName = Resources.ToolBarItem_ZoomOut;
             this.InputGesture = new KeyGesture(Key.OemMinus, ModifierKeys.Control);
             this.Icon = "Images/zoom-out.png";
         }

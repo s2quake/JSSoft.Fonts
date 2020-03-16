@@ -28,7 +28,9 @@ SOFTWARE.
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
              xmlns:nmfv="clr-namespace:Ntreev.ModernUI.Framework.Converters;assembly=Ntreev.ModernUI.Framework"
+             xmlns:nmfp="clr-namespace:Ntreev.ModernUI.Framework.Properties;assembly=Ntreev.ModernUI.Framework"
              xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
+             xmlns:jsfp="clr-namespace:JSSoft.Font.ApplicationHost.Properties"
              mc:Ignorable="d" Width="400">
 
     <UserControl.Resources>
@@ -44,25 +46,28 @@ SOFTWARE.
 
     <StackPanel>
         <nmfc:PropertyItemsControl>
-            <nmfc:ThicknessControl nmfc:PropertyItemsControl.Header="Padding" Value="{Binding Padding, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <jsfc:SpacingControl nmfc:PropertyItemsControl.Header="Spacing" 
+            <nmfc:ThicknessControl nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Padding}"
+                                   Value="{Binding Padding, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <jsfc:SpacingControl nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Spacing}" 
                                  Horizontal="{Binding HorizontalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  Vertical="{Binding VerticalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="Texture Width" Values="64 128 256 512 1024 2048 4096"
+            <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_TextureWidth}"
+                                Values="64 128 256 512 1024 2048 4096"
                                 Value="{Binding TextureWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="Texture Height" Values="64 128 256 512 1024 2048 4096"
+            <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_TextureHeight}" 
+                                Values="64 128 256 512 1024 2048 4096"
                                 Value="{Binding TextureHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Button x:Name="SelectBackgroundColor" nmfc:PropertyItemsControl.Header="Background"
+            <Button x:Name="SelectBackgroundColor" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_BackgroundColor}"
                     Background="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" />
-            <Button x:Name="SelectForegroundColor" nmfc:PropertyItemsControl.Header="Foreground" 
+            <Button x:Name="SelectForegroundColor" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_FontColor}" 
                     Background="{Binding ForegroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" />
-            <Button x:Name="SelectPaddingColor" nmfc:PropertyItemsControl.Header="Padding" 
+            <Button x:Name="SelectPaddingColor" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_PaddingColor}" 
                     Background="{Binding PaddingColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" />
         </nmfc:PropertyItemsControl>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="OK" Content="OK" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />
+            <Button x:Name="OK" Content="{x:Static nmfp:Resources.Button_OK}" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />
             <Border Width="4" />
-            <Button x:Name="TryClose" Content="Cancel" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
+            <Button x:Name="TryClose" Content="{x:Static nmfp:Resources.Button_Cancel}" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
         </StackPanel>
     </StackPanel>
     

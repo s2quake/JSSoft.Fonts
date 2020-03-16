@@ -43,7 +43,7 @@ namespace JSSoft.Font
         public FontDescriptor(string path, uint dpi, int size, int faceIndex)
         {
             var pixelSize = (double)size * dpi / 72;
-            var fullPath = Path.GetFullPath(path);
+            var fullPath = Path.GetFullPath(path ?? throw new ArgumentNullException(nameof(path)));
             this.lib = new Library();
             this.face = new Face(this.lib, fullPath, faceIndex);
             this.face.SetCharSize(0, size, 0, dpi);

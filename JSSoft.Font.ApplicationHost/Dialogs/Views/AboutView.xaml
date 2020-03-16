@@ -26,15 +26,14 @@ SOFTWARE.
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:JSSoft.Font.ApplicationHost.Dialogs.Views"
+             xmlns:nmfp="clr-namespace:Ntreev.ModernUI.Framework.Properties;assembly=Ntreev.ModernUI.Framework"
              mc:Ignorable="d" Width="200">
 
     <StackPanel>
         <TextBlock x:Name="Version" FontSize="11" Text="Version 1.0.0.0" />
         <Border Height="20" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="OK" Content="OK" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
-            <Button x:Name="TryClose" Content="OK" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
+            <Button x:Name="TryClose" Content="{x:Static nmfp:Resources.Button_OK}" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
         </StackPanel>
     </StackPanel>
   

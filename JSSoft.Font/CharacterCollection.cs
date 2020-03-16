@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.Properties;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -87,7 +88,8 @@ namespace JSSoft.Font
                 var min = item.min;
                 var max = item.max;
                 if (min > max)
-                    throw new InvalidOperationException($"min must be less than max: '{min} < {max}'");
+                    throw new InvalidOperationException($"{Resources.Exception_MinLessMax}: '{min} < {max}'");
+                
             });
         }
 

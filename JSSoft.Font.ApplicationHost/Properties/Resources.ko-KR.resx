@@ -118,201 +118,201 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FontFilter" xml:space="preserve">
-    <value>font files (*.otf;*.ttc;*.ttf)|*.otf;*.ttc;*.ttf|all files (*.*)|*.*</value>
+    <value>글꼴 파일 (*.otf;*.ttc;*.ttf)|*.otf;*.ttc;*.ttf|모든 파일 (*.*)|*.*</value>
   </data>
   <data name="Command_NavigateBackward" xml:space="preserve">
-    <value>Navigate Backward</value>
+    <value>뒤로 탐색</value>
   </data>
   <data name="Command_NavigateForward" xml:space="preserve">
-    <value>Navigate Forward</value>
+    <value>앞으로 탐색</value>
   </data>
   <data name="MenuItem_File" xml:space="preserve">
-    <value>_File</value>
+    <value>파일(_F)</value>
   </data>
   <data name="MenuItem_View" xml:space="preserve">
-    <value>_View</value>
+    <value>보기(_V)</value>
   </data>
   <data name="MenuItem_Help" xml:space="preserve">
-    <value>_Help</value>
+    <value>도움말(_H)</value>
   </data>
   <data name="MenuItem_Tool" xml:space="preserve">
-    <value>_Tool</value>
+    <value>도구(_T)</value>
   </data>
   <data name="MenuItem_OpenFont" xml:space="preserve">
-    <value>_Open Font...</value>
+    <value>글꼴 열기(_O)...</value>
   </data>
   <data name="MenuItem_Close" xml:space="preserve">
-    <value>_Close</value>
+    <value>닫기(_C)</value>
   </data>
   <data name="MenuItem_Export" xml:space="preserve">
-    <value>_Export...</value>
+    <value>출력하기(_E)...</value>
   </data>
   <data name="MenuItem_LoadSettings" xml:space="preserve">
-    <value>_Load Export Settings...</value>
+    <value>출력 설정 열기(_L)...</value>
   </data>
   <data name="MenuItem_Quit" xml:space="preserve">
-    <value>_Quit</value>
+    <value>끝내기(_Q)</value>
   </data>
   <data name="MenuItem_RecentFonts" xml:space="preserve">
-    <value>Recent Fonts</value>
+    <value>최근에 사용한 글꼴</value>
   </data>
   <data name="MenuItem_RecentSettings" xml:space="preserve">
-    <value>Recent Settings</value>
+    <value>최근에 사용한 출력 설정</value>
   </data>
   <data name="MenuItem_SaveSettings" xml:space="preserve">
-    <value>_SaveSettings...</value>
+    <value>출력 설정 저장(_S)...</value>
   </data>
   <data name="MenuItem_SaveSettingsAs" xml:space="preserve">
-    <value>Save Settings _As...</value>
+    <value>다른 이름으로 출력 설정 저장(_A)...</value>
   </data>
   <data name="MenuItem_About" xml:space="preserve">
-    <value>_About...</value>
+    <value>정보(_A)...</value>
   </data>
   <data name="MenuItem_EditExportSettings" xml:space="preserve">
-    <value>_Edit Export Settings...</value>
+    <value>출력 설정 편집(_E)...</value>
   </data>
   <data name="MenuItem_FindCharacter" xml:space="preserve">
-    <value>_Fint Character...</value>
+    <value>문자 찾기(_F)...</value>
   </data>
   <data name="MenuItem_SelectCharacters" xml:space="preserve">
-    <value>_Select Characters...</value>
+    <value>문자 선택(_S)...</value>
   </data>
   <data name="MenuItem_HidePropertyWindow" xml:space="preserve">
-    <value>Hide _Property Window</value>
+    <value>속성창 감추기(_P)</value>
   </data>
   <data name="MenuItem_ShowPropertyWindow" xml:space="preserve">
-    <value>Show _Property Window</value>
+    <value>속성창 표시(_P)</value>
   </data>
   <data name="MenuItem_Preview" xml:space="preserve">
-    <value>Pre_view...</value>
+    <value>미리보기(_V)...</value>
   </data>
   <data name="MenuItem_ZoomIn" xml:space="preserve">
-    <value>Zoom _In</value>
+    <value>확대(I)</value>
   </data>
   <data name="MenuItem_ZoomOut" xml:space="preserve">
-    <value>Zomm _Out</value>
+    <value>축소(_O)</value>
   </data>
   <data name="ToolBarItem_OpenFont" xml:space="preserve">
-    <value>Open Font</value>
+    <value>글꼴 열기</value>
   </data>
   <data name="ToolBarItem_ZoomIn" xml:space="preserve">
-    <value>Zoom In</value>
+    <value>확대</value>
   </data>
   <data name="ToolBarItem_ZoomOut" xml:space="preserve">
-    <value>Zoom Out</value>
+    <value>축소</value>
   </data>
   <data name="Title_CharacterInfo" xml:space="preserve">
-    <value>Character Info</value>
+    <value>문자 정보</value>
   </data>
   <data name="Title_GroupInfo" xml:space="preserve">
-    <value>Group Info</value>
+    <value>문자 집합 정보</value>
   </data>
   <data name="Title_FontInfo" xml:space="preserve">
-    <value>Font Info</value>
+    <value>글꼴 정보</value>
   </data>
   <data name="Button_Find" xml:space="preserve">
-    <value>_Find</value>
+    <value>찾기(_F)</value>
   </data>
   <data name="Label_UnicodeValue" xml:space="preserve">
-    <value>Unicode _Value</value>
+    <value>유니코드 값(_V)</value>
   </data>
   <data name="CheckBox_SearchByCharacter" xml:space="preserve">
-    <value>_Search by Character</value>
+    <value>문자열로 검색(_S)</value>
   </data>
   <data name="Title_About" xml:space="preserve">
-    <value>About</value>
+    <value>정보</value>
   </data>
   <data name="Title_EditExportSettings" xml:space="preserve">
-    <value>Edit Export Settings</value>
+    <value>출력 설정 편집</value>
   </data>
   <data name="Title_FindCharacter" xml:space="preserve">
-    <value>Find Character</value>
+    <value>문자 찾기</value>
   </data>
   <data name="Title_FontOptions" xml:space="preserve">
-    <value>Font Options</value>
+    <value>글꼴 설정</value>
   </data>
   <data name="Title_PreviewCharacter" xml:space="preserve">
-    <value>Preview Character</value>
+    <value>문자 미리보기</value>
   </data>
   <data name="Title_Preview" xml:space="preserve">
-    <value>Preview</value>
+    <value>미리보기</value>
   </data>
   <data name="Title_SelectCharacters" xml:space="preserve">
-    <value>Select Characters</value>
+    <value>문자 선택</value>
   </data>
   <data name="Title_SelectColor" xml:space="preserve">
-    <value>Select Color</value>
+    <value>색상 선택</value>
   </data>
   <data name="MenuItem_PreviewCharacter" xml:space="preserve">
-    <value>_Preview Character</value>
+    <value>문자 미리보기(_P)</value>
   </data>
   <data name="MenuItem_SaveCharacter" xml:space="preserve">
-    <value>_Save Character...</value>
+    <value>문자 저장(_S)...</value>
   </data>
   <data name="MenuItem_CheckCharacter" xml:space="preserve">
-    <value>_CheckCharacter</value>
+    <value>문자 선택(_C)</value>
   </data>
   <data name="MenuItem_UncheckCharacter" xml:space="preserve">
-    <value>_Uncheck Character</value>
+    <value>문자 선택 해제(_U)</value>
   </data>
   <data name="MenuItem_CheckCharacterGroup" xml:space="preserve">
-    <value>_Check Character Group</value>
+    <value>문자 집합 선택(_C)</value>
   </data>
   <data name="MenuItem_UncheckCharacterGroup" xml:space="preserve">
-    <value>_Uncheck Character Group</value>
+    <value>문자 집합 선택 해제(_U)</value>
   </data>
   <data name="MenuItem_CheckCharacterRow" xml:space="preserve">
-    <value>_Check Character Row</value>
+    <value>문자 행 선택(_C)</value>
   </data>
   <data name="MenuItem_UncheckCharacterRow" xml:space="preserve">
-    <value>_Uncheck Character Row</value>
+    <value>문자 행 선택 해제(_U)</value>
   </data>
   <data name="Label_Padding" xml:space="preserve">
-    <value>_Padding</value>
+    <value>여백(_P)</value>
   </data>
   <data name="Label_Spacing" xml:space="preserve">
-    <value>_Spacing</value>
+    <value>간격(_S)</value>
   </data>
   <data name="Label_TextureWidth" xml:space="preserve">
-    <value>Texture _Width</value>
+    <value>텍스쳐 너비(_W)</value>
   </data>
   <data name="Label_TextureHeight" xml:space="preserve">
-    <value>Texture _Height</value>
+    <value>텍스쳐 높이(_H)</value>
   </data>
   <data name="Label_BackgroundColor" xml:space="preserve">
-    <value>_Background Color</value>
+    <value>배경 색상(_B)</value>
   </data>
   <data name="Label_FontColor" xml:space="preserve">
-    <value>_Font Color</value>
+    <value>글꼴 색상(_F)</value>
   </data>
   <data name="Label_PaddingColor" xml:space="preserve">
-    <value>P_adding Color</value>
+    <value>여백 색상(_A)</value>
   </data>
   <data name="Label_Size" xml:space="preserve">
-    <value>_Size</value>
+    <value>크기(_S)</value>
   </data>
   <data name="Label_DPI" xml:space="preserve">
     <value>_DPI</value>
   </data>
   <data name="Label_Font" xml:space="preserve">
-    <value>_Font</value>
+    <value>글꼴(_F)</value>
   </data>
   <data name="PNGFilter" xml:space="preserve">
-    <value>png files (*.png)|*.png|all files (*.*)|*.*</value>
+    <value>png 파일 (*.png)|*.png|모든 파일 (*.*)|*.*</value>
   </data>
   <data name="Exception_FontDoesNotOpen" xml:space="preserve">
-    <value>Font does not open.</value>
+    <value>글꼴이 열리지 않았습니다.</value>
   </data>
   <data name="Exception_FontAlreadyOpen" xml:space="preserve">
-    <value>Font already open.</value>
+    <value>글꼴이 이미 열려있습니다.</value>
   </data>
   <data name="Exception_InvalidSettingsPath" xml:space="preserve">
-    <value>Invalid settings path</value>
+    <value>잘못된 설정 경로입니다.</value>
   </data>
   <data name="Exception_MinLessMax" xml:space="preserve">
-    <value>min must be less than max</value>
+    <value>최소값은 최대값보다 작아야 합니다</value>
   </data>
   <data name="Exception_LengthMustBeOne" xml:space="preserve">
-    <value>length must be 1.</value>
+    <value>길이는 1이여야만 합니다.</value>
   </data>
 </root>

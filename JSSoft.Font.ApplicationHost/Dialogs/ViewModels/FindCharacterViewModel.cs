@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
@@ -39,7 +40,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
 
         public FindCharacterViewModel()
         {
-            this.DisplayName = "Find Character";
+            this.DisplayName = Resources.Title_FindCharacter;
         }
 
         public async Task FindAsync()
@@ -96,7 +97,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
                 if (this.ByCharacter == true)
                 {
                     if (value.Length > 1)
-                        throw new ArgumentException("length must be 1.");
+                        throw new ArgumentException(Resources.Exception_LengthMustBeOne);
                     if (value.Length == 1)
                     {
                         this.character = (uint)value.First();

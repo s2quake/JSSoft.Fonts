@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Commands;
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System;
@@ -39,7 +40,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
         public CloseFontMenuItem(IShell shell)
         {
             this.shell = shell;
-            this.DisplayName = "Close";
+            this.DisplayName = Resources.MenuItem_Close;
             this.shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
             this.shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();
         }

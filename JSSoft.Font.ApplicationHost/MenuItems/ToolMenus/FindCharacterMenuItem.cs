@@ -25,6 +25,7 @@ using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
 using Ntreev.ModernUI.Framework;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
+using JSSoft.Font.ApplicationHost.Properties;
 
 namespace JSSoft.Font.ApplicationHost.MenuItems.ToolMenus
 {
@@ -38,7 +39,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ToolMenus
         public FindCharacterMenuItem(IShell shell)
         {
             this.shell = shell;
-            this.DisplayName = "Find Character...";
+            this.DisplayName = Resources.MenuItem_FindCharacter;
             this.InputGesture = new KeyGesture(Key.F, ModifierKeys.Control);
             this.shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
             this.shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();

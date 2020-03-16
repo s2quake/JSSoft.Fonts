@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.Library;
 using System;
 using System.ComponentModel.Composition;
@@ -28,7 +29,7 @@ namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
 {
     [Export(typeof(IPropertyItem))]
     [Dependency(typeof(FontInfoViewModel))]
-    class CharacterGroupViewModel : PropertyItemBase
+    class CharacterGroupInfoViewModel : PropertyItemBase
     {
         private readonly IShell shell;
         private uint min;
@@ -36,10 +37,10 @@ namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
         private ICharacterGroup characterGroup;
 
         [ImportingConstructor]
-        public CharacterGroupViewModel(IShell shell)
+        public CharacterGroupInfoViewModel(IShell shell)
         {
             this.shell = shell;
-            this.DisplayName = "Group Info";
+            this.DisplayName = Resources.Title_GroupInfo;
             this.shell.SelectedGroupChanged += Shell_SelectedGroupChanged;
         }
 
@@ -60,7 +61,6 @@ namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
             {
                 this.min = value;
                 this.NotifyOfPropertyChange(nameof(Min));
-                //this.NotifyOfPropertyChange(nameof(MinString));
             }
         }
 
@@ -71,13 +71,8 @@ namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
             {
                 this.max = value;
                 this.NotifyOfPropertyChange(nameof(Max));
-                //this.NotifyOfPropertyChange(nameof(MaxString));
             }
         }
-
-        //public string MinString => $"0x{this.Min:X}";
-
-        //public string MaxString => $"0x{this.Max:X}";
 
         public override bool IsVisible => true;
 

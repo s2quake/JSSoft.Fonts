@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.Library;
 using System.ComponentModel.Composition;
 
@@ -27,13 +28,13 @@ namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
 {
     [Export(typeof(IPropertyItem))]
     [Dependency(typeof(FontInfoViewModel))]
-    class GlyphMetricsViewModel : PropertyItemBase
+    class CharacterInfoViewModel : PropertyItemBase
     {
         private ICharacter character;
 
-        public GlyphMetricsViewModel()
+        public CharacterInfoViewModel()
         {
-            this.DisplayName = "Character Info";
+            this.DisplayName = Resources.Title_CharacterInfo;
         }
 
         public override bool CanSupport(object obj)

@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -94,7 +95,7 @@ namespace JSSoft.Font
             if (glyph.Bitmap == null)
                 return null;
             if (this.Parent != null)
-                throw new InvalidOperationException("This method is only available on the root node.");
+                throw new InvalidOperationException(Resources.Exception_RootOnlyCanBeUsed);
 
             foreach (var item in this.pointList)
             {

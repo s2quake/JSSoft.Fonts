@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -32,7 +33,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
 
         public SelectColorViewModel()
         {
-            this.DisplayName = "Select Color";
+            this.DisplayName = Resources.Title_SelectColor;
         }
 
         public async Task SelectAsync()

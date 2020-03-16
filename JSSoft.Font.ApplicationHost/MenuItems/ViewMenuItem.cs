@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System.ComponentModel.Composition;
@@ -34,7 +35,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems
         [ImportingConstructor]
         public ViewMenuItem()
         {
-            this.DisplayName = "_View";
+            this.DisplayName = Resources.MenuItem_View;
         }
     }
 }

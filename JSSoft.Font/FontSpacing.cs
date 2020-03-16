@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,7 +57,7 @@ namespace JSSoft.Font
                         return new FontSpacing(value0, value1);
                     }
                 default:
-                    throw new FormatException($"invalid format: \"{s}\"");
+                    throw new FormatException($"{Resources.Exception_InvalidFormat}: \"{s}\"");
             }
         }
 

@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
 using System.ComponentModel.Composition;
 
@@ -33,7 +34,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.HelpMenus
         [ImportingConstructor]
         public AboutMenuItem()
         {
-            this.DisplayName = "About...";
+            this.DisplayName = Resources.MenuItem_About;
         }
 
         protected override void OnExecute(object parameter)

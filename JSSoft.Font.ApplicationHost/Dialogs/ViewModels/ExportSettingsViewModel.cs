@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
 using System.Threading.Tasks;
 using System.Windows;
@@ -45,7 +46,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             this.padding = settings.Padding;
             this.horizontalSpace = settings.HorizontalSpace;
             this.verticalSpace = settings.VerticalSpace;
-            this.DisplayName = "Export Settings";
+            this.DisplayName = Resources.Title_EditExportSettings;
         }
 
         public async Task OKAsync()

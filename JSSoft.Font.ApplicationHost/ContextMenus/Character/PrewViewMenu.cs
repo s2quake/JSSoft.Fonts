@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
+using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
 using System.ComponentModel.Composition;
@@ -34,7 +35,7 @@ namespace JSSoft.Font.ApplicationHost.ContextMenus.Character
     {
         public PrewViewMenu()
         {
-            this.DisplayName = "Preview";
+            this.DisplayName = Resources.MenuItem_Preview;
         }
 
         protected override bool OnCanExecute(ICharacter obj)
