@@ -48,12 +48,10 @@ SOFTWARE.
         <nmfc:PropertyItemsControl>
             <jsfc:PaddingControl x:Name="PaddingValue" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Padding}" />
             <jsfc:SpacingControl x:Name="SpacingValue" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Spacing}" />
-            <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_TextureWidth}"
-                                Values="64 128 256 512 1024 2048 4096"
-                                Value="{Binding TextureWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_TextureHeight}" 
-                                Values="64 128 256 512 1024 2048 4096"
-                                Value="{Binding TextureHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <jsfc:ValueSelector x:Name="TextureWidth" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_TextureWidth}"
+                                Values="64 128 256 512 1024 2048 4096" />
+            <jsfc:ValueSelector x:Name="TextureHeight" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_TextureHeight}" 
+                                Values="64 128 256 512 1024 2048 4096" />
             <Button x:Name="SelectBackgroundColor" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_BackgroundColor}"
                     Background="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" />
             <Button x:Name="SelectForegroundColor" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_FontColor}" 

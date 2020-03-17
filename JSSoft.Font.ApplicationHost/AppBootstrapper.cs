@@ -32,6 +32,7 @@ namespace JSSoft.Font.ApplicationHost
         {
             ConventionManager.AddElementConvention<PaddingControl>(PaddingControl.ValueProperty, nameof(PaddingControl.Value), nameof(PaddingControl.ValueChanged));
             ConventionManager.AddElementConvention<SpacingControl>(SpacingControl.ValueProperty, nameof(SpacingControl.Value), nameof(SpacingControl.ValueChanged));
+            ConventionManager.AddElementConvention<ValueSelector>(ValueSelector.ValueProperty, nameof(ValueSelector.Value), nameof(ValueSelector.ValueChanged));
         }
 
         public AppBootstrapper()

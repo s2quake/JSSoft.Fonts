@@ -315,4 +315,7 @@
   <data name="Exception_LengthMustBeOne" xml:space="preserve">
     <value>length must be 1.</value>
   </data>
+  <data name="Label_CharacterToSelect" xml:space="preserve">
+    <value>_Characters to Select</value>
+  </data>
 </root>

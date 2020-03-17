@@ -27,13 +27,14 @@ using System.Windows.Controls.Primitives;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
+    [TemplatePart(Name = PART_EditableComboBox, Type = typeof(ComboBox))]
     public class ValueSelector : Control
     {
         public const string PART_EditableComboBox = nameof(PART_EditableComboBox);
 
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(nameof(Value), typeof(int), typeof(ValueSelector),
-                new FrameworkPropertyMetadata(0, ValuePropertyChangedCallback));
+                new FrameworkPropertyMetadata(default(int), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, ValuePropertyChangedCallback));
 
         public static readonly DependencyProperty ValuesProperty =
             DependencyProperty.Register(nameof(Values), typeof(int[]), typeof(ValueSelector),
@@ -43,6 +44,9 @@ namespace JSSoft.Font.ApplicationHost.Controls
             DependencyProperty.RegisterReadOnly(nameof(ComboBox.Text), typeof(string), typeof(ValueSelector),
                 new FrameworkPropertyMetadata($"{0}", TextPropertyChangedCallback, TextPropertyCoerceValueCallback));
         public static readonly DependencyProperty TextProperty = TextPropertyKey.DependencyProperty;
+
+        public static readonly RoutedEvent ValueChangedEvent =
+            EventManager.RegisterRoutedEvent(nameof(ValueChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ValueSelector));
 
         private ComboBox comboBox;
         private TextChangedEventHandler handler;
@@ -82,6 +86,12 @@ namespace JSSoft.Font.ApplicationHost.Controls
             set => this.SetValue(ValuesProperty, value);
         }
 
+        public event RoutedEventHandler ValueChanged
+        {
+            add { AddHandler(ValueChangedEvent, value); }
+            remove { RemoveHandler(ValueChangedEvent, value); }
+        }
+
         private void ComboBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (e.Source is TextBox textBox)
@@ -93,6 +103,10 @@ namespace JSSoft.Font.ApplicationHost.Controls
         private static void ValuePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             d.CoerceValue(TextProperty);
+            if (d is UIElement element)
+            {
+                element.RaiseEvent(new RoutedEventArgs(ValueChangedEvent));
+            }
         }
 
         private static void TextPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)

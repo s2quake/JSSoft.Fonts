@@ -37,7 +37,7 @@ SOFTWARE.
 
     <StackPanel>
         <Label Content="{x:Static jsfp:Resources.Label_UnicodeValue}" Target="{Binding ElementName=Character}" />
-        <TextBox x:Name="Character" HorizontalScrollBarVisibility="Disabled" 
+        <TextBox x:Name="Character" HorizontalScrollBarVisibility="Disabled"
                  Text="{Binding CharacterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
         <nmfc:ErrorBlinker />
         <CheckBox x:Name="ByCharacter" Content="{x:Static jsfp:Resources.CheckBox_SearchByCharacter}" Checked="ByCharacter_Checked" Unchecked="ByCharacter_Unchecked"

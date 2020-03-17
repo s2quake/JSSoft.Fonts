@@ -27,6 +27,7 @@ SOFTWARE.
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:nmfp="clr-namespace:Ntreev.ModernUI.Framework.Properties;assembly=Ntreev.ModernUI.Framework"
+             xmlns:jsfp="clr-namespace:JSSoft.Font.ApplicationHost.Properties"
              mc:Ignorable="d" Width="400">
 
     <UserControl.Resources>
@@ -34,7 +35,7 @@ SOFTWARE.
     </UserControl.Resources>
 
     <StackPanel>
-        <TextBlock Text="Characters" />
+        <Label Content="{x:Static jsfp:Resources.Label_CharacterToSelect}" Target="{Binding ElementName=Characters}" />
         <TextBox x:Name="Characters" Height="100" HorizontalScrollBarVisibility="Disabled" TextWrapping="Wrap"
                  Text="{Binding CharactersText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

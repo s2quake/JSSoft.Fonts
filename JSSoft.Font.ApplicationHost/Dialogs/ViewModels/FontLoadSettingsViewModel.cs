@@ -22,6 +22,8 @@
 
 using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,15 +31,14 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
 {
     public class FontLoadSettingsViewModel : ModalDialogBase
     {
-        private string face;
+        private string selectedFace;
         private int size = 14;
         private int dpi = 72;
 
         public FontLoadSettingsViewModel(string path)
         {
-            var faces = FontDescriptor.GetFaces(path);
-            this.Faces = faces;
-            this.face = faces.FirstOrDefault();
+            this.Faces = new ObservableCollection<string>(FontDescriptor.GetFaces(path));
+            this.selectedFace = this.Faces.FirstOrDefault();
             this.DisplayName = Resources.Title_FontOptions;
         }
 
@@ -46,15 +47,15 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             await this.TryCloseAsync(true);
         }
 
-        public string[] Faces { get; }
+        public IReadOnlyList<string> Faces { get; }
 
-        public string Face
+        public string SelectedFace
         {
-            get => this.face;
+            get => this.selectedFace;
             set
             {
-                this.face = value;
-                this.NotifyOfPropertyChange(nameof(Face));
+                this.selectedFace = value;
+                this.NotifyOfPropertyChange(nameof(SelectedFace));
             }
         }
 
@@ -62,9 +63,9 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         {
             get
             {
-                for (var i = 0; i < this.Faces.Length; i++)
+                for (var i = 0; i < this.Faces.Count; i++)
                 {
-                    if (this.Faces[i] == this.Face)
+                    if (this.Faces[i] == this.SelectedFace)
                         return i;
                 }
                 return -1;

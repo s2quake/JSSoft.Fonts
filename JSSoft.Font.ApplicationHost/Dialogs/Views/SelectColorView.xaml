@@ -31,7 +31,7 @@ SOFTWARE.
              mc:Ignorable="d">
     
     <StackPanel>
-        <nmfc:ColorPicker CurrentColor="{Binding CurrentColor, Mode=TwoWay}" />
+        <nmfc:ColorPicker x:Name="CurrentColor" />
         <Button x:Name="Select" IsDefault="True" Content="{x:Static nmfp:Resources.Button_OK}" HorizontalAlignment="Center" Style="{DynamicResource Dialog_Button_Style}" />
     </StackPanel>
     

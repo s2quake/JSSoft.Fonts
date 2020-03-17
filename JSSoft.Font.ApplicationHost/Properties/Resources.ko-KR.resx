@@ -315,4 +315,7 @@
   <data name="Exception_LengthMustBeOne" xml:space="preserve">
     <value>길이는 1이여야만 합니다.</value>
   </data>
+  <data name="Label_CharacterToSelect" xml:space="preserve">
+    <value>선택할 문자(_C)</value>
+  </data>
 </root>
