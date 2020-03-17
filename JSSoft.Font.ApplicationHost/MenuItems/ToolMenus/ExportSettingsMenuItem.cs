@@ -53,9 +53,8 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.ToolMenus
             var dialog = new ExportSettingsViewModel(settings);
             if (await dialog.ShowDialogAsync() == true)
             {
-                settings.Padding = dialog.Padding;
-                settings.HorizontalSpace = dialog.HorizontalSpace;
-                settings.VerticalSpace = dialog.VerticalSpace;
+                settings.PaddingValue = dialog.PaddingValue;
+                settings.SpacingValue = dialog.SpacingValue;
                 settings.TextureWidth = dialog.TextureWidth;
                 settings.TextureHeight = dialog.TextureHeight;
             }

@@ -30,9 +30,8 @@ namespace JSSoft.Font.ApplicationHost
     {
         private int textureWidth = 128;
         private int textureHeight = 128;
-        private Thickness padding = new Thickness(1);
-        private int horizontalSpace = 1;
-        private int verticalSpace = 1;
+        private FontPadding paddingValue = new FontPadding(1);
+        private FontSpacing spacingValue = new FontSpacing(1);
 
         public int TextureWidth
         {
@@ -60,41 +59,28 @@ namespace JSSoft.Font.ApplicationHost
             }
         }
 
-        public Thickness Padding
+        public FontPadding PaddingValue
         {
-            get => this.padding;
+            get => this.paddingValue;
             set
             {
-                if (this.padding != value)
+                if (this.paddingValue != value)
                 {
-                    this.padding = value;
-                    this.NotifyOfPropertyChange(nameof(Padding));
+                    this.paddingValue = value;
+                    this.NotifyOfPropertyChange(nameof(PaddingValue));
                 }
             }
         }
 
-        public int HorizontalSpace
+        public FontSpacing SpacingValue
         {
-            get => this.horizontalSpace;
+            get => this.spacingValue;
             set
             {
-                if (this.horizontalSpace != value)
+                if (this.spacingValue != value)
                 {
-                    this.horizontalSpace = value;
-                    this.NotifyOfPropertyChange(nameof(HorizontalSpace));
-                }
-            }
-        }
-
-        public int VerticalSpace
-        {
-            get => this.verticalSpace;
-            set
-            {
-                if (this.verticalSpace != value)
-                {
-                    this.verticalSpace = value;
-                    this.NotifyOfPropertyChange(nameof(VerticalSpace));
+                    this.spacingValue = value;
+                    this.NotifyOfPropertyChange(nameof(SpacingValue));
                 }
             }
         }
@@ -103,9 +89,8 @@ namespace JSSoft.Font.ApplicationHost
         {
             settings.TextureWidth = this.TextureWidth;
             settings.TextureHeight = this.TextureHeight;
-            settings.Padding = this.Padding;
-            settings.HorizontalSpace = this.HorizontalSpace;
-            settings.VerticalSpace = this.VerticalSpace;
+            settings.PaddingValue = this.PaddingValue;
+            settings.SpacingValue = this.SpacingValue;
         }
 
         public ExportSettings Clone()
@@ -122,8 +107,8 @@ namespace JSSoft.Font.ApplicationHost
                 Name = name,
                 Width = this.TextureWidth,
                 Height = this.TextureHeight,
-                Padding = new FontPadding((int)this.Padding.Left, (int)this.Padding.Top, (int)this.Padding.Right, (int)this.Padding.Bottom),
-                Spacing = new FontSpacing(this.HorizontalSpace, this.VerticalSpace),
+                Padding = new FontPadding((int)this.PaddingValue.Left, (int)this.PaddingValue.Top, (int)this.PaddingValue.Right, (int)this.PaddingValue.Bottom),
+                Spacing = this.SpacingValue,
                 Characters = characters
             };
         }
@@ -132,9 +117,8 @@ namespace JSSoft.Font.ApplicationHost
         {
             this.TextureWidth = info.TextureWidth;
             this.TextureHeight = info.TextureHeight;
-            this.Padding = new Thickness(info.Padding.Left, info.Padding.Top, info.Padding.Right, info.Padding.Bottom);
-            this.HorizontalSpace = info.Spacing.Horizontal;
-            this.VerticalSpace = info.Spacing.Vertical;
+            this.PaddingValue = new FontPadding(info.Padding.Left, info.Padding.Top, info.Padding.Right, info.Padding.Bottom);
+            this.SpacingValue = new FontSpacing(info.Spacing.Horizontal, info.Spacing.Vertical);
         }
     }
 }

@@ -31,6 +31,12 @@ namespace JSSoft.Font
     [TypeConverter(typeof(FontSpacingConverter))]
     public struct FontSpacing
     {
+        public FontSpacing(int value)
+        {
+            this.Horizontal = value;
+            this.Vertical = value;
+        }
+
         public FontSpacing(int horizontal, int vertical)
         {
             this.Horizontal = horizontal;
@@ -105,9 +111,38 @@ namespace JSSoft.Font
             }
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj is FontSpacing value)
+            {
+                return this.Horizontal == value.Horizontal && this.Vertical == value.Vertical;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Horizontal ^ this.Vertical;
+        }
+
+        public override string ToString()
+        {
+            return $"{{{this.Horizontal}, {this.Vertical}}}";
+        }
+
         public int Horizontal { get; set; }
 
         public int Vertical { get; set; }
+
+        public static bool operator ==(FontSpacing v1, FontSpacing v2)
+        {
+            return v1.Horizontal == v2.Horizontal && v1.Vertical == v2.Vertical;
+        }
+
+        public static bool operator !=(FontSpacing v1, FontSpacing v2)
+        {
+            return v1.Horizontal != v2.Horizontal || v1.Vertical != v2.Vertical;
+        }
 
         public static readonly FontSpacing Empty = new FontSpacing();
     }

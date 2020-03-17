@@ -25,24 +25,30 @@ using System.Windows.Controls;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
-    [TemplatePart(Name = PART_Horizontal, Type = typeof(TextBox))]
-    [TemplatePart(Name = PART_Vertical, Type = typeof(TextBox))]
-    public class SpacingControl : Control
+    [TemplatePart(Name = PART_Left, Type = typeof(TextBox))]
+    [TemplatePart(Name = PART_Top, Type = typeof(TextBox))]
+    [TemplatePart(Name = PART_Right, Type = typeof(TextBox))]
+    [TemplatePart(Name = PART_Bottom, Type = typeof(TextBox))]
+    public class PaddingControl : Control
     {
-        public const string PART_Horizontal = nameof(PART_Horizontal);
-        public const string PART_Vertical = nameof(PART_Vertical);
+        public const string PART_Left = nameof(PART_Left);
+        public const string PART_Top = nameof(PART_Top);
+        public const string PART_Right = nameof(PART_Right);
+        public const string PART_Bottom = nameof(PART_Bottom);
 
         public static readonly DependencyProperty ValueProperty =
-           DependencyProperty.Register(nameof(Value), typeof(FontSpacing), typeof(SpacingControl),
-               new FrameworkPropertyMetadata(default(FontSpacing), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, ValuePropertyChangedCallback));
+           DependencyProperty.Register(nameof(Value), typeof(FontPadding), typeof(PaddingControl),
+               new FrameworkPropertyMetadata(default(FontPadding), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, ValuePropertyChangedCallback));
 
         public static readonly RoutedEvent ValueChangedEvent =
-            EventManager.RegisterRoutedEvent(nameof(ValueChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SpacingControl));
+            EventManager.RegisterRoutedEvent(nameof(ValueChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(PaddingControl));
 
-        private TextBox horzControl;
-        private TextBox vertControl;
+        private TextBox leftControl;
+        private TextBox topControl;
+        private TextBox rightControl;
+        private TextBox bottomControl;
 
-        public SpacingControl()
+        public PaddingControl()
         {
 
         }
@@ -50,19 +56,27 @@ namespace JSSoft.Font.ApplicationHost.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            this.DetachEvent(this.horzControl);
-            this.DetachEvent(this.vertControl);
-            this.horzControl = this.Template.FindName(PART_Horizontal, this) as TextBox;
-            this.vertControl = this.Template.FindName(PART_Vertical, this) as TextBox;
-            this.UpdateValue(this.horzControl, this.Value.Horizontal);
-            this.UpdateValue(this.vertControl, this.Value.Vertical);
-            this.AttachEvent(this.horzControl);
-            this.AttachEvent(this.vertControl);
+            this.DetachEvent(this.leftControl);
+            this.DetachEvent(this.topControl);
+            this.DetachEvent(this.rightControl);
+            this.DetachEvent(this.bottomControl);
+            this.leftControl = this.Template.FindName(PART_Left, this) as TextBox;
+            this.topControl = this.Template.FindName(PART_Top, this) as TextBox;
+            this.rightControl = this.Template.FindName(PART_Right, this) as TextBox;
+            this.bottomControl = this.Template.FindName(PART_Bottom, this) as TextBox;
+            this.UpdateValue(this.leftControl, this.Value.Left);
+            this.UpdateValue(this.topControl, this.Value.Top);
+            this.UpdateValue(this.rightControl, this.Value.Right);
+            this.UpdateValue(this.bottomControl, this.Value.Bottom);
+            this.AttachEvent(this.leftControl);
+            this.AttachEvent(this.topControl);
+            this.AttachEvent(this.rightControl);
+            this.AttachEvent(this.bottomControl);
         }
 
-        public FontSpacing Value
+        public FontPadding Value
         {
-            get => (FontSpacing)this.GetValue(ValueProperty);
+            get => (FontPadding)this.GetValue(ValueProperty);
             set => this.SetValue(ValueProperty, value);
         }
 
@@ -74,7 +88,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
         private static void ValuePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is SpacingControl self)
+            if (d is PaddingControl self)
             {
                 self.UpdateValue();
             }
@@ -82,8 +96,10 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
         private void UpdateValue()
         {
-            this.UpdateValue(this.horzControl, this.Value.Horizontal);
-            this.UpdateValue(this.vertControl, this.Value.Vertical);
+            this.UpdateValue(this.leftControl, this.Value.Left);
+            this.UpdateValue(this.topControl, this.Value.Top);
+            this.UpdateValue(this.rightControl, this.Value.Right);
+            this.UpdateValue(this.bottomControl, this.Value.Bottom);
             this.RaiseEvent(new RoutedEventArgs(ValueChangedEvent));
         }
 
@@ -126,17 +142,27 @@ namespace JSSoft.Font.ApplicationHost.Controls
         {
             if (sender is TextBox textBox)
             {
-                var horzValue = this.Value.Horizontal;
-                var vertValue = this.Value.Vertical;
-                if (this.horzControl == textBox)
+                var leftValue = this.Value.Left;
+                var topValue = this.Value.Top;
+                var rightValue = this.Value.Right;
+                var bottomValue = this.Value.Bottom;
+                if (this.leftControl == textBox)
                 {
-                    horzValue = int.Parse(this.horzControl.Text);
+                    leftValue = int.Parse(this.leftControl.Text);
                 }
-                else if (this.vertControl == textBox)
+                else if (this.topControl == textBox)
                 {
-                    vertValue = int.Parse(this.vertControl.Text);
+                    topValue = int.Parse(this.topControl.Text);
                 }
-                var value = new FontSpacing(horzValue, vertValue);
+                else if (this.rightControl == textBox)
+                {
+                    rightValue = int.Parse(this.rightControl.Text);
+                }
+                else if (this.bottomControl == textBox)
+                {
+                    bottomValue = int.Parse(this.bottomControl.Text);
+                }
+                var value = new FontPadding(leftValue, topValue, rightValue, bottomValue);
                 if (this.Value != value)
                 {
                     this.Value = value;

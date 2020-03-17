@@ -30,6 +30,7 @@ SOFTWARE.
         <ResourceDictionary Source="CharacterView.xaml" />
         <ResourceDictionary Source="HeaderedContentList.xaml" />
         <ResourceDictionary Source="ValueSelector.xaml" />
+        <ResourceDictionary Source="PaddingControl.xaml" />
         <ResourceDictionary Source="SpacingControl.xaml" />
         <ResourceDictionary Source="ZoomLevelControl.xaml" />
 

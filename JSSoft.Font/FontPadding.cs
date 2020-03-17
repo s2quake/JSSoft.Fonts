@@ -47,9 +47,23 @@ namespace JSSoft.Font
             this.Bottom = thickness;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj is FontPadding value)
+            {
+                return this.Left == value.Left && this.Top == value.Top && this.Right == value.Right && this.Bottom == value.Bottom;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Left ^ this.Top ^ this.Right ^ this.Bottom;
+        }
+
         public override string ToString()
         {
-            return $"{this.Left},{this.Top},{this.Right},{this.Bottom}";
+            return $"{{{this.Left},{this.Top},{this.Right},{this.Bottom}}}";
         }
 
         public static FontPadding Parse(string s)
@@ -142,6 +156,16 @@ namespace JSSoft.Font
         public int Right { get; set; }
 
         public int Bottom { get; set; }
+
+        public static bool operator ==(FontPadding v1, FontPadding v2)
+        {
+            return v1.Left == v2.Left && v1.Top == v2.Top && v1.Right == v2.Right && v1.Bottom == v2.Bottom;
+        }
+
+        public static bool operator !=(FontPadding v1, FontPadding v2)
+        {
+            return v1.Left != v2.Left || v1.Top != v2.Top || v1.Right != v2.Right || v1.Bottom != v2.Bottom;
+        }
 
         public static readonly FontPadding Empty = new FontPadding();
 

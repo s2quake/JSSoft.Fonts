@@ -20,12 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using Caliburn.Micro;
+using JSSoft.Font.ApplicationHost.Controls;
 using Ntreev.ModernUI.Framework;
 
 namespace JSSoft.Font.ApplicationHost
 {
     class AppBootstrapper : AppBootstrapperBase
     {
+        static AppBootstrapper()
+        {
+            ConventionManager.AddElementConvention<PaddingControl>(PaddingControl.ValueProperty, nameof(PaddingControl.Value), nameof(PaddingControl.ValueChanged));
+            ConventionManager.AddElementConvention<SpacingControl>(SpacingControl.ValueProperty, nameof(SpacingControl.Value), nameof(SpacingControl.ValueChanged));
+        }
+
         public AppBootstrapper()
             : base(typeof(IShell))
         {

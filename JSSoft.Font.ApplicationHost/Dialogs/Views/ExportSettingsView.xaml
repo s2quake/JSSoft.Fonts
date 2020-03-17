@@ -46,11 +46,8 @@ SOFTWARE.
 
     <StackPanel>
         <nmfc:PropertyItemsControl>
-            <nmfc:ThicknessControl nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Padding}"
-                                   Value="{Binding Padding, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <jsfc:SpacingControl nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Spacing}" 
-                                 Horizontal="{Binding HorizontalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                 Vertical="{Binding VerticalSpace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <jsfc:PaddingControl x:Name="PaddingValue" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Padding}" />
+            <jsfc:SpacingControl x:Name="SpacingValue" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Spacing}" />
             <jsfc:ValueSelector nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_TextureWidth}"
                                 Values="64 128 256 512 1024 2048 4096"
                                 Value="{Binding TextureWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

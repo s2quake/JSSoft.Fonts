@@ -23,7 +23,6 @@
 using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.ModernUI.Framework;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Media;
 
 namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
@@ -32,9 +31,8 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
     {
         private int textureWidth = 1024;
         private int textureHeight = 1024;
-        private Thickness padding;
-        private int horizontalSpace = 1;
-        private int verticalSpace = 1;
+        private FontPadding paddingValue = new FontPadding(1);
+        private FontSpacing spacingValue = new FontSpacing(1);
         private Color backgroundColor = ColorUtility.FromColor(FontPage.DefaultBackgroundColor);
         private Color foregroundColor = ColorUtility.FromColor(FontPage.DefaultForegroundColor);
         private Color paddingColor = ColorUtility.FromColor(FontPage.DefaultPaddingColor);
@@ -43,9 +41,8 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
         {
             this.textureWidth = settings.TextureWidth;
             this.textureHeight = settings.TextureHeight;
-            this.padding = settings.Padding;
-            this.horizontalSpace = settings.HorizontalSpace;
-            this.verticalSpace = settings.VerticalSpace;
+            this.paddingValue = settings.PaddingValue;
+            this.spacingValue = settings.SpacingValue;
             this.DisplayName = Resources.Title_EditExportSettings;
         }
 
@@ -140,33 +137,23 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             }
         }
 
-        public Thickness Padding
+        public FontPadding PaddingValue
         {
-            get => this.padding;
+            get => this.paddingValue;
             set
             {
-                this.padding = value;
-                this.NotifyOfPropertyChange(nameof(Padding));
+                this.paddingValue = value;
+                this.NotifyOfPropertyChange(nameof(PaddingValue));
             }
         }
 
-        public int HorizontalSpace
+        public FontSpacing SpacingValue
         {
-            get => this.horizontalSpace;
+            get => this.spacingValue;
             set
             {
-                this.horizontalSpace = value;
-                this.NotifyOfPropertyChange(nameof(HorizontalSpace));
-            }
-        }
-
-        public int VerticalSpace
-        {
-            get => this.verticalSpace;
-            set
-            {
-                this.verticalSpace = value;
-                this.NotifyOfPropertyChange(nameof(VerticalSpace));
+                this.spacingValue = value;
+                this.NotifyOfPropertyChange(nameof(SpacingValue));
             }
         }
     }

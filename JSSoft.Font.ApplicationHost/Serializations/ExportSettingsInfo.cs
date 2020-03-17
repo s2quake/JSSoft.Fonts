@@ -47,10 +47,10 @@ namespace JSSoft.Font.ApplicationHost.Serializations
         public int TextureHeight { get; set; }
 
         [XmlIgnore]
-        public (int Left, int Top, int Right, int Bottom) Padding { get; set; }
+        public FontPadding Padding { get; set; }
 
         [XmlIgnore]
-        public (int Vertical, int Horizontal) Spacing { get; set; }
+        public FontSpacing Spacing { get; set; }
 
         [XmlIgnore]
         public uint[] Characters { get; set; }
@@ -62,7 +62,7 @@ namespace JSSoft.Font.ApplicationHost.Serializations
             set
             {
                 var items = value.Split(',');
-                this.Padding = (int.Parse(items[0]), int.Parse(items[1]), int.Parse(items[2]), int.Parse(items[3]));
+                this.Padding = new FontPadding(int.Parse(items[0]), int.Parse(items[1]), int.Parse(items[2]), int.Parse(items[3]));
             }
         }
 
@@ -73,7 +73,7 @@ namespace JSSoft.Font.ApplicationHost.Serializations
             set
             {
                 var items = value.Split(',');
-                this.Spacing = (int.Parse(items[0]), int.Parse(items[1]));
+                this.Spacing = new FontSpacing(int.Parse(items[0]), int.Parse(items[1]));
             }
         }
 
@@ -104,8 +104,8 @@ namespace JSSoft.Font.ApplicationHost.Serializations
                 DPI = (int)fontDescriptor.DPI,
                 TextureWidth = settings.TextureWidth,
                 TextureHeight = settings.TextureHeight,
-                Padding = ((int)settings.Padding.Left, (int)settings.Padding.Top, (int)settings.Padding.Right, (int)settings.Padding.Bottom),
-                Spacing = (settings.HorizontalSpace, settings.VerticalSpace),
+                Padding = settings.PaddingValue,
+                Spacing = settings.SpacingValue,
                 Characters = query.ToArray(),
             };
         }
