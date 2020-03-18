@@ -30,9 +30,9 @@ namespace JSSoft.Font.ApplicationHost.Controls
     {
         public const string PART_Viewbox = nameof(PART_Viewbox);
 
-        public static readonly DependencyProperty CharacterProperty =
-            DependencyProperty.Register(nameof(Character), typeof(ICharacter), typeof(CharacterControl),
-                new FrameworkPropertyMetadata(CharacterPropertyChangedCallback));
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register(nameof(Value), typeof(ICharacter), typeof(CharacterControl),
+                new FrameworkPropertyMetadata(ValuePropertyChangedCallback));
 
         private static readonly DependencyPropertyKey ImageMarginPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(ImageMargin), typeof(Thickness), typeof(CharacterControl),
@@ -53,8 +53,6 @@ namespace JSSoft.Font.ApplicationHost.Controls
            DependencyProperty.Register(nameof(ZoomLevel), typeof(double), typeof(CharacterControl),
                new FrameworkPropertyMetadata(1.0, ZoomLevelPropertyChangedCallback));
 
-        private Viewbox viewbox;
-
         public CharacterControl()
         {
 
@@ -63,22 +61,12 @@ namespace JSSoft.Font.ApplicationHost.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            this.viewbox = this.Template.FindName(PART_Viewbox, this) as Viewbox;
-            if (this.viewbox != null)
-            {
-                //this.viewbox.UseLayoutRounding = false;
-            }
         }
 
-        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        public ICharacter Value
         {
-            base.OnPropertyChanged(e);
-        }
-
-        public ICharacter Character
-        {
-            get => (ICharacter)this.GetValue(CharacterProperty);
-            set => this.SetValue(CharacterProperty, value);
+            get => (ICharacter)this.GetValue(ValueProperty);
+            set => this.SetValue(ValueProperty, value);
         }
 
         public double ZoomLevel
@@ -93,7 +81,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
         public double ImageHeight => (double)this.GetValue(ImageHeightProperty);
 
-        private static void CharacterPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void ValuePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             d.CoerceValue(ImageWidthProperty);
             d.CoerceValue(ImageHeightProperty);
@@ -114,7 +102,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
         private static object ImageMarginPropertyCoerceValueCallback(DependencyObject d, object baseValue)
         {
-            if (d.GetValue(CharacterProperty) is ICharacter character)
+            if (d.GetValue(ValueProperty) is ICharacter character)
             {
                 var metrics = character.GlyphMetrics;
                 var left = metrics.HorizontalBearingX;
@@ -134,7 +122,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
         private static object ImageWidthPropertyCoerceValueCallback(DependencyObject d, object baseValue)
         {
-            if (d.GetValue(CharacterProperty) is ICharacter character)
+            if (d.GetValue(ValueProperty) is ICharacter character)
             {
                 var zoomLevel = (double)d.GetValue(ZoomLevelProperty);
                 var metrics = character.GlyphMetrics;
@@ -150,7 +138,7 @@ namespace JSSoft.Font.ApplicationHost.Controls
 
         private static object ImageHeightPropertyCoerceValueCallback(DependencyObject d, object baseValue)
         {
-            if (d.GetValue(CharacterProperty) is ICharacter character)
+            if (d.GetValue(ValueProperty) is ICharacter character)
             {
                 var zoomLevel = (double)d.GetValue(ZoomLevelProperty);
                 var metrics = character.GlyphMetrics;

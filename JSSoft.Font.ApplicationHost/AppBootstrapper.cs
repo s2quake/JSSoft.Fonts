@@ -23,6 +23,7 @@
 using Caliburn.Micro;
 using JSSoft.Font.ApplicationHost.Controls;
 using Ntreev.ModernUI.Framework;
+using System.Windows;
 
 namespace JSSoft.Font.ApplicationHost
 {
@@ -33,6 +34,7 @@ namespace JSSoft.Font.ApplicationHost
             ConventionManager.AddElementConvention<PaddingControl>(PaddingControl.ValueProperty, nameof(PaddingControl.Value), nameof(PaddingControl.ValueChanged));
             ConventionManager.AddElementConvention<SpacingControl>(SpacingControl.ValueProperty, nameof(SpacingControl.Value), nameof(SpacingControl.ValueChanged));
             ConventionManager.AddElementConvention<ValueSelector>(ValueSelector.ValueProperty, nameof(ValueSelector.Value), nameof(ValueSelector.ValueChanged));
+            ConventionManager.AddElementConvention<CharacterControl>(CharacterControl.ValueProperty, nameof(CharacterControl.Value), nameof(FrameworkElement.DataContextChanged));
         }
 
         public AppBootstrapper()

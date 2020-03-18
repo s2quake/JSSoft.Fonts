@@ -32,8 +32,7 @@ SOFTWARE.
                     xmlns:vm="clr-namespace:JSSoft.Font.ApplicationHost">
 
     <DataTemplate x:Key="Cell_ContentTemplate">
-        <jsfc:CharacterControl x:Name="CharacterControl" IsEnabled="{Binding IsEnabled}" 
-                               Character="{Binding}"
+        <jsfc:CharacterControl x:Name="CharacterControl" IsEnabled="{Binding IsEnabled}" Value="{Binding}"
                                BorderBrush="{StaticResource WindowBackground}" 
                                ZoomLevel="{Binding ZoomLevel, RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterView}}}"
                                BorderThickness="{Binding ItemThickness, RelativeSource={RelativeSource AncestorType={x:Type jsfc:CharacterView}}}" />
