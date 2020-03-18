@@ -63,7 +63,7 @@ namespace JSSoft.Font
 
         public override string ToString()
         {
-            return $"{{{this.Left},{this.Top},{this.Right},{this.Bottom}}}";
+            return $"{this.Left},{this.Top},{this.Right},{this.Bottom}";
         }
 
         public static FontPadding Parse(string s)

@@ -127,7 +127,7 @@ namespace JSSoft.Font
 
         public override string ToString()
         {
-            return $"{{{this.Horizontal}, {this.Vertical}}}";
+            return $"{this.Horizontal}, {this.Vertical}";
         }
 
         public int Horizontal { get; set; }
