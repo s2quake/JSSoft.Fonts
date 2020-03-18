@@ -3,26 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSSoft.Font.ApplicationHost", "JSSoft.Font.ApplicationHost\JSSoft.Font.ApplicationHost.csproj", "{46B68156-3AA5-4D2C-AFC5-1B6FB9120C3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JSSoft.Font.ApplicationHost", "JSSoft.Font.ApplicationHost\JSSoft.Font.ApplicationHost.csproj", "{46B68156-3AA5-4D2C-AFC5-1B6FB9120C3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ntreev.ModernUI.Framework", "submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework.csproj", "{20C3D3DD-DE99-4126-9449-BCA12E4D255D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ntreev.ModernUI.Framework", "submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework.csproj", "{20C3D3DD-DE99-4126-9449-BCA12E4D255D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ntreev.Library", "submodules\Ntreev.Library\Ntreev.Library\Ntreev.Library.csproj", "{1918437F-4FBF-4731-AC5B-981A4A4CB1F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ntreev.Library", "submodules\Ntreev.Library\Ntreev.Library\Ntreev.Library.csproj", "{1918437F-4FBF-4731-AC5B-981A4A4CB1F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ntreev.ModernUI.Framework.DataGrid", "submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework.DataGrid\Ntreev.ModernUI.Framework.DataGrid.csproj", "{1C55FED2-99EB-469D-9DAC-A1F7B9E7C790}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ntreev.ModernUI.Framework.DataGrid", "submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework.DataGrid\Ntreev.ModernUI.Framework.DataGrid.csproj", "{1C55FED2-99EB-469D-9DAC-A1F7B9E7C790}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F8F0D537-37CC-41B6-B1BE-53096A744517}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSSoft.Font", "JSSoft.Font\JSSoft.Font.csproj", "{9BFDC602-9227-4BB1-8734-2983C2CD4B8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JSSoft.Font", "JSSoft.Font\JSSoft.Font.csproj", "{9BFDC602-9227-4BB1-8734-2983C2CD4B8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSSoft.Font.ConsoleHost", "JSSoft.Font.ConsoleHost\JSSoft.Font.ConsoleHost.csproj", "{05E4204B-2E5C-40A6-B28C-345CF45FFA72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JSSoft.Font.ConsoleHost", "JSSoft.Font.ConsoleHost\JSSoft.Font.ConsoleHost.csproj", "{05E4204B-2E5C-40A6-B28C-345CF45FFA72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ntreev.Library.Commands", "submodules\Ntreev.Library.Commands\Ntreev.Library.Commands\Ntreev.Library.Commands.csproj", "{0D96CC61-6D74-49B4-A558-33AC0DCF8529}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "JSSoft.Font.Sharing", "JSSoft.Font.Sharing\JSSoft.Font.Sharing.shproj", "{437FDF57-515A-42CB-B8B5-06EEC3C0760E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ntreev.Library.Commands", "submodules\Ntreev.Library.Commands\Ntreev.Library.Commands\Ntreev.Library.Commands.csproj", "{0D96CC61-6D74-49B4-A558-33AC0DCF8529}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -31,7 +29,6 @@ Global
 		submodules\Ntreev.Library\Ntreev.Library.AssemblyInfo\Ntreev.Library.AssemblyInfo.projitems*{1918437f-4fbf-4731-ac5b-981a4a4cb1f1}*SharedItemsImports = 4
 		submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.AssemblyInfo\Ntreev.ModernUI.AssemblyInfo.projitems*{1c55fed2-99eb-469d-9dac-a1f7b9e7c790}*SharedItemsImports = 4
 		submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.AssemblyInfo\Ntreev.ModernUI.AssemblyInfo.projitems*{20c3d3dd-de99-4126-9449-bca12e4d255d}*SharedItemsImports = 4
-		JSSoft.Font.Sharing\JSSoft.Font.Sharing.projitems*{437fdf57-515a-42cb-b8b5-06eec3c0760e}*SharedItemsImports = 13
 		JSSoft.Font.Sharing\JSSoft.Font.Sharing.projitems*{46b68156-3aa5-4d2c-afc5-1b6fb9120c3e}*SharedItemsImports = 4
 		JSSoft.Font.Sharing\JSSoft.Font.Sharing.projitems*{9bfdc602-9227-4bb1-8734-2983c2cd4b8c}*SharedItemsImports = 4
 	EndGlobalSection
