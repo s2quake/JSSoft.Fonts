@@ -34,6 +34,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -65,8 +66,8 @@ namespace JSSoft.Font.ApplicationHost
             this.PropertyService = propertyService;
             this.DisplayName = "JSFont";
             this.Settings.PropertyChanged += ExportSettings_PropertyChanged;
-            this.Dispatcher.InvokeAsync(this.ReadRecentSettings);
-            this.Dispatcher.InvokeAsync(this.ReadRecentFonts);
+            this.Dispatcher.InvokeAsync(this.ReadRecentSettings, DispatcherPriority.Background);
+            this.Dispatcher.InvokeAsync(this.ReadRecentFonts, DispatcherPriority.Background);
         }
 
         public async Task OpenAsync(string fontPath, int size, int dpi, int faceIndex)
@@ -533,7 +534,7 @@ namespace JSSoft.Font.ApplicationHost
                 this.Groups.Clear();
                 foreach (var item in this.groupList)
                 {
-                    this.SatisfyImportsOnce(item);
+                    this.BuildUp(item);
                     if (item.IsVisible == true)
                         this.Groups.Add(item);
                 }

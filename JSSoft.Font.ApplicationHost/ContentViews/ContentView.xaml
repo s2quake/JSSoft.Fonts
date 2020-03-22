@@ -58,6 +58,7 @@ SOFTWARE.
                 <Setter.Value>
                     <DataTemplate>
                         <nmfc:ModernExpander x:Name="expander" Header="{Binding DisplayName}" IsExpanded="True" 
+                                             Expanded="expander_Expanded"
                                              Loaded="Expander_Loaded"
                                              Unloaded="Expander_Unloaded">
                             <ContentControl cal:View.Model="{Binding}" />

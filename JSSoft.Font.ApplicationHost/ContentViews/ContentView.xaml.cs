@@ -137,5 +137,14 @@ namespace JSSoft.Font.ApplicationHost.ContentViews
                 window.CommandBindings.Remove(this.HidePropertyWindowCommand);
             }
         }
+
+        private void expander_Expanded(object sender, RoutedEventArgs e)
+        {
+            var expander = sender as Expander;
+            if (expander.DataContext == null)
+                return;
+
+            this.Configs.SetValue(this.GetType(), expander.DataContext.GetType(), nameof(expander.IsExpanded), expander.IsExpanded);
+        }
     }
 }

@@ -38,7 +38,7 @@ namespace JSSoft.Font.ApplicationHost
         }
 
         public AppBootstrapper()
-            : base(typeof(IShell))
+            : base(new AppBootstrapperDescriptor())
         {
 
         }

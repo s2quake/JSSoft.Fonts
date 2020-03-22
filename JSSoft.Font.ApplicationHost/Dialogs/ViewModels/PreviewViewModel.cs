@@ -23,6 +23,7 @@
 using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
+using Ntreev.ModernUI.Framework.Dialogs.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,42 +64,6 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             }
             this.Items = itemList.ToArray();
             this.image = itemList.First();
-        }
-
-        public async Task SelectBackgroundColorAsync()
-        {
-            var dialog = new SelectColorViewModel()
-            {
-                CurrentColor = this.BackgroundColor
-            };
-            if (await dialog.ShowDialogAsync() == true)
-            {
-                this.BackgroundColor = dialog.CurrentColor;
-            }
-        }
-
-        public async Task SelectForegroundColorAsync()
-        {
-            var dialog = new SelectColorViewModel()
-            {
-                CurrentColor = this.ForegroundColor
-            };
-            if (await dialog.ShowDialogAsync() == true)
-            {
-                this.ForegroundColor = dialog.CurrentColor;
-            }
-        }
-
-        public async Task SelectPaddingColorAsync()
-        {
-            var dialog = new SelectColorViewModel()
-            {
-                CurrentColor = this.PaddingColor
-            };
-            if (await dialog.ShowDialogAsync() == true)
-            {
-                this.PaddingColor = dialog.CurrentColor;
-            }
         }
 
         [ConfigurationProperty]

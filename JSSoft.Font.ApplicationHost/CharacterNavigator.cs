@@ -39,7 +39,8 @@ namespace JSSoft.Font.ApplicationHost
         private CharacterNavigatorItem currentItem;
 
         [ImportingConstructor]
-        public CharacterNavigator(IShell shell)
+        public CharacterNavigator(IShell shell, IServiceProvider serviceProvider)
+            : base(serviceProvider)
         {
             this.shell = shell;
             this.shell.Opened += Shell_Opened;

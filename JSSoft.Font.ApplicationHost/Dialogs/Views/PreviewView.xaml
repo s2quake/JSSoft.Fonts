@@ -85,13 +85,13 @@ SOFTWARE.
             </nmfc:ModernToolBar>
             <ToolBar ToolBarTray.IsLocked="True">
                 <Label Content="B: " VerticalAlignment="Center" ToolTip="Background Color" />
-                <Button x:Name="SelectBackgroundColor" Background="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" ToolTip="Background Color" />
+                <nmfc:ColorButton x:Name="BackgroundColor" />
                 <Border Width="6" />
                 <Label Content="F: " VerticalAlignment="Center" ToolTip="Foreground Color" />
-                <Button x:Name="SelectForegroundColor" Background="{Binding ForegroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" ToolTip="Foreground Color" />
+                <nmfc:ColorButton x:Name="ForegroundColor" />
                 <Border Width="6" />
                 <Label Content="P: " VerticalAlignment="Center" ToolTip="Padding Color" />
-                <Button x:Name="SelectPaddingColor" Background="{Binding PaddingColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" ToolTip="Padding Color" />
+                <nmfc:ColorButton x:Name="PaddingColor" />
             </ToolBar>
         </ToolBarTray>
         <Grid Grid.Row="1" >

@@ -23,6 +23,7 @@
 using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
+using System;
 using System.ComponentModel.Composition;
 
 namespace JSSoft.Font.ApplicationHost.MenuItems
@@ -36,7 +37,8 @@ namespace JSSoft.Font.ApplicationHost.MenuItems
     class FileMenuItem : MenuItemBase
     {
         [ImportingConstructor]
-        public FileMenuItem()
+        public FileMenuItem(IServiceProvider serviceProvider)
+            : base(serviceProvider)
         {
             this.DisplayName = Resources.MenuItem_File;
         }
