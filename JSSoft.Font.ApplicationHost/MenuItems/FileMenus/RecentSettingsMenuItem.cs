@@ -50,7 +50,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
             this.shell.RecentSettings.CollectionChanged += RecentSettings_CollectionChanged;
         }
 
-        public override IEnumerable<IMenuItem> ItemsSource => this.itemList;
+        public override IEnumerable<IMenuItem> MenuItems => this.itemList;
 
         private void RecentSettings_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {

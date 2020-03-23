@@ -58,7 +58,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
             }
             catch (Exception e)
             {
-                AppMessageBox.ShowError(e);
+                await AppMessageBox.ShowErrorAsync(e);
             }
         }
     }

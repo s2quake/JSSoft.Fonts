@@ -37,10 +37,10 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.HelpMenus
             this.DisplayName = Resources.MenuItem_About;
         }
 
-        protected override void OnExecute(object parameter)
+        protected async override void OnExecute(object parameter)
         {
             var dialog = new AboutViewModel();
-            dialog.ShowDialogAsync();
+            await dialog.ShowDialogAsync();
         }
     }
 }

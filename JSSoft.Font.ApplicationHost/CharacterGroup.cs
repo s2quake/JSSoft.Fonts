@@ -20,7 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using Ntreev.ModernUI.Framework;
 using Ntreev.ModernUI.Framework.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -35,6 +34,7 @@ namespace JSSoft.Font.ApplicationHost
         private bool? isChecked = false;
 
         public CharacterGroup(CharacterContext context, string name, uint min, uint max)
+            : base(context.ServiceProvider)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
             this.Name = name;
@@ -75,8 +75,6 @@ namespace JSSoft.Font.ApplicationHost
         public CharacterRow[] Items { get; }
 
         public CharacterRow[] ActiveItems { get; }
-
-        public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems(this, AppBootstrapperBase.Current);
 
         private CharacterRow[] CreateItems(uint min, uint max)
         {

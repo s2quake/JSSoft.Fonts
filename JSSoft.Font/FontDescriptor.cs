@@ -25,12 +25,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 
 namespace JSSoft.Font
 {
     public sealed class FontDescriptor : IDisposable
     {
-        private readonly Dictionary<uint, FontGlyph> glyphByID = new Dictionary<uint, FontGlyph>();
+        private readonly Dictionary<uint, FontGlyph> glyphByID;
         private Library lib;
         private Face face;
 
@@ -44,17 +45,17 @@ namespace JSSoft.Font
         {
             var pixelSize = (double)size * dpi / 72;
             var fullPath = Path.GetFullPath(path ?? throw new ArgumentNullException(nameof(path)));
-            this.lib = new Library();
-            this.face = new Face(this.lib, fullPath, faceIndex);
-            this.face.SetCharSize(0, size, 0, dpi);
-            this.Height = (int)Math.Round(this.face.Height * pixelSize / this.face.UnitsPerEM);
-            this.BaseLine = this.Height + (this.Height * this.face.Descender / this.face.Height);
-            var (min, max) = NamesList.Range;
-            for (var i = min; i <= max; i++)
-            {
-                this.RegisterItem(i);
-            }
-            this.Name = this.face.FamilyName;
+            var lib = new Library();
+            var face = new Face(lib, fullPath, faceIndex); face.SetCharSize(0, size, 0, dpi);
+            var height = (int)Math.Round(face.Height * pixelSize / face.UnitsPerEM);
+            var baseLine = height + (height * face.Descender / face.Height);
+
+            this.glyphByID = CreateGlyphs(face);
+            this.lib = lib;
+            this.face = face;
+            this.Height = height;
+            this.BaseLine = baseLine;
+            this.Name = face.FamilyName;
             this.FaceIndex = faceIndex;
             this.DPI = dpi;
             this.Size = size;
@@ -65,22 +66,15 @@ namespace JSSoft.Font
         public static string[] GetFaces(string path)
         {
             var fullpath = Path.GetFullPath(path);
-            using (var lib = new Library())
-            using (var face = new Face(lib, fullpath, 0))
+            using var lib = new Library();
+            using var face = new Face(lib, fullpath, 0);
+            var faceList = new List<string>() { face.FamilyName };
+            for (var i = 1; i < face.FaceCount; i++)
             {
-                var faceList = new List<string>()
-                {
-                    face.FamilyName
-                };
-                for (var i = 1; i < face.FaceCount; i++)
-                {
-                    using (var childFace = new Face(lib, fullpath, i))
-                    {
-                        faceList.Add(childFace.FamilyName);
-                    }
-                }
-                return faceList.ToArray();
+                using var childFace = new Face(lib, fullpath, i);
+                faceList.Add(childFace.FamilyName);
             }
+            return faceList.ToArray();
         }
 
         public FontData CreateData(FontDataSettings settings)
@@ -100,7 +94,7 @@ namespace JSSoft.Font
 
         public uint DPI { get; }
 
-        public int Size { get;  }
+        public int Size { get; }
 
         public int Height { get; private set; }
 
@@ -116,11 +110,28 @@ namespace JSSoft.Font
 
         public IReadOnlyDictionary<uint, FontGlyph> Glyphs => this.glyphByID;
 
-        private void RegisterItem(uint charCode)
+        private static Dictionary<uint, FontGlyph> CreateGlyphs(Face face)
         {
-            var glyph = this.CreateGlyph(charCode);
+            var (min, max) = NamesList.Range;
+            var glyphList = new List<FontGlyph>(100);
+            for (var i = min; i <= max; i++)
+            {
+                var glyph = RegisterItem(face, i);
+                if (glyph != null)
+                {
+                    if (glyphList.Count + 1 == glyphList.Capacity)
+                        glyphList.Capacity += 100;
+                    glyphList.Add(glyph);
+                }
+            }
+            return glyphList.ToDictionary(item => item.ID);
+        }
+
+        private static FontGlyph RegisterItem(Face face, uint charCode)
+        {
+            var glyph = CreateGlyph(face, charCode);
             if (glyph == null)
-                return;
+                return null;
 
             var ftbmp = glyph.Bitmap;
             var metrics = glyph.Metrics;
@@ -140,16 +151,15 @@ namespace JSSoft.Font
                 VerticalAdvance = (int)metrics.VerticalAdvance,
                 BaseLine = (int)Math.Round(baseLine),
             };
-            var charItem = new FontGlyph()
+            return new FontGlyph()
             {
                 ID = charCode,
-                Bitmap = this.CreateBitmap(ftbmp, charCode),
+                Bitmap = CreateBitmap(ftbmp, charCode),
                 Metrics = glyphMetrics,
             };
-            this.glyphByID.Add(charCode, charItem);
         }
 
-        private Bitmap CreateBitmap(FTBitmap ftbmp, uint charCode)
+        private static Bitmap CreateBitmap(FTBitmap ftbmp, uint charCode)
         {
             if (ftbmp.Rows > 0 && ftbmp.Width > 0)
             {
@@ -158,21 +168,21 @@ namespace JSSoft.Font
             return null;
         }
 
-        private GlyphSlot CreateGlyph(uint charCode)
+        private static GlyphSlot CreateGlyph(Face face, uint charCode)
         {
-            var index = this.face.GetCharIndex(charCode);
+            var index = face.GetCharIndex(charCode);
             if (index == 0)
                 return null;
             try
             {
-                this.face.LoadGlyph(index, LoadFlags.Default, LoadTarget.Normal);
+                face.LoadGlyph(index, LoadFlags.Default, LoadTarget.Normal);
             }
             catch
             {
                 return null;
             }
-            this.face.Glyph.RenderGlyph(RenderMode.Normal);
-            return this.face.Glyph;
+            face.Glyph.RenderGlyph(RenderMode.Normal);
+            return face.Glyph;
         }
     }
 }

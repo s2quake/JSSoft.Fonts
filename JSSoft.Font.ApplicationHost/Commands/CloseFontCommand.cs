@@ -36,7 +36,7 @@ namespace JSSoft.Font.ApplicationHost.Commands
         {
             if (shell.IsModified == true)
             {
-                var result = AppMessageBox.ConfirmSaveOnClosing();
+                var result = await AppMessageBox.ConfirmSaveOnClosingAsync();
                 if (result == true)
                 {
                     if (shell.SettingsPath != string.Empty)

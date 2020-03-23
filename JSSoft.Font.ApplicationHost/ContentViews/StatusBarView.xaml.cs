@@ -20,7 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Controls;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace JSSoft.Font.ApplicationHost.ContentViews
 {
@@ -32,6 +35,18 @@ namespace JSSoft.Font.ApplicationHost.ContentViews
         public StatusBarView()
         {
             InitializeComponent();
+        }
+
+        private void ZoomLevelControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (sender is ZoomLevelControl control)
+            {
+                var comboBox = control.Template.FindName(ZoomLevelControl.PART_ComboBox, control) as ComboBox;
+                if (comboBox.Template.FindName("Arrow", comboBox) is Path arrow)
+                {
+                    arrow.Margin = new Thickness(3, -2, 8, 0);
+                }
+            }
         }
     }
 }

@@ -56,7 +56,7 @@ namespace JSSoft.Font.ApplicationHost.ToolBarItems
             }
             catch (Exception e)
             {
-                AppMessageBox.ShowError(e);
+                await AppMessageBox.ShowErrorAsync(e);
             }
         }
     }

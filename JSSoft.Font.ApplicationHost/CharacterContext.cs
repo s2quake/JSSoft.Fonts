@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -30,8 +31,9 @@ namespace JSSoft.Font.ApplicationHost
     {
         private readonly ObservableCollection<uint> characters;
 
-        public CharacterContext(FontDescriptor fontDescriptor, ObservableCollection<uint> characters)
+        public CharacterContext(IServiceProvider serviceProvider, FontDescriptor fontDescriptor, ObservableCollection<uint> characters)
         {
+            this.ServiceProvider = serviceProvider;
             this.FontDescriptor = fontDescriptor;
             this.characters = characters;
         }
@@ -46,6 +48,8 @@ namespace JSSoft.Font.ApplicationHost
         public IReadOnlyDictionary<uint, FontGlyph> Glyphs => this.FontDescriptor.Glyphs;
 
         public int Height => this.FontDescriptor.Height;
+
+        public IServiceProvider ServiceProvider { get; }
 
         private void Character_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

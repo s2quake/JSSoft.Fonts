@@ -47,6 +47,7 @@ namespace JSSoft.Font.ApplicationHost
         }
 
         public CharacterRow(CharacterGroup group, CharacterContext context, uint min, uint max)
+            : base(context.ServiceProvider)
         {
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
@@ -105,8 +106,6 @@ namespace JSSoft.Font.ApplicationHost
         public bool IsEnabled { get; }
 
         public CharacterGroup Group { get; }
-
-        public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems(this, AppBootstrapperBase.Current);
 
         public void SetChecked(bool value)
         {

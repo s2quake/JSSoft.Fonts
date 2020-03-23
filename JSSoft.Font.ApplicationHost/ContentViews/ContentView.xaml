@@ -46,7 +46,7 @@ SOFTWARE.
             </Grid>
         </DataTemplate>
 
-        <nmfc:ModernContextMenu x:Key="ListBoxItem_ContextMenu" ItemsSource="{Binding MenuItems}"/>
+        <nmfc:ModernContextMenu x:Key="ListBoxItem_ContextMenu" ItemsSource="{Binding ContextMenus}"/>
 
         <Style x:Key="ListBox_ItemContainerStyle" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource ListBoxItem_Style}">
             <Setter Property="ContextMenu" Value="{StaticResource ListBoxItem_ContextMenu}" />

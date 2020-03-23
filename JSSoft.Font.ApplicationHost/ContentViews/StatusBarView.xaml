@@ -34,7 +34,7 @@ SOFTWARE.
       
     </UserControl.Resources>
 
-    <StatusBar Grid.Row="3">
+    <StatusBar Grid.Row="3" BorderBrush="{StaticResource Accent}" BorderThickness="0 1 0 0">
         <StatusBar.ItemsPanel>
             <ItemsPanelTemplate>
                 <Grid>
@@ -48,7 +48,8 @@ SOFTWARE.
             </ItemsPanelTemplate>
         </StatusBar.ItemsPanel>
         <StatusBarItem Grid.Column="0" Padding="3 0">
-            <jsfc:ZoomLevelControl Width="100" HorizontalAlignment="Left" Value="{Binding ZoomLevel, Mode=TwoWay}" PopupPlacement="Top" />
+            <jsfc:ZoomLevelControl Width="100" HorizontalAlignment="Left" Height="19" Value="{Binding ZoomLevel, Mode=TwoWay}"
+                                   FontSize="11" Padding="0 -2 0 0" PopupPlacement="Top" Loaded="ZoomLevelControl_Loaded" />
         </StatusBarItem>
         <StatusBarItem Grid.Column="1">
             <TextBlock HorizontalAlignment="Left">

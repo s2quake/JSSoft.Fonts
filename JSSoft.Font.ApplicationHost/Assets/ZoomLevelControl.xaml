@@ -25,8 +25,8 @@ SOFTWARE.
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls">
 
-    <ControlTemplate x:Key="ZoomLevelControl_Template" TargetType="{x:Type jsfc:ZoomLevelControl}">
-        <ComboBox x:Name="PART_ComboBox" IsEditable="True" FontSize="11" Padding="2" />
+     <ControlTemplate x:Key="ZoomLevelControl_Template" TargetType="{x:Type jsfc:ZoomLevelControl}">
+        <ComboBox x:Name="PART_ComboBox" IsEditable="True" Padding="{TemplateBinding Padding}" />
     </ControlTemplate>
 
     <Style TargetType="{x:Type jsfc:ZoomLevelControl}">

@@ -53,7 +53,7 @@ SOFTWARE.
         </Border>
     </ControlTemplate>
 
-    <nmfc:ModernContextMenu x:Key="CharacterControl_ContextMenu" ItemsSource="{Binding MenuItems}"/>
+    <nmfc:ModernContextMenu x:Key="CharacterControl_ContextMenu" ItemsSource="{Binding ContextMenus}"/>
 
     <Style TargetType="{x:Type jsfc:CharacterControl}">
         <Setter Property="Template" Value="{StaticResource CharacterControl_Template}" />

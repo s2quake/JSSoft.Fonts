@@ -60,10 +60,8 @@ namespace JSSoft.Font
                 Indent = true,
                 Encoding = Encoding.UTF8
             };
-            using (var writer = XmlWriter.Create(filename, writerSettings))
-            {
-                serializer.Serialize(writer, info);
-            }
+            using var writer = XmlWriter.Create(filename, writerSettings);
+            serializer.Serialize(writer, info);
         }
 
         public void SavePages(string path)

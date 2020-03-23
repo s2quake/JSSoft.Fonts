@@ -43,6 +43,7 @@ namespace JSSoft.Font.ApplicationHost
         }
 
         public Character(CharacterRow row, CharacterContext context, uint id)
+            : base(context.ServiceProvider)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
             this.Row = row;
@@ -131,8 +132,6 @@ namespace JSSoft.Font.ApplicationHost
         }
 
         public CharacterRow Row { get; }
-
-        public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems(this, AppBootstrapperBase.Current);
 
         #region ICharacter
 

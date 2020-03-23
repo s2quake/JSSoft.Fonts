@@ -22,7 +22,6 @@
 
 using Ntreev.ModernUI.Framework;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace JSSoft.Font.ApplicationHost.Commands
 {
@@ -35,9 +34,18 @@ namespace JSSoft.Font.ApplicationHost.Commands
 
         public static async Task<bool> ExecuteAsync(IShell shell)
         {
+            if (await ExecuteInternlAsync(shell) == false)
+                return false;
+            if (shell.IsOpened == true)
+                await shell.CloseAsync();
+            return true;
+        }
+
+        internal static async Task<bool> ExecuteInternlAsync(IShell shell)
+        {
             if (shell.IsModified == true)
             {
-                var result = AppMessageBox.ConfirmSaveOnClosing();
+                var result = await AppMessageBox.ConfirmSaveOnClosingAsync();
                 if (result == true)
                 {
                     if (shell.SettingsPath != string.Empty)
@@ -55,9 +63,6 @@ namespace JSSoft.Font.ApplicationHost.Commands
                     return false;
                 }
             }
-            if (shell.IsOpened == true)
-                await shell.CloseAsync();
-            Application.Current.Shutdown();
             return true;
         }
     }

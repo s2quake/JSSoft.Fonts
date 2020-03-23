@@ -83,7 +83,7 @@ SOFTWARE.
     </ControlTemplate>
 
     <nmfc:ModernContextMenu x:Key="CharacterRowSelector_ContextMenu" DataContext="{Binding Path=PlacementTarget.DataContext.DataContext.Row, RelativeSource={RelativeSource Mode=Self}}" 
-                            ItemsSource="{Binding MenuItems}" />
+                            ItemsSource="{Binding ContextMenus}" />
 
     <Style x:Key="CharacterRowSelector_Style" TargetType="{x:Type xcdg:RowSelector}" BasedOn="{StaticResource DataRowSelector_Style}">
         <Setter Property="ContentTemplate" Value="{StaticResource CharacterRowSelector_ContentTemplate}" />

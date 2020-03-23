@@ -4,12 +4,12 @@
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <Version>0.9.2078.1128</Version>
+    <Version>0.9.2083.1244</Version>
     <AssemblyVersion>0.9</AssemblyVersion>
-    <FileVersion>0.9.2078.1128</FileVersion>
+    <FileVersion>0.9.2083.1244</FileVersion>
     <RepositoryType>git</RepositoryType>
     <PackageLicense>https://github.com/s2quake/JSSoft.Font/blob/master/LICENSE.md</PackageLicense>
-    <Copyright>Copyright © JS Soft 2020</Copyright>
+    <Copyright>Copyright 짤 JS Soft 2020</Copyright>
     <Description>library for bitmap font generator</Description>
     <Company>JSSoft</Company>
     <Authors>s2quake</Authors>

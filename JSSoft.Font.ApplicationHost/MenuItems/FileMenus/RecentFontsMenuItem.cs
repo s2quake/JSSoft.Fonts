@@ -48,7 +48,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
             this.shell.RecentFonts.CollectionChanged += RecentFonts_CollectionChanged;
         }
 
-        public override IEnumerable<IMenuItem> ItemsSource => this.itemList;
+        public override IEnumerable<IMenuItem> MenuItems => this.itemList;
 
         private void RecentFonts_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {

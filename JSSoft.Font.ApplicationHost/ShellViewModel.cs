@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JSSoft.Font.ApplicationHost.Commands;
 using JSSoft.Font.ApplicationHost.Properties;
 using JSSoft.Font.ApplicationHost.Serializations;
 using Ntreev.ModernUI.Framework;
@@ -44,7 +45,6 @@ namespace JSSoft.Font.ApplicationHost
     [Export(typeof(IShell))]
     class ShellViewModel : ScreenBase, IShell
     {
-        private readonly IServiceProvider serviceProvider;
         private readonly IAppConfiguration configs;
         private readonly ObservableCollection<CharacterGroup> groupList = new ObservableCollection<CharacterGroup>();
         private ObservableCollection<uint> checkedCharacters = new ObservableCollection<uint>();
@@ -61,7 +61,6 @@ namespace JSSoft.Font.ApplicationHost
         public ShellViewModel(IServiceProvider serviceProvider, IAppConfiguration configs, PropertyService propertyService)
             : base(serviceProvider)
         {
-            this.serviceProvider = serviceProvider;
             this.configs = configs;
             this.PropertyService = propertyService;
             this.DisplayName = "JSFont";
@@ -85,7 +84,7 @@ namespace JSSoft.Font.ApplicationHost
             }
         }
 
-        public new async Task CloseAsync()
+        public async Task CloseInternalAsync()
         {
             try
             {
@@ -287,10 +286,6 @@ namespace JSSoft.Font.ApplicationHost
 
         public uint[] CheckedCharacters => this.checkedCharacters.ToArray();
 
-        public IEnumerable<IMenuItem> MenuItems => MenuItemUtility.GetMenuItems(this, this.serviceProvider);
-
-        public IEnumerable<IToolBarItem> ToolBarItems => ToolBarItemUtility.GetToolBarItems(this, this.serviceProvider);
-
         public double ZoomLevel
         {
             get => this.zoomLevel;
@@ -396,6 +391,13 @@ namespace JSSoft.Font.ApplicationHost
             }
         }
 
+        protected async override Task<bool> CloseAsync()
+        {
+            if (await base.CloseAsync() == false)
+                return false;
+            return await QuitCommand.ExecuteInternlAsync(this);
+        }
+
         private void CheckedCharacters_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             this.IsModified = true;
@@ -415,7 +417,7 @@ namespace JSSoft.Font.ApplicationHost
                 this.checkedCharacters = new ObservableCollection<uint>();
                 this.checkedCharacters.CollectionChanged += CheckedCharacters_CollectionChanged;
                 this.groupList.Clear();
-                this.context = new CharacterContext(fontDescriptor, this.checkedCharacters);
+                this.context = new CharacterContext(this.ServiceProvider, fontDescriptor, this.checkedCharacters);
                 foreach (var (name, min, max) in NamesList.Items)
                 {
                     var items = CreateGroups(this.context, name, min, max);
@@ -452,10 +454,8 @@ namespace JSSoft.Font.ApplicationHost
             return Task.Run(() =>
             {
                 var serializer = new XmlSerializer(typeof(ExportSettingsInfo));
-                using (var reader = XmlReader.Create(filename))
-                {
-                    return (ExportSettingsInfo)serializer.Deserialize(reader);
-                }
+                using var reader = XmlReader.Create(filename);
+                return (ExportSettingsInfo)serializer.Deserialize(reader);
             });
         }
 
@@ -469,10 +469,8 @@ namespace JSSoft.Font.ApplicationHost
                     Encoding = Encoding.UTF8,
                     Indent = true,
                 };
-                using (var writer = XmlWriter.Create(filename, writerSettings))
-                {
-                    serializer.Serialize(writer, info);
-                }
+                using var writer = XmlWriter.Create(filename, writerSettings);
+                serializer.Serialize(writer, info);
             });
         }
 
@@ -597,6 +595,8 @@ namespace JSSoft.Font.ApplicationHost
         }
 
         #region IShell
+
+        Task IShell.CloseAsync() => this.CloseInternalAsync();
 
         IEnumerable<ICharacterGroup> IShell.Groups => this.Groups;
 
