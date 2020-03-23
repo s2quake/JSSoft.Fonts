@@ -21,4 +21,5 @@ Get-ChildItem -Path $PSScriptRoot -Include "*.csproj" -Depth 1 -Name | ForEach-O
     }
 }
 
+Set-Content version.txt $fileVersion -NoNewline
 Write-Host $fileVersion

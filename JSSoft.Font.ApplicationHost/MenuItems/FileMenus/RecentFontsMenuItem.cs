@@ -33,7 +33,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 {
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(FileMenuItem))]
-    [Category("Recent")]
+    [Category(FileMenuItem.Recent)]
     class RecentFontsMenuItem : MenuItemBase
     {
         private readonly ShellViewModel shell;

@@ -31,11 +31,15 @@ namespace JSSoft.Font.ApplicationHost.MenuItems
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(IShell))]
     [Order(0)]
-    [CategoryDefinition("Settings")]
-    [CategoryDefinition("Recent")]
-    [CategoryDefinition("Quit")]
+    [CategoryDefinition(Settings)]
+    [CategoryDefinition(Recent)]
+    [CategoryDefinition(Quit)]
     class FileMenuItem : MenuItemBase
     {
+        public const string Settings = nameof(Settings);
+        public const string Recent = nameof(Recent);
+        public const string Quit = nameof(Quit);
+
         [ImportingConstructor]
         public FileMenuItem(IServiceProvider serviceProvider)
             : base(serviceProvider)

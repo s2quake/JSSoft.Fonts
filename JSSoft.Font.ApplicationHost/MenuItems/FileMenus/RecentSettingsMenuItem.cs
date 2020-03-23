@@ -34,7 +34,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 {
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(FileMenuItem))]
-    [Category("Recent")]
+    [Category(FileMenuItem.Recent)]
     [Order(10)]
     class RecentSettingsMenuItem : MenuItemBase
     {

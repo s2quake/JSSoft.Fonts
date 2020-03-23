@@ -26,7 +26,6 @@ SOFTWARE.
                     xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
                     xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls">
 
-
     <ControlTemplate x:Key="PaddingControl_Template" TargetType="{x:Type jsfc:PaddingControl}">
         <Grid>
             <Grid.ColumnDefinitions>

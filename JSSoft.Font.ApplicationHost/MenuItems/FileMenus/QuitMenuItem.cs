@@ -33,7 +33,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
 {
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(FileMenuItem))]
-    [Category("Quit")]
+    [Category(FileMenuItem.Quit)]
     [Order(int.MaxValue)]
     class QuitMenuItem : MenuItemBase
     {

@@ -33,7 +33,7 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(FileMenuItem))]
     [Dependency(typeof(SaveSettingsMenuItem))]
-    [CategoryName("Settings")]
+    [CategoryName(FileMenuItem.Settings)]
     class SaveSettingsAsMenuItem : MenuItemBase
     {
         private readonly IShell shell;
