@@ -9,7 +9,7 @@
     <FileVersion>0.9.2084.0754</FileVersion>
     <RepositoryType>git</RepositoryType>
     <PackageLicense>https://github.com/s2quake/JSSoft.Font/blob/master/LICENSE.md</PackageLicense>
-    <Copyright>Copyright 吏?JS Soft 2020</Copyright>
+    <Copyright>Copyright © JS Soft 2020</Copyright>
     <Description>library for bitmap font generator</Description>
     <Company>JSSoft</Company>
     <Authors>s2quake</Authors>
