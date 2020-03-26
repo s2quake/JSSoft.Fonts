@@ -115,6 +115,8 @@ namespace JSSoft.Font
 
         public IReadOnlyList<FontGlyphData> GlyphList => this.glyphList;
 
+        public bool IsLeaf => this.Childs.Any() == false;
+
         private static Rectangle[] Slice(Rectangle rectangle)
         {
             if (rectangle.Width < minimumLength || rectangle.Height < minimumLength)
@@ -142,13 +144,8 @@ namespace JSSoft.Font
             if (this.Rectangle.IntersectsWith(rectangle) == false)
                 return false;
 
-            if (this.Childs.Any() == false)
+            if (this.IsLeaf == true)
             {
-                foreach (var item in this.glyphList)
-                {
-                    if (item.IntersectsWith(rectangle) == true)
-                        return false;
-                }
                 nodeList.Add(this);
                 return true;
             }
@@ -157,7 +154,7 @@ namespace JSSoft.Font
                 var i = 0;
                 foreach (var item in this.Childs)
                 {
-                    if(item.CollectNode(rectangle, nodeList) == true)
+                    if (item.CollectNode(rectangle, nodeList) == true)
                     {
                         i++;
                     }
@@ -195,7 +192,27 @@ namespace JSSoft.Font
             this.CollectNode(spacingRect, nodeList);
             if (nodeList.Any() == false)
                 return null;
+
+            var query1 = from item in nodeList
+                         where item.IsLeaf
+                         select item;
+            var query2 = from item in query1
+                         where this.IntersectsWithGlyph(spacingRect) == false
+                         select item;
+            if (query1.Count() != query2.Count())
+                return null;
+
             return new Reservator(() => this.Reserve(glyph, nodeList.ToArray(), rect));
+        }
+
+        private bool IntersectsWithGlyph(Rectangle rectangle)
+        {
+            foreach (var item in this.glyphList)
+            {
+                if (item.IntersectsWith(rectangle) == true)
+                    return true;
+            }
+            return false;
         }
 
         private void Reserve(FontGlyph glyph, FontNode[] nodes, Rectangle region)
