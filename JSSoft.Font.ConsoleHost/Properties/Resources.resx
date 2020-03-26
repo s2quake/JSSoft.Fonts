@@ -118,63 +118,45 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ctor" xml:space="preserve">
-    <value>create texture and font info</value>
+    <value>Creates textures and information from the specified font.</value>
   </data>
   <data name="FontPath" xml:space="preserve">
-    <value>Font Path</value>
+    <value>Indicates the font path.</value>
   </data>
-  <data name="OutputPath" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAEAQAAAB9TeXN0ZW0uVW5pdHlTZXJpYWxpemF0aW9uSG9sZGVyAwAAAARE
-        YXRhCVVuaXR5VHlwZQxBc3NlbWJseU5hbWUBAAEICgIAAAAGAgAAAAAL
-</value>
+  <data name="OutputPath" xml:space="preserve">
+    <value>Indicates the output file. Texture files are created based on the output file name of the output directory.
+When the output file is output.xml, the texture is created as output_0.png, output_1.png.</value>
   </data>
-  <data name="Characters" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAEAQAAAB9TeXN0ZW0uVW5pdHlTZXJpYWxpemF0aW9uSG9sZGVyAwAAAARE
-        YXRhCVVuaXR5VHlwZQxBc3NlbWJseU5hbWUBAAEICgIAAAAGAgAAAAAL
-</value>
+  <data name="Characters" xml:space="preserve">
+    <value>Indicates the Unicode of the character you want to print.
+expressed in decimal or hexadecimal form, each character is separated by ','
+You can use '-' to specify multiple characters.
+e.g. "65, 0x41, 66-90, 0x61-0x7A"</value>
   </data>
-  <data name="DPI" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAEAQAAAB9TeXN0ZW0uVW5pdHlTZXJpYWxpemF0aW9uSG9sZGVyAwAAAARE
-        YXRhCVVuaXR5VHlwZQxBc3NlbWJseU5hbWUBAAEICgIAAAAGAgAAAAAL
-</value>
+  <data name="DPI" xml:space="preserve">
+    <value>Indicates the DPI of the font. The default value is 72.</value>
   </data>
-  <data name="Size" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAEAQAAAB9TeXN0ZW0uVW5pdHlTZXJpYWxpemF0aW9uSG9sZGVyAwAAAARE
-        YXRhCVVuaXR5VHlwZQxBc3NlbWJseU5hbWUBAAEICgIAAAAGAgAAAAAL
-</value>
+  <data name="Size" xml:space="preserve">
+    <value>Indicates the size of the font. The default value is 14.</value>
   </data>
-  <data name="Face" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAEAQAAAB9TeXN0ZW0uVW5pdHlTZXJpYWxpemF0aW9uSG9sZGVyAwAAAARE
-        YXRhCVVuaXR5VHlwZQxBc3NlbWJseU5hbWUBAAEICgIAAAAGAgAAAAAL
-</value>
+  <data name="Face" xml:space="preserve">
+    <value>Indicates the type of font. The default value is 0.</value>
   </data>
-  <data name="TextureWidth" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAEAQAAAB9TeXN0ZW0uVW5pdHlTZXJpYWxpemF0aW9uSG9sZGVyAwAAAARE
-        YXRhCVVuaXR5VHlwZQxBc3NlbWJseU5hbWUBAAEICgIAAAAGAgAAAAAL
-</value>
+  <data name="TextureWidth" xml:space="preserve">
+    <value>Indicates the width of the texture to be printed. The default value is 512.</value>
   </data>
-  <data name="TextureHeight" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAEAQAAAB9TeXN0ZW0uVW5pdHlTZXJpYWxpemF0aW9uSG9sZGVyAwAAAARE
-        YXRhCVVuaXR5VHlwZQxBc3NlbWJseU5hbWUBAAEICgIAAAAGAgAAAAAL
-</value>
+  <data name="TextureHeight" xml:space="preserve">
+    <value>Indicates the height of the texture to be output. The default value is 512.</value>
   </data>
-  <data name="Padding" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAEAQAAAB9TeXN0ZW0uVW5pdHlTZXJpYWxpemF0aW9uSG9sZGVyAwAAAARE
-        YXRhCVVuaXR5VHlwZQxBc3NlbWJseU5hbWUBAAEICgIAAAAGAgAAAAAL
-</value>
+  <data name="Padding" xml:space="preserve">
+    <value>Indicates the padding of the character. You can set the value for both sides. The default value is 1.
+e.g. 1) --padding 1 sets all padding to 1.
+e.g. 2) --padding "1, 2" sets the left and right padding to 1 and the top and bottom padding to 2.
+e.g. 3) --padding "1 1 0 0" sets left to 1, top to right to 0 and bottom to 0.</value>
   </data>
-  <data name="Spacing" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAEAQAAAB9TeXN0ZW0uVW5pdHlTZXJpYWxpemF0aW9uSG9sZGVyAwAAAARE
-        YXRhCVVuaXR5VHlwZQxBc3NlbWJseU5hbWUBAAEICgIAAAAGAgAAAAAL
-</value>
+  <data name="Spacing" xml:space="preserve">
+    <value>Indicates the gap between the character and characters. You can set horizontal and vertical values. The default value is 1.
+e.g. 1) --spacing 1 sets the horizontal and vertical spacing to 1.
+e.g. 2) --spacing "1 0" sets only the horizontal interval to 1.</value>
   </data>
 </root>

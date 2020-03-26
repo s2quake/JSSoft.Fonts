@@ -1,31 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.0;net45</TargetFrameworks>
     <OutputType>Exe</OutputType>
-    <Version>0.9.2086.1148</Version>
+    <Version>0.9.2086.2041</Version>
     <AssemblyVersion>0.9</AssemblyVersion>
-    <FileVersion>0.9.2086.1148</FileVersion>
+    <FileVersion>0.9.2086.2041</FileVersion>
     <RepositoryType>git</RepositoryType>
     <PackageLicense>https://github.com/s2quake/JSSoft.Font/blob/master/LICENSE.md</PackageLicense>
-    <Copyright>Copyright 짤 JS Soft 2020</Copyright>
+    <Copyright>Copyright © JS Soft 2020</Copyright>
     <Description>library for bitmap font generator</Description>
     <Company>JSSoft</Company>
     <Authors>s2quake</Authors>
     <RepositoryUrl>https://github.com/s2quake/JSSoft.Font</RepositoryUrl>
     <PackageTags>jsfont</PackageTags>
     <AssemblyName>jsfont</AssemblyName>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp3.0'">
+    <LangVersion>8.0</LangVersion>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.0|AnyCPU'">
+    <WarningLevel>2</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\JSSoft.Font\JSSoft.Font.csproj" />
     <ProjectReference Include="..\submodules\Ntreev.Library\Ntreev.Library\Ntreev.Library.csproj" />
     <ProjectReference Include="..\submodules\Ntreev.Library.Commands\Ntreev.Library.Commands\Ntreev.Library.Commands.csproj" />
     <PackageReference Include="SharpFont.Dependencies" Version="2.6.0" GeneratePathProperty="true" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.0'">
-    <PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
@@ -35,15 +35,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Update="$(PkgSharpFont_Dependencies)\bin\msvc10\x86\freetype6.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Update="$(PkgSharpFont_Dependencies)\bin\msvc10\x86\freetype6.dll">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Target Name="CopyFreeType6FileToOutputDirectory_netcoreapp30" AfterTargets="CopyFilesToOutputDirectory" Condition="'$(TargetFramework)'=='netcoreapp3.0'">
     <Message Text="Project File Name = $(PkgSharpFont_Dependencies)" />

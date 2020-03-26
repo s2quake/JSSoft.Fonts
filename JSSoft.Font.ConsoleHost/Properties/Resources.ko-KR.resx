@@ -134,7 +134,7 @@
 예) "65, 0x41, 66-90, 0x61-0x7A"</value>
   </data>
   <data name="DPI" xml:space="preserve">
-    <value>글꼴의 DPI를 설정합니다. 기본값은 72입니다.</value>
+    <value>글꼴의 DPI를 나타냅니다. 기본값은 72입니다.</value>
   </data>
   <data name="Size" xml:space="preserve">
     <value>글꼴의 크기를 나타냅니다. 기본값은 14입니다.</value>
