@@ -1,9 +1,0 @@
-[submodule "submodules/Ntreev.ModernUI.Framework"]
-	path = submodules/Ntreev.ModernUI.Framework
-	url = ../Ntreev.ModernUI.Framework.git
-[submodule "submodules/Ntreev.Library"]
-	path = submodules/Ntreev.Library
-	url = ../Ntreev.Library.git
-[submodule "submodules/Ntreev.Library.Commands"]
-	path = submodules/Ntreev.Library.Commands
-	url = ../CommandLineParser.git
