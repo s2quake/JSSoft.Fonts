@@ -28,13 +28,13 @@ namespace JSSoft.Font.ConsoleHost
     [ResourceDescription("Properties/Resources")]
     class Settings
     {
-        [CommandProperty(IsRequired = true)]
+        [CommandPropertyRequired]
         public string FontPath { get; set; }
 
-        [CommandProperty(IsRequired = true)]
+        [CommandPropertyRequired]
         public string OutputPath { get; set; }
 
-        [CommandProperty("characters", IsRequired = true)]
+        [CommandPropertyRequired("characters")]
         public CharacterCollection Characters { get; set; } = CharacterCollection.Empty;
 
         [CommandProperty("dpi")]

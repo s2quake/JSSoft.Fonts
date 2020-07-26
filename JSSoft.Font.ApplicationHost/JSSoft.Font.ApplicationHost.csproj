@@ -48,9 +48,9 @@
     <PackageReference Include="SharpFont.Dependencies" Version="2.6.0" GeneratePathProperty="true" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\submodules\Ntreev.Library\Ntreev.Library\Ntreev.Library.csproj" />
-    <ProjectReference Include="..\submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework.csproj" />
-    <ProjectReference Include="..\submodules\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework.DataGrid\Ntreev.ModernUI.Framework.DataGrid.csproj" />
+    <ProjectReference Include="..\..\Ntreev.Library\Ntreev.Library\Ntreev.Library.csproj" />
+    <ProjectReference Include="..\..\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework.csproj" />
+    <ProjectReference Include="..\..\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework.DataGrid\Ntreev.ModernUI.Framework.DataGrid.csproj" />
     <ProjectReference Include="..\JSSoft.Font\JSSoft.Font.csproj" />
   </ItemGroup>
   <ItemGroup>

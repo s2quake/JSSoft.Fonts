@@ -35,7 +35,7 @@ namespace JSSoft.Font.ConsoleHost
             var parser = new CommandLineParser(settings);
             try
             {
-                if (parser.Parse(Environment.CommandLine) == true)
+                if (parser.TryParse(Environment.CommandLine) == true)
                 {
                     var inputPath = Path.GetFullPath(settings.FontPath);
                     var outputPath = Path.GetFullPath(settings.OutputPath);
