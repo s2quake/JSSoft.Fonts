@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;net45</TargetFrameworks>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Exe</OutputType>
     <Version>0.9.2086.2041</Version>
     <AssemblyVersion>0.9</AssemblyVersion>
@@ -17,9 +17,6 @@
     <AssemblyName>jsfont</AssemblyName>
     <LangVersion>8.0</LangVersion>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.0|AnyCPU'">
-    <WarningLevel>2</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\JSSoft.Font\JSSoft.Font.csproj" />
