@@ -42,8 +42,14 @@ namespace JSSoft.Font.ApplicationHost.ToolBarItems
             this.Icon = "Images/zoom-in.png";
         }
 
-        protected override bool OnCanExecute(object parameter) => this.shell.IsProgressing == false;
+        protected override bool OnCanExecute(object parameter)
+        {
+            return this.shell.IsProgressing == false;
+        }
 
-        protected override void OnExecute(object parameter) => this.shell.ZoomLevel *= 2.0;
+        protected override void OnExecute(object parameter)
+        {
+            this.shell.ZoomLevel *= 2.0;
+        }
     }
 }

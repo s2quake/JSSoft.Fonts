@@ -144,10 +144,7 @@ namespace JSSoft.Font.ApplicationHost
 
         public TimeSpan RecordDely { get; set; } = TimeSpan.FromMilliseconds(300);
 
-        public CharacterNavigatorItem this[int index]
-        {
-            get => this.itemList[index];
-        }
+        public CharacterNavigatorItem this[int index] => this.itemList[index];
 
         private void Shell_Closed(object sender, EventArgs e)
         {

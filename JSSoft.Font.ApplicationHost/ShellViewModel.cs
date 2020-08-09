@@ -370,13 +370,25 @@ namespace JSSoft.Font.ApplicationHost
 
         public event EventHandler SelectedcharacterChanged;
 
-        protected virtual void OnOpened(EventArgs e) => this.Opened?.Invoke(this, e);
+        protected virtual void OnOpened(EventArgs e)
+        {
+            this.Opened?.Invoke(this, e);
+        }
 
-        protected virtual void OnClosed(EventArgs e) => this.Closed?.Invoke(this, e);
+        protected virtual void OnClosed(EventArgs e)
+        {
+            this.Closed?.Invoke(this, e);
+        }
 
-        protected virtual void OnSelectedGroupChanged(EventArgs e) => this.SelectedGroupChanged?.Invoke(this, e);
+        protected virtual void OnSelectedGroupChanged(EventArgs e)
+        {
+            this.SelectedGroupChanged?.Invoke(this, e);
+        }
 
-        protected virtual void OnSelectedcharacterChanged(EventArgs e) => this.SelectedcharacterChanged?.Invoke(this, e);
+        protected virtual void OnSelectedcharacterChanged(EventArgs e)
+        {
+            this.SelectedcharacterChanged?.Invoke(this, e);
+        }
 
         protected override async Task OnDeactivateAsync(bool close, CancellationToken cancellationToken)
         {
@@ -596,7 +608,10 @@ namespace JSSoft.Font.ApplicationHost
 
         #region IShell
 
-        Task IShell.CloseAsync() => this.CloseInternalAsync();
+        Task IShell.CloseAsync()
+        {
+            return this.CloseInternalAsync();
+        }
 
         IEnumerable<ICharacterGroup> IShell.Groups => this.Groups;
 

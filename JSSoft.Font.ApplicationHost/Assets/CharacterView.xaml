@@ -61,7 +61,7 @@ SOFTWARE.
                                       ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
                 </Grid>
             </Border>
-            <Thumb x:Name="PART_RowResizerThumb" VerticalAlignment="Bottom" Style="{StaticResource Invisible_Thumb_Style}" Visibility="Collapsed" />
+            <Thumb x:Name="PART_RowResizerThumb" VerticalAlignment="Bottom" Style="{StaticResource Thumb_RowResizer_Style}" Visibility="Collapsed" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsPressed" Value="True">

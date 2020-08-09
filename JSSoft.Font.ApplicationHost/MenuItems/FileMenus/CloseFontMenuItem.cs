@@ -45,7 +45,10 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
             this.shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();
         }
 
-        protected override bool OnCanExecute(object parameter) => CloseFontCommand.CanExecute(this.shell);
+        protected override bool OnCanExecute(object parameter)
+        {
+            return CloseFontCommand.CanExecute(this.shell);
+        }
 
         protected override async void OnExecute(object parameter)
         {

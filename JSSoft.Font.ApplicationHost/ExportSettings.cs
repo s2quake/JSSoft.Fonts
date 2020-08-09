@@ -22,7 +22,6 @@
 
 using JSSoft.Font.ApplicationHost.Serializations;
 using Ntreev.ModernUI.Framework;
-using System.Windows;
 
 namespace JSSoft.Font.ApplicationHost
 {

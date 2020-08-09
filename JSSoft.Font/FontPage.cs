@@ -45,9 +45,15 @@ namespace JSSoft.Font
             this.node = FontNode.Create(this, settings);
         }
 
-        public FontGlyphData HitTest(Point point) => this.node.HitTest(point);
+        public FontGlyphData HitTest(Point point)
+        {
+            return this.node.HitTest(point);
+        }
 
-        public IReservator ReserveRegion(FontGlyph glyph) => this.node.ReserveRegion(glyph);
+        public IReservator ReserveRegion(FontGlyph glyph)
+        {
+            return this.node.ReserveRegion(glyph);
+        }
 
         public void Save(string filename)
         {

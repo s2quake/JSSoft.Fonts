@@ -17,8 +17,6 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>jsfontApp</AssemblyName>
     <ApplicationIcon>App.ico</ApplicationIcon>
-    <LangVersion>8.0</LangVersion>
-    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Images\**\*.png" />
@@ -70,12 +68,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <Target Name="CopyFreeType6FileToOutputDirectory_netcoreapp30" AfterTargets="CopyFilesToOutputDirectory" Condition="'$(TargetFramework)'=='netcoreapp3.0'">
-    <Message Text="Project File Name = $(PkgSharpFont_Dependencies)" />
-    <Message Text="Project File Name = $(PlatformTarget)" />
-    <Copy SourceFiles="$(PkgSharpFont_Dependencies)\bin\msvc10\x64\freetype6.dll" DestinationFolder="$(OutputPath)" />
-  </Target>
-  <Target Name="CopyFreeType6FileToOutputDirectory_net45" AfterTargets="Build" Condition="'$(TargetFramework)'=='net45'">
+  <Target Name="CopyFreeType6FileToOutputDirectory_netcoreapp30" AfterTargets="CopyFilesToOutputDirectory">
     <Message Text="Project File Name = $(PkgSharpFont_Dependencies)" />
     <Message Text="Project File Name = $(PlatformTarget)" />
     <Copy SourceFiles="$(PkgSharpFont_Dependencies)\bin\msvc10\x64\freetype6.dll" DestinationFolder="$(OutputPath)" />

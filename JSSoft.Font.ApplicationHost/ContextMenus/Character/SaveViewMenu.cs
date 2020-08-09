@@ -55,12 +55,10 @@ namespace JSSoft.Font.ApplicationHost.ContextMenus.Character
             };
             if (dialog.ShowDialog() == true)
             {
-                using (var stream = new FileStream(dialog.FileName, FileMode.Create))
-                {
-                    var encoder = new PngBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(obj.Source));
-                    encoder.Save(stream);
-                }
+                using var stream = new FileStream(dialog.FileName, FileMode.Create);
+                var encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(obj.Source));
+                encoder.Save(stream);
             }
         }
     }

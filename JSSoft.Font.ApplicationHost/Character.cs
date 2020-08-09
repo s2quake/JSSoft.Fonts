@@ -22,7 +22,6 @@
 
 using Ntreev.ModernUI.Framework;
 using System;
-using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media.Imaging;
@@ -98,18 +97,16 @@ namespace JSSoft.Font.ApplicationHost
                     if (this.glyph != null && this.glyph.Bitmap != null)
                     {
                         var bitmap = this.glyph.Bitmap;
-                        using (var stream = new MemoryStream())
-                        {
-                            var bitmapImage = new BitmapImage();
-                            bitmap.Save(stream, ImageFormat.Png);
-                            bitmapImage.BeginInit();
-                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                            bitmapImage.UriSource = null;
-                            bitmapImage.StreamSource = stream;
-                            bitmapImage.EndInit();
-                            bitmapImage.Freeze();
-                            this.source = bitmapImage;
-                        }
+                        using var stream = new MemoryStream();
+                        var bitmapImage = new BitmapImage();
+                        bitmap.Save(stream, ImageFormat.Png);
+                        bitmapImage.BeginInit();
+                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmapImage.UriSource = null;
+                        bitmapImage.StreamSource = stream;
+                        bitmapImage.EndInit();
+                        bitmapImage.Freeze();
+                        this.source = bitmapImage;
                     }
                     return this.source;
                 }

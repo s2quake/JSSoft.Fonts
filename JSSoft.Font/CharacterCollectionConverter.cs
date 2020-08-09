@@ -26,7 +26,7 @@ using System.Globalization;
 
 namespace JSSoft.Font
 {
-    public class CharacterCollectionConverter:TypeConverter
+    public class CharacterCollectionConverter : TypeConverter
     {
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {

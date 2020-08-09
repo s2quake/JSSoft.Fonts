@@ -23,7 +23,6 @@
 using JSSoft.Font.ApplicationHost.Properties;
 using Ntreev.Library;
 using Ntreev.ModernUI.Framework;
-using Ntreev.ModernUI.Framework.Dialogs.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

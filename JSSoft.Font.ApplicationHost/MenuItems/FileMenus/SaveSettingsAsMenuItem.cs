@@ -43,12 +43,15 @@ namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
         {
             this.shell = shell;
             this.DisplayName = Resources.MenuItem_SaveSettingsAs;
-            this.InputGesture = new KeyGesture(Key.S, ModifierKeys.Control | ModifierKeys.Shift); 
+            this.InputGesture = new KeyGesture(Key.S, ModifierKeys.Control | ModifierKeys.Shift);
             this.shell.Opened += (s, e) => this.InvokeCanExecuteChangedEvent();
             this.shell.Closed += (s, e) => this.InvokeCanExecuteChangedEvent();
         }
 
-        protected override bool OnCanExecute(object parameter) => SaveSettingsCommand.CanExecute(this.shell);
+        protected override bool OnCanExecute(object parameter)
+        {
+            return SaveSettingsCommand.CanExecute(this.shell);
+        }
 
         protected async override void OnExecute(object parameter)
         {

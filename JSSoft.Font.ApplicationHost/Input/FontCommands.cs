@@ -27,11 +27,11 @@ namespace JSSoft.Font.ApplicationHost.Input
 {
     public static class FontCommands
     {
-        public static readonly RoutedUICommand NavigateBackward = 
+        public static readonly RoutedUICommand NavigateBackward =
             new RoutedUICommand(Resources.Command_NavigateBackward, nameof(NavigateBackward), typeof(FontCommands),
                 new InputGestureCollection() { new KeyGesture(Key.Left, ModifierKeys.Alt) });
 
-        public static readonly RoutedUICommand NavigateForward = 
+        public static readonly RoutedUICommand NavigateForward =
             new RoutedUICommand(Resources.Command_NavigateForward, nameof(NavigateForward), typeof(FontCommands),
                 new InputGestureCollection() { new KeyGesture(Key.Right, ModifierKeys.Alt) });
 

@@ -67,7 +67,7 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.Views
                 this.bd.BringIntoView();
             }
         }
-        
+
         private void Bd_Loaded(object sender, RoutedEventArgs e)
         {
             this.bd = sender as Border;

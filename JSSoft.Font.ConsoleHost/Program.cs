@@ -29,7 +29,7 @@ namespace JSSoft.Font.ConsoleHost
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] _)
         {
             var settings = new Settings();
             var parser = new CommandLineParser(settings);

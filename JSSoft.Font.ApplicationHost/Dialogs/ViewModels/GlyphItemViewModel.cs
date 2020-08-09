@@ -32,7 +32,10 @@ namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
             this.GlyphData = data;
         }
 
-        public override string ToString() => this.DisplayName;
+        public override string ToString()
+        {
+            return this.DisplayName;
+        }
 
         public override string DisplayName => $"{FontGlyphUtility.ToString(this.GlyphData.ID)}";
 

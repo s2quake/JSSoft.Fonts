@@ -46,7 +46,10 @@ namespace JSSoft.Font.ApplicationHost.ToolBarItems
             this.InputGesture = new KeyGesture(Key.O, ModifierKeys.Control);
         }
 
-        protected override bool OnCanExecute(object parameter) => OpenFontCommand.CanExecute(this.shell);
+        protected override bool OnCanExecute(object parameter)
+        {
+            return OpenFontCommand.CanExecute(this.shell);
+        }
 
         protected override async void OnExecute(object parameter)
         {

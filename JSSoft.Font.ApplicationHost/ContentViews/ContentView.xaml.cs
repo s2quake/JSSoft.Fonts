@@ -37,8 +37,8 @@ namespace JSSoft.Font.ApplicationHost.ContentViews
         private GridLength propertyWidth;
         private double propertyMinWidth;
 
-        private CommandBinding showPropertyWindowCommand;
-        private CommandBinding HidePropertyWindowCommand;
+        private readonly CommandBinding showPropertyWindowCommand;
+        private readonly CommandBinding HidePropertyWindowCommand;
 
         public ContentView()
         {
@@ -138,7 +138,7 @@ namespace JSSoft.Font.ApplicationHost.ContentViews
             }
         }
 
-        private void expander_Expanded(object sender, RoutedEventArgs e)
+        private void Expander_Expanded(object sender, RoutedEventArgs e)
         {
             var expander = sender as Expander;
             if (expander.DataContext == null)

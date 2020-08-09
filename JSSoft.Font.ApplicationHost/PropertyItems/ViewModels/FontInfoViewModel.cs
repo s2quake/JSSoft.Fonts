@@ -48,7 +48,7 @@ namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
 
         public override void SelectObject(object obj)
         {
-           
+
         }
 
         public FontInfo FontInfo
@@ -64,7 +64,7 @@ namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
         public override bool IsVisible => true;
 
         public override object SelectedObject => null;
-        
+
         private void Shell_Closed(object sender, EventArgs e)
         {
             this.FontInfo = this.shell.FontInfo;

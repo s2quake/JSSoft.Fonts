@@ -89,7 +89,7 @@ namespace JSSoft.Font
                 var max = item.max;
                 if (min > max)
                     throw new InvalidOperationException($"{Resources.Exception_MinLessMax}: '{min} < {max}'");
-                
+
             });
         }
 
@@ -121,15 +121,30 @@ namespace JSSoft.Font
             return string.Join(",", itemList);
         }
 
-        public void Add(uint item) => this.itemList.Add(item);
+        public void Add(uint item)
+        {
+            this.itemList.Add(item);
+        }
 
-        public void Insert(int index, uint item) => this.itemList.Insert(index, item);
+        public void Insert(int index, uint item)
+        {
+            this.itemList.Insert(index, item);
+        }
 
-        public bool Remove(uint item) => this.itemList.Remove(item);
+        public bool Remove(uint item)
+        {
+            return this.itemList.Remove(item);
+        }
 
-        public void RemoveAt(int index) => this.itemList.RemoveAt(index);
+        public void RemoveAt(int index)
+        {
+            this.itemList.RemoveAt(index);
+        }
 
-        public int IndexOf(uint item) => this.itemList.IndexOf(item);
+        public int IndexOf(uint item)
+        {
+            return this.itemList.IndexOf(item);
+        }
 
         public int Count => this.itemList.Count;
 

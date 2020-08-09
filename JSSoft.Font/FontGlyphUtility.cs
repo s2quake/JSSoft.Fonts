@@ -26,27 +26,18 @@ namespace JSSoft.Font
     {
         public static string ToString(uint id)
         {
-            switch (id)
+            return id switch
             {
-                case 0:
-                    return "\\0";
-                case 7:
-                    return "\\a";
-                case 8:
-                    return "\\b";
-                case 12:
-                    return "\\f";
-                case 10:
-                    return "\\n";
-                case 13:
-                    return "\\r";
-                case 9:
-                    return "\\t";
-                case 11:
-                    return "\\v";
-                default:
-                    return $"{(char)id}";
-            }
+                0 => "\\0",
+                7 => "\\a",
+                8 => "\\b",
+                12 => "\\f",
+                10 => "\\n",
+                13 => "\\r",
+                9 => "\\t",
+                11 => "\\v",
+                _ => $"{(char)id}",
+            };
         }
     }
 }

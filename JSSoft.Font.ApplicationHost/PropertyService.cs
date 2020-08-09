@@ -38,7 +38,7 @@ namespace JSSoft.Font.ApplicationHost
         private object selectedObject;
 
         [ImportingConstructor]
-        public PropertyService([ImportMany]IEnumerable<Lazy<IPropertyItem>> propertyItems)
+        public PropertyService([ImportMany] IEnumerable<Lazy<IPropertyItem>> propertyItems)
         {
             this.Dispatcher.InvokeAsync(() =>
             {

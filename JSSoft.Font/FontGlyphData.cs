@@ -33,7 +33,7 @@ namespace JSSoft.Font
             this.Page = page;
             this.glyph = glyph;
             this.Rectangle = rectangle;
-            this.PaddingRectangle = page.GeneratePaddingRectangle(rectangle); 
+            this.PaddingRectangle = page.GeneratePaddingRectangle(rectangle);
             this.SpacingRectangle = page.GenerateSpacingRectangle(rectangle);
         }
 

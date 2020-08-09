@@ -29,7 +29,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Shapes;
 
 namespace JSSoft.Font.ApplicationHost.Controls
 {
