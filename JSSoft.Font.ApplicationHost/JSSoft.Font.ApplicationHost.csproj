@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
     <OutputType>WinExe</OutputType>
     <Version>0.9.2086.2041</Version>
     <AssemblyVersion>0.9</AssemblyVersion>
@@ -17,6 +17,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>jsfontApp</AssemblyName>
     <ApplicationIcon>App.ico</ApplicationIcon>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Images\**\*.png" />
@@ -25,13 +26,19 @@
   <ItemGroup>
     <PackageReference Include="Caliburn.Micro" Version="4.0.105-alpha" />
     <PackageReference Include="Caliburn.Micro.Core" Version="4.0.105-alpha" />
-    <PackageReference Include="MahApps.Metro" Version="2.2.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="ModernUI.WPFCore" Version="2.0.0" />
     <PackageReference Include="SharpFont.Dependencies" Version="2.6.0" GeneratePathProperty="true" />
-    <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.4.0.5" />
     <PackageReference Include="System.ComponentModel.Composition" Version="4.7.0" />
+  </ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netcoreapp3.'))" >
+    <PackageReference Include="MahApps.Metro" Version="2.1.1" />
+    <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.4.0.5" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+  </ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))" >
+    <PackageReference Include="MahApps.Metro" Version="1.6.5" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="3.4.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Ntreev.Library\Ntreev.Library\Ntreev.Library.csproj" />

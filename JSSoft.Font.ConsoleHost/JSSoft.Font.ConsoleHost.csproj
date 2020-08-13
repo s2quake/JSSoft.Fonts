@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <Version>0.9.2086.2041</Version>
     <AssemblyVersion>0.9</AssemblyVersion>
@@ -15,7 +15,7 @@
     <RepositoryUrl>https://github.com/s2quake/JSSoft.Font</RepositoryUrl>
     <PackageTags>jsfont</PackageTags>
     <AssemblyName>jsfont</AssemblyName>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
   </PropertyGroup>
   <ItemGroup>
