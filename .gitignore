@@ -341,3 +341,6 @@ healthchecksdb
 /Fonts
 /export.txt
 /JSSoft.Font.sln.cremaresx
+
+.vs/
+.vscode/
