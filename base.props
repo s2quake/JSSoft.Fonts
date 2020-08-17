@@ -14,5 +14,8 @@
     <RepositoryUrl>https://github.com/s2quake/JSSoft.Font</RepositoryUrl>
     <PackageTags>jsfont</PackageTags>
     <LangVersion>latest</LangVersion>
+    <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+    <OutputPath>..\bin\$(Configuration)\$(TargetFramework)\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath>..\obj\$(Configuration)\$(TargetFramework)\$(AssemblyName)</IntermediateOutputPath>
   </PropertyGroup>
 </Project>

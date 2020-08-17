@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/JSSoft.Font.ApplicationHost/bin/Debug/netcoreapp3.1/jsfontApp.dll",
+            "program": "${workspaceFolder}/bin/Debug/netcoreapp3.1/JSSoft.Font.ApplicationHost/jsFontApp.exe",
             "args": [],
             "cwd": "${workspaceFolder}/JSSoft.Font.ApplicationHost",
             "console": "internalConsole",
