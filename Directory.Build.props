@@ -9,15 +9,14 @@
     <PackageLicense>https://github.com/s2quake/JSSoft.Font/blob/master/LICENSE.md</PackageLicense>
     <Copyright>Copyright © JS Soft 2020</Copyright>
     <Description>library for bitmap font generator</Description>
-    <Company>JSSoft</Company>
     <Authors>s2quake</Authors>
     <RepositoryUrl>https://github.com/s2quake/JSSoft.Font</RepositoryUrl>
     <PackageTags>jsfont</PackageTags>
     <LangVersion>latest</LangVersion>
     <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
-    <BaseOutputPath>$(MSBuildThisFileDirectory)\bin\$(MSBuildProjectName)</BaseOutputPath>
-    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)\obj\nuget\$(MSBuildProjectName)</BaseIntermediateOutputPath>
-    <OutputPath>$(MSBuildThisFileDirectory)\bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName)</OutputPath>
-    <IntermediateOutputPath>$(MSBuildThisFileDirectory)\obj\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName)</IntermediateOutputPath>
+    <BaseOutputPath>$(MSBuildThisFileDirectory)bin\$(MSBuildProjectName)</BaseOutputPath>
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName)</OutputPath>
+    <IntermediateOutputPath>$(MSBuildThisFileDirectory)obj\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName)</IntermediateOutputPath>
   </PropertyGroup>
 </Project>
