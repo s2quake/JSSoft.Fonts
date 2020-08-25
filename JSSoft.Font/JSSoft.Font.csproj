@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\base.props" />
   <ItemGroup>
     <PackageReference Include="SharpFont.Dependencies" Version="2.6.0" GeneratePathProperty="true" />
   </ItemGroup>
