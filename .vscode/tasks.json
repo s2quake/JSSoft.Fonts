@@ -5,10 +5,17 @@
             "label": "build",
             "command": "dotnet build --framework netcoreapp3.1",
             "type": "shell",
-            "group": {
-                "kind": "build",
-                "isDefault": true
+            "group": "build",
+            "presentation": {
+                "reveal": "always"
             },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "clean",
+            "command": "dotnet clean",
+            "type": "shell",
+            "group": "build",
             "presentation": {
                 "reveal": "always"
             },

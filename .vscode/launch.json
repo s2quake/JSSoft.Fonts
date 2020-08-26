@@ -5,14 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": ".NET Core Launch",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/bin/Debug/netcoreapp3.1/JSSoft.Font.ApplicationHost/jsFontApp.exe",
             "args": [],
             "cwd": "${workspaceFolder}/JSSoft.Font.ApplicationHost",
-            "console": "internalConsole",
             "stopAtEntry": false
         },
         {
