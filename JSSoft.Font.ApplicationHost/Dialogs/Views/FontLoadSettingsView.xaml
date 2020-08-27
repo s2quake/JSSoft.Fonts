@@ -26,22 +26,22 @@ SOFTWARE.
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
-             xmlns:nmfp="clr-namespace:Ntreev.ModernUI.Framework.Properties;assembly=Ntreev.ModernUI.Framework"
+             xmlns:jmfc="clr-namespace:JSSoft.ModernUI.Framework.Controls;assembly=JSSoft.ModernUI.Framework"
+             xmlns:jmfp="clr-namespace:JSSoft.ModernUI.Framework.Properties;assembly=JSSoft.ModernUI.Framework"
              xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
              xmlns:jsfp="clr-namespace:JSSoft.Font.ApplicationHost.Properties"
              mc:Ignorable="d" Width="400">
 
     <StackPanel>
-        <nmfc:PropertyItemsControl>
-            <nmfc:NumericTextBox x:Name="Size" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Size}" />
-            <jsfc:ValueSelector x:Name="DPI" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_DPI}" Values="72 96" />
-            <ComboBox x:Name="Faces" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Font}" />
-        </nmfc:PropertyItemsControl>
+        <jmfc:PropertyItemsControl>
+            <jmfc:NumericTextBox x:Name="Size" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Size}" />
+            <jsfc:ValueSelector x:Name="DPI" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_DPI}" Values="72 96" />
+            <ComboBox x:Name="Faces" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Font}" />
+        </jmfc:PropertyItemsControl>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="Select" Content="{x:Static nmfp:Resources.Button_OK}" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />
+            <Button x:Name="Select" Content="{x:Static jmfp:Resources.Button_OK}" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />
             <Border Width="4" />
-            <Button x:Name="TryClose" Content="{x:Static nmfp:Resources.Button_Cancel}" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
+            <Button x:Name="TryClose" Content="{x:Static jmfp:Resources.Button_Cancel}" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
         </StackPanel>
     </StackPanel>
     

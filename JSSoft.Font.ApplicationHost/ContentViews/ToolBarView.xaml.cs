@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using Ntreev.ModernUI.Framework;
+using JSSoft.ModernUI.Framework;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;

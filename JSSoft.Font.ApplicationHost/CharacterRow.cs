@@ -21,7 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Properties;
-using Ntreev.ModernUI.Framework;
+using JSSoft.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

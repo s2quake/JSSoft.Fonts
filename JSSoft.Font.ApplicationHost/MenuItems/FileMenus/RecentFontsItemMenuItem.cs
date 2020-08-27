@@ -21,7 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Commands;
-using Ntreev.ModernUI.Framework;
+using JSSoft.ModernUI.Framework;
 using System;
 
 namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus

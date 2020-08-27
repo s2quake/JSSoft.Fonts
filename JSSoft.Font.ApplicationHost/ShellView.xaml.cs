@@ -22,7 +22,7 @@
 
 using FirstFloor.ModernUI.Windows.Controls;
 using JSSoft.Font.ApplicationHost.Input;
-using Ntreev.ModernUI.Framework;
+using JSSoft.ModernUI.Framework;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
 

@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using Ntreev.Library.Linq;
-using Ntreev.ModernUI.Framework;
+using JSSoft.Library.Linq;
+using JSSoft.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;

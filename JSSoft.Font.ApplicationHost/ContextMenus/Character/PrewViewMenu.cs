@@ -22,8 +22,8 @@
 
 using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
 using JSSoft.Font.ApplicationHost.Properties;
-using Ntreev.Library;
-using Ntreev.ModernUI.Framework;
+using JSSoft.Library;
+using JSSoft.ModernUI.Framework;
 using System.ComponentModel.Composition;
 
 namespace JSSoft.Font.ApplicationHost.ContextMenus.Character

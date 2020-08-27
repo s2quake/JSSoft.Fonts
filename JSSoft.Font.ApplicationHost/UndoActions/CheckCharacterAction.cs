@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using Ntreev.ModernUI.Framework;
+using JSSoft.ModernUI.Framework;
 
 namespace JSSoft.Font.ApplicationHost.UndoActions
 {

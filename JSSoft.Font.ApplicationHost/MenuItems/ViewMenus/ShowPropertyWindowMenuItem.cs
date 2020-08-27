@@ -22,7 +22,7 @@
 
 using JSSoft.Font.ApplicationHost.Input;
 using JSSoft.Font.ApplicationHost.Properties;
-using Ntreev.ModernUI.Framework;
+using JSSoft.ModernUI.Framework;
 using System.ComponentModel.Composition;
 
 namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus

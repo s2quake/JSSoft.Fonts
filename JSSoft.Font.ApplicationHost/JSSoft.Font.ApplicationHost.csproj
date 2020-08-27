@@ -20,9 +20,9 @@
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))" >
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Ntreev.Library\Ntreev.Library\Ntreev.Library.csproj" />
-    <ProjectReference Include="..\..\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework.csproj" />
-    <ProjectReference Include="..\..\Ntreev.ModernUI.Framework\Ntreev.ModernUI.Framework.DataGrid\Ntreev.ModernUI.Framework.DataGrid.csproj" />
+    <ProjectReference Include="..\..\JSSoft.Library\JSSoft.Library\JSSoft.Library.csproj" />
+    <ProjectReference Include="..\..\JSSoft.ModernUI.Framework\JSSoft.ModernUI.Framework\JSSoft.ModernUI.Framework.csproj" />
+    <ProjectReference Include="..\..\JSSoft.ModernUI.Framework\JSSoft.ModernUI.Framework.DataGrid\JSSoft.ModernUI.Framework.DataGrid.csproj" />
     <ProjectReference Include="..\JSSoft.Font\JSSoft.Font.csproj" />
   </ItemGroup>
   <ItemGroup>

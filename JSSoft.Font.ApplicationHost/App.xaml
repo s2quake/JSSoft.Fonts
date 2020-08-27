@@ -34,10 +34,10 @@ SOFTWARE.
                 </ResourceDictionary>
                 <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.xaml" />
                 <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.Dark.xaml" />
-                <ResourceDictionary Source="/Ntreev.ModernUI.Framework;component/Assets/ModernUI.xaml" />
-                <ResourceDictionary Source="/Ntreev.ModernUI.Framework;component/Assets/ModernUI.Dark.xaml" />
-                <ResourceDictionary Source="/Ntreev.ModernUI.Framework.DataGrid;component/Assets/DataGridUI.xaml" />
-                <ResourceDictionary Source="/Ntreev.ModernUI.Framework.DataGrid;component/Assets/DataGridUI.Dark.xaml" />
+                <ResourceDictionary Source="/JSSoft.ModernUI.Framework;component/Assets/ModernUI.xaml" />
+                <ResourceDictionary Source="/JSSoft.ModernUI.Framework;component/Assets/ModernUI.Dark.xaml" />
+                <ResourceDictionary Source="/JSSoft.ModernUI.Framework.DataGrid;component/Assets/DataGridUI.xaml" />
+                <ResourceDictionary Source="/JSSoft.ModernUI.Framework.DataGrid;component/Assets/DataGridUI.Dark.xaml" />
                 <ResourceDictionary Source="/Assets/FontUI.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

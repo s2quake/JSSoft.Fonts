@@ -26,8 +26,8 @@ SOFTWARE.
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
-             xmlns:nmfp="clr-namespace:Ntreev.ModernUI.Framework.Properties;assembly=Ntreev.ModernUI.Framework"
+             xmlns:jmfc="clr-namespace:JSSoft.ModernUI.Framework.Controls;assembly=JSSoft.ModernUI.Framework"
+             xmlns:jmfp="clr-namespace:JSSoft.ModernUI.Framework.Properties;assembly=JSSoft.ModernUI.Framework"
              xmlns:jsfp="clr-namespace:JSSoft.Font.ApplicationHost.Properties"
              mc:Ignorable="d" Width="400">
 
@@ -39,13 +39,13 @@ SOFTWARE.
         <Label Content="{x:Static jsfp:Resources.Label_UnicodeValue}" Target="{Binding ElementName=Character}" />
         <TextBox x:Name="Character" HorizontalScrollBarVisibility="Disabled"
                  Text="{Binding CharacterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
-        <nmfc:ErrorBlinker />
+        <jmfc:ErrorBlinker />
         <CheckBox x:Name="ByCharacter" Content="{x:Static jsfp:Resources.CheckBox_SearchByCharacter}" Checked="ByCharacter_Checked" Unchecked="ByCharacter_Unchecked"
                   HorizontalAlignment="Left" Margin="0 4" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="Find" Content="{x:Static jsfp:Resources.Button_Find}" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />
             <Border Width="4" />
-            <Button x:Name="TryClose" Content="{x:Static nmfp:Resources.Button_Cancel}" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
+            <Button x:Name="TryClose" Content="{x:Static jmfp:Resources.Button_Cancel}" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
         </StackPanel>
     </StackPanel>
     

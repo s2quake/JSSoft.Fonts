@@ -22,7 +22,7 @@
 
 using JSSoft.Font.ApplicationHost.Input;
 using JSSoft.Font.ApplicationHost.UndoActions;
-using Ntreev.ModernUI.Framework;
+using JSSoft.ModernUI.Framework;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

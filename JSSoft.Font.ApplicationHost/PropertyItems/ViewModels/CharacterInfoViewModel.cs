@@ -21,7 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Properties;
-using Ntreev.Library;
+using JSSoft.Library;
 using System.ComponentModel.Composition;
 
 namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels

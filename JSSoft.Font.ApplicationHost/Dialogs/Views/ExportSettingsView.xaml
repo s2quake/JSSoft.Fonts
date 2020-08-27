@@ -26,15 +26,15 @@ SOFTWARE.
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
-             xmlns:nmfv="clr-namespace:Ntreev.ModernUI.Framework.Converters;assembly=Ntreev.ModernUI.Framework"
-             xmlns:nmfp="clr-namespace:Ntreev.ModernUI.Framework.Properties;assembly=Ntreev.ModernUI.Framework"
+             xmlns:jmfc="clr-namespace:JSSoft.ModernUI.Framework.Controls;assembly=JSSoft.ModernUI.Framework"
+             xmlns:jmfv="clr-namespace:JSSoft.ModernUI.Framework.Converters;assembly=JSSoft.ModernUI.Framework"
+             xmlns:jmfp="clr-namespace:JSSoft.ModernUI.Framework.Properties;assembly=JSSoft.ModernUI.Framework"
              xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
              xmlns:jsfp="clr-namespace:JSSoft.Font.ApplicationHost.Properties"
              mc:Ignorable="d" Width="400">
 
     <UserControl.Resources>
-        <nmfv:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+        <jmfv:ColorToBrushConverter x:Key="ColorToBrushConverter" />
         
         <Style x:Key="ColorButton_Style" TargetType="{x:Type Button}">
             <Setter Property="Width" Value="50" />
@@ -45,24 +45,24 @@ SOFTWARE.
     </UserControl.Resources>
 
     <StackPanel>
-        <nmfc:PropertyItemsControl>
-            <jsfc:PaddingControl x:Name="PaddingValue" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Padding}" />
-            <jsfc:SpacingControl x:Name="SpacingValue" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Spacing}" />
-            <jsfc:ValueSelector x:Name="TextureWidth" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_TextureWidth}"
+        <jmfc:PropertyItemsControl>
+            <jsfc:PaddingControl x:Name="PaddingValue" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Padding}" />
+            <jsfc:SpacingControl x:Name="SpacingValue" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Spacing}" />
+            <jsfc:ValueSelector x:Name="TextureWidth" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_TextureWidth}"
                                 Values="64 128 256 512 1024 2048 4096" />
-            <jsfc:ValueSelector x:Name="TextureHeight" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_TextureHeight}" 
+            <jsfc:ValueSelector x:Name="TextureHeight" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_TextureHeight}" 
                                 Values="64 128 256 512 1024 2048 4096" />
-            <Button x:Name="SelectBackgroundColor" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_BackgroundColor}"
+            <Button x:Name="SelectBackgroundColor" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_BackgroundColor}"
                     Background="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" />
-            <Button x:Name="SelectForegroundColor" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_FontColor}" 
+            <Button x:Name="SelectForegroundColor" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_FontColor}" 
                     Background="{Binding ForegroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" />
-            <Button x:Name="SelectPaddingColor" nmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_PaddingColor}" 
+            <Button x:Name="SelectPaddingColor" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_PaddingColor}" 
                     Background="{Binding PaddingColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" />
-        </nmfc:PropertyItemsControl>
+        </jmfc:PropertyItemsControl>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="OK" Content="{x:Static nmfp:Resources.Button_OK}" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />
+            <Button x:Name="OK" Content="{x:Static jmfp:Resources.Button_OK}" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />
             <Border Width="4" />
-            <Button x:Name="TryClose" Content="{x:Static nmfp:Resources.Button_Cancel}" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
+            <Button x:Name="TryClose" Content="{x:Static jmfp:Resources.Button_Cancel}" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
         </StackPanel>
     </StackPanel>
     

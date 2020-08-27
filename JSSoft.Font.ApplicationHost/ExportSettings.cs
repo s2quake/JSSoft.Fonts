@@ -21,7 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Serializations;
-using Ntreev.ModernUI.Framework;
+using JSSoft.ModernUI.Framework;
 
 namespace JSSoft.Font.ApplicationHost
 {

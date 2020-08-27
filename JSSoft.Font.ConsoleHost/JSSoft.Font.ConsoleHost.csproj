@@ -7,8 +7,8 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\JSSoft.Font\JSSoft.Font.csproj" />
-    <ProjectReference Include="..\..\Ntreev.Library\Ntreev.Library\Ntreev.Library.csproj" />
-    <ProjectReference Include="..\..\Ntreev.Library.Commands\Ntreev.Library.Commands\Ntreev.Library.Commands.csproj" />
+    <ProjectReference Include="..\..\JSSoft.Library\JSSoft.Library\JSSoft.Library.csproj" />
+    <ProjectReference Include="..\..\JSSoft.Library.Commands\JSSoft.Library.Commands\JSSoft.Library.Commands.csproj" />
     <PackageReference Include="SharpFont.Dependencies" Version="2.6.0" GeneratePathProperty="true" />
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,7 @@
 
 using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
 using JSSoft.Font.ApplicationHost.Properties;
-using Ntreev.ModernUI.Framework;
+using JSSoft.ModernUI.Framework;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;

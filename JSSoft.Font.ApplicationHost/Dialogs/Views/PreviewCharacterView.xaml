@@ -26,16 +26,16 @@ SOFTWARE.
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
-             xmlns:nmfv="clr-namespace:Ntreev.ModernUI.Framework.Converters;assembly=Ntreev.ModernUI.Framework"
+             xmlns:jmfc="clr-namespace:JSSoft.ModernUI.Framework.Controls;assembly=JSSoft.ModernUI.Framework"
+             xmlns:jmfv="clr-namespace:JSSoft.ModernUI.Framework.Converters;assembly=JSSoft.ModernUI.Framework"
              xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls"
              xmlns:jsfv="clr-namespace:JSSoft.Font.ApplicationHost.Converters"
-             mc:Ignorable="d" nmfc:DialogWindow.DesiredResizeMode="CanResize" 
-             nmfc:DialogWindow.DesiredWidth="400" nmfc:DialogWindow.DesiredHeight="400">
+             mc:Ignorable="d" jmfc:DialogWindow.DesiredResizeMode="CanResize" 
+             jmfc:DialogWindow.DesiredWidth="400" jmfc:DialogWindow.DesiredHeight="400">
 
     <UserControl.Resources>
         <jsfv:MultiplicationConverter x:Key="MultiplicationConverter" />
-        <nmfv:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+        <jmfv:ColorToBrushConverter x:Key="ColorToBrushConverter" />
 
         <Style x:Key="ColorButton_Style" TargetType="{x:Type Button}">
             <Setter Property="Width" Value="50" />
@@ -50,12 +50,12 @@ SOFTWARE.
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <ToolBarTray Visibility="Collapsed">
-            <nmfc:ModernToolBar>
-                <nmfc:IconButton x:Name="ZoomOut" Source="/jsfontApp;component/Images/zoom-out.png" Click="ZoomOut_Click" />
-                <nmfc:IconButton x:Name="ZoomIn" Source="/jsfontApp;component/Images/zoom-in.png" Click="ZoomIn_Click" />
+            <jmfc:ModernToolBar>
+                <jmfc:IconButton x:Name="ZoomOut" Source="/jsfontApp;component/Images/zoom-out.png" Click="ZoomOut_Click" />
+                <jmfc:IconButton x:Name="ZoomIn" Source="/jsfontApp;component/Images/zoom-in.png" Click="ZoomIn_Click" />
                 <jsfc:ZoomLevelControl x:Name="ZoomLevel" Margin="4 0" />
                 <Border Width="4" />
-            </nmfc:ModernToolBar>
+            </jmfc:ModernToolBar>
             <ToolBar ToolBarTray.IsLocked="True">
                 <Label Content="B: " VerticalAlignment="Center" ToolTip="Background Color" />
                 <Button x:Name="SelectBackgroundColor" Background="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" ToolTip="Background Color" />

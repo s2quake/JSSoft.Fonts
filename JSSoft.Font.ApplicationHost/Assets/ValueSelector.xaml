@@ -23,7 +23,7 @@ SOFTWARE.
 ====================================================================================================================-->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
+                    xmlns:jmfc="clr-namespace:JSSoft.ModernUI.Framework.Controls;assembly=JSSoft.ModernUI.Framework"
                     xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls">
 
     <ControlTemplate x:Key="ValueSelector_ComboBox_Template" TargetType="{x:Type ComboBox}">
@@ -50,8 +50,8 @@ SOFTWARE.
             </Popup>
             <ToggleButton BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Padding="0,0,0,10" Focusable="False" />
             <Path x:Name="Arrow" Grid.ColumnSpan="2" Data="{DynamicResource DownArrowGeometry}" Fill="{TemplateBinding Foreground}" HorizontalAlignment="Right" IsHitTestVisible="False" Margin="3,1,8,0" VerticalAlignment="Center" />
-            <nmfc:NumericTextBox x:Name="PART_EditableTextBox" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}" Margin="{TemplateBinding Padding}" Padding="2,0,0,1" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
-                <nmfc:NumericTextBox.Style>
+            <jmfc:NumericTextBox x:Name="PART_EditableTextBox" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}" Margin="{TemplateBinding Padding}" Padding="2,0,0,1" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+                <jmfc:NumericTextBox.Style>
                     <Style TargetType="{x:Type TextBox}">
                         <Setter Property="OverridesDefaultStyle" Value="True" />
                         <Setter Property="AllowDrop" Value="True" />
@@ -68,8 +68,8 @@ SOFTWARE.
                             </Setter.Value>
                         </Setter>
                     </Style>
-                </nmfc:NumericTextBox.Style>
-            </nmfc:NumericTextBox>
+                </jmfc:NumericTextBox.Style>
+            </jmfc:NumericTextBox>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasItems" Value="False">

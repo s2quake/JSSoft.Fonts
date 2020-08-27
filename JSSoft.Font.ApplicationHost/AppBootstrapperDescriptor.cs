@@ -21,8 +21,8 @@
 // SOFTWARE.
 
 using Caliburn.Micro;
-using Ntreev.Library.Linq;
-using Ntreev.ModernUI.Framework;
+using JSSoft.Library.Linq;
+using JSSoft.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;

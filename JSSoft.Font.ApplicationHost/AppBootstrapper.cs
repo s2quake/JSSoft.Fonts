@@ -22,7 +22,7 @@
 
 using Caliburn.Micro;
 using JSSoft.Font.ApplicationHost.Controls;
-using Ntreev.ModernUI.Framework;
+using JSSoft.ModernUI.Framework;
 using System.Windows;
 
 namespace JSSoft.Font.ApplicationHost

@@ -26,7 +26,7 @@ SOFTWARE.
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:nmfp="clr-namespace:Ntreev.ModernUI.Framework.Properties;assembly=Ntreev.ModernUI.Framework"
+             xmlns:jmfp="clr-namespace:JSSoft.ModernUI.Framework.Properties;assembly=JSSoft.ModernUI.Framework"
              xmlns:jsfp="clr-namespace:JSSoft.Font.ApplicationHost.Properties"
              mc:Ignorable="d" Width="400">
 
@@ -39,9 +39,9 @@ SOFTWARE.
         <TextBox x:Name="Characters" Height="100" HorizontalScrollBarVisibility="Disabled" TextWrapping="Wrap"
                  Text="{Binding CharactersText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="Select" Content="{x:Static nmfp:Resources.Button_OK}" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />
+            <Button x:Name="Select" Content="{x:Static jmfp:Resources.Button_OK}" IsDefault="True" Style="{StaticResource Dialog_Button_Style}" />
             <Border Width="4" />
-            <Button x:Name="TryClose" Content="{x:Static nmfp:Resources.Button_Cancel}" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
+            <Button x:Name="TryClose" Content="{x:Static jmfp:Resources.Button_Cancel}" IsCancel="True" Style="{StaticResource Dialog_Button_Style}" />
         </StackPanel>
     </StackPanel>
     

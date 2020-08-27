@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using Ntreev.Library.Linq;
-using Ntreev.ModernUI.Framework.DataGrid.Controls;
+using JSSoft.Library.Linq;
+using JSSoft.ModernUI.Framework.DataGrid.Controls;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;

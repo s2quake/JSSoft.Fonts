@@ -21,8 +21,8 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Properties;
-using Ntreev.ModernUI.Framework;
-using Ntreev.ModernUI.Framework.Dialogs.ViewModels;
+using JSSoft.ModernUI.Framework;
+using JSSoft.ModernUI.Framework.Dialogs.ViewModels;
 using System.Threading.Tasks;
 using System.Windows.Media;
 

@@ -26,15 +26,15 @@ SOFTWARE.
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
+             xmlns:jmfc="clr-namespace:JSSoft.ModernUI.Framework.Controls;assembly=JSSoft.ModernUI.Framework"
              xmlns:jsmi="clr-namespace:JSSoft.Font.ApplicationHost.MenuItems"
              mc:Ignorable="d" d:DesignWidth="890">
 
-    <nmfc:ModernMenu ItemsSource="{Binding MenuItems}" VerticalAlignment="Bottom" Margin="0 2" Background="{StaticResource WindowBackground}">
-        <nmfc:ModernMenuItem DataType="{x:Type jsmi:FileMenuItem}" />
-        <nmfc:ModernMenuItem DataType="{x:Type jsmi:ViewMenuItem}" />
-        <nmfc:ModernMenuItem DataType="{x:Type jsmi:ToolMenuItem}" />
-        <nmfc:ModernMenuItem DataType="{x:Type jsmi:HelpMenuItem}" />
-    </nmfc:ModernMenu>
+    <jmfc:ModernMenu ItemsSource="{Binding MenuItems}" VerticalAlignment="Bottom" Margin="0 2" Background="{StaticResource WindowBackground}">
+        <jmfc:ModernMenuItem DataType="{x:Type jsmi:FileMenuItem}" />
+        <jmfc:ModernMenuItem DataType="{x:Type jsmi:ViewMenuItem}" />
+        <jmfc:ModernMenuItem DataType="{x:Type jsmi:ToolMenuItem}" />
+        <jmfc:ModernMenuItem DataType="{x:Type jsmi:HelpMenuItem}" />
+    </jmfc:ModernMenu>
     
 </UserControl>

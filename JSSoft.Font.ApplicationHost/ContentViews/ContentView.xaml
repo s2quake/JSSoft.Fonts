@@ -27,7 +27,7 @@ SOFTWARE.
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cal="http://www.caliburnproject.org"
-             xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
+             xmlns:jmfc="clr-namespace:JSSoft.ModernUI.Framework.Controls;assembly=JSSoft.ModernUI.Framework"
              xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls" 
              Loaded="UserControl_Loaded"
              Unloaded="UserControl_Unloaded"
@@ -46,7 +46,7 @@ SOFTWARE.
             </Grid>
         </DataTemplate>
 
-        <nmfc:ModernContextMenu x:Key="ListBoxItem_ContextMenu" ItemsSource="{Binding ContextMenus}"/>
+        <jmfc:ModernContextMenu x:Key="ListBoxItem_ContextMenu" ItemsSource="{Binding ContextMenus}"/>
 
         <Style x:Key="ListBox_ItemContainerStyle" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource ListBoxItem_Style}">
             <Setter Property="ContextMenu" Value="{StaticResource ListBoxItem_ContextMenu}" />
@@ -57,12 +57,12 @@ SOFTWARE.
             <Setter Property="ContentTemplate">
                 <Setter.Value>
                     <DataTemplate>
-                        <nmfc:ModernExpander x:Name="expander" Header="{Binding DisplayName}" IsExpanded="True" 
+                        <jmfc:ModernExpander x:Name="expander" Header="{Binding DisplayName}" IsExpanded="True" 
                                              Expanded="Expander_Expanded"
                                              Loaded="Expander_Loaded"
                                              Unloaded="Expander_Unloaded">
                             <ContentControl cal:View.Model="{Binding}" />
-                        </nmfc:ModernExpander>
+                        </jmfc:ModernExpander>
                     </DataTemplate>
                 </Setter.Value>
             </Setter>
@@ -105,7 +105,7 @@ SOFTWARE.
                               ItemContainerStyle="{StaticResource PropertyWindow_ItemContainerStyle}" />
             </ScrollViewer>
         </Grid>
-        <nmfc:ProgressContent Visibility="{Binding IsProgressing, Converter={StaticResource BooleanToVisibilityConverter}}" d:IsHidden="True" />
+        <jmfc:ProgressContent Visibility="{Binding IsProgressing, Converter={StaticResource BooleanToVisibilityConverter}}" d:IsHidden="True" />
     </Grid>
 
 </UserControl>

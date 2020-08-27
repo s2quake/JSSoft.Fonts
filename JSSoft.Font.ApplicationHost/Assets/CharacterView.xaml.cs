@@ -21,7 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.UndoActions;
-using Ntreev.ModernUI.Framework.DataGrid.Controls;
+using JSSoft.ModernUI.Framework.DataGrid.Controls;
 using System.Windows;
 using System.Windows.Input;
 using Xceed.Wpf.DataGrid;

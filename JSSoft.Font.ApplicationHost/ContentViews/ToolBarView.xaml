@@ -26,7 +26,7 @@ SOFTWARE.
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:nmfc="clr-namespace:Ntreev.ModernUI.Framework.Controls;assembly=Ntreev.ModernUI.Framework"
+             xmlns:jmfc="clr-namespace:JSSoft.ModernUI.Framework.Controls;assembly=JSSoft.ModernUI.Framework"
              xmlns:jsfi="clr-namespace:JSSoft.Font.ApplicationHost.Input"
              mc:Ignorable="d" d:DesignWidth="890">
 
@@ -78,16 +78,16 @@ SOFTWARE.
     </UserControl.Resources>
 
     <ToolBarTray>
-        <nmfc:ModernToolBar ItemsSource="{Binding ToolBarItems}" />
+        <jmfc:ModernToolBar ItemsSource="{Binding ToolBarItems}" />
         <ToolBar ToolBarTray.IsLocked="True">
-            <nmfc:IconButton Source="/jsfontApp;component/Images/left-arrow.png" Command="{x:Static jsfi:FontCommands.NavigateBackward}"
+            <jmfc:IconButton Source="/jsfontApp;component/Images/left-arrow.png" Command="{x:Static jsfi:FontCommands.NavigateBackward}"
                              DropDownTemplate="{StaticResource Navigator_DataTemplate}" />
-            <nmfc:IconButton Source="/jsfontApp;component/Images/right-arrow.png" Command="{x:Static jsfi:FontCommands.NavigateForward}" />
+            <jmfc:IconButton Source="/jsfontApp;component/Images/right-arrow.png" Command="{x:Static jsfi:FontCommands.NavigateForward}" />
         </ToolBar>
         <ToolBar ToolBarTray.IsLocked="True">
-            <nmfc:IconButton Source="/Ntreev.ModernUI.Framework;component/Images/undo.png" Command="{x:Static jsfi:FontCommands.Undo}"
+            <jmfc:IconButton Source="/JSSoft.ModernUI.Framework;component/Images/undo.png" Command="{x:Static jsfi:FontCommands.Undo}"
                              DropDownTemplate="{StaticResource Undo_DropDownTemplate}" />
-            <nmfc:IconButton Source="/Ntreev.ModernUI.Framework;component/Images/redo.png" Command="{x:Static jsfi:FontCommands.Redo}"
+            <jmfc:IconButton Source="/JSSoft.ModernUI.Framework;component/Images/redo.png" Command="{x:Static jsfi:FontCommands.Redo}"
                              DropDownTemplate="{StaticResource Redo_DropDownTemplate}" />
         </ToolBar>
     </ToolBarTray>

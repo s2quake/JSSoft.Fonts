@@ -21,8 +21,8 @@
 // SOFTWARE.
 
 using JSSoft.Font.ApplicationHost.Properties;
-using Ntreev.Library;
-using Ntreev.ModernUI.Framework;
+using JSSoft.Library;
+using JSSoft.ModernUI.Framework;
 using System.Threading.Tasks;
 
 namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels

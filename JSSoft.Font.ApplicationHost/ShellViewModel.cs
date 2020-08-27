@@ -23,7 +23,7 @@
 using JSSoft.Font.ApplicationHost.Commands;
 using JSSoft.Font.ApplicationHost.Properties;
 using JSSoft.Font.ApplicationHost.Serializations;
-using Ntreev.ModernUI.Framework;
+using JSSoft.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
