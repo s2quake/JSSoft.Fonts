@@ -50,6 +50,9 @@ namespace JSSoft.Font.Serializations
         [XmlAttribute("xadvance")]
         public int XAdvance { get; set; }
 
+        [XmlAttribute("yadvance")]
+        public int YAdvance { get; set; }
+
         [XmlAttribute("page")]
         public int Page { get; set; }
 
@@ -68,6 +71,7 @@ namespace JSSoft.Font.Serializations
                 XOffset = glyphData.Metrics.HorizontalBearingX,
                 YOffset = glyphData.Metrics.BaseLine - glyphData.Metrics.HorizontalBearingY,
                 XAdvance = glyphData.Metrics.HorizontalAdvance,
+                YAdvance = glyphData.Metrics.VerticalAdvance,
                 Page = glyphData.Page.Index,
             };
         }
