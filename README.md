@@ -16,6 +16,13 @@ FreeType 기반 폰트 텍스쳐 생성기
     Microsoft Visual Studio Code
     .NET Core 3.1
 
+# 필수 설치
+
+## mac os
+    
+    brew install freetype
+    brew install mono-libgdiplus
+
 
 # 빌드 및 실행
 
