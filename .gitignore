@@ -344,3 +344,4 @@ healthchecksdb
 
 .vs/
 .vscode/
+.DS_Store

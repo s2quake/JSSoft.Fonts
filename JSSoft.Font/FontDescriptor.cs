@@ -50,7 +50,7 @@ namespace JSSoft.Font
             var height = (int)Math.Round(face.Height * pixelSize / face.UnitsPerEM);
             var baseLine = height + (height * face.Descender / face.Height);
 
-            this.glyphByID = CreateGlyphs(face);
+            this.glyphByID = CreateGlyphs(face, height, baseLine);
             this.lib = lib;
             this.face = face;
             this.Height = height;
@@ -110,13 +110,13 @@ namespace JSSoft.Font
 
         public IReadOnlyDictionary<uint, FontGlyph> Glyphs => this.glyphByID;
 
-        private static Dictionary<uint, FontGlyph> CreateGlyphs(Face face)
+        private static Dictionary<uint, FontGlyph> CreateGlyphs(Face face, int fontHeight, int baseLine)
         {
             var (min, max) = NamesList.Range;
             var glyphList = new List<FontGlyph>(100);
             for (var i = min; i <= max; i++)
             {
-                var glyph = RegisterItem(face, i);
+                var glyph = RegisterItem(face, i, fontHeight, baseLine);
                 if (glyph != null)
                 {
                     if (glyphList.Count + 1 == glyphList.Capacity)
@@ -127,7 +127,7 @@ namespace JSSoft.Font
             return glyphList.ToDictionary(item => item.ID);
         }
 
-        private static FontGlyph RegisterItem(Face face, uint charCode)
+        private static FontGlyph RegisterItem(Face face, uint charCode, int fontHeight, int baseLine)
         {
             var glyph = CreateGlyph(face, charCode);
             if (glyph == null)
@@ -135,9 +135,6 @@ namespace JSSoft.Font
 
             var ftbmp = glyph.Bitmap;
             var metrics = glyph.Metrics;
-            var height = (double)Math.Round((double)glyph.LinearVerticalAdvance);
-            _ = (double)Math.Round((double)glyph.LinearHorizontalAdvance);
-            var baseLine = height + (height * glyph.Face.Descender / glyph.Face.Height);
             var glyphMetrics = new GlyphMetrics()
             {
                 ID = charCode,
@@ -149,7 +146,8 @@ namespace JSSoft.Font
                 VerticalBearingX = (int)metrics.VerticalBearingX,
                 VerticalBearingY = (int)metrics.VerticalBearingY,
                 VerticalAdvance = (int)metrics.VerticalAdvance,
-                BaseLine = (int)Math.Round(baseLine),
+                FontHeight = fontHeight,
+                BaseLine = baseLine,
             };
             return new FontGlyph()
             {
