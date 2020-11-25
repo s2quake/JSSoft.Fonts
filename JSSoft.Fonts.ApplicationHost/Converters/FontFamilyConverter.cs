@@ -25,7 +25,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace JSSoft.Font.ApplicationHost.Converters
+namespace JSSoft.Fonts.ApplicationHost.Converters
 {
     class FontFamilyConverter : IMultiValueConverter
     {

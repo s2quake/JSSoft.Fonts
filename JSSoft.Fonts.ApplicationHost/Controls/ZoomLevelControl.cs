@@ -30,7 +30,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace JSSoft.Font.ApplicationHost.Controls
+namespace JSSoft.Fonts.ApplicationHost.Controls
 {
     [TemplatePart(Name = PART_ComboBox, Type = typeof(ComboBox))]
     public class ZoomLevelControl : Control

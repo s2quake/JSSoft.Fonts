@@ -23,7 +23,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace JSSoft.Font.ApplicationHost.Controls
+namespace JSSoft.Fonts.ApplicationHost.Controls
 {
     [TemplatePart(Name = PART_Viewbox, Type = typeof(Viewbox))]
     public class CharacterControl : Control

@@ -23,7 +23,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace JSSoft.Font.ApplicationHost.Controls
+namespace JSSoft.Fonts.ApplicationHost.Controls
 {
     public class HeaderedContentListItem : ListBoxItem
     {

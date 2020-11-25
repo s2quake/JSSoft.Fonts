@@ -23,7 +23,7 @@
 using JSSoft.ModernUI.Framework;
 using System.Windows;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     public static class ApplicationService
     {

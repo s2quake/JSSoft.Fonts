@@ -22,7 +22,7 @@
 
 using JSSoft.ModernUI.Framework;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     class CharacterRowView : PropertyChangedBase
     {

@@ -28,7 +28,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Threading;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     [Export]
     [Export(typeof(IPropertyService))]

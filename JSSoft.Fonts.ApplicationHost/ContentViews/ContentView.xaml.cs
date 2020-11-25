@@ -20,14 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Input;
-using JSSoft.Font.ApplicationHost.UndoActions;
+using JSSoft.Fonts.ApplicationHost.Input;
+using JSSoft.Fonts.ApplicationHost.UndoActions;
 using JSSoft.ModernUI.Framework;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace JSSoft.Font.ApplicationHost.ContentViews
+namespace JSSoft.Fonts.ApplicationHost.ContentViews
 {
     /// <summary>
     /// ContentView.xaml에 대한 상호 작용 논리

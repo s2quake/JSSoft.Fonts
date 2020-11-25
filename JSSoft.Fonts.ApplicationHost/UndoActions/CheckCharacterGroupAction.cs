@@ -22,7 +22,7 @@
 
 using JSSoft.ModernUI.Framework;
 
-namespace JSSoft.Font.ApplicationHost.UndoActions
+namespace JSSoft.Fonts.ApplicationHost.UndoActions
 {
     class CheckCharacterGroupAction : UndoBase
     {

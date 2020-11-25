@@ -25,7 +25,7 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace JSSoft.Font.ConsoleHost
+namespace JSSoft.Fonts.ConsoleHost
 {
     class Program
     {

@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Properties;
+using JSSoft.Fonts.ApplicationHost.Properties;
 using Microsoft.Win32;
 using JSSoft.Library;
 using JSSoft.ModernUI.Framework;
@@ -28,7 +28,7 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Windows.Media.Imaging;
 
-namespace JSSoft.Font.ApplicationHost.ContextMenus.Character
+namespace JSSoft.Fonts.ApplicationHost.ContextMenus.Character
 {
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(ICharacter))]

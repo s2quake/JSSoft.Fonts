@@ -22,7 +22,7 @@
 
 using System.Windows.Controls;
 
-namespace JSSoft.Font.ApplicationHost.ContentViews
+namespace JSSoft.Fonts.ApplicationHost.ContentViews
 {
     /// <summary>
     /// MenuView.xaml에 대한 상호 작용 논리

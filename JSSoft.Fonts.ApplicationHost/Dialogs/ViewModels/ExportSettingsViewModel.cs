@@ -20,13 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Properties;
+using JSSoft.Fonts.ApplicationHost.Properties;
 using JSSoft.ModernUI.Framework;
 using JSSoft.ModernUI.Framework.Dialogs.ViewModels;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
+namespace JSSoft.Fonts.ApplicationHost.Dialogs.ViewModels
 {
     class ExportSettingsViewModel : ModalDialogBase
     {

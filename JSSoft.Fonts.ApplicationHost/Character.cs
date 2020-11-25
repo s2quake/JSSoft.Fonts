@@ -26,7 +26,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media.Imaging;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     class Character : PropertyChangedBase, ICharacter
     {

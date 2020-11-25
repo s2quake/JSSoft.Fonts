@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Properties;
+using JSSoft.Fonts.ApplicationHost.Properties;
 using JSSoft.Library;
 using JSSoft.ModernUI.Framework;
 using System;
@@ -29,7 +29,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
+namespace JSSoft.Fonts.ApplicationHost.Dialogs.ViewModels
 {
     public class FindCharacterViewModel : ModalDialogBase
     {

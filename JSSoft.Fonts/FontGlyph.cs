@@ -22,7 +22,7 @@
 
 using System.Drawing;
 
-namespace JSSoft.Font
+namespace JSSoft.Fonts
 {
     public sealed class FontGlyph
     {

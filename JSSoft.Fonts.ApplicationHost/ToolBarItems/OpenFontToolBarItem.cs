@@ -20,15 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Commands;
-using JSSoft.Font.ApplicationHost.Properties;
+using JSSoft.Fonts.ApplicationHost.Commands;
+using JSSoft.Fonts.ApplicationHost.Properties;
 using JSSoft.Library;
 using JSSoft.ModernUI.Framework;
 using System;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
 
-namespace JSSoft.Font.ApplicationHost.ToolBarItems
+namespace JSSoft.Fonts.ApplicationHost.ToolBarItems
 {
     [Export(typeof(IToolBarItem))]
     [ParentType(typeof(IShell))]

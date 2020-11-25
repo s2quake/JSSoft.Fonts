@@ -24,7 +24,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace JSSoft.Font.ApplicationHost.Dialogs.Views
+namespace JSSoft.Fonts.ApplicationHost.Dialogs.Views
 {
     /// <summary>
     /// PreviewView.xaml에 대한 상호 작용 논리

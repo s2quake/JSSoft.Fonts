@@ -22,7 +22,7 @@
 
 using JSSoft.ModernUI.Framework;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     public abstract class PropertyItemBase : ViewModelBase, IPropertyItem
     {

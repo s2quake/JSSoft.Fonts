@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JSSoft.Font.ApplicationHost", "JSSoft.Font.ApplicationHost\JSSoft.Font.ApplicationHost.csproj", "{46B68156-3AA5-4D2C-AFC5-1B6FB9120C3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JSSoft.Fonts.ApplicationHost", "JSSoft.Fonts.ApplicationHost\JSSoft.Fonts.ApplicationHost.csproj", "{46B68156-3AA5-4D2C-AFC5-1B6FB9120C3E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JSSoft.ModernUI.Framework", "..\JSSoft.ModernUI.Framework\JSSoft.ModernUI.Framework\JSSoft.ModernUI.Framework.csproj", "{20C3D3DD-DE99-4126-9449-BCA12E4D255D}"
 EndProject
@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "etc", "etc", "{F8F0D537-37C
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JSSoft.Font", "JSSoft.Font\JSSoft.Font.csproj", "{9BFDC602-9227-4BB1-8734-2983C2CD4B8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JSSoft.Fonts", "JSSoft.Fonts\JSSoft.Fonts.csproj", "{9BFDC602-9227-4BB1-8734-2983C2CD4B8C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JSSoft.Font.ConsoleHost", "JSSoft.Font.ConsoleHost\JSSoft.Font.ConsoleHost.csproj", "{05E4204B-2E5C-40A6-B28C-345CF45FFA72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JSSoft.Fonts.ConsoleHost", "JSSoft.Fonts.ConsoleHost\JSSoft.Fonts.ConsoleHost.csproj", "{05E4204B-2E5C-40A6-B28C-345CF45FFA72}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JSSoft.Library.Commands", "..\JSSoft.Library.Commands\JSSoft.Library.Commands\JSSoft.Library.Commands.csproj", "{0D96CC61-6D74-49B4-A558-33AC0DCF8529}"
 EndProject

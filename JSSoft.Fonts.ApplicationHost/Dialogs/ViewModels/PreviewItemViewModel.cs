@@ -33,7 +33,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
+namespace JSSoft.Fonts.ApplicationHost.Dialogs.ViewModels
 {
     class PreviewItemViewModel : PropertyChangedBase
     {

@@ -22,7 +22,7 @@
 
 using System.Windows.Media;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     static class ColorUtility
     {

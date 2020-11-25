@@ -20,12 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Properties;
-using JSSoft.Font.ApplicationHost.UndoActions;
+using JSSoft.Fonts.ApplicationHost.Properties;
+using JSSoft.Fonts.ApplicationHost.UndoActions;
 using JSSoft.ModernUI.Framework;
 using System.ComponentModel.Composition;
 
-namespace JSSoft.Font.ApplicationHost.ContextMenus.Character
+namespace JSSoft.Fonts.ApplicationHost.ContextMenus.Character
 {
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(ICharacter))]

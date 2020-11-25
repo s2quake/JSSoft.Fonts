@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     class CharacterGroup : ListBoxItemViewModel, ICharacterGroup
     {

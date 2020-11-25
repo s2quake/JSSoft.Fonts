@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace JSSoft.Font.Serializations
+namespace JSSoft.Fonts.Serializations
 {
     public class CharsSerializationInfo
     {

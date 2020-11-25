@@ -22,7 +22,7 @@
 
 using System.Windows.Media.Imaging;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     public interface ICharacter
     {

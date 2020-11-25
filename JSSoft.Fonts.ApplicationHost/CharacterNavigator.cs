@@ -28,7 +28,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     [Export(typeof(ICharacterNavigator))]
     class CharacterNavigator : PropertyChangedBase, ICharacterNavigator

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace JSSoft.Font.ConsoleHost.Properties {
+namespace JSSoft.Fonts.ConsoleHost.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace JSSoft.Font.ConsoleHost.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JSSoft.Font.ConsoleHost.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JSSoft.Fonts.ConsoleHost.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

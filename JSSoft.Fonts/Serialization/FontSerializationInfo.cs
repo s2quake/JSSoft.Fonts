@@ -23,7 +23,7 @@
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace JSSoft.Font.Serializations
+namespace JSSoft.Fonts.Serializations
 {
     [XmlRoot("font")]
     public struct FontSerializationInfo

@@ -23,7 +23,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace JSSoft.Font.ApplicationHost.Controls
+namespace JSSoft.Fonts.ApplicationHost.Controls
 {
     [TemplatePart(Name = PART_Horizontal, Type = typeof(TextBox))]
     [TemplatePart(Name = PART_Vertical, Type = typeof(TextBox))]

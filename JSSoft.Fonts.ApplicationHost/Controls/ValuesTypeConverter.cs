@@ -25,7 +25,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 
-namespace JSSoft.Font.ApplicationHost.Controls
+namespace JSSoft.Fonts.ApplicationHost.Controls
 {
     public class ValuesTypeConverter : TypeConverter
     {

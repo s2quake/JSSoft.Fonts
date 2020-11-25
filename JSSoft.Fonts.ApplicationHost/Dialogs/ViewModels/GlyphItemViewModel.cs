@@ -23,7 +23,7 @@
 using JSSoft.ModernUI.Framework.ViewModels;
 using System.Windows;
 
-namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
+namespace JSSoft.Fonts.ApplicationHost.Dialogs.ViewModels
 {
     class GlyphItemViewModel : ListBoxItemViewModel
     {

@@ -24,7 +24,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace JSSoft.Font
+namespace JSSoft.Fonts
 {
     public class FontSpacingConverter : TypeConverter
     {

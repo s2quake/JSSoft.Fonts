@@ -20,14 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Properties;
+using JSSoft.Fonts.ApplicationHost.Properties;
 using JSSoft.ModernUI.Framework;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JSSoft.Font.ApplicationHost.Dialogs.ViewModels
+namespace JSSoft.Fonts.ApplicationHost.Dialogs.ViewModels
 {
     public class FontLoadSettingsViewModel : ModalDialogBase
     {

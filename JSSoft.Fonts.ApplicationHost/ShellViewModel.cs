@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Commands;
-using JSSoft.Font.ApplicationHost.Properties;
-using JSSoft.Font.ApplicationHost.Serializations;
+using JSSoft.Fonts.ApplicationHost.Commands;
+using JSSoft.Fonts.ApplicationHost.Properties;
+using JSSoft.Fonts.ApplicationHost.Serializations;
 using JSSoft.ModernUI.Framework;
 using System;
 using System.Collections.Generic;
@@ -39,7 +39,7 @@ using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     [Export]
     [Export(typeof(IShell))]

@@ -21,11 +21,11 @@
 // SOFTWARE.
 
 using Caliburn.Micro;
-using JSSoft.Font.ApplicationHost.Controls;
+using JSSoft.Fonts.ApplicationHost.Controls;
 using JSSoft.ModernUI.Framework;
 using System.Windows;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     class AppBootstrapper : AppBootstrapperBase
     {

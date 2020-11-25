@@ -23,7 +23,7 @@
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace JSSoft.Font.ApplicationHost.Serializations
+namespace JSSoft.Fonts.ApplicationHost.Serializations
 {
     [XmlRoot]
     public struct ExportSettingsInfo

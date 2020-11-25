@@ -23,7 +23,7 @@
 using JSSoft.ModernUI.Framework;
 using System;
 
-namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
+namespace JSSoft.Fonts.ApplicationHost.MenuItems.FileMenus
 {
     [ParentType(typeof(RecentSettingsMenuItem))]
     class RecentSettingsItemMenuItem : MenuItemBase

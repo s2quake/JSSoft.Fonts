@@ -26,7 +26,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 
-namespace JSSoft.Font.ApplicationHost.ContentViews
+namespace JSSoft.Fonts.ApplicationHost.ContentViews
 {
     /// <summary>
     /// ToolBarView.xaml에 대한 상호 작용 논리

@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     public interface IPropertyService
     {

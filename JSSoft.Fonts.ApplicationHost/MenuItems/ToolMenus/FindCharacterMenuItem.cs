@@ -20,14 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
-using JSSoft.Font.ApplicationHost.Properties;
+using JSSoft.Fonts.ApplicationHost.Dialogs.ViewModels;
+using JSSoft.Fonts.ApplicationHost.Properties;
 using JSSoft.ModernUI.Framework;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
 
-namespace JSSoft.Font.ApplicationHost.MenuItems.ToolMenus
+namespace JSSoft.Fonts.ApplicationHost.MenuItems.ToolMenus
 {
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(ToolMenuItem))]

@@ -20,12 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Dialogs.ViewModels;
-using JSSoft.Font.ApplicationHost.Properties;
+using JSSoft.Fonts.ApplicationHost.Dialogs.ViewModels;
+using JSSoft.Fonts.ApplicationHost.Properties;
 using Microsoft.Win32;
 using System.Threading.Tasks;
 
-namespace JSSoft.Font.ApplicationHost.Commands
+namespace JSSoft.Fonts.ApplicationHost.Commands
 {
     public static class OpenFontCommand
     {

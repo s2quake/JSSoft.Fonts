@@ -23,7 +23,7 @@ SOFTWARE.
 ====================================================================================================================-->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:jsfc="clr-namespace:JSSoft.Font.ApplicationHost.Controls">
+                    xmlns:jsfc="clr-namespace:JSSoft.Fonts.ApplicationHost.Controls">
 
      <ControlTemplate x:Key="ZoomLevelControl_Template" TargetType="{x:Type jsfc:ZoomLevelControl}">
         <ComboBox x:Name="PART_ComboBox" IsEditable="True" Padding="{TemplateBinding Padding}" />

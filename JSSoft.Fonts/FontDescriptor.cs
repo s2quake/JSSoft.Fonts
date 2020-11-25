@@ -27,7 +27,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 
-namespace JSSoft.Font
+namespace JSSoft.Fonts
 {
     public sealed class FontDescriptor : IDisposable
     {

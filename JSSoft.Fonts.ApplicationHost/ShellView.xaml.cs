@@ -21,12 +21,12 @@
 // SOFTWARE.
 
 using FirstFloor.ModernUI.Windows.Controls;
-using JSSoft.Font.ApplicationHost.Input;
+using JSSoft.Fonts.ApplicationHost.Input;
 using JSSoft.ModernUI.Framework;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     /// <summary>
     /// ShellView.xaml에 대한 상호 작용 논리

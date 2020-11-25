@@ -22,7 +22,7 @@
 
 using System.Windows;
 
-namespace JSSoft.Font.ApplicationHost.Assets
+namespace JSSoft.Fonts.ApplicationHost.Assets
 {
     partial class CharacterControl : ResourceDictionary
     {

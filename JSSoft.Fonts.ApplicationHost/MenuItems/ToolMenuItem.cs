@@ -20,13 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Properties;
+using JSSoft.Fonts.ApplicationHost.Properties;
 using JSSoft.Library;
 using JSSoft.ModernUI.Framework;
 using System;
 using System.ComponentModel.Composition;
 
-namespace JSSoft.Font.ApplicationHost.MenuItems
+namespace JSSoft.Fonts.ApplicationHost.MenuItems
 {
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(IShell))]

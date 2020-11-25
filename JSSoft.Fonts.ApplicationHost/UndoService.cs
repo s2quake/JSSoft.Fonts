@@ -24,7 +24,7 @@ using JSSoft.ModernUI.Framework;
 using System;
 using System.ComponentModel.Composition;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     [Export(typeof(IUndoService))]
     class UndoService : UndoServiceBase

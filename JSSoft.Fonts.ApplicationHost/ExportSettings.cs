@@ -20,10 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Serializations;
+using JSSoft.Fonts.ApplicationHost.Serializations;
 using JSSoft.ModernUI.Framework;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     public sealed class ExportSettings : PropertyChangedBase
     {

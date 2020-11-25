@@ -20,10 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Properties;
+using JSSoft.Fonts.ApplicationHost.Properties;
 using System.Windows.Input;
 
-namespace JSSoft.Font.ApplicationHost.Input
+namespace JSSoft.Fonts.ApplicationHost.Input
 {
     public static class FontCommands
     {

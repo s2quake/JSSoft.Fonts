@@ -25,7 +25,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
-namespace JSSoft.Font.ApplicationHost.Controls
+namespace JSSoft.Fonts.ApplicationHost.Controls
 {
     [TemplatePart(Name = PART_EditableComboBox, Type = typeof(ComboBox))]
     public class ValueSelector : Control

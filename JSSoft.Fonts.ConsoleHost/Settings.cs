@@ -23,7 +23,7 @@
 using JSSoft.Library.Commands;
 using System.ComponentModel;
 
-namespace JSSoft.Font.ConsoleHost
+namespace JSSoft.Fonts.ConsoleHost
 {
     [ResourceDescription("Properties/Resources")]
     class Settings

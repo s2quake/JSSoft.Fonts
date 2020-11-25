@@ -22,7 +22,7 @@
 
 using System;
 
-namespace JSSoft.Font
+namespace JSSoft.Fonts
 {
     public static class NamesList
     {

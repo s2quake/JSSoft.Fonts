@@ -30,9 +30,9 @@ FreeType 기반 폰트 텍스쳐 생성기
 
     Window Key + S 누른후 검색창에서 Developer PowerShell For VS 2019 실행
 
-    git clone https://github.com/s2quake/JSSoft.Font.git --recursive
+    git clone https://github.com/s2quake/JSSoft.Fonts.git --recursive
 
-    cd JSSoft.Font
+    cd JSSoft.Fonts
 
     msbuild -t:restore 
 
@@ -42,12 +42,12 @@ FreeType 기반 폰트 텍스쳐 생성기
 
 ## Visual Studio Code
 
-    git clone https://github.com/s2quake/JSSoft.Font.git --recursive
+    git clone https://github.com/s2quake/JSSoft.Fonts.git --recursive
 
-    cd JSSoft.Font
+    cd JSSoft.Fonts
 
     dotnet restore
 
     dotnet build --framework netcoreapp3.0
 
-    dotnet run --framework netcoreapp3.0 --project JSSoft.Font.ApplicationHost
+    dotnet run --framework netcoreapp3.0 --project JSSoft.Fonts.ApplicationHost

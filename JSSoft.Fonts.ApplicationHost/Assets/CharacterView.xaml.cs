@@ -20,13 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.UndoActions;
+using JSSoft.Fonts.ApplicationHost.UndoActions;
 using JSSoft.ModernUI.Framework.DataGrid.Controls;
 using System.Windows;
 using System.Windows.Input;
 using Xceed.Wpf.DataGrid;
 
-namespace JSSoft.Font.ApplicationHost.Assets
+namespace JSSoft.Fonts.ApplicationHost.Assets
 {
     partial class CharacterView : ResourceDictionary
     {

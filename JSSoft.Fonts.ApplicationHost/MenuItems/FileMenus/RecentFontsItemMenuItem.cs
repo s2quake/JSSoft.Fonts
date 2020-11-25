@@ -20,11 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Commands;
+using JSSoft.Fonts.ApplicationHost.Commands;
 using JSSoft.ModernUI.Framework;
 using System;
 
-namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
+namespace JSSoft.Fonts.ApplicationHost.MenuItems.FileMenus
 {
     [ParentType(typeof(RecentSettingsMenuItem))]
     class RecentFontsItemMenuItem : MenuItemBase

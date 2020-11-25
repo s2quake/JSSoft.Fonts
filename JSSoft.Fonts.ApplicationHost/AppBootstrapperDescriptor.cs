@@ -31,7 +31,7 @@ using System.ComponentModel.Composition.Primitives;
 using System.Linq;
 using System.Reflection;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     public class AppBootstrapperDescriptor : AppBootstrapperDescriptorBase
     {

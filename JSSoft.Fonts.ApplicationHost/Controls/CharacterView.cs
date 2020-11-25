@@ -28,7 +28,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Xceed.Wpf.DataGrid;
 
-namespace JSSoft.Font.ApplicationHost.Controls
+namespace JSSoft.Fonts.ApplicationHost.Controls
 {
     [TemplatePart(Name = PART_DataGrid, Type = typeof(ModernDataGridControl))]
     public class CharacterView : Control

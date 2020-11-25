@@ -6,12 +6,12 @@
     <AssemblyVersion>1.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
 	<RepositoryType>git</RepositoryType>
-	<RepositoryUrl>https://github.com/s2quake/JSSoft.Font</RepositoryUrl>
-	<LicenseUrl>https://github.com/s2quake/JSSoft.Font/blob/master/LICENSE.md</LicenseUrl>
+	<RepositoryUrl>https://github.com/s2quake/JSSoft.Fonts</RepositoryUrl>
+	<LicenseUrl>https://github.com/s2quake/JSSoft.Fonts/blob/master/LICENSE.md</LicenseUrl>
 	<Copyright>Copyright (c) 2020 Jeesu Choi</Copyright>
 	<Description>freetype based font texture generator</Description>
 	<Authors>s2quake</Authors>
-	<PackageProjectUrl>https://github.com/s2quake/JSSoft.Font</PackageProjectUrl>
+	<PackageProjectUrl>https://github.com/s2quake/JSSoft.Fonts</PackageProjectUrl>
 	<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageTags>jsfont</PackageTags>
     <LangVersion>latest</LangVersion>
@@ -23,7 +23,7 @@
     <OutputPath>$(RootPath)bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName)</OutputPath>
     <IntermediateOutputPath>$(RootPath)obj\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName)</IntermediateOutputPath>
 	<DelaySign>true</DelaySign>
-	<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)JSSoft.Font.snk</AssemblyOriginatorKeyFile>
+	<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)JSSoft.Fonts.snk</AssemblyOriginatorKeyFile>
 	<SignAssembly>true</SignAssembly>
 	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>

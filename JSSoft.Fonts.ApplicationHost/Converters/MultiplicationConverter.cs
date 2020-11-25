@@ -24,7 +24,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace JSSoft.Font.ApplicationHost.Converters
+namespace JSSoft.Fonts.ApplicationHost.Converters
 {
     class MultiplicationConverter : IMultiValueConverter
     {

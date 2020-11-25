@@ -22,7 +22,7 @@
 
 using System;
 
-namespace JSSoft.Font
+namespace JSSoft.Fonts
 {
     class Reservator : IReservator
     {

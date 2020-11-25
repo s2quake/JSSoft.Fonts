@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     public interface IShell
     {

@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.Properties;
+using JSSoft.Fonts.Properties;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace JSSoft.Font
+namespace JSSoft.Fonts
 {
     [TypeConverter(typeof(CharacterCollectionConverter))]
     public class CharacterCollection : IEnumerable<uint>, IFormattable

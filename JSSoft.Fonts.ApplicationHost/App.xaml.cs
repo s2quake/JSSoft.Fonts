@@ -22,7 +22,7 @@
 
 using System.Windows;
 
-namespace JSSoft.Font.ApplicationHost
+namespace JSSoft.Fonts.ApplicationHost
 {
     /// <summary>
     /// App.xaml에 대한 상호 작용 논리

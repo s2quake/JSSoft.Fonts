@@ -20,12 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Controls;
+using JSSoft.Fonts.ApplicationHost.Controls;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 
-namespace JSSoft.Font.ApplicationHost.ContentViews
+namespace JSSoft.Fonts.ApplicationHost.ContentViews
 {
     /// <summary>
     /// StatusBarView.xaml에 대한 상호 작용 논리

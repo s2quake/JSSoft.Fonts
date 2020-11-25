@@ -20,12 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Properties;
+using JSSoft.Fonts.ApplicationHost.Properties;
 using JSSoft.ModernUI.Framework;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
 
-namespace JSSoft.Font.ApplicationHost.MenuItems.ViewMenus
+namespace JSSoft.Fonts.ApplicationHost.MenuItems.ViewMenus
 {
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(ViewMenuItem))]

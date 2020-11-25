@@ -26,7 +26,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
-namespace JSSoft.Font
+namespace JSSoft.Fonts
 {
     static class FontBitmapConverter
     {

@@ -20,11 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Properties;
+using JSSoft.Fonts.ApplicationHost.Properties;
 using JSSoft.Library;
 using System.ComponentModel.Composition;
 
-namespace JSSoft.Font.ApplicationHost.PropertyItems.ViewModels
+namespace JSSoft.Fonts.ApplicationHost.PropertyItems.ViewModels
 {
     [Export(typeof(IPropertyItem))]
     [Dependency(typeof(FontInfoViewModel))]

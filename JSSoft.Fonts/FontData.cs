@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.Serializations;
+using JSSoft.Fonts.Serializations;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,7 +29,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace JSSoft.Font
+namespace JSSoft.Fonts
 {
     public sealed class FontData
     {

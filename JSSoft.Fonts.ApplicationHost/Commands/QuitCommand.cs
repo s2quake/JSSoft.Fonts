@@ -23,7 +23,7 @@
 using JSSoft.ModernUI.Framework;
 using System.Threading.Tasks;
 
-namespace JSSoft.Font.ApplicationHost.Commands
+namespace JSSoft.Fonts.ApplicationHost.Commands
 {
     public static class QuitCommand
     {

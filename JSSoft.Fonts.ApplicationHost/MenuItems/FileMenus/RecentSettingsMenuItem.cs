@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using JSSoft.Font.ApplicationHost.Properties;
+using JSSoft.Fonts.ApplicationHost.Properties;
 using JSSoft.Library;
 using JSSoft.ModernUI.Framework;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 
-namespace JSSoft.Font.ApplicationHost.MenuItems.FileMenus
+namespace JSSoft.Fonts.ApplicationHost.MenuItems.FileMenus
 {
     [Export(typeof(IMenuItem))]
     [ParentType(typeof(FileMenuItem))]
