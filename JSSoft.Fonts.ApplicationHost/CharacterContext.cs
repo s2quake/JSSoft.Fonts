@@ -24,18 +24,19 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 
 namespace JSSoft.Fonts.ApplicationHost
 {
     class CharacterContext
     {
-        private readonly ObservableCollection<uint> characters;
+        private readonly List<uint> characterList = new List<uint>(100);
+        private uint[] characterArray;
 
-        public CharacterContext(IServiceProvider serviceProvider, FontDescriptor fontDescriptor, ObservableCollection<uint> characters)
+        public CharacterContext(IServiceProvider serviceProvider, FontDescriptor fontDescriptor)
         {
             this.ServiceProvider = serviceProvider;
             this.FontDescriptor = fontDescriptor;
-            this.characters = characters;
         }
 
         public void Register(Character character)
@@ -51,6 +52,25 @@ namespace JSSoft.Fonts.ApplicationHost
 
         public IServiceProvider ServiceProvider { get; }
 
+        public uint[] Characters
+        {
+            get
+            {
+                if (this.characterArray == null)
+                {
+                    return this.characterArray = this.characterList.ToArray();
+                }
+                return this.characterArray;
+            }
+        }
+
+        public event EventHandler Changed;
+
+        protected virtual void OnChanged(EventArgs e)
+        {
+            this.Changed?.Invoke(this, e);
+        }
+
         private void Character_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Character.IsChecked) && sender is Character character)
@@ -59,11 +79,17 @@ namespace JSSoft.Fonts.ApplicationHost
                 {
                     if (character.IsChecked == true)
                     {
-                        characters.Add(character.ID);
+                        if (this.characterList.Count == this.characterList.Capacity)
+                            this.characterList.Capacity += 100;
+                        this.characterList.Add(character.ID);
+                        this.characterArray = null;
+                        this.OnChanged(EventArgs.Empty);
                     }
                     else
                     {
-                        characters.Remove(character.ID);
+                        this.characterList.Remove(character.ID);
+                        this.characterArray = null;
+                        this.OnChanged(EventArgs.Empty);
                     }
                 }
             }

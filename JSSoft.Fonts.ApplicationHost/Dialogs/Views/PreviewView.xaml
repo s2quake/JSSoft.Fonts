@@ -30,7 +30,7 @@ SOFTWARE.
              xmlns:jmfv="clr-namespace:JSSoft.ModernUI.Framework.Converters;assembly=JSSoft.ModernUI.Framework"
              xmlns:jsfc="clr-namespace:JSSoft.Fonts.ApplicationHost.Controls"
              xmlns:jsfv="clr-namespace:JSSoft.Fonts.ApplicationHost.Converters"
-             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="300" jmfc:DialogWindow.DesiredResizeMode="CanResize">
+             mc:Ignorable="d" d:DesignWidth="500" jmfc:DialogWindow.DesiredHeight="300" jmfc:DialogWindow.DesiredResizeMode="CanResize">
 
     <UserControl.Resources>
 
@@ -102,7 +102,7 @@ SOFTWARE.
             </Grid.ColumnDefinitions>
             <ListBox x:Name="Glyphs" ItemsSource="{Binding Path=SelectedItem.Glyphs, ElementName=ContentViewer}" 
                      SelectedItem="{Binding Path=SelectedItem.Glyph, ElementName=ContentViewer}"
-                     BorderThickness="1 1 0 1" BorderBrush="{StaticResource ItemBorder}"
+                     BorderThickness="1 1 1 1" BorderBrush="{StaticResource ItemBorder}"
                      SelectionChanged="Glyphs_SelectionChanged">
                 <ListBox.FontFamily >
                     <MultiBinding Converter="{StaticResource FontFamilyConverter}">

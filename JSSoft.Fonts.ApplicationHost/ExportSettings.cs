@@ -27,10 +27,10 @@ namespace JSSoft.Fonts.ApplicationHost
 {
     public sealed class ExportSettings : PropertyChangedBase
     {
-        private int textureWidth = 128;
-        private int textureHeight = 128;
-        private FontPadding paddingValue = new FontPadding(1);
-        private FontSpacing spacingValue = new FontSpacing(1);
+        private int textureWidth = FontDataSettings.Default.Width;
+        private int textureHeight = FontDataSettings.Default.Height;
+        private FontPadding paddingValue = FontDataSettings.Default.Padding;
+        private FontSpacing spacingValue = FontDataSettings.Default.Spacing;
 
         public int TextureWidth
         {

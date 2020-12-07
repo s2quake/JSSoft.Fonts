@@ -32,6 +32,8 @@ namespace JSSoft.Fonts
         {
             if (sourceType == typeof(string))
                 return true;
+            else if (sourceType == typeof(int))
+                return true;
             return base.CanConvertFrom(context, sourceType);
         }
 
@@ -40,6 +42,10 @@ namespace JSSoft.Fonts
             if (value is string text)
             {
                 return FontSpacing.Parse(text);
+            }
+            else if (value is int i)
+            {
+                return new FontSpacing(i);
             }
             return base.ConvertFrom(context, culture, value);
         }

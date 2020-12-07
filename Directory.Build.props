@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net452</TargetFrameworks>
     <Version>1.0.0</Version>
     <AssemblyVersion>1.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
-	<RepositoryType>git</RepositoryType>
-	<RepositoryUrl>https://github.com/s2quake/JSSoft.Fonts</RepositoryUrl>
-	<LicenseUrl>https://github.com/s2quake/JSSoft.Fonts/blob/master/LICENSE.md</LicenseUrl>
-	<Copyright>Copyright (c) 2020 Jeesu Choi</Copyright>
-	<Description>freetype based font texture generator</Description>
-	<Authors>s2quake</Authors>
-	<PackageProjectUrl>https://github.com/s2quake/JSSoft.Fonts</PackageProjectUrl>
-	<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/s2quake/JSSoft.Fonts</RepositoryUrl>
+    <LicenseUrl>https://github.com/s2quake/JSSoft.Fonts/blob/master/LICENSE.md</LicenseUrl>
+    <Copyright>Copyright (c) 2020 Jeesu Choi</Copyright>
+    <Description>freetype based font texture generator</Description>
+    <Authors>s2quake</Authors>
+    <PackageProjectUrl>https://github.com/s2quake/JSSoft.Fonts</PackageProjectUrl>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageTags>jsfont</PackageTags>
     <LangVersion>latest</LangVersion>
     <RootPath Condition="'$(SolutionDir)' != ''">$(SolutionDir)</RootPath>
@@ -22,9 +22,9 @@
     <BaseIntermediateOutputPath>$(RootPath)obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
     <OutputPath>$(RootPath)bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName)</OutputPath>
     <IntermediateOutputPath>$(RootPath)obj\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName)</IntermediateOutputPath>
-	<DelaySign>true</DelaySign>
-	<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)JSSoft.Fonts.snk</AssemblyOriginatorKeyFile>
-	<SignAssembly>true</SignAssembly>
-	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <DelaySign>true</DelaySign>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)JSSoft.Fonts.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 </Project>

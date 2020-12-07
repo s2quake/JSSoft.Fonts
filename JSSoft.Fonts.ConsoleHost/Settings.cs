@@ -34,35 +34,28 @@ namespace JSSoft.Fonts.ConsoleHost
         [CommandPropertyRequired]
         public string OutputPath { get; set; }
 
-        [CommandPropertyRequired("characters")]
+        [CommandProperty("characters")]
         public CharacterCollection Characters { get; set; } = CharacterCollection.Empty;
 
-        [CommandProperty("dpi")]
-        [DefaultValue(72)]
+        [CommandProperty("dpi", InitValue = FontDescriptor.DefaultDPI)]
         public int DPI { get; set; }
 
-        [CommandProperty]
-        [DefaultValue(14)]
+        [CommandProperty(InitValue = FontDescriptor.DefaultSize)]
         public int Size { get; set; }
 
-        [CommandProperty]
-        [DefaultValue(0)]
+        [CommandProperty(InitValue = FontDescriptor.DefaultFace)]
         public int Face { get; set; }
 
-        [CommandProperty]
-        [DefaultValue(512)]
+        [CommandProperty(InitValue = FontDataSettings.DefaultWidth)]
         public int TextureWidth { get; set; }
 
-        [CommandProperty]
-        [DefaultValue(512)]
+        [CommandProperty(InitValue = FontDataSettings.DefaultHeight)]
         public int TextureHeight { get; set; }
 
-        [CommandProperty]
-        [DefaultValue("1")]
+        [CommandProperty(InitValue = FontDataSettings.DefaultPadding)]
         public FontPadding Padding { get; set; }
 
-        [CommandProperty]
-        [DefaultValue("1")]
+        [CommandProperty(InitValue = FontDataSettings.DefaultSpacing)]
         public FontSpacing Spacing { get; set; }
     }
 }

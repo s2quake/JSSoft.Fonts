@@ -24,18 +24,25 @@ namespace JSSoft.Fonts
 {
     public class FontDataSettings
     {
+        public const int DefaultWidth = 512;
+        public const int DefaultHeight = 512;
+        public const int DefaultPadding = 1;
+        public const int DefaultSpacing = 1;
+
         public string Name { get; set; } = string.Empty;
 
-        public int Width { get; set; } = 512;
+        public int Width { get; set; } = DefaultWidth;
 
-        public int Height { get; set; } = 512;
+        public int Height { get; set; } = DefaultHeight;
 
-        public FontPadding Padding { get; set; }
+        public FontPadding Padding { get; set; } = new FontPadding(DefaultPadding);
 
-        public FontSpacing Spacing { get; set; }
+        public FontSpacing Spacing { get; set; } = new FontSpacing(DefaultSpacing);
 
         public uint[] Characters { get; set; }
 
-        internal int Capacity => this.Characters.Length;
+        public static FontDataSettings Default { get; } = new FontDataSettings();
+
+        internal int Capacity => this.Characters != null ? this.Characters.Length : 0;
     }
 }

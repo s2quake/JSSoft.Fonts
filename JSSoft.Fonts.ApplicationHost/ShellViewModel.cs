@@ -47,7 +47,6 @@ namespace JSSoft.Fonts.ApplicationHost
     {
         private readonly IAppConfiguration configs;
         private readonly ObservableCollection<CharacterGroup> groupList = new ObservableCollection<CharacterGroup>();
-        private ObservableCollection<uint> checkedCharacters = new ObservableCollection<uint>();
         private CharacterGroup selectedGroup;
         private Character selectedCharacter;
         private double zoomLevel = 1.0;
@@ -107,7 +106,7 @@ namespace JSSoft.Fonts.ApplicationHost
                 await Task.Run(() =>
                 {
                     var name = Path.GetFileNameWithoutExtension(filename);
-                    var dataSettings = this.Settings.Convert(name, this.checkedCharacters.ToArray());
+                    var dataSettings = this.Settings.Convert(name, this.context.Characters);
                     var data = this.FontDescriptor.CreateData(dataSettings);
                     var fullPath = Path.GetFullPath(filename);
                     var directory = Path.GetDirectoryName(fullPath);
@@ -189,7 +188,7 @@ namespace JSSoft.Fonts.ApplicationHost
                 await this.BeginProgressAsync();
                 var value = await Task.Run(() =>
                 {
-                    var dataSettings = this.Settings.Convert(string.Empty, this.checkedCharacters.ToArray());
+                    var dataSettings = this.Settings.Convert(string.Empty, this.context.Characters);
                     return this.FontDescriptor.CreateData(dataSettings);
                 });
                 return value;
@@ -284,7 +283,7 @@ namespace JSSoft.Fonts.ApplicationHost
 
         public CharacterRow[] CharacterRows => this.selectedGroup != null ? this.selectedGroup.Items : new CharacterRow[] { };
 
-        public uint[] CheckedCharacters => this.checkedCharacters.ToArray();
+        public uint[] CheckedCharacters => this.context.Characters;
 
         public double ZoomLevel
         {
@@ -410,7 +409,7 @@ namespace JSSoft.Fonts.ApplicationHost
             return await QuitCommand.ExecuteInternlAsync(this);
         }
 
-        private void CheckedCharacters_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void Context_Changed(object sender, EventArgs e)
         {
             this.IsModified = true;
         }
@@ -426,14 +425,16 @@ namespace JSSoft.Fonts.ApplicationHost
             await Task.Run(() =>
             {
                 var fontDescriptor = new FontDescriptor(fullPath, (uint)dpi, size, faceIndex);
-                this.checkedCharacters = new ObservableCollection<uint>();
-                this.checkedCharacters.CollectionChanged += CheckedCharacters_CollectionChanged;
                 this.groupList.Clear();
-                this.context = new CharacterContext(this.ServiceProvider, fontDescriptor, this.checkedCharacters);
+                this.context = new CharacterContext(this.ServiceProvider, fontDescriptor);
+                this.context.Changed += Context_Changed;
                 foreach (var (name, min, max) in NamesList.Items)
                 {
                     var items = CreateGroups(this.context, name, min, max);
-                    Array.ForEach(items, item => this.groupList.Add(item));
+                    Array.ForEach(items, item =>
+                    {
+                        this.groupList.Add(item);
+                    });
                 }
                 this.FontDescriptor = fontDescriptor;
             });

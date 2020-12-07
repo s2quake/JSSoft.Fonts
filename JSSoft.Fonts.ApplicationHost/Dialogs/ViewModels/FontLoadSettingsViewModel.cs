@@ -32,7 +32,7 @@ namespace JSSoft.Fonts.ApplicationHost.Dialogs.ViewModels
     public class FontLoadSettingsViewModel : ModalDialogBase
     {
         private string selectedFace;
-        private int size = 14;
+        private int size = 26;
         private int dpi = 72;
 
         public FontLoadSettingsViewModel(string path)

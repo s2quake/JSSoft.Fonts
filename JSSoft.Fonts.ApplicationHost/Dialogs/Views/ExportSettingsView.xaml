@@ -49,9 +49,9 @@ SOFTWARE.
             <jsfc:PaddingControl x:Name="PaddingValue" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Padding}" />
             <jsfc:SpacingControl x:Name="SpacingValue" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_Spacing}" />
             <jsfc:ValueSelector x:Name="TextureWidth" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_TextureWidth}"
-                                Values="64 128 256 512 1024 2048 4096" />
+                                Values="0 64 128 256 512 1024 2048 4096" />
             <jsfc:ValueSelector x:Name="TextureHeight" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_TextureHeight}" 
-                                Values="64 128 256 512 1024 2048 4096" />
+                                Values="0 64 128 256 512 1024 2048 4096" />
             <Button x:Name="SelectBackgroundColor" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_BackgroundColor}"
                     Background="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorButton_Style}" />
             <Button x:Name="SelectForegroundColor" jmfc:PropertyItemsControl.Header="{x:Static jsfp:Resources.Label_FontColor}" 

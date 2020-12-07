@@ -95,10 +95,10 @@ namespace JSSoft.Fonts
 
         private static FontPage[] GeneratePages(FontDescriptor fontDescriptor, FontDataSettings settings)
         {
-            var characters = settings.Characters ?? new uint[] { };
-            var query = from item in characters
-                        where fontDescriptor.Glyphs.ContainsKey(item)
-                        let glyph = fontDescriptor.Glyphs[item]
+            var characters = new HashSet<uint>(settings.Characters ?? new uint[] { });
+            var query = from item in fontDescriptor.Glyphs
+                        where settings.Characters == null || characters.Contains(item.Key)
+                        let glyph = item.Value
                         where glyph.Bitmap != null
                         let metrics = glyph.Metrics
                         orderby metrics.Width descending

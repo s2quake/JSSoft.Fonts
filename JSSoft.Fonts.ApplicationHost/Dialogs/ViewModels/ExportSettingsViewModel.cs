@@ -30,10 +30,10 @@ namespace JSSoft.Fonts.ApplicationHost.Dialogs.ViewModels
 {
     class ExportSettingsViewModel : ModalDialogBase
     {
-        private int textureWidth = 1024;
-        private int textureHeight = 1024;
-        private FontPadding paddingValue = new FontPadding(1);
-        private FontSpacing spacingValue = new FontSpacing(1);
+        private int textureWidth;
+        private int textureHeight;
+        private FontPadding paddingValue;
+        private FontSpacing spacingValue;
         private Color backgroundColor = ColorUtility.FromColor(FontPage.DefaultBackgroundColor);
         private Color foregroundColor = ColorUtility.FromColor(FontPage.DefaultForegroundColor);
         private Color paddingColor = ColorUtility.FromColor(FontPage.DefaultPaddingColor);

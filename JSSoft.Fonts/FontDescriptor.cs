@@ -31,6 +31,10 @@ namespace JSSoft.Fonts
 {
     public sealed class FontDescriptor : IDisposable
     {
+        public const int DefaultSize = 26;
+        public const int DefaultDPI = 72;
+        public const int DefaultFace = 0;
+
         private readonly Dictionary<uint, FontGlyph> glyphByID;
         private Library lib;
         private Face face;

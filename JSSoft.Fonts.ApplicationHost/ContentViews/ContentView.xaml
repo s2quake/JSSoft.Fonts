@@ -96,10 +96,10 @@ SOFTWARE.
             <ListBox x:Name="GroupList" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, Delay=0}" 
                      BorderThickness="0 1 1 0" BorderBrush="{StaticResource ItemBorder}"
                      ItemTemplate="{StaticResource ListBox_ItemTemplate}" ItemContainerStyle="{StaticResource ListBox_ItemContainerStyle}" />
-            <GridSplitter Grid.Column="1" />
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
             <jsfc:CharacterView x:Name="CharacterView" Grid.Column="2" CharacterGroup="{Binding SelectedGroup}" BorderThickness="1 1 0 0 " 
                                 Character="{Binding SelectedCharacter, Mode=TwoWay}" ZoomLevel="{Binding ZoomLevel}" />
-            <GridSplitter Grid.Column="3" Visibility="{Binding Visibility, ElementName=PropertyWindow}" />
+            <GridSplitter Grid.Column="3" Visibility="{Binding Visibility, ElementName=PropertyWindow}" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
             <ScrollViewer Grid.Column="4" x:Name="PropertyWindow" >
                 <ItemsControl x:Name="properties" ItemsSource="{Binding PropertyService.Properties}" BorderThickness="1 1 0 0" BorderBrush="{StaticResource ItemBorder}"
                               ItemContainerStyle="{StaticResource PropertyWindow_ItemContainerStyle}" />

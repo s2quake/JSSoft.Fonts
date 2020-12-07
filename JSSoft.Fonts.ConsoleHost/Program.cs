@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using JSSoft.Library.Commands;
+using JSSoft.Library.IO;
 using System;
 using System.IO;
 using System.Linq;
@@ -39,8 +40,9 @@ namespace JSSoft.Fonts.ConsoleHost
                 {
                     var inputPath = Path.GetFullPath(settings.FontPath);
                     var outputPath = Path.GetFullPath(settings.OutputPath);
-                    var name = Path.GetFileNameWithoutExtension(outputPath);
+                    var isDirectory = DirectoryUtility.IsDirectory(outputPath);
                     var font = new FontDescriptor(inputPath, (uint)settings.DPI, settings.Size, settings.Face);
+                    var name = isDirectory == true ? font.Name : Path.GetFileNameWithoutExtension(outputPath);
                     var dataSettings = new FontDataSettings()
                     {
                         Name = name,
@@ -48,19 +50,30 @@ namespace JSSoft.Fonts.ConsoleHost
                         Height = settings.TextureHeight,
                         Padding = settings.Padding,
                         Spacing = settings.Spacing,
-                        Characters = settings.Characters.ToArray(),
+                        Characters = settings.Characters?.ToArray(),
                     };
-
                     var data = font.CreateData(dataSettings);
-                    var directory = Path.GetDirectoryName(outputPath);
-                    data.Save(outputPath);
-                    data.SavePages(directory);
+                    var path = isDirectory == true ? Path.Combine(outputPath, $"{name}.fnt") : outputPath;
+                    Save(data, path);
                 }
             }
             catch (Exception e)
             {
                 Console.Error.WriteLine(e);
                 Environment.Exit(1);
+            }
+        }
+
+        static void Save(FontData data, string path)
+        {
+            var directory = Path.GetDirectoryName(path);
+            data.Save(path);
+            Console.WriteLine(path);
+            foreach (var item in data.Pages)
+            {
+                var itemPath = Path.Combine(directory, $"{item.Name}_{item.Index}.png");
+                item.Save(itemPath);
+                Console.WriteLine(itemPath);
             }
         }
     }
