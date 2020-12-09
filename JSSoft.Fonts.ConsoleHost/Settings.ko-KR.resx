@@ -117,4 +117,50 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Settings.Characters" xml:space="preserve">
+    <value>출력할 문자의 유니코드를 나타냅니다.
+10진수 또는 16진수 형태로 표현되며 각 문자는 ',' 로 구분짓습니다.
+'-' 을 사용하여 여러개의 문자를 지정할 수 있습니다.
+예) "65, 0x41, 66-90, 0x61-0x7A"
+
+값이 지정되지 않으면 모든 문자를 출력합니다.</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>지정된 글꼴에서 문자정보와 텍스쳐를 생성합니다.</value>
+  </data>
+  <data name="Settings.DPI" xml:space="preserve">
+    <value>글꼴의 DPI를 나타냅니다. 기본값은 72입니다.</value>
+  </data>
+  <data name="Settings.Face" xml:space="preserve">
+    <value>글꼴의 종류를 나타냅니다.  기본값은 0입니다.</value>
+  </data>
+  <data name="Settings.FontPath" xml:space="preserve">
+    <value>글꼴 경로를 나타냅니다.</value>
+  </data>
+  <data name="Settings.OutputPath" xml:space="preserve">
+    <value>출력 파일을 나타냅니다. 텍스쳐 파일은 출력 디렉터리의 출력 파일 이름을 기준으로 생성됩니다.
+출력 파일이 output.xml 일때 텍스쳐는 output_0.png, output_1.png 으로 생성됩니다.</value>
+  </data>
+  <data name="Settings.Padding" xml:space="preserve">
+    <value>문자의 여백을 나타냅니다. 
+좌우상하의 값을 설정할 수 있습니다. 기본값은 1입니다.
+예1) --padding 1 은 모든 여백을 1로 설정합니다.
+예2) --padding "1, 2" 은 좌우측 여백을 1 상하측 여백은 2로 설정합니다.
+예3) --padding "1 1 0 0" 은 좌측을 1, 상측은 1, 우측은 0, 하측은 0으로 설정합니다.</value>
+  </data>
+  <data name="Settings.Size" xml:space="preserve">
+    <value>글꼴의 크기를 나타냅니다. 기본값은 26입니다.</value>
+  </data>
+  <data name="Settings.Spacing" xml:space="preserve">
+    <value>문자와 문자의 간격을 나타냅니다. 
+수평과 수직값을 설정할 수 있습니다. 기본값은 1입니다.
+예1) --spacing 1 은 수평과 수직 간격을 1로 설정합니다.
+예2) --spacing "1 0" 은 수평 간격만 1로 설정합니다.</value>
+  </data>
+  <data name="Settings.TextureHeight" xml:space="preserve">
+    <value>출력할 텍스쳐의 높이를 나타냅니다. 기본값은 512입니다.</value>
+  </data>
+  <data name="Settings.TextureWidth" xml:space="preserve">
+    <value>출력할 텍스쳐의 너비를 나타냅니다. 기본값은 512입니다.</value>
+  </data>
 </root>

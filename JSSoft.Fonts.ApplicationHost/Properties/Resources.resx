@@ -307,7 +307,7 @@
     <value>Font already open.</value>
   </data>
   <data name="Exception_InvalidSettingsPath" xml:space="preserve">
-    <value>Invalid settings path</value>
+    <value>Invalid settings path.</value>
   </data>
   <data name="Exception_MinLessMax" xml:space="preserve">
     <value>min must be less than max</value>
@@ -317,5 +317,8 @@
   </data>
   <data name="Label_CharacterToSelect" xml:space="preserve">
     <value>_Characters to Select</value>
+  </data>
+  <data name="Exception_CannotFoundInstances" xml:space="preserve">
+    <value>Could not locate any instances.</value>
   </data>
 </root>

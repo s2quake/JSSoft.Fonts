@@ -25,7 +25,7 @@ using System.ComponentModel;
 
 namespace JSSoft.Fonts.ConsoleHost
 {
-    [ResourceDescription("Properties/Resources")]
+    [ResourceDescription]
     class Settings
     {
         [CommandPropertyRequired]

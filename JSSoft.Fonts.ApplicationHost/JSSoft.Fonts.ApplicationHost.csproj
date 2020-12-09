@@ -14,10 +14,10 @@
     <PackageReference Include="SharpFont.Dependencies" Version="2.6.0" GeneratePathProperty="true" />
     <PackageReference Include="System.ComponentModel.Composition" Version="4.7.0" />
   </ItemGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('netcoreapp3.'))" >
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netcoreapp3.'))">
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))" >
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\JSSoft.Library\JSSoft.Library\JSSoft.Library.csproj" />
@@ -26,9 +26,22 @@
     <ProjectReference Include="..\JSSoft.Fonts\JSSoft.Fonts.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Content Update="$(PkgSharpFont_Dependencies)\bin\msvc10\x86\freetype6.dll">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Target Name="CopyFreeType6FileToOutputDirectory_netcoreapp30" AfterTargets="CopyFilesToOutputDirectory">
     <Message Text="Project File Name = $(PkgSharpFont_Dependencies)" />

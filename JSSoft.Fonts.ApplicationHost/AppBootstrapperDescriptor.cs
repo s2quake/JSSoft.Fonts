@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using Caliburn.Micro;
+using JSSoft.Fonts.ApplicationHost.Properties;
 using JSSoft.Library.Linq;
 using JSSoft.ModernUI.Framework;
 using System;
@@ -56,7 +57,7 @@ namespace JSSoft.Fonts.ApplicationHost
             if (exports.Count() > 0)
                 return exports.First();
 
-            throw new InvalidOperationException("Could not locate any instances.");
+            throw new InvalidOperationException(Resources.Exception_CannotFoundInstances);
         }
 
         protected override IEnumerable<Assembly> GetAssemblies()
