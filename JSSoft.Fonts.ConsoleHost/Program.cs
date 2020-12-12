@@ -36,30 +36,28 @@ namespace JSSoft.Fonts.ConsoleHost
             var parser = new CommandLineParser(settings);
             try
             {
-                if (parser.TryParse(Environment.CommandLine) == true)
+                parser.Parse(Environment.CommandLine);
+                var inputPath = Path.GetFullPath(settings.FontPath);
+                var outputPath = Path.GetFullPath(settings.OutputPath);
+                var isDirectory = DirectoryUtility.IsDirectory(outputPath);
+                var font = new FontDescriptor(inputPath, (uint)settings.DPI, settings.Size, settings.Face);
+                var name = isDirectory == true ? font.Name : Path.GetFileNameWithoutExtension(outputPath);
+                var dataSettings = new FontDataSettings()
                 {
-                    var inputPath = Path.GetFullPath(settings.FontPath);
-                    var outputPath = Path.GetFullPath(settings.OutputPath);
-                    var isDirectory = DirectoryUtility.IsDirectory(outputPath);
-                    var font = new FontDescriptor(inputPath, (uint)settings.DPI, settings.Size, settings.Face);
-                    var name = isDirectory == true ? font.Name : Path.GetFileNameWithoutExtension(outputPath);
-                    var dataSettings = new FontDataSettings()
-                    {
-                        Name = name,
-                        Width = settings.TextureWidth,
-                        Height = settings.TextureHeight,
-                        Padding = settings.Padding,
-                        Spacing = settings.Spacing,
-                        Characters = settings.Characters?.ToArray(),
-                    };
-                    var data = font.CreateData(dataSettings);
-                    var path = isDirectory == true ? Path.Combine(outputPath, $"{name}.fnt") : outputPath;
-                    Save(data, path);
-                }
+                    Name = name,
+                    Width = settings.TextureWidth,
+                    Height = settings.TextureHeight,
+                    Padding = settings.Padding,
+                    Spacing = settings.Spacing,
+                    Characters = settings.Characters?.ToArray(),
+                };
+                var data = font.CreateData(dataSettings);
+                var path = isDirectory == true ? Path.Combine(outputPath, $"{name}.fnt") : outputPath;
+                Save(data, path);
             }
             catch (Exception e)
             {
-                Console.Error.WriteLine(e);
+                parser.PrintException(e);
                 Environment.Exit(1);
             }
         }
