@@ -37,23 +37,33 @@ namespace JSSoft.Fonts.ConsoleHost
             try
             {
                 parser.Parse(Environment.CommandLine);
-                var inputPath = Path.GetFullPath(settings.FontPath);
-                var outputPath = Path.GetFullPath(settings.OutputPath);
-                var isDirectory = DirectoryUtility.IsDirectory(outputPath);
-                var font = new FontDescriptor(inputPath, (uint)settings.DPI, settings.Size, settings.Face);
-                var name = isDirectory == true ? font.Name : Path.GetFileNameWithoutExtension(outputPath);
-                var dataSettings = new FontDataSettings()
+                if (settings.OutputPath != string.Empty)
                 {
-                    Name = name,
-                    Width = settings.TextureWidth,
-                    Height = settings.TextureHeight,
-                    Padding = settings.Padding,
-                    Spacing = settings.Spacing,
-                    Characters = settings.Characters?.ToArray(),
-                };
-                var data = font.CreateData(dataSettings);
-                var path = isDirectory == true ? Path.Combine(outputPath, $"{name}.fnt") : outputPath;
-                Save(data, path);
+                    var inputPath = Path.GetFullPath(settings.FontPath);
+                    var outputPath = Path.GetFullPath(settings.OutputPath);
+                    var isDirectory = DirectoryUtility.IsDirectory(outputPath);
+                    var font = new FontDescriptor(inputPath, (uint)settings.DPI, settings.Size, settings.Face);
+                    var name = isDirectory == true ? font.Name : Path.GetFileNameWithoutExtension(outputPath);
+                    var dataSettings = new FontDataSettings()
+                    {
+                        Name = name,
+                        Width = settings.TextureWidth,
+                        Height = settings.TextureHeight,
+                        Padding = settings.Padding,
+                        Spacing = settings.Spacing,
+                        Characters = settings.Characters?.ToArray(),
+                    };
+                    var data = font.CreateData(dataSettings);
+                    var path = isDirectory == true ? Path.Combine(outputPath, $"{name}.fnt") : outputPath;
+                    Save(data, path);
+                }
+                else
+                {
+                    foreach (var item in FontDescriptor.GetFaces(settings.FontPath))
+                    {
+                        Console.WriteLine(item);
+                    }
+                }
             }
             catch (Exception e)
             {

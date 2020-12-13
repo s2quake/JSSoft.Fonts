@@ -138,8 +138,10 @@
     <value>글꼴 경로를 나타냅니다.</value>
   </data>
   <data name="Settings.OutputPath" xml:space="preserve">
-    <value>출력 파일을 나타냅니다. 텍스쳐 파일은 출력 디렉터리의 출력 파일 이름을 기준으로 생성됩니다.
-출력 파일이 output.xml 일때 텍스쳐는 output_0.png, output_1.png 으로 생성됩니다.</value>
+    <value>출력 경로를 나타냅니다.
+출력 경로가 지정되지 않으면 폰트의 정보가 출력됩니다.
+
+출력 경로가 디렉터리일 경우 파일명은 폰트 이름에 따라 자동으로 지정됩니다.</value>
   </data>
   <data name="Settings.Padding" xml:space="preserve">
     <value>문자의 여백을 나타냅니다. 

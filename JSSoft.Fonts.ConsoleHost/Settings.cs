@@ -31,31 +31,39 @@ namespace JSSoft.Fonts.ConsoleHost
         [CommandPropertyRequired]
         public string FontPath { get; set; }
 
-        [CommandPropertyRequired]
+        [CommandPropertyRequired(DefaultValue = "")]
         public string OutputPath { get; set; }
 
         [CommandProperty("characters")]
+        [CommandPropertyTrigger(nameof(OutputPath), "", IsInequality = true)]
         public CharacterCollection Characters { get; set; } = CharacterCollection.Empty;
 
         [CommandProperty("dpi", InitValue = FontDescriptor.DefaultDPI)]
+        [CommandPropertyTrigger(nameof(OutputPath), "", IsInequality = true)]
         public int DPI { get; set; }
 
         [CommandProperty(InitValue = FontDescriptor.DefaultSize)]
+        [CommandPropertyTrigger(nameof(OutputPath), "", IsInequality = true)]
         public int Size { get; set; }
 
         [CommandProperty(InitValue = FontDescriptor.DefaultFace)]
+        [CommandPropertyTrigger(nameof(OutputPath), "", IsInequality = true)]
         public int Face { get; set; }
 
         [CommandProperty(InitValue = FontDataSettings.DefaultWidth)]
+        [CommandPropertyTrigger(nameof(OutputPath), "", IsInequality = true)]
         public int TextureWidth { get; set; }
 
         [CommandProperty(InitValue = FontDataSettings.DefaultHeight)]
+        [CommandPropertyTrigger(nameof(OutputPath), "", IsInequality = true)]
         public int TextureHeight { get; set; }
 
         [CommandProperty(InitValue = FontDataSettings.DefaultPadding)]
+        [CommandPropertyTrigger(nameof(OutputPath), "", IsInequality = true)]
         public FontPadding Padding { get; set; }
 
         [CommandProperty(InitValue = FontDataSettings.DefaultSpacing)]
+        [CommandPropertyTrigger(nameof(OutputPath), "", IsInequality = true)]
         public FontSpacing Spacing { get; set; }
     }
 }

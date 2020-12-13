@@ -138,8 +138,10 @@ If no value is specified, export all characters.</value>
     <value>Indicates the font path.</value>
   </data>
   <data name="Settings.OutputPath" xml:space="preserve">
-    <value>Indicates the output file. Texture files are created based on the output file name of the output directory.
-When the output file is output.xml, the texture is created as output_0.png, output_1.png.</value>
+    <value>Indicates the output path.
+If no output path is specified, the font information is output.
+
+If the output path is a directory, the file is automatically named based on the font name.</value>
   </data>
   <data name="Settings.Padding" xml:space="preserve">
     <value>Indicates the padding of the character. 
