@@ -24,7 +24,7 @@
     <IntermediateOutputPath>$(RootPath)obj\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName)</IntermediateOutputPath>
     <DelaySign>true</DelaySign>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)JSSoft.Fonts.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly Condition="'$(Configuration)' == 'Release'">true</SignAssembly>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 </Project>
