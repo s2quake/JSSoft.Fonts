@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <AssemblyName>jsfont</AssemblyName>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <OutputPath>$(ExePath)console</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\JSSoft.Fonts\JSSoft.Fonts.csproj" />

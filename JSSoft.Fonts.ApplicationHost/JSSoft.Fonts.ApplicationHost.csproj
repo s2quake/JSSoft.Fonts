@@ -5,6 +5,7 @@
     <AssemblyName>jsfontApp</AssemblyName>
     <ApplicationIcon>App.ico</ApplicationIcon>
     <UseWPF>true</UseWPF>
+    <OutputPath>$(ExePath)application</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Images\**\*.png" />
