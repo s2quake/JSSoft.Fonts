@@ -38,6 +38,7 @@ namespace JSSoft.Fonts.ApplicationHost.Commands
                 return false;
             if (shell.IsOpened == true)
                 await shell.CloseAsync();
+            await System.Windows.Application.Current.Dispatcher.InvokeAsync(() => System.Windows.Application.Current.Shutdown());
             return true;
         }
 
