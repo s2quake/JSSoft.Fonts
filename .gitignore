@@ -346,4 +346,5 @@ healthchecksdb
 .vscode/
 .DS_Store
 logs/
+exe/
 **/launchSettings.json

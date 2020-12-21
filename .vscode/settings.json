@@ -2,6 +2,8 @@
     "files.exclude": {
         ".vs": true,
         "**/bin": true,
+        "**/exe": true,
         "**/obj": true
-    }
+    },
+    "editor.codeLens": false
 }

@@ -12,6 +12,26 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "build-console",
+            "command": "dotnet build --framework netcoreapp3.1 ./JSSoft.Fonts.ConsoleHost",
+            "type": "shell",
+            "group": "build",
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-application",
+            "command": "dotnet build --framework netcoreapp3.1 ./JSSoft.Fonts.ApplicationHost",
+            "type": "shell",
+            "group": "build",
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "clean",
             "command": "dotnet clean",
             "type": "shell",
