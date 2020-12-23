@@ -19,12 +19,12 @@
     <RootPath Condition="'$(SolutionDir)' == ''">$(MSBuildStartupDirectory)\</RootPath>
     <ConfigurationType Condition="'$(Configuration)' == ''">Debug</ConfigurationType>
     <ConfigurationType Condition="'$(Configuration)' != ''">$(Configuration)</ConfigurationType>
+    <PublishName></PublishName>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <BaseOutputPath>$(RootPath)bin\$(MSBuildProjectName)</BaseOutputPath>
     <BaseIntermediateOutputPath>$(RootPath)obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
     <OutputPath>$(RootPath)bin\$(ConfigurationType)\$(TargetFramework)\$(MSBuildProjectName)</OutputPath>
     <IntermediateOutputPath>$(RootPath)obj\$(ConfigurationType)\$(TargetFramework)\$(MSBuildProjectName)</IntermediateOutputPath>
-    <ExePath>$(RootPath)exe\$(ConfigurationType)\$(TargetFramework)\</ExePath>
     <DelaySign>true</DelaySign>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)JSSoft.Fonts.snk</AssemblyOriginatorKeyFile>
     <SignAssembly Condition="'$(Configuration)' == 'Release'">true</SignAssembly>
