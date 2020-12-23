@@ -5,7 +5,7 @@
     <AssemblyName>jsfontApp</AssemblyName>
     <ApplicationIcon>App.ico</ApplicationIcon>
     <UseWPF>true</UseWPF>
-    <PublishName>application</PublishName>
+    <PublishName>jsfont\application</PublishName>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Images\**\*.png" />
@@ -45,12 +45,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <Target Name="CopyFiles_CopyFilesToOutputDirectory" AfterTargets="CopyFilesToOutputDirectory">
-    <Message Text="$([MSBuild]::MakeRelative($(RootPath), $(ProjectDir)))" />
     <Copy SourceFiles="$(PkgSharpFont_Dependencies)\bin\msvc10\x64\freetype6.dll" DestinationFolder="$(OutputPath)" />
     <Copy SourceFiles="$(MSBuildThisFileDirectory)..\msvcr100.dll" DestinationFolder="$(OutputPath)" />
   </Target>
   <Target Name="CopyFiles_AfterPublish" AfterTargets="Publish">
-    <Message Text="$([MSBuild]::MakeRelative($(RootPath), $(ProjectDir)))" />
     <Copy SourceFiles="$(PkgSharpFont_Dependencies)\bin\msvc10\x64\freetype6.dll" DestinationFolder="$(PublishDir)" />
     <Copy SourceFiles="$(MSBuildThisFileDirectory)..\msvcr100.dll" DestinationFolder="$(PublishDir)" />
   </Target>

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net452</TargetFrameworks>
     <Version>1.0.0</Version>
@@ -17,15 +18,6 @@
     <LangVersion>latest</LangVersion>
     <RootPath Condition="'$(SolutionDir)' != ''">$(SolutionDir)</RootPath>
     <RootPath Condition="'$(SolutionDir)' == ''">$(MSBuildStartupDirectory)\</RootPath>
-    <ConfigurationType Condition="'$(Configuration)' == ''">Debug</ConfigurationType>
-    <ConfigurationType Condition="'$(Configuration)' != ''">$(Configuration)</ConfigurationType>
-    <PublishName></PublishName>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <RelativeProjetPath>$([MSBuild]::MakeRelative($(RootPath), $(MSBuildProjectDirectory)))</RelativeProjetPath>
-    <BaseOutputPath>$(RootPath)bin\$(RelativeProjetPath)</BaseOutputPath>
-    <BaseIntermediateOutputPath>$(RootPath)obj\$(RelativeProjetPath)</BaseIntermediateOutputPath>
-    <OutputPath>$(RootPath)bin\$(ConfigurationType)\$(TargetFramework)\$(RelativeProjetPath)</OutputPath>
-    <IntermediateOutputPath>$(RootPath)obj\$(ConfigurationType)\$(TargetFramework)\$(RelativeProjetPath)</IntermediateOutputPath>
     <DelaySign>true</DelaySign>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)JSSoft.Fonts.snk</AssemblyOriginatorKeyFile>
     <SignAssembly Condition="'$(Configuration)' == 'Release'">true</SignAssembly>
