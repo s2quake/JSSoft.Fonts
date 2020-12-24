@@ -29,3 +29,4 @@ logs/
 packages/
 *.bat
 *.user
+.DS_Store
