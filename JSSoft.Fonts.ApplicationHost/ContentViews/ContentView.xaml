@@ -100,10 +100,12 @@ SOFTWARE.
             <jsfc:CharacterView x:Name="CharacterView" Grid.Column="2" CharacterGroup="{Binding SelectedGroup}" BorderThickness="1 1 0 0 " 
                                 Character="{Binding SelectedCharacter, Mode=TwoWay}" ZoomLevel="{Binding ZoomLevel}" />
             <GridSplitter Grid.Column="3" Visibility="{Binding Visibility, ElementName=PropertyWindow}" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-            <ScrollViewer Grid.Column="4" x:Name="PropertyWindow" >
-                <ItemsControl x:Name="properties" ItemsSource="{Binding PropertyService.Properties}" BorderThickness="1 1 0 0" BorderBrush="{StaticResource ItemBorder}"
-                              ItemContainerStyle="{StaticResource PropertyWindow_ItemContainerStyle}" />
-            </ScrollViewer>
+            <Border Grid.Column="4" BorderThickness="1 1 0 0" BorderBrush="{StaticResource ItemBorder}">
+                <ScrollViewer x:Name="PropertyWindow">
+                    <ItemsControl x:Name="properties" ItemsSource="{Binding PropertyService.Properties}" 
+                                  ItemContainerStyle="{StaticResource PropertyWindow_ItemContainerStyle}" />
+                </ScrollViewer>
+            </Border>
         </Grid>
         <jmfc:ProgressContent Visibility="{Binding IsProgressing, Converter={StaticResource BooleanToVisibilityConverter}}" d:IsHidden="True" />
     </Grid>

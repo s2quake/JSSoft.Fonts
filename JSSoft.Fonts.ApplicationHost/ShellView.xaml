@@ -27,6 +27,7 @@ SOFTWARE.
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
                   xmlns:mui="http://firstfloorsoftware.com/ModernUI"
                   xmlns:view="clr-namespace:JSSoft.Fonts.ApplicationHost.ContentViews"
+                  LogoData="M206.938,432V286.492H350.492V237.176H206.938V131.219h157.47V79.705H147.855V432h59.083Z"
                   Height="550" Width="890" Style="{StaticResource ModernWindow_Style}" Title="{Binding DisplayName}">
 
     <mui:ModernWindow.Resources>
