@@ -12,8 +12,16 @@
     <PackageReference Include="SharpFont" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Content Update="$(PkgSharpFont_Dependencies)\bin\msvc10\x86\freetype6.dll">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
+    <None Remove="$(PkgSharpFont_Dependencies)\bin\msvc10\x86\freetype6.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="$(PkgSharpFont_Dependencies)\bin\msvc10\x64\freetype6.dll" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="msvcr100.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
